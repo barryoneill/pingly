@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/titleBar"
+        style="@style/TitleBar"
+        android:layout_alignParentTop="true" >
+
+      	<ImageView style="@style/TitleBarLogo"
+            android:contentDescription="desc"
+            android:src="@android:drawable/ic_menu_compass" />
+
+        <ImageView style="@style/TitleBarSeparator" />
+        
+        
+        <TextView
+            style="@style/TitleBarText"
+            android:text="Pingly" />
+        
+        
+         <!--  buttons for dash? -->
+        
+      
+    </LinearLayout>
+
+ 
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/titleBar"
+        android:orientation="vertical"
+        android:padding="6dip" >
+
+        <!--  DASHBOARD TOP ROW  -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+            
+            <!--  Button: "Show Tasks" -->
+            <Button
+                android:id="@+id/but_dash_showTasks"
+                style="@style/HomeButton"
+                android:drawableTop="@drawable/dash_list"
+                android:onClick="dashButtonClicked"
+                android:text="Configured Tasks" />
+
+            <Button
+                android:id="@+id/but_dash_newTask"
+                style="@style/HomeButton"
+                android:drawableTop="@drawable/dash_list"
+                android:onClick="createNewTask"
+                android:text="New Task" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/but_dash_testNotify"
+                style="@style/HomeButton"
+                android:drawableTop="@drawable/dash_list"
+                android:onClick="dashButtonClicked"
+                android:text="Test Notifications" />
+
+            <Button
+                android:id="@+id/but_dash_other"
+                style="@style/HomeButton"
+                android:drawableTop="@drawable/dash_list"
+                android:onClick="dashButtonClicked"
+                android:text="I do NOTHING" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </LinearLayout>
+    
+    
+</RelativeLayout>
