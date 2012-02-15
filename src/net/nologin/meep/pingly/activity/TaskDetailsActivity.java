@@ -4,10 +4,12 @@ package net.nologin.meep.pingly.activity;
 import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.StringUtils;
-import net.nologin.meep.pingly.model.PinglyDataHelper;
+import net.nologin.meep.pingly.model.PinglyTaskDataHelper;
 import net.nologin.meep.pingly.model.PinglyTask;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +26,9 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 	private Button butSave;
 	private Button butCancel;
 	
-	private PinglyDataHelper dataHelper;
+	private PinglyTaskDataHelper dataHelper;
+	
+	private PinglyTask currentTask;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,7 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 		setContentView(R.layout.new_task);
 
 		// load data ref
-		dataHelper = new PinglyDataHelper(this);
+		dataHelper = new PinglyTaskDataHelper(this);
 		
 		// load refs
 		taskName = (EditText) findViewById(R.id.text_newTask_name);
@@ -41,6 +45,7 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 		taskURL = (EditText) findViewById(R.id.text_newTask_url);		
 		butSave = (Button) findViewById(R.id.but_newTask_save);
 		butCancel = (Button) findViewById(R.id.but_newTask_cancel);
+				
 		
 		// populate fields if param set	
 		Bundle b = getIntent().getExtras();		
@@ -49,14 +54,21 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 			if(taskId >= 0){
 				Log.d(PinglyConstants.LOG_TAG, "Will be loading task ID " + taskId);
 				
-				PinglyTask taskToEdit = dataHelper.findTaskById(taskId);
-				Log.d(PinglyConstants.LOG_TAG, "Got task: " + taskToEdit);
+				currentTask = dataHelper.findTaskById(taskId);
+				Log.d(PinglyConstants.LOG_TAG, "Got task: " + currentTask);
 				
-				taskName.setText(taskToEdit.name);
-				taskDesc.setText(taskToEdit.desc);
-				taskURL.setText(taskToEdit.url);
+				taskName.setText(currentTask.name);
+				taskDesc.setText(currentTask.desc);
+				taskURL.setText(currentTask.url);
 			}
 		}
+		
+		// if currentTask is null, we assume a new task (handles case where ID isn't found)
+		if(currentTask == null){
+			Log.d(PinglyConstants.LOG_TAG, "Preparing form for new task");
+			currentTask = new PinglyTask();
+		}
+		
 		
 		// attach listeners				
 		butCancel.setOnClickListener(new OnClickListener() {		
@@ -78,14 +90,18 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 					return;
 				}
 				
-				if(dataHelper.isTaskNameInUse(name)){
+				PinglyTask duplicate = dataHelper.findTaskByName(name);
+				if(duplicate != null && duplicate.id != currentTask.id){
 					taskName.setError("That name is already in use by another task");
 					return;
 				}
 				
+				currentTask.name = name;
+				currentTask.desc = desc;
+				currentTask.url = url;
 				
-				PinglyTask task = new PinglyTask(name,desc,url);				
-				dataHelper.saveTask(task);
+				Log.d(PinglyConstants.LOG_TAG, "Saving task: " + currentTask);
+				dataHelper.saveTask(currentTask);
 				
 				goToTaskList(v);	
 			}

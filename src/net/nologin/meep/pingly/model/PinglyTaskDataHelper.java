@@ -16,7 +16,7 @@ import android.util.Log;
 
 // TODO: This is *vomit* inducing - evaluate a _small_ ORM lib (even ORMLite is too big) and get rid of hand rolled SQL
 // TODO: error handling
-public class PinglyDataHelper extends SQLiteOpenHelper {
+public class PinglyTaskDataHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "Pingly.db";
 	private static final int DATABASE_VERSION = 1;
@@ -47,7 +47,7 @@ public class PinglyDataHelper extends SQLiteOpenHelper {
 				COL_URL, COL_CREATED, COL_LASTMOD };
 	}
 
-	public PinglyDataHelper(Context context) {
+	public PinglyTaskDataHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
@@ -71,19 +71,38 @@ public class PinglyDataHelper extends SQLiteOpenHelper {
 
 	public PinglyTask findTaskById(long id) {
 
-		Log.d(LOG_TAG, "Looking up task " + id);
+		Log.d(LOG_TAG, "Looking up task with ID: " + id);
 
 		SQLiteDatabase db = getReadableDatabase();
 		String idClause = TBL_TASK.COL_ID + "=" + id;
 
 		Cursor cursor = db.query(TBL_TASK.TBL_NAME, TBL_TASK.FROM_ALL,
 				idClause, null, null, null, null);
-		cursor.moveToFirst();
+		if(!cursor.moveToFirst()){
+			Log.d(LOG_TAG, "No task found for ID: " + id);
+			return null;
+		}
+		return cursorToTask(cursor, true);	
+	}
 
-		return cursorToTask(cursor, true);
+	public PinglyTask findTaskByName(String name) {
+
+		Log.d(LOG_TAG, "Looking up task with name: " + name);
+		
+		SQLiteDatabase db = getReadableDatabase();	
+		String nameClause = TBL_TASK.COL_NAME + "=?";
+		Cursor cursor = db.query(TBL_TASK.TBL_NAME, TBL_TASK.FROM_ALL,
+				nameClause, new String[]{name}, null, null, null);
+		
+		if(!cursor.moveToFirst()){
+			Log.d(LOG_TAG, "No task found for name: " + name);
+			return null;
+		}
+		return cursorToTask(cursor, true);	
 
 	}
 
+	
 	public Cursor findAllTasks() {
 
 		Log.d(LOG_TAG, "Querying Table");
@@ -128,20 +147,6 @@ public class PinglyDataHelper extends SQLiteOpenHelper {
 		}
 	}
 
-	public boolean isTaskNameInUse(String name) {
-
-		Log.d(LOG_TAG, "Checking for duplicate name: " + name);
-						
-		String querySQL = String.format("SELECT %s from %s where %s=?", 
-				TBL_TASK.COL_ID, TBL_TASK.TBL_NAME, TBL_TASK.COL_ID);
-		
-		SQLiteDatabase db = getReadableDatabase();
-		Cursor cursor = db.rawQuery(querySQL, new String[]{name});
-		
-		return cursor.moveToFirst(); // should be false (no results) if the name
-										// isn't in use
-
-	}
 
 	// keep the param so the caller doesn't forget about cursor responsibility
 	private PinglyTask cursorToTask(Cursor c, boolean closeCursor) {

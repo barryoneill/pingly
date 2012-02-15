@@ -3,6 +3,10 @@
 
     <!--  TODO: i18n strings!  -->
     <item
+        android:id="@+id/task_list_contextmenu_run"
+        android:title="Run Now"/>
+    
+    <item
         android:id="@+id/task_list_contextmenu_edit"
         android:title="Edit"/>
     <item

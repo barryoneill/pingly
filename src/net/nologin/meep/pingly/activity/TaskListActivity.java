@@ -2,7 +2,7 @@ package net.nologin.meep.pingly.activity;
 
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.PinglyCursorTaskAdapter;
-import net.nologin.meep.pingly.model.PinglyDataHelper;
+import net.nologin.meep.pingly.model.PinglyTaskDataHelper;
 import net.nologin.meep.pingly.model.PinglyTask;
 
 import android.app.AlertDialog;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class TaskListActivity extends BasePinglyActivity {
 
-	private PinglyDataHelper data;
+	private PinglyTaskDataHelper data;
 	private PinglyCursorTaskAdapter listAdapter;
 	
 	@Override
@@ -29,7 +29,7 @@ public class TaskListActivity extends BasePinglyActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_list);
 
-		data = new PinglyDataHelper(this);
+		data = new PinglyTaskDataHelper(this);
 
 		// init_dummy_list();
 
