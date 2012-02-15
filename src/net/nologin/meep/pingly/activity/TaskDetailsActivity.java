@@ -1,15 +1,11 @@
 package net.nologin.meep.pingly.activity;
 
-
-import net.nologin.meep.pingly.PinglyConstants;
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.StringUtils;
-import net.nologin.meep.pingly.model.PinglyTaskDataHelper;
 import net.nologin.meep.pingly.model.PinglyTask;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class TaskDetailsActivity extends BasePinglyActivity {
-		
-	public static final String PARAMETER_TASK_ID = "param_task";
 	
 	private EditText taskName;
 	private EditText taskDesc;
@@ -26,19 +20,14 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 	private Button butSave;
 	private Button butCancel;
 	
-	private PinglyTaskDataHelper dataHelper;
-	
 	private PinglyTask currentTask;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.new_task);
+		setContentView(R.layout.task_details);
 
-		// load data ref
-		dataHelper = new PinglyTaskDataHelper(this);
-		
 		// load refs
 		taskName = (EditText) findViewById(R.id.text_newTask_name);
 		taskDesc = (EditText) findViewById(R.id.text_newTask_desc);
@@ -46,30 +35,18 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 		butSave = (Button) findViewById(R.id.but_newTask_save);
 		butCancel = (Button) findViewById(R.id.but_newTask_cancel);
 				
+		currentTask = loadTaskParamIfPresent();
 		
-		// populate fields if param set	
-		Bundle b = getIntent().getExtras();		
-		if(b != null && b.containsKey(PARAMETER_TASK_ID)){
-			Long taskId = b.getLong(PARAMETER_TASK_ID, -1);
-			if(taskId >= 0){
-				Log.d(PinglyConstants.LOG_TAG, "Will be loading task ID " + taskId);
-				
-				currentTask = dataHelper.findTaskById(taskId);
-				Log.d(PinglyConstants.LOG_TAG, "Got task: " + currentTask);
-				
-				taskName.setText(currentTask.name);
-				taskDesc.setText(currentTask.desc);
-				taskURL.setText(currentTask.url);
-			}
-		}
-		
-		// if currentTask is null, we assume a new task (handles case where ID isn't found)
 		if(currentTask == null){
-			Log.d(PinglyConstants.LOG_TAG, "Preparing form for new task");
-			currentTask = new PinglyTask();
+			Log.d(LOG_TAG, "Preparing form for new task");
+			currentTask = new PinglyTask();	
 		}
-		
-		
+	
+		// init the text fields from our new, or existing task
+		taskName.setText(currentTask.name);
+		taskDesc.setText(currentTask.desc);
+		taskURL.setText(currentTask.url);
+
 		// attach listeners				
 		butCancel.setOnClickListener(new OnClickListener() {		
 			public void onClick(View v) {
@@ -90,7 +67,7 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 					return;
 				}
 				
-				PinglyTask duplicate = dataHelper.findTaskByName(name);
+				PinglyTask duplicate = taskDataHelper.findTaskByName(name);
 				if(duplicate != null && duplicate.id != currentTask.id){
 					taskName.setError("That name is already in use by another task");
 					return;
@@ -100,8 +77,8 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 				currentTask.desc = desc;
 				currentTask.url = url;
 				
-				Log.d(PinglyConstants.LOG_TAG, "Saving task: " + currentTask);
-				dataHelper.saveTask(currentTask);
+				Log.d(LOG_TAG, "Saving task: " + currentTask);
+				taskDataHelper.saveTask(currentTask);
 				
 				goToTaskList(v);	
 			}
@@ -110,13 +87,7 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 		
    }   
 
-	@Override
-	protected void onDestroy() {
-	    super.onDestroy();
-	    if (dataHelper != null) {
-	        dataHelper.close();
-	    }
-	}
+
   
 }
  	

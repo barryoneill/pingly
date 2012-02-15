@@ -21,6 +21,7 @@
         <activity android:name=".activity.TaskListActivity" android:label="@string/app_name"></activity>
         <!--  android:windowSoftInputMode="adjustPan" stops the buttons being moved when the scrollview is resized for soft keyboard  -->
         <activity android:name=".activity.TaskDetailsActivity" android:label="@string/app_name" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".activity.TaskRunnerActivity" android:label="@string/app_name"></activity>
     </application>
 
 </manifest>
