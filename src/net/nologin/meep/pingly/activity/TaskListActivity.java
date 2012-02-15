@@ -31,8 +31,6 @@ public class TaskListActivity extends BasePinglyActivity {
 
 		data = new PinglyTaskDataHelper(this);
 
-		// init_dummy_list();
-
 		Cursor allTasksCursor = data.findAllTasks();
 		listAdapter = new PinglyCursorTaskAdapter(this,allTasksCursor);
 		ListView lv = (ListView) findViewById(R.id.taskList);
@@ -96,8 +94,15 @@ public class TaskListActivity extends BasePinglyActivity {
 		
 		switch (item.getItemId()) {
 
+			case R.id.task_list_contextmenu_run:
+				Log.d("PINGLY", "Running target: " + target);
+				
+				goToTaskRunner(target.id);
+				
+				return true;
+			
 			case R.id.task_list_contextmenu_edit:
-				Log.d("PINGLY", "Would be editing item: " + target);
+				Log.d("PINGLY", "Editing item: " + target);
 				
 				goToTaskDetails(target.id);
 				

@@ -1,50 +1,46 @@
 package net.nologin.meep.pingly.activity;
 
-
-import net.nologin.meep.pingly.PinglyConstants;
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.StringUtils;
-import net.nologin.meep.pingly.model.PinglyTaskDataHelper;
 import net.nologin.meep.pingly.model.PinglyTask;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 public class TaskRunnerActivity extends BasePinglyActivity {
-	
-	private EditText taskName;
-	private EditText taskDesc;
-	private EditText taskURL;		
-		
+
+	private TextView taskName;
+	private Button runAgainBut;
+	private ScrollView taskOutputScroller;
+
 	private PinglyTask currentTask;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.task_details);
+		setContentView(R.layout.task_run_log);
+
+		// parameter must be present
+		currentTask = loadTaskParamIfPresent();
+
+		Log.d(LOG_TAG, "Running task " + currentTask);
 
 		// load refs
-		taskName = (EditText) findViewById(R.id.text_newTask_name);
-		taskDesc = (EditText) findViewById(R.id.text_newTask_desc);
-		taskURL = (EditText) findViewById(R.id.text_newTask_url);
-				
-		
-		// if currentTask is null, we assume a new task (handles case where ID isn't found)
-		if(currentTask == null){
-			Log.d(PinglyConstants.LOG_TAG, "Preparing form for new task");
-			currentTask = new PinglyTask();
-		}
-		
-	
-		
-   }   
+		taskName = (TextView) findViewById(R.id.text_newTask_name);
+		runAgainBut = (Button) findViewById(R.id.but_task_runAgain);
+		taskOutputScroller = (ScrollView) findViewById(R.id.task_output_scroller);
+
+		// init view
+		taskName.setText(currentTask.name);
+
+		// button is initially disabled
+		runAgainBut.setEnabled(false);
+
+	}
 
 }
- 	

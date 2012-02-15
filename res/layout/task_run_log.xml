@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <!-- title bar -->
+
+    <LinearLayout
+        android:id="@+id/titleBar"
+        style="@style/TitleBar"
+        android:layout_alignParentTop="true" >
+
+        <ImageView
+            style="@style/TitleBarLogo"
+            android:contentDescription="desc"
+            android:onClick="goHome"
+            android:src="@android:drawable/ic_menu_compass" />
+
+        <ImageView style="@style/TitleBarSeparator" />
+
+        <TextView
+            style="@style/TitleBarText"
+            android:text="Task Run Log" />
+    </LinearLayout>
+
+    <!-- footer -->
+
+    <LinearLayout
+        android:id="@+id/footerBar"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/but_task_runAgain"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Run Again" />
+    </LinearLayout>
+
+    <!-- task info -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleBar"
+        android:orientation="horizontal"        
+        android:padding="6dip" >
+
+        <TextView
+            style="@style/FormLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task:" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/text_newTask_name"
+            style="@style/FormLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- task output -->
+
+    <ScrollView
+        android:id="@+id/task_output_scroller"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"        
+        android:layout_above="@id/footerBar"
+        android:layout_below="@id/titleBar"
+        android:scrollbars="vertical" >
+    </ScrollView>
+
+</RelativeLayout>

@@ -60,6 +60,21 @@ public abstract class BasePinglyActivity extends Activity {
 		goToTaskDetails(-1);
 	}
 
+	public void goToTaskRunner(long taskId) {
+		
+		Log.d(LOG_TAG, "Starting activity: " + TaskRunnerActivity.class.getName());
+		
+		Intent intent = new Intent(getApplicationContext(),
+				TaskRunnerActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);			
+		
+		addTaskIdParam(intent, taskId);
+		
+		startActivity(intent);
+
+	}
+	
+	
 	public void goToTaskDetails(long taskId) {
 		
 		Log.d(LOG_TAG, "Starting activity: " + TaskDetailsActivity.class.getName());
@@ -68,16 +83,20 @@ public abstract class BasePinglyActivity extends Activity {
 				TaskDetailsActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);			
 		
+		addTaskIdParam(intent, taskId);
+		
+		startActivity(intent);
+
+	}
+	
+	private void addTaskIdParam(Intent intent, long taskId){
 		// add parameter if valid
-		if(taskId >= 0){
+		if(taskId > 0){
 			Log.d(LOG_TAG, "Adding task id param: " + taskId);
 			Bundle b = new Bundle();
 			b.putLong(TaskDetailsActivity.PARAMETER_TASK_ID, taskId);
 			intent.putExtras(b);	
 		}
-		
-		startActivity(intent);
-
 	}
 	
 	public void goToTaskList(View v) {
