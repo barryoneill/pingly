@@ -3,6 +3,7 @@ package net.nologin.meep.pingly.activity;
 import net.nologin.meep.pingly.PinglyConstants;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -11,12 +12,30 @@ public abstract class BasePinglyActivity extends Activity {
 	// available to all actions (TODO: name? goTO?)
 	public void createNewTask(View v) {
 
-		Log.d(PinglyConstants.LOG_TAG, "Starting activity: "
-				+ TaskDetailsActivity.class.getName());
-		startActivity(new Intent(getApplicationContext(), TaskDetailsActivity.class));
-
+		goToTaskDetails(-1);
 	}
 
+	public void goToTaskDetails(long taskId) {
+		
+		Log.d(PinglyConstants.LOG_TAG, "Starting activity: "
+				+ TaskDetailsActivity.class.getName());
+		
+		Intent intent = new Intent(getApplicationContext(),
+				TaskDetailsActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);			
+		
+		// add parameter if valid
+		if(taskId >= 0){
+			Log.d(PinglyConstants.LOG_TAG, "Adding task id param: " + taskId);
+			Bundle b = new Bundle();
+			b.putLong(TaskDetailsActivity.PARAMETER_TASK_ID, taskId);
+			intent.putExtras(b);	
+		}
+		
+		startActivity(intent);
+
+	}
+	
 	public void goToTaskList(View v) {
 
 		if (this instanceof TaskListActivity) {

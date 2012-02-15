@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import static net.nologin.meep.pingly.model.PinglyData.TBL_TASK;
+import static net.nologin.meep.pingly.model.PinglyDataHelper.TBL_TASK;
 
 public class PinglyCursorTaskAdapter extends SimpleCursorAdapter {
 

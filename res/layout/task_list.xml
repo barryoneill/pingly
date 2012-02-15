@@ -12,55 +12,44 @@
         <ImageView
             style="@style/TitleBarLogo"
             android:contentDescription="desc"
-            android:src="@android:drawable/ic_menu_compass" 
-            android:onClick="goHome"/>
+            android:onClick="goHome"
+            android:src="@android:drawable/ic_menu_compass" />
 
         <ImageView style="@style/TitleBarSeparator" />
 
         <TextView
             style="@style/TitleBarText"
             android:text="Configured Tasks" />
-        
-                
-        <ImageButton style="@style/TitleBarAction"
+
+        <ImageButton
+            style="@style/TitleBarAction"
             android:contentDescription="Configure New Task"
-            android:src="@android:drawable/ic_menu_add"
-            android:onClick="createNewTask" />
-        
+            android:onClick="createNewTask"
+            android:src="@android:drawable/ic_menu_add" />
     </LinearLayout>
 
-   
- <LinearLayout
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"        
-        android:orientation="vertical"
-        android:layout_below="@id/titleBar">
+        android:layout_height="fill_parent"
+        android:layout_below="@id/titleBar"
+        android:orientation="vertical" >
+
         <ListView
             android:id="@+id/taskList"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" 
-               android:divider="#FF004400"
-            android:dividerHeight="1dp">
+            android:layout_height="fill_parent"
+            android:divider="#FF004400"
+            android:dividerHeight="1dp"
+            android:drawSelectorOnTop="false">
         </ListView>
 
         <TextView
             android:id="@+id/emptyListElem"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="50dip"            
-            android:gravity="center_horizontal"            
+            android:layout_marginTop="50dip"
+            android:gravity="center_horizontal"
             android:text="No Tasks Configured" />
-  		
     </LinearLayout>
-    
-    
+
 </RelativeLayout>
-
-
-
-
-
-
-
-
-    

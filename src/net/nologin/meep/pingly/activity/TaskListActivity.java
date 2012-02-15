@@ -2,7 +2,7 @@ package net.nologin.meep.pingly.activity;
 
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.PinglyCursorTaskAdapter;
-import net.nologin.meep.pingly.model.PinglyData;
+import net.nologin.meep.pingly.model.PinglyDataHelper;
 import net.nologin.meep.pingly.model.PinglyTask;
 
 import android.app.AlertDialog;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class TaskListActivity extends BasePinglyActivity {
 
-	private PinglyData data;
+	private PinglyDataHelper data;
 	private PinglyCursorTaskAdapter listAdapter;
 	
 	@Override
@@ -29,11 +29,11 @@ public class TaskListActivity extends BasePinglyActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_list);
 
-		data = new PinglyData(this);
+		data = new PinglyDataHelper(this);
 
 		// init_dummy_list();
 
-		Cursor allTasksCursor = data.getAllTasks();
+		Cursor allTasksCursor = data.findAllTasks();
 		listAdapter = new PinglyCursorTaskAdapter(this,allTasksCursor);
 		ListView lv = (ListView) findViewById(R.id.taskList);
 		lv.setAdapter(listAdapter);
@@ -98,7 +98,9 @@ public class TaskListActivity extends BasePinglyActivity {
 
 			case R.id.task_list_contextmenu_edit:
 				Log.d("PINGLY", "Would be editing item: " + target);
-				Toast.makeText(getApplicationContext(), "Would be editing item " + info.id + ", but that's not implemented yet!", Toast.LENGTH_SHORT).show();
+				
+				goToTaskDetails(target.id);
+				
 				return true;
 
 
@@ -113,7 +115,7 @@ public class TaskListActivity extends BasePinglyActivity {
 				        	   data.deleteTask(target);
 								/* since we stay where we are (no activity state change), the startManagingCursor() registration in onCreate()
 								 * won't know to refresh the cursor/adapter.  We requery all tasks and pass the new cursor to the adapter. */
-								listAdapter.changeCursor(data.getAllTasks());								
+								listAdapter.changeCursor(data.findAllTasks());								
 				           }
 				       })
 				       .setNegativeButton("No", new DialogInterface.OnClickListener() {

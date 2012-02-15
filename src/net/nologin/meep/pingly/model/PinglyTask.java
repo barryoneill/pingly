@@ -22,6 +22,10 @@ public class PinglyTask {
 		this(-1,name,desc,url);		
 	}
 
+	public boolean isNew(){
+		return id <= 0;
+	}
+	
 	@Override
 	public String toString(){		
 		return "PinglyTask[id=" + id + ",name='" + name + "']";
