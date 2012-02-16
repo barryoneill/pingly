@@ -32,7 +32,8 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/titleBar"
         android:orientation="vertical"
-        android:padding="6dip" >
+        android:padding="6dip"
+        android:baselineAligned="false" >
 
         <!--  DASHBOARD TOP ROW  -->
         <LinearLayout
@@ -78,6 +79,7 @@
                 android:text="I do NOTHING" />
         </LinearLayout>
 
+        <!--  dummy a third, but empty row for spacing  -->
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

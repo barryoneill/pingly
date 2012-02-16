@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+// https://github.com/commonsguy/cw-android/blob/master/Rotation/RotationAsync/src/com/commonsware/android/rotation/async/RotationAsync.java
+
 public class TaskRunnerActivity extends BasePinglyActivity {
 
 	private TextView taskName;
@@ -27,9 +29,9 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 	private AsyncTaskRunner asyncTask;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle state) {
 
-		super.onCreate(savedInstanceState);
+		super.onCreate(state);
 		setContentView(R.layout.task_run_log);
 
 		// parameter must be present
@@ -61,12 +63,30 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 		// init view
 		taskName.setText(currentTask.name);
 	
+//		// after activity restart (screen rotate)
+//		if(state != null && state.containsKey("taskLogOutput")){
+//			taskLogOutput.setText(state.getString("taskLogOutput"));
+//			// hack to push to bottom _after_ scrollview resize
+//			taskLogScroller.post(new Runnable() {
+//		         public void run() {
+//		             ((ScrollView) findViewById(R.id.task_log_scroller)).fullScroll(View.FOCUS_DOWN);
+//		         }
+//		 });
+//		}
+		
 		if(asyncTask == null || asyncTask.getStatus() == AsyncTask.Status.FINISHED){			
 			clearAndStartTask();
 		}
 		
 	}
 	
+//	@Override
+//	public void onSaveInstanceState(Bundle state) {
+//	
+//		super.onSaveInstanceState(state);
+//		state.putString("taskLogOutput", taskLogOutput.getText().toString());
+//	}
+//	
 	private void clearAndStartTask() {
 		
 		taskLogOutput.setText("");
