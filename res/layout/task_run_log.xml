@@ -91,6 +91,7 @@
             android:layout_height="wrap_content"
             android:singleLine="false"
             android:typeface="monospace" 
+            android:textSize="10sp"
                      
             />
         
