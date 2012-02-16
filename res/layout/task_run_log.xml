@@ -34,19 +34,29 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/but_task_runAgain"
+            android:id="@+id/but_taskRunner_cancel"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Run Again" />
+            android:text="Stop Task"/>
+        
+        
+        <Button
+            android:id="@+id/but_taskRunner_runAgain"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Run Again" />        
+        
     </LinearLayout>
 
     <!-- task info -->
 
     <LinearLayout
+        android:id="@+id/runTaskInfo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleBar"
+        android:layout_below="@id/titleBar"        
         android:orientation="horizontal"        
         android:padding="6dip" >
 
@@ -66,13 +76,24 @@
 
     <!-- task output -->
 
-    <ScrollView
-        android:id="@+id/task_output_scroller"
+    <ScrollView     
+        android:id="@+id/task_log_scroller"   
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"        
-        android:layout_above="@id/footerBar"
-        android:layout_below="@id/titleBar"
-        android:scrollbars="vertical" >
+        android:layout_height="fill_parent" 
+        android:layout_below="@id/runTaskInfo"       
+        android:layout_above="@id/footerBar"        
+        android:scrollbars="vertical"
+        android:layout_margin="6dip" >
+        
+        <TextView 
+            android:id="@+id/task_log_output"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:typeface="monospace" 
+                     
+            />
+        
     </ScrollView>
 
 </RelativeLayout>
