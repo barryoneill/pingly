@@ -19,13 +19,30 @@
 
         <TextView
             style="@style/TitleBarText"
-            android:text="Configured Tasks" />
+            android:text="Your Tasks" />
 
         <ImageButton
             style="@style/TitleBarAction"
             android:contentDescription="Configure New Task"
             android:onClick="createNewTask"
             android:src="@android:drawable/ic_menu_add" />
+        
+        <!--  temp  -->
+		<ImageButton
+            android:id="@+id/but_generateTestItems"
+            style="@style/TitleBarAction"
+            android:contentDescription="Add Dummy Tasks"            
+            android:src="@android:drawable/ic_menu_upload"
+            android:clickable="true" />
+        
+		<!--  temp  -->
+        <ImageButton
+            android:id="@+id/but_deleteAllItems"
+            style="@style/TitleBarAction"
+            android:contentDescription="Add Dummy Tasks"            
+            android:src="@android:drawable/ic_menu_delete"
+            android:clickable="true" />
+        
     </LinearLayout>
 
     <LinearLayout

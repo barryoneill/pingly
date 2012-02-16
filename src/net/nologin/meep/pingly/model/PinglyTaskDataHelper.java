@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import net.nologin.meep.pingly.activity.PinglyDashActivity;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -109,21 +111,55 @@ public class PinglyTaskDataHelper extends SQLiteOpenHelper {
 
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(TBL_TASK.TBL_NAME, TBL_TASK.FROM_ALL, null,
-				null, null, null, TBL_TASK.COL_NAME);
+				null, null, null, TBL_TASK.COL_CREATED);
 
 		return cursor;
 	}
 
+	// danger here
+	public void deleteAll(){
+		
+		Log.d(LOG_TAG, "Deleting all tasks ");
+		
+		SQLiteDatabase db = getWritableDatabase();		
+		db.delete(TBL_TASK.TBL_NAME, null, null);
+	}
+	
 	public void deleteTask(PinglyTask task) {
 
 		Log.d(LOG_TAG, "Deleting task " + task);
 
-		SQLiteDatabase db = getReadableDatabase();
+		SQLiteDatabase db = getWritableDatabase();
 		String idClause = TBL_TASK.COL_ID + "=" + task.id;
 		db.delete(TBL_TASK.TBL_NAME, idClause, null);
 
 	}
 
+	// dummy some test data
+	public void generateTestItems() {
+	
+		String[][] items = {
+				{"Guardian Football Mobile", "Check the mobile version of the Guardian Football site", "http://m.guardian.co.uk/football?cat=football"},
+				{"Test Google","Do a test run against Google","http://www.google.com"},
+				{"Test Google HTTPS","Do a test run against Google (https)","https://www.google.com"},
+				{"Microsoft","Same again, against Microsoft","http://www.microsoft.com"},
+				{"Redbrick","This is a really long string to test that the truncation in the list view is working","http://www.redbrick.dcu.ie"},
+				{"Scrabblefinder","Ding ding ding", "http://www.scrabblefinder.com"}
+		};
+		
+		for(String[] line : items){
+			
+			String name = line[0];
+			if(findTaskByName(name) != null){
+				// names have to be unique, add something to further duplicates
+				name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";	
+			}
+			
+			saveTask(new PinglyTask(name,line[1],line[2]));
+		}
+		
+	}
+	
 	public long saveTask(PinglyTask task) {
 
 		ContentValues cv = new ContentValues();

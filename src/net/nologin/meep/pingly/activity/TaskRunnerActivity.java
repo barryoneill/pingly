@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -145,12 +146,12 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 				return null;
 			}
 
-			publishProgress("Adding dummy 2 second sleep..");
+			publishProgress("Adding dummy 1 second delay..");
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e1) {
 			}
-			publishProgress(".. and back");
+			publishProgress(".. and back.  Continuing with task..");
 			
 			
 			HttpClient client = new DefaultHttpClient();
@@ -159,7 +160,19 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 				request.setURI(new URI(t.url));
 				HttpResponse response = client.execute(request);
 				
-				publishProgress("========== response start ==========");
+				publishProgress("========== response start ==========");				
+				StatusLine status = response.getStatusLine();
+				if(status != null){
+					if(status.getProtocolVersion() != null){
+						publishProgress("Protocol Version: " + status.getProtocolVersion().toString());
+					}
+					if(status.getReasonPhrase() != null){
+						publishProgress("Reason Phrase: " + status.getReasonPhrase());
+					}
+					publishProgress("Status Code: " + status.getStatusCode());					
+				}
+				publishProgress(" ");
+				publishProgress("- Headers: ");
 				for(Header hdr : response.getAllHeaders()){
 					publishProgress(hdr.getName()  + ": " + hdr.getValue());
 				}

@@ -15,7 +15,9 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,8 +49,59 @@ public class TaskListActivity extends BasePinglyActivity {
 		// any activity 
 		startManagingCursor(allTasksCursor);
 		
+		// ======================== temp stuff start ==========================
+		// add button to quickly generate items
+		ImageButton testItemsBut = (ImageButton) findViewById(R.id.but_generateTestItems);
+		testItemsBut.setOnClickListener(new OnClickListener() {			
+			public void onClick(View v) {
+	
+				AlertDialog dialog = new AlertDialog.Builder(TaskListActivity.this)
+				.setMessage("Generate Test Items?")
+				.setCancelable(false)
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			       public void onClick(DialogInterface dialog, int id) {
+						data.generateTestItems();
+						listAdapter.changeCursor(data.findAllTasks());							
+			       }
+			   })
+			   .setNegativeButton("No", new DialogInterface.OnClickListener() {
+			       public void onClick(DialogInterface dialog, int id) {
+			            dialog.cancel();
+			       }
+			   }).create();
+			dialog.show();						
+			}
+		});
+		
+		// add button to quickly generate items
+		ImageButton deleteAllBut = (ImageButton) findViewById(R.id.but_deleteAllItems);
+		deleteAllBut.setOnClickListener(new OnClickListener() {			
+			public void onClick(View v) {
+	
+				AlertDialog dialog = new AlertDialog.Builder(TaskListActivity.this)
+				.setMessage("Are you sure you want to delete all items?")
+				.setCancelable(false)
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			       public void onClick(DialogInterface dialog, int id) {
+						data.deleteAll();
+						listAdapter.changeCursor(data.findAllTasks());							
+			       }
+			   })
+			   .setNegativeButton("No", new DialogInterface.OnClickListener() {
+			       public void onClick(DialogInterface dialog, int id) {
+			            dialog.cancel();
+			       }
+			   }).create();
+			dialog.show();						
+			}
+		});
+		
+		
+		// ======================== temp stuff end ==========================
 	}
 
+	
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
