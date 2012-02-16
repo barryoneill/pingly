@@ -38,7 +38,8 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Stop Task"/>
+            android:text="Stop Task"
+            android:enabled="false"/>
         
         
         <Button

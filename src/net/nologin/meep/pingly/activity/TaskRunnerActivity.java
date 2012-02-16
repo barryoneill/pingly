@@ -20,6 +20,7 @@ import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.StringUtils;
 import net.nologin.meep.pingly.model.PinglyTask;
 import net.nologin.meep.pingly.model.TaskRunResult;
+import net.nologin.meep.pingly.util.PinglyUtils;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -109,6 +110,15 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 
 		taskLogOutput.setText("");
 
+		if(!PinglyUtils.activeNetConnectionPresent(this)){
+			Log.d(LOG_TAG, "No net connection, not running task");
+			appendLogLine("================================");
+			appendLogLine("     Network not available      ");  
+			appendLogLine(" Enable data/wifi and try again ");
+			appendLogLine("================================");
+			return;
+		}
+		
 		asyncTask = new AsyncTaskRunner();
 		asyncTask.execute(currentTask);
 	}
@@ -177,6 +187,7 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 					publishProgress(hdr.getName()  + ": " + hdr.getValue());
 				}
 				publishProgress("========== response end ==========");
+								
 				
 			} catch (Exception e) {
 				publishProgress(e);
