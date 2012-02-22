@@ -156,19 +156,24 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 				return null;
 			}
 
-			publishProgress("Adding dummy 1 second delay..");
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e1) {
+			// sanity check
+			if(isCancelled()){
+				publishProgress("Cancelled, request will not be made");
+				return null;
 			}
-			publishProgress(".. and back.  Continuing with task..");
-			
 			
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet();
 			try {
+				publishProgress("HTTP req to: " + t.url);
 				request.setURI(new URI(t.url));
 				HttpResponse response = client.execute(request);
+				
+				// execute can take some time, check that the task hasn't been cancelled in the meantime
+				if(isCancelled()){
+					publishProgress("Req success, but task cancelled in the meantime.");		
+					return null;
+				}
 				
 				publishProgress("========== response start ==========");				
 				StatusLine status = response.getStatusLine();
@@ -187,12 +192,12 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 					publishProgress(hdr.getName()  + ": " + hdr.getValue());
 				}
 				publishProgress("========== response end ==========");
-								
+						
 				
 			} catch (Exception e) {
 				publishProgress(e);
 			}
-
+			
 			return null;
 		}
 
