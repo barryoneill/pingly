@@ -4,10 +4,20 @@
     <string name="hello">Hello World, PinglyMainActivity!</string>
     <string name="app_name">Pingly</string>
 
-    	<!-- 
-	<string-array name="taskList_context_menu">
-		<item>Edit</item>
-		<item>Duplicate</item>
-		<item>Delete</item>		
-	</string-array>-->     
+
+    <string name="task_type_choose">Choose a Task Type</string>
+    <string name="task_type_0_name">Service Response</string>
+    <string name="task_type_0_desc">Ensure that the service is at least up and accepting requests</string>
+    <string name="task_type_1_name">HTTP Response Code</string>
+    <string name="task_type_1_desc">Check that the request recieves a response with the specified HTTP status code, eg \'404\'</string>
+    <string name="task_type_2_name">HTTP Response Header Present</string>
+    <string name="task_type_2_desc">Check to see that a specific header is present in the response</string>
+    <string name="task_type_3_name">HTTP Response Header Contents</string>
+    <string name="task_type_3_desc">Check to see that the specified response header contains the specified content</string>
+    <string name="task_type_4_name">Response Size</string>
+    <string name="task_type_4_desc">Do a size comparison on the response</string>
+    <string name="task_type_5_name">Response Content</string>
+    <string name="task_type_5_desc">Check the response body for the specified content</string>
+    <string name="task_type_6_name">Pingly JSON</string>
+    <string name="task_type_6_desc">The response delivers JSON which indicates a success or fail situation</string>
 </resources>

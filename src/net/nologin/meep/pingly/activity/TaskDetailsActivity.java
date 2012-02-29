@@ -1,8 +1,11 @@
 package net.nologin.meep.pingly.activity;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
+
+import android.widget.Spinner;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.StringUtils;
+import net.nologin.meep.pingly.adapter.TaskTypeAdapter;
 import net.nologin.meep.pingly.model.PinglyTask;
 
 import android.os.Bundle;
@@ -16,7 +19,8 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 	
 	private EditText taskName;
 	private EditText taskDesc;
-	private EditText taskURL;	
+	private EditText taskURL;
+    private Spinner taskType;
 	private Button butSave;
 	private Button butCancel;
 	
@@ -29,12 +33,14 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 		setContentView(R.layout.task_details);
 
 		// load refs
-		taskName = (EditText) findViewById(R.id.text_newTask_name);
-		taskDesc = (EditText) findViewById(R.id.text_newTask_desc);
-		taskURL = (EditText) findViewById(R.id.text_newTask_url);		
+		taskName = (EditText) findViewById(R.id.task_details_name);
+		taskDesc = (EditText) findViewById(R.id.task_details_desc);
+		taskURL = (EditText) findViewById(R.id.task_details_url);
+        taskType = (Spinner) findViewById(R.id.task_details_type);
+        
 		butSave = (Button) findViewById(R.id.but_newTask_save);
 		butCancel = (Button) findViewById(R.id.but_newTask_cancel);
-				
+				        
 		currentTask = loadTaskParamIfPresent();
 		
 		if(currentTask == null){
@@ -46,6 +52,12 @@ public class TaskDetailsActivity extends BasePinglyActivity {
 		taskName.setText(currentTask.name);
 		taskDesc.setText(currentTask.desc);
 		taskURL.setText(currentTask.url);
+
+        // attach contents
+        TaskTypeAdapter adapter = new TaskTypeAdapter(this);
+
+        taskType.setAdapter(adapter);
+
 
 		// attach listeners				
 		butCancel.setOnClickListener(new OnClickListener() {		
