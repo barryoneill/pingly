@@ -54,7 +54,7 @@
     <!-- task info -->
 
     <LinearLayout
-        android:id="@+id/runTaskInfo"
+        android:id="@+id/taskInfoContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleBar"        
@@ -62,6 +62,7 @@
         android:padding="6dip" >
 
         <TextView
+            android:id="@+id/taskNamePrefix"
             style="@style/FormLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,7 +82,7 @@
         android:id="@+id/task_log_scroller"   
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
-        android:layout_below="@id/runTaskInfo"       
+        android:layout_below="@id/taskInfoContainer"
         android:layout_above="@id/footerBar"        
         android:scrollbars="vertical"
         android:layout_margin="6dip" >

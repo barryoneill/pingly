@@ -10,4 +10,10 @@
     <color name="background2">#ffd5ddeb</color>
     <color name="background3">#ffe3e8f1</color>
     <color name="title_separator">#40ffffff</color>
+
+    <!-- status colours for the task runner -->
+    <color name="task_status_inactive">#ff777777</color>
+    <color name="task_status_running">#ffde9205</color>
+    <color name="task_status_success">#ff26bf1c</color>
+    <color name="task_status_failed">#ffc7100f</color>
 </resources>

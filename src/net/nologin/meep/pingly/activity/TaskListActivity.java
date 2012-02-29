@@ -5,6 +5,8 @@ import net.nologin.meep.pingly.adapter.PinglyCursorTaskAdapter;
 import net.nologin.meep.pingly.model.PinglyTaskDataHelper;
 import net.nologin.meep.pingly.model.PinglyTask;
 
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -19,7 +21,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class TaskListActivity extends BasePinglyActivity {
 
@@ -41,15 +42,24 @@ public class TaskListActivity extends BasePinglyActivity {
 
 		View empty = findViewById(R.id.emptyListElem);	    
 	    lv.setEmptyView(empty);
-		
+
 //	    int[] colors = {0, 0xFF007700, 0}; //green
 //	    lv.setDivider(new GradientDrawable(Orientation.RIGHT_LEFT, colors));
 //	    lv.setDividerHeight(1);
 
 		// any activity 
 		startManagingCursor(allTasksCursor);
-		
-		// ======================== temp stuff start ==========================
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int itemPos, long itemId) {
+                Log.d(LOG_TAG,"Got id " + itemId);
+                goToTaskRunner(itemId);
+            }
+        });
+
+		// ======================== test stuff start ==========================
 		// add button to quickly generate items
 		ImageButton testItemsBut = (ImageButton) findViewById(R.id.but_generateTestItems);
 		testItemsBut.setOnClickListener(new OnClickListener() {			
@@ -109,6 +119,7 @@ public class TaskListActivity extends BasePinglyActivity {
 			data.close();
 		}
 	}
+
 
 	
 	@Override

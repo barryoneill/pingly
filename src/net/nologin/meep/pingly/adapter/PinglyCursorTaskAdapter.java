@@ -19,7 +19,6 @@ public class PinglyCursorTaskAdapter extends SimpleCursorAdapter {
 	private static final int TO[] = {};
 		
 	public PinglyCursorTaskAdapter(Context context, Cursor c) {
-
 		// TODO: see deprecated notes	
 		super(context, TASK_ITEM_LAYOUT, c, FROM, TO);		
 		this.inflater = LayoutInflater.from(context);

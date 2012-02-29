@@ -36,11 +36,13 @@ import android.widget.TextView;
 public class TaskRunnerActivity extends BasePinglyActivity {
 
 	private TextView taskName;
+    private TextView taskNamePrefix;
+    private View taskInfoContainer;
 	private Button runAgainBut;
 	private Button stopTaskBut;
 	private TextView taskLogOutput;
-	private ScrollView taskLogScroller;
-
+	private ScrollView taskLogScroller;    
+    
 	private PinglyTask currentTask;
 
 	private AsyncTaskRunner asyncTask;
@@ -57,12 +59,14 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 		Log.d(LOG_TAG, "Running task " + currentTask);
 
 		// load refs
+        taskInfoContainer = findViewById(R.id.taskInfoContainer);
 		taskName = (TextView) findViewById(R.id.text_newTask_name);
+        taskNamePrefix = (TextView) findViewById(R.id.taskNamePrefix);
 		runAgainBut = (Button) findViewById(R.id.but_taskRunner_runAgain);
 		stopTaskBut = (Button) findViewById(R.id.but_taskRunner_cancel);
 		taskLogOutput = (TextView) findViewById(R.id.task_log_output);
-		taskLogScroller = (ScrollView) findViewById(R.id.task_log_scroller);
-
+		taskLogScroller = (ScrollView) findViewById(R.id.task_log_scroller);        
+        
 		runAgainBut.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				clearAndStartTask();
@@ -79,6 +83,8 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 
 		// init view
 		taskName.setText(currentTask.name);
+
+
 
 		// // after activity restart (screen rotate)
 		// if(state != null && state.containsKey("taskLogOutput")){
@@ -99,6 +105,8 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 
 	}
 
+
+
 	// @Override
 	// public void onSaveInstanceState(Bundle state) {
 	//
@@ -118,7 +126,9 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 			appendLogLine("================================");
 			return;
 		}
-		
+
+        taskInfoContainer.setBackgroundResource(R.color.task_status_running);
+
 		asyncTask = new AsyncTaskRunner();
 		asyncTask.execute(currentTask);
 	}
@@ -168,7 +178,7 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 				publishProgress("HTTP req to: " + t.url);
 				request.setURI(new URI(t.url));
 				HttpResponse response = client.execute(request);
-				
+
 				// execute can take some time, check that the task hasn't been cancelled in the meantime
 				if(isCancelled()){
 					publishProgress("Req success, but task cancelled in the meantime.");		
@@ -227,6 +237,8 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 
 			appendLogLine("Cancelled");
 
+            taskInfoContainer.setBackgroundResource(R.color.task_status_inactive);
+
 			runAgainBut.setEnabled(true);
 			stopTaskBut.setEnabled(false);
 		}
@@ -235,6 +247,9 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 		protected void onPostExecute(TaskRunResult result) {
 
 			appendLogLine("Async task finished.");
+
+            // TODO: status failed?
+            taskInfoContainer.setBackgroundResource(R.color.task_status_success);
 
 			runAgainBut.setEnabled(true);
 			stopTaskBut.setEnabled(false);
