@@ -42,20 +42,20 @@
             android:layout_weight="1"
             android:orientation="horizontal" >
             
-            <!--  Button: "Show Tasks" -->
+            <!--  Button: "Show Probes" -->
             <Button
-                android:id="@+id/but_dash_showTasks"
+                android:id="@+id/but_dash_showProbes"
                 style="@style/HomeButton"
                 android:drawableTop="@drawable/dash_list"
                 android:onClick="dashButtonClicked"
-                android:text="Configured Tasks" />
+                android:text="Configured Probes" />
 
             <Button
-                android:id="@+id/but_dash_newTask"
+                android:id="@+id/but_dash_newProbe"
                 style="@style/HomeButton"
                 android:drawableTop="@drawable/dash_list"
-                android:onClick="createNewTask"
-                android:text="New Task" />
+                android:onClick="createNewProbe"
+                android:text="New Probe" />
         </LinearLayout>
 
         <LinearLayout

@@ -9,18 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import static net.nologin.meep.pingly.model.PinglyTaskDataHelper.TBL_TASK;
+import static net.nologin.meep.pingly.model.ProbeDataHelper.TBL_PROBE;
 
-public class PinglyCursorTaskAdapter extends SimpleCursorAdapter {
+public class PinglyCursorProbeAdapter extends SimpleCursorAdapter {
 
 	private LayoutInflater inflater;
-	private static final int TASK_ITEM_LAYOUT = R.layout.task_list_item;	
+	private static final int PROBE_ITEM_LAYOUT = R.layout.probe_list_item;
 	private static final String FROM[] = {};
 	private static final int TO[] = {};
 		
-	public PinglyCursorTaskAdapter(Context context, Cursor c) {
+	public PinglyCursorProbeAdapter(Context context, Cursor c) {
 		// TODO: see deprecated notes	
-		super(context, TASK_ITEM_LAYOUT, c, FROM, TO);		
+		super(context, PROBE_ITEM_LAYOUT, c, FROM, TO);
 		this.inflater = LayoutInflater.from(context);
 	}
 
@@ -38,17 +38,17 @@ public class PinglyCursorTaskAdapter extends SimpleCursorAdapter {
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
-		View newView = inflater.inflate(TASK_ITEM_LAYOUT, parent, false);
+		View newView = inflater.inflate(PROBE_ITEM_LAYOUT, parent, false);
 
 		ViewHolder holder = new ViewHolder();
 		// view refs
 		holder.firstLine = (TextView) newView.findViewById(R.id.firstLine);
 		holder.secondLine = (TextView) newView.findViewById(R.id.secondLine);		
 		// column indexes
-		holder.colIDIdx = cursor.getColumnIndex(TBL_TASK.COL_ID);
-		holder.colNameIdx = cursor.getColumnIndex(TBL_TASK.COL_NAME);
-		holder.colDescIdx = cursor.getColumnIndex(TBL_TASK.COL_DESC);
-		holder.colURLIdx = cursor.getColumnIndex(TBL_TASK.COL_URL);
+		holder.colIDIdx = cursor.getColumnIndex(TBL_PROBE.COL_ID);
+		holder.colNameIdx = cursor.getColumnIndex(TBL_PROBE.COL_NAME);
+		holder.colDescIdx = cursor.getColumnIndex(TBL_PROBE.COL_DESC);
+		holder.colURLIdx = cursor.getColumnIndex(TBL_PROBE.COL_URL);
 		newView.setTag(holder);
 
 		// bindView will be called after newView, populate items there
@@ -61,14 +61,14 @@ public class PinglyCursorTaskAdapter extends SimpleCursorAdapter {
 
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 
-		// final int taskId = cursor.getInt(holder.colIDIdx);
+		// final int probeId = cursor.getInt(holder.colIDIdx);
 		
-		String taskName = cursor.getString(holder.colNameIdx);
-		String taskDesc = cursor.getString(holder.colDescIdx);
+		String probeName = cursor.getString(holder.colNameIdx);
+		String probeDesc = cursor.getString(holder.colDescIdx);
 		
 		// TODO: load blank placeholders with i18n
-		holder.firstLine.setText(StringUtils.isBlank(taskName)?"[no name]":taskName);
-		holder.secondLine.setText(StringUtils.isBlank(taskDesc)?"[no description]":taskDesc);		
+		holder.firstLine.setText(StringUtils.isBlank(probeName)?"[no name]":probeName);
+		holder.secondLine.setText(StringUtils.isBlank(probeDesc)?"[no description]":probeDesc);
 
 	}
 

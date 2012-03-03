@@ -3,14 +3,14 @@
 
     <!--  TODO: i18n strings!  -->
     <item
-        android:id="@+id/task_list_contextmenu_run"
+        android:id="@+id/probe_list_contextmenu_run"
         android:title="Run Now"/>
     
     <item
-        android:id="@+id/task_list_contextmenu_edit"
+        android:id="@+id/probe_list_contextmenu_edit"
         android:title="Edit"/>
     <item
-        android:id="@+id/task_list_contextmenu_delete"
+        android:id="@+id/probe_list_contextmenu_delete"
         android:title="Delete"/>
     
 </menu>

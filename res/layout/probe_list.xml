@@ -19,19 +19,19 @@
 
         <TextView
             style="@style/TitleBarText"
-            android:text="Your Tasks" />
+            android:text="Configured Probes" />
 
         <ImageButton
             style="@style/TitleBarAction"
-            android:contentDescription="Configure New Task"
-            android:onClick="createNewTask"
+            android:contentDescription="Configure New Probe"
+            android:onClick="createNewProbe"
             android:src="@android:drawable/ic_menu_add" />
         
         <!--  temp  -->
 		<ImageButton
             android:id="@+id/but_generateTestItems"
             style="@style/TitleBarAction"
-            android:contentDescription="Add Dummy Tasks"            
+            android:contentDescription="Add Dummy Probes"
             android:src="@android:drawable/ic_menu_upload"
             android:clickable="true" />
         
@@ -39,7 +39,7 @@
         <ImageButton
             android:id="@+id/but_deleteAllItems"
             style="@style/TitleBarAction"
-            android:contentDescription="Add Dummy Tasks"            
+            android:contentDescription="Add Dummy Probes"
             android:src="@android:drawable/ic_menu_delete"
             android:clickable="true" />
         
@@ -52,7 +52,7 @@
         android:orientation="vertical" >
 
         <ListView
-            android:id="@+id/taskList"
+            android:id="@+id/probeList"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:divider="#FF004400"
@@ -66,7 +66,7 @@
             android:layout_height="fill_parent"
             android:layout_marginTop="50dip"
             android:gravity="center_horizontal"
-            android:text="No Tasks Configured" />
+            android:text="No Probes Configured" />
     </LinearLayout>
 
 </RelativeLayout>

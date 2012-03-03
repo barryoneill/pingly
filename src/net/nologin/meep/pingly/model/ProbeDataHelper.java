@@ -6,8 +6,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import net.nologin.meep.pingly.activity.PinglyDashActivity;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -18,7 +16,7 @@ import android.util.Log;
 
 // TODO: This is *vomit* inducing - evaluate a _small_ ORM lib (even ORMLite is too big) and get rid of hand rolled SQL
 // TODO: error handling
-public class PinglyTaskDataHelper extends SQLiteOpenHelper {
+public class ProbeDataHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "Pingly.db";
 	private static final int DATABASE_VERSION = 1;
@@ -26,22 +24,22 @@ public class PinglyTaskDataHelper extends SQLiteOpenHelper {
 	// for saving strings into 'DATETIME' fields, ContentValues lacks support
 	private static final DateFormat DATETIME_ISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	public static final class TBL_TASK {
-		public static final String TBL_NAME = "pingly_tasks";
+	public static final class TBL_PROBE {
+		public static final String TBL_NAME = "pingly_probes";
 
 		public static final String COL_ID = BaseColumns._ID;
-		public static final String COL_NAME = "task_name";
+		public static final String COL_NAME = "probe_name";
 		public static final String COL_DESC = "desc";
 		public static final String COL_URL = "url";
 		public static final String COL_CREATED = "t_created";
 		public static final String COL_LASTMOD = "t_lastmod";
 
 		// make sure names match above
-		public static final String CREATE_SQL = "CREATE TABLE pingly_tasks " + "("
+		public static final String CREATE_SQL = "CREATE TABLE pingly_probes " + "("
 				+ "   _id INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ "   t_created DATETIME DEFAULT CURRENT_TIMESTAMP,"
 				+ "   t_lastmod DATETIME DEFAULT CURRENT_TIMESTAMP,"
-				+ "   task_name TEXT NOT NULL UNIQUE," 
+				+ "   probe_name TEXT NOT NULL UNIQUE,"
 				+ "   desc TEXT,"
 				+ "   url URL" + ")";
 		
@@ -49,16 +47,16 @@ public class PinglyTaskDataHelper extends SQLiteOpenHelper {
 				COL_URL, COL_CREATED, COL_LASTMOD };
 	}
 
-	public PinglyTaskDataHelper(Context context) {
+	public ProbeDataHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-		Log.d(LOG_TAG, "Creating table: " + TBL_TASK.CREATE_SQL);
+		Log.d(LOG_TAG, "Creating table: " + TBL_PROBE.CREATE_SQL);
 
-		db.execSQL(TBL_TASK.CREATE_SQL);
+		db.execSQL(TBL_PROBE.CREATE_SQL);
 	}
 
 	// TODO: verify impl!
@@ -67,51 +65,51 @@ public class PinglyTaskDataHelper extends SQLiteOpenHelper {
 
 		Log.d(LOG_TAG, "Upgrading table");
 
-		db.execSQL("DROP TABLE IF EXISTS " + TBL_TASK.TBL_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + TBL_PROBE.TBL_NAME);
 		onCreate(db);
 	}
 
-	public PinglyTask findTaskById(long id) {
+	public Probe findProbeById(long id) {
 
-		Log.d(LOG_TAG, "Looking up task with ID: " + id);
+		Log.d(LOG_TAG, "Looking up probe with ID: " + id);
 
 		SQLiteDatabase db = getReadableDatabase();
-		String idClause = TBL_TASK.COL_ID + "=" + id;
+		String idClause = TBL_PROBE.COL_ID + "=" + id;
 
-		Cursor cursor = db.query(TBL_TASK.TBL_NAME, TBL_TASK.FROM_ALL,
+		Cursor cursor = db.query(TBL_PROBE.TBL_NAME, TBL_PROBE.FROM_ALL,
 				idClause, null, null, null, null);
 		if(!cursor.moveToFirst()){
-			Log.d(LOG_TAG, "No task found for ID: " + id);
+			Log.d(LOG_TAG, "No probe found for ID: " + id);
 			return null;
 		}
-		return cursorToTask(cursor, true);	
+		return cursorToProbe(cursor, true);
 	}
 
-	public PinglyTask findTaskByName(String name) {
+	public Probe findProbeByName(String name) {
 
-		Log.d(LOG_TAG, "Looking up task with name: " + name);
+		Log.d(LOG_TAG, "Looking up probe with name: " + name);
 		
 		SQLiteDatabase db = getReadableDatabase();	
-		String nameClause = TBL_TASK.COL_NAME + "=?";
-		Cursor cursor = db.query(TBL_TASK.TBL_NAME, TBL_TASK.FROM_ALL,
+		String nameClause = TBL_PROBE.COL_NAME + "=?";
+		Cursor cursor = db.query(TBL_PROBE.TBL_NAME, TBL_PROBE.FROM_ALL,
 				nameClause, new String[]{name}, null, null, null);
 		
 		if(!cursor.moveToFirst()){
-			Log.d(LOG_TAG, "No task found for name: " + name);
+			Log.d(LOG_TAG, "No probe found for name: " + name);
 			return null;
 		}
-		return cursorToTask(cursor, true);	
+		return cursorToProbe(cursor, true);
 
 	}
 
 	
-	public Cursor findAllTasks() {
+	public Cursor findAllProbes() {
 
 		Log.d(LOG_TAG, "Querying Table");
 
 		SQLiteDatabase db = getReadableDatabase();
-		Cursor cursor = db.query(TBL_TASK.TBL_NAME, TBL_TASK.FROM_ALL, null,
-				null, null, null, TBL_TASK.COL_CREATED);
+		Cursor cursor = db.query(TBL_PROBE.TBL_NAME, TBL_PROBE.FROM_ALL, null,
+				null, null, null, TBL_PROBE.COL_CREATED);
 
 		return cursor;
 	}
@@ -119,19 +117,19 @@ public class PinglyTaskDataHelper extends SQLiteOpenHelper {
 	// danger here
 	public void deleteAll(){
 		
-		Log.d(LOG_TAG, "Deleting all tasks ");
+		Log.d(LOG_TAG, "Deleting all probes");
 		
 		SQLiteDatabase db = getWritableDatabase();		
-		db.delete(TBL_TASK.TBL_NAME, null, null);
+		db.delete(TBL_PROBE.TBL_NAME, null, null);
 	}
 	
-	public void deleteTask(PinglyTask task) {
+	public void deleteProbe(Probe probe) {
 
-		Log.d(LOG_TAG, "Deleting task " + task);
+		Log.d(LOG_TAG, "Deleting probe " + probe);
 
 		SQLiteDatabase db = getWritableDatabase();
-		String idClause = TBL_TASK.COL_ID + "=" + task.id;
-		db.delete(TBL_TASK.TBL_NAME, idClause, null);
+		String idClause = TBL_PROBE.COL_ID + "=" + probe.id;
+		db.delete(TBL_PROBE.TBL_NAME, idClause, null);
 
 	}
 
@@ -150,54 +148,54 @@ public class PinglyTaskDataHelper extends SQLiteOpenHelper {
 		for(String[] line : items){
 			
 			String name = line[0];
-			if(findTaskByName(name) != null){
+			if(findProbeByName(name) != null){
 				// names have to be unique, add something to further duplicates
 				name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";	
 			}
 			
-			saveTask(new PinglyTask(name,line[1],line[2]));
+			saveProbe(new Probe(name, line[1], line[2]));
 		}
 		
 	}
 	
-	public long saveTask(PinglyTask task) {
+	public long saveProbe(Probe probe) {
 
 		ContentValues cv = new ContentValues();
 
-		cv.put(TBL_TASK.COL_NAME, task.name);
-		cv.put(TBL_TASK.COL_DESC, task.desc);
-		cv.put(TBL_TASK.COL_URL, task.url);
+		cv.put(TBL_PROBE.COL_NAME, probe.name);
+		cv.put(TBL_PROBE.COL_DESC, probe.desc);
+		cv.put(TBL_PROBE.COL_URL, probe.url);
 
 		SQLiteDatabase db = getWritableDatabase();
-		if (task.isNew()) {			
+		if (probe.isNew()) {
 			// triggers will fill id, create/modify columns
-			return db.insertOrThrow(TBL_TASK.TBL_NAME, null, cv);
+			return db.insertOrThrow(TBL_PROBE.TBL_NAME, null, cv);
 		} else {
 			
 			// leave ID and create date alone, but update last modified
-			cv.put(TBL_TASK.COL_LASTMOD, DATETIME_ISO8601.format(new Date()));
+			cv.put(TBL_PROBE.COL_LASTMOD, DATETIME_ISO8601.format(new Date()));
 			
-			String whereClause = TBL_TASK.COL_ID + "=" + task.id;
-			db.update(TBL_TASK.TBL_NAME, cv, whereClause, null);
-			return task.id;
+			String whereClause = TBL_PROBE.COL_ID + "=" + probe.id;
+			db.update(TBL_PROBE.TBL_NAME, cv, whereClause, null);
+			return probe.id;
 		}
 	}
 
 
 	// keep the param so the caller doesn't forget about cursor responsibility
-	private PinglyTask cursorToTask(Cursor c, boolean closeCursor) {
+	private Probe cursorToProbe(Cursor c, boolean closeCursor) {
 
-		PinglyTask task = new PinglyTask();
-		task.id = c.getLong(c.getColumnIndexOrThrow(TBL_TASK.COL_ID));
-		task.name = c.getString(c.getColumnIndexOrThrow(TBL_TASK.COL_NAME));
-		task.desc = c.getString(c.getColumnIndexOrThrow(TBL_TASK.COL_DESC));
-		task.url = c.getString(c.getColumnIndexOrThrow(TBL_TASK.COL_URL));
+		Probe probe = new Probe();
+		probe.id = c.getLong(c.getColumnIndexOrThrow(TBL_PROBE.COL_ID));
+		probe.name = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_NAME));
+		probe.desc = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_DESC));
+		probe.url = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_URL));
 
 		if (closeCursor) {
 			c.close();
 		}
 
-		return task;
+		return probe;
 	}
 
 }

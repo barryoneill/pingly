@@ -20,7 +20,7 @@
 
         <TextView
             style="@style/TitleBarText"
-            android:text="Task Run Log" />
+            android:text="Probe Run Log" />
     </LinearLayout>
 
     <!-- footer -->
@@ -34,16 +34,16 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/but_taskRunner_cancel"
+            android:id="@+id/but_probeRun_cancel"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Stop Task"
+            android:text="Stop Probe"
             android:enabled="false"/>
         
         
         <Button
-            android:id="@+id/but_taskRunner_runAgain"
+            android:id="@+id/but_probeRun_runAgain"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -51,10 +51,10 @@
         
     </LinearLayout>
 
-    <!-- task info -->
+    <!-- probe info -->
 
     <LinearLayout
-        android:id="@+id/taskInfoContainer"
+        android:id="@+id/probeInfoContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleBar"        
@@ -62,33 +62,33 @@
         android:padding="6dip" >
 
         <TextView
-            android:id="@+id/taskNamePrefix"
+            android:id="@+id/text_probe_namePrefix"
             style="@style/FormLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task:" >
+            android:text="Probe:" >
         </TextView>
 
         <TextView
-            android:id="@+id/text_newTask_name"
+            android:id="@+id/text_probe_name"
             style="@style/FormLabel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <!-- task output -->
+    <!-- probe output -->
 
     <ScrollView     
-        android:id="@+id/task_log_scroller"   
+        android:id="@+id/probe_log_scroller"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
-        android:layout_below="@id/taskInfoContainer"
+        android:layout_below="@id/probeInfoContainer"
         android:layout_above="@id/footerBar"        
         android:scrollbars="vertical"
         android:layout_margin="6dip" >
         
         <TextView 
-            android:id="@+id/task_log_output"
+            android:id="@+id/probe_log_output"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:singleLine="false"

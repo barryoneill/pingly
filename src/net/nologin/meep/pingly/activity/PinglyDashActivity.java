@@ -24,11 +24,11 @@ public class PinglyDashActivity extends BasePinglyActivity {
 	public void dashButtonClicked(View v) {
 		int id = v.getId();
 		switch (id) {
-		case R.id.but_dash_showTasks:
-			goToTaskList(v);
+		case R.id.but_dash_showProbes:
+			goToProbeList(v);
 			break;
-		case R.id.but_dash_newTask:			
-			createNewTask(v);
+		case R.id.but_dash_newProbe:
+			createNewProbe(v);
 			break;
 		case R.id.but_dash_testNotify:			
 			doNotificationTest();

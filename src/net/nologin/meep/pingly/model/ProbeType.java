@@ -1,7 +1,7 @@
 package net.nologin.meep.pingly.model;
 
 
-public enum PinglyTaskType implements Comparable<PinglyTaskType> {
+public enum ProbeType implements Comparable<ProbeType> {
 
     ServiceResponding(0),
     ResponseCode(1),
@@ -14,17 +14,17 @@ public enum PinglyTaskType implements Comparable<PinglyTaskType> {
     public long id;
     
     
-    PinglyTaskType(long id){
+    ProbeType(long id){
         this.id = id;    
     }
 
     public String getResourceNameForName(){
-        return "task_type_" + id + "_name";
+        return "probe_type_" + id + "_name";
     }
 
     
     public String getResourceNameForDesc(){
-        return "task_type_" + id + "_desc";
+        return "probe_type_" + id + "_desc";
     }
 
 }

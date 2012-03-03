@@ -5,7 +5,7 @@
     android:padding="5dip" 
     >
     <TextView
-        android:id="@+id/task_type_listitem_name"
+        android:id="@+id/probe_type_listitem_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"        
         android:layout_alignParentLeft="true"
@@ -16,10 +16,10 @@
         android:textSize="20sp"
         android:text="name_placeholder" />
     <TextView
-        android:id="@+id/task_type_listitem_desc"
+        android:id="@+id/probe_type_listitem_desc"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"        
-        android:layout_below="@id/task_type_listitem_name"
+        android:layout_below="@id/probe_type_listitem_name"
         android:layout_alignParentLeft="true"
         android:singleLine="false"
         android:textSize="14sp"

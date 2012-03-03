@@ -1,24 +1,24 @@
 package net.nologin.meep.pingly.model;
 
 
-public class PinglyTask {
+public class Probe {
 
 	public long id = -1;
 	public String name = "";
 	public String desc = "";
 	public String url = "";
 	
-	public PinglyTask(){		
+	public Probe(){
 	}
 	
-	public PinglyTask(long id, String name, String desc, String url) {
+	public Probe(long id, String name, String desc, String url) {
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
 		this.url = url;
 	}
 	
-	public PinglyTask(String name, String desc, String url) {
+	public Probe(String name, String desc, String url) {
 		this(-1,name,desc,url);		
 	}
 
@@ -28,7 +28,7 @@ public class PinglyTask {
 	
 	@Override
 	public String toString(){		
-		return "PinglyTask[id=" + id + ",name='" + name + "']";
+		return "Probe[id=" + id + ",name='" + name + "']";
 	}
 	
 }

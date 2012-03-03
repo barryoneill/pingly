@@ -8,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import net.nologin.meep.pingly.model.PinglyTaskType;
+import net.nologin.meep.pingly.model.ProbeType;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-public class TaskTypeAdapter extends BaseAdapter {
+public class ProbeTypeAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private Context context;
     // we'll just accept the enum source order for now
-    private PinglyTaskType[] taskTypes = PinglyTaskType.values();
+    private ProbeType[] probeTypes = ProbeType.values();
 
-    public TaskTypeAdapter(Context context) {
+    public ProbeTypeAdapter(Context context) {
         super();
 
         this.context = context;
@@ -27,12 +27,12 @@ public class TaskTypeAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return taskTypes.length;
+        return probeTypes.length;
     }
 
     @Override
-    public PinglyTaskType getItem(int pos) {
-        return taskTypes[pos];
+    public ProbeType getItem(int pos) {
+        return probeTypes[pos];
     }
 
     @Override
@@ -68,7 +68,7 @@ public class TaskTypeAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        PinglyTaskType type = taskTypes[position];
+        ProbeType type = probeTypes[position];
 
         holder.name.setText(PinglyUtils.loadStringForName(context,type.getResourceNameForName()));
 
@@ -87,18 +87,18 @@ public class TaskTypeAdapter extends BaseAdapter {
                 inflater = LayoutInflater.from(context);
             }
 
-            convertView = inflater.inflate(R.layout.task_type_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.probe_type_list_item, parent, false);
 
             holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.task_type_listitem_name);
-            holder.description = (TextView) convertView.findViewById(R.id.task_type_listitem_desc);
+            holder.name = (TextView) convertView.findViewById(R.id.probe_type_listitem_name);
+            holder.description = (TextView) convertView.findViewById(R.id.probe_type_listitem_desc);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        PinglyTaskType type = taskTypes[position];
+        ProbeType type = probeTypes[position];
 
         holder.name.setText(PinglyUtils.loadStringForName(context,type.getResourceNameForName()));
         holder.description.setText(PinglyUtils.loadStringForName(context, type.getResourceNameForDesc()));

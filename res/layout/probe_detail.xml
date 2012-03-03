@@ -19,9 +19,9 @@
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Configure New Task"/>
+                android:text="Configure New Probe"/>
 
-        <!--  buttons for new task?  -->
+        <!--  buttons for new probe?  -->
 
     </LinearLayout>
 
@@ -34,21 +34,21 @@
             style="@android:style/ButtonBar">
 
         <Button
-                android:id="@+id/but_newTask_save"
+                android:id="@+id/but_newProbe_save"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Save"/>
 
         <Button
-                android:id="@+id/but_newTask_cancel"
+                android:id="@+id/but_newProbe_cancel"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Cancel"/>
     </LinearLayout>
 
-    <!-- new task form -->
+    <!-- new probe form -->
     <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -65,30 +65,30 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Task Title"
+                    android:text="Probe Name"
                     style="@style/FormLabel">
             </TextView>
 
             <EditText
-                    android:id="@+id/task_details_name"
+                    android:id="@+id/probe_detail_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="task name"
+                    android:hint="probe name"
                     android:inputType="text">
             </EditText>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Task Description"
+                    android:text="Probe Description"
                     style="@style/FormLabel">
             </TextView>
 
             <EditText
-                    android:id="@+id/task_details_desc"
+                    android:id="@+id/probe_detail_desc"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="task description"
+                    android:hint="probe description"
                     android:inputType="text">
             </EditText>
 
@@ -100,7 +100,7 @@
             </TextView>
 
             <EditText
-                    android:id="@+id/task_details_url"
+                    android:id="@+id/probe_detail_url"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="URL"
@@ -110,15 +110,15 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Task Type"
+                    android:text="Probe Type"
                     style="@style/FormLabel">
             </TextView>
 
             <Spinner
-                    android:id="@+id/task_details_type"
+                    android:id="@+id/probe_detail_type"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:prompt="@string/task_type_choose">
+                    android:prompt="@string/probe_type_choose">
 
             </Spinner>
 

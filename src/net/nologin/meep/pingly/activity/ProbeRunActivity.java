@@ -2,24 +2,21 @@ package net.nologin.meep.pingly.activity;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URI;
-import java.net.URISyntaxException;
 
+import net.nologin.meep.pingly.model.Probe;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.StringUtils;
-import net.nologin.meep.pingly.model.PinglyTask;
-import net.nologin.meep.pingly.model.TaskRunResult;
+import net.nologin.meep.pingly.model.ProbeResult;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
 import android.os.AsyncTask;
@@ -33,17 +30,17 @@ import android.widget.TextView;
 
 // https://github.com/commonsguy/cw-android/blob/master/Rotation/RotationAsync/src/com/commonsware/android/rotation/async/RotationAsync.java
 
-public class TaskRunnerActivity extends BasePinglyActivity {
+public class ProbeRunActivity extends BasePinglyActivity {
 
-	private TextView taskName;
-    private TextView taskNamePrefix;
-    private View taskInfoContainer;
+	private TextView probeName;
+    private TextView probeNamePrefix;
+    private View probeInfoContainer;
 	private Button runAgainBut;
-	private Button stopTaskBut;
-	private TextView taskLogOutput;
-	private ScrollView taskLogScroller;    
+	private Button stopProbeBut;
+	private TextView probeLogOutput;
+	private ScrollView probeLogScroller;
     
-	private PinglyTask currentTask;
+	private Probe currentProbe;
 
 	private AsyncTaskRunner asyncTask;
 
@@ -51,46 +48,46 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 	protected void onCreate(Bundle state) {
 
 		super.onCreate(state);
-		setContentView(R.layout.task_run_log);
+		setContentView(R.layout.probe_run_log);
 
 		// parameter must be present
-		currentTask = loadTaskParamIfPresent();
+		currentProbe = loadProbeParamIfPresent();
 
-		Log.d(LOG_TAG, "Running task " + currentTask);
+		Log.d(LOG_TAG, "Running probe " + currentProbe);
 
 		// load refs
-        taskInfoContainer = findViewById(R.id.taskInfoContainer);
-		taskName = (TextView) findViewById(R.id.text_newTask_name);
-        taskNamePrefix = (TextView) findViewById(R.id.taskNamePrefix);
-		runAgainBut = (Button) findViewById(R.id.but_taskRunner_runAgain);
-		stopTaskBut = (Button) findViewById(R.id.but_taskRunner_cancel);
-		taskLogOutput = (TextView) findViewById(R.id.task_log_output);
-		taskLogScroller = (ScrollView) findViewById(R.id.task_log_scroller);        
+        probeInfoContainer = findViewById(R.id.probeInfoContainer);
+		probeName = (TextView) findViewById(R.id.text_probe_name);
+        probeNamePrefix = (TextView) findViewById(R.id.text_probe_namePrefix);
+		runAgainBut = (Button) findViewById(R.id.but_probeRun_runAgain);
+		stopProbeBut = (Button) findViewById(R.id.but_probeRun_cancel);
+		probeLogOutput = (TextView) findViewById(R.id.probe_log_output);
+		probeLogScroller = (ScrollView) findViewById(R.id.probe_log_scroller);
         
 		runAgainBut.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				clearAndStartTask();
+				clearAndStartProbe();
 			}
 		});
 
-		stopTaskBut.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				if (asyncTask != null && !asyncTask.isCancelled()) {
-					asyncTask.cancel(true);
-				}
-			}
-		});
+        stopProbeBut.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (asyncTask != null && !asyncTask.isCancelled()) {
+                    asyncTask.cancel(true);
+                }
+            }
+        });
 
 		// init view
-		taskName.setText(currentTask.name);
+        probeName.setText(currentProbe.name);
 
 
 
 		// // after activity restart (screen rotate)
-		// if(state != null && state.containsKey("taskLogOutput")){
-		// taskLogOutput.setText(state.getString("taskLogOutput"));
+		// if(state != null && state.containsKey("probeLogOutput")){
+		// probeLogOutput.setText(state.getString("probeLogOutput"));
 		// // hack to push to bottom _after_ scrollview resize
-		// taskLogScroller.post(new Runnable() {
+		// probeLogScroller.post(new Runnable() {
 		// public void run() {
 		// ((ScrollView)
 		// findViewById(R.id.task_log_scroller)).fullScroll(View.FOCUS_DOWN);
@@ -100,7 +97,7 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 
 		if (asyncTask == null
 				|| asyncTask.getStatus() == AsyncTask.Status.FINISHED) {
-			clearAndStartTask();
+			clearAndStartProbe();
 		}
 
 	}
@@ -111,53 +108,53 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 	// public void onSaveInstanceState(Bundle state) {
 	//
 	// super.onSaveInstanceState(state);
-	// state.putString("taskLogOutput", taskLogOutput.getText().toString());
+	// state.putString("probeLogOutput", probeLogOutput.getText().toString());
 	// }
 	//
-	private void clearAndStartTask() {
+	private void clearAndStartProbe() {
 
-		taskLogOutput.setText("");
+		probeLogOutput.setText("");
 
 		if(!PinglyUtils.activeNetConnectionPresent(this)){
-			Log.d(LOG_TAG, "No net connection, not running task");
+			Log.d(LOG_TAG, "No net connection, not running probe");
 			appendLogLine("================================");
 			appendLogLine("     Network not available      ");  
 			appendLogLine(" Enable data/wifi and try again ");
 			appendLogLine("================================");
 			return;
-		}
+        }
 
-        taskInfoContainer.setBackgroundResource(R.color.task_status_running);
+        probeInfoContainer.setBackgroundResource(R.color.probe_status_running);
 
 		asyncTask = new AsyncTaskRunner();
-		asyncTask.execute(currentTask);
+		asyncTask.execute(currentProbe);
 	}
 
 	private void appendLogLine(String txt) {
 
-		taskLogOutput.append(txt + "\n");
-		// taskLogScroller.smoothScrollTo(0, taskLogOutput.getBottom());
-		taskLogScroller.fullScroll(ScrollView.FOCUS_DOWN);
+		probeLogOutput.append(txt + "\n");
+		// probeLogScroller.smoothScrollTo(0, probeLogOutput.getBottom());
+        probeLogScroller.fullScroll(ScrollView.FOCUS_DOWN);
 	}
 
 	private class AsyncTaskRunner extends
-			AsyncTask<PinglyTask, String, TaskRunResult> {
+			AsyncTask<Probe, String, ProbeResult> {
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 
 			runAgainBut.setEnabled(false);
-			stopTaskBut.setEnabled(true);
+			stopProbeBut.setEnabled(true);
 
 			appendLogLine("Starting async task..");
 
 		}
 
 		@Override
-		protected TaskRunResult doInBackground(PinglyTask... params) {
+		protected ProbeResult doInBackground(Probe... params) {
 
-			PinglyTask t = params[0];
+			Probe t = params[0];
 
 			publishProgress("Processing: " + t);
 
@@ -179,9 +176,9 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 				request.setURI(new URI(t.url));
 				HttpResponse response = client.execute(request);
 
-				// execute can take some time, check that the task hasn't been cancelled in the meantime
+				// execute can take some time, check that the asynctask hasn't been cancelled in the meantime
 				if(isCancelled()){
-					publishProgress("Req success, but task cancelled in the meantime.");		
+					publishProgress("Req success, but probe cancelled in the meantime.");
 					return null;
 				}
 				
@@ -237,22 +234,22 @@ public class TaskRunnerActivity extends BasePinglyActivity {
 
 			appendLogLine("Cancelled");
 
-            taskInfoContainer.setBackgroundResource(R.color.task_status_inactive);
+            probeInfoContainer.setBackgroundResource(R.color.probe_status_inactive);
 
-			runAgainBut.setEnabled(true);
-			stopTaskBut.setEnabled(false);
+            runAgainBut.setEnabled(true);
+			stopProbeBut.setEnabled(false);
 		}
 
 		@Override
-		protected void onPostExecute(TaskRunResult result) {
+		protected void onPostExecute(ProbeResult result) {
 
 			appendLogLine("Async task finished.");
 
             // TODO: status failed?
-            taskInfoContainer.setBackgroundResource(R.color.task_status_success);
+            probeInfoContainer.setBackgroundResource(R.color.probe_status_success);
 
-			runAgainBut.setEnabled(true);
-			stopTaskBut.setEnabled(false);
+            runAgainBut.setEnabled(true);
+			stopProbeBut.setEnabled(false);
 
 		}
 	}

@@ -1,9 +1,9 @@
 package net.nologin.meep.pingly.activity;
 
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.adapter.PinglyCursorTaskAdapter;
-import net.nologin.meep.pingly.model.PinglyTaskDataHelper;
-import net.nologin.meep.pingly.model.PinglyTask;
+import net.nologin.meep.pingly.adapter.PinglyCursorProbeAdapter;
+import net.nologin.meep.pingly.model.ProbeDataHelper;
+import net.nologin.meep.pingly.model.Probe;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -22,21 +22,21 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-public class TaskListActivity extends BasePinglyActivity {
+public class ProbeListActivity extends BasePinglyActivity {
 
-	private PinglyTaskDataHelper data;
-	private PinglyCursorTaskAdapter listAdapter;
+	private ProbeDataHelper data;
+	private PinglyCursorProbeAdapter listAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.task_list);
+		setContentView(R.layout.probe_list);
 
-		data = new PinglyTaskDataHelper(this);
+		data = new ProbeDataHelper(this);
 
-		Cursor allTasksCursor = data.findAllTasks();
-		listAdapter = new PinglyCursorTaskAdapter(this,allTasksCursor);
-		ListView lv = (ListView) findViewById(R.id.taskList);
+		Cursor allProbesCursor = data.findAllProbes();
+		listAdapter = new PinglyCursorProbeAdapter(this,allProbesCursor);
+		ListView lv = (ListView) findViewById(R.id.probeList);
 		lv.setAdapter(listAdapter);
 		registerForContextMenu(lv);
 
@@ -48,14 +48,14 @@ public class TaskListActivity extends BasePinglyActivity {
 //	    lv.setDividerHeight(1);
 
 		// any activity 
-		startManagingCursor(allTasksCursor);
+		startManagingCursor(allProbesCursor);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int itemPos, long itemId) {
                 Log.d(LOG_TAG,"Got id " + itemId);
-                goToTaskRunner(itemId);
+                goToProbeRunner(itemId);
             }
         });
 
@@ -65,13 +65,13 @@ public class TaskListActivity extends BasePinglyActivity {
 		testItemsBut.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {
 	
-				AlertDialog dialog = new AlertDialog.Builder(TaskListActivity.this)
+				AlertDialog dialog = new AlertDialog.Builder(ProbeListActivity.this)
 				.setMessage("Generate Test Items?")
 				.setCancelable(false)
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			       public void onClick(DialogInterface dialog, int id) {
 						data.generateTestItems();
-						listAdapter.changeCursor(data.findAllTasks());							
+						listAdapter.changeCursor(data.findAllProbes());
 			       }
 			   })
 			   .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -88,13 +88,13 @@ public class TaskListActivity extends BasePinglyActivity {
 		deleteAllBut.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {
 	
-				AlertDialog dialog = new AlertDialog.Builder(TaskListActivity.this)
+				AlertDialog dialog = new AlertDialog.Builder(ProbeListActivity.this)
 				.setMessage("Are you sure you want to delete all items?")
 				.setCancelable(false)
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			       public void onClick(DialogInterface dialog, int id) {
 						data.deleteAll();
-						listAdapter.changeCursor(data.findAllTasks());							
+						listAdapter.changeCursor(data.findAllProbes());
 			       }
 			   })
 			   .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -128,21 +128,21 @@ public class TaskListActivity extends BasePinglyActivity {
 
 		super.onCreateContextMenu(menu, v, menuInfo);
 
-		if (v.getId() == R.id.taskList) {
+		if (v.getId() == R.id.probeList) {
 
 			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
-			PinglyTask target = data.findTaskById(info.id);
-			menu.setHeaderTitle("Task: '" + target.name + "'");
+			Probe target = data.findProbeById(info.id);
+			menu.setHeaderTitle("Probe: '" + target.name + "'");
 
 			MenuInflater inflater1 = getMenuInflater();
-			inflater1.inflate(R.menu.task_list_context, menu);
+			inflater1.inflate(R.menu.probe_list_context, menu);
 
 			
 			
 			// menu.setHeaderTitle(Countries[info.position]);
 			// String[] menuItems =
-			// getResources().getStringArray(R.array.taskList_context_menu);
+			// getResources().getStringArray(R.array.probeList_context_menu);
 			// for (int i = 0; i < menuItems.length; i++) {
 			// menu.add(Menu.NONE, i, i, menuItems[i]);
 			// }
@@ -154,37 +154,37 @@ public class TaskListActivity extends BasePinglyActivity {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
 
-		final PinglyTask target = data.findTaskById(info.id);
+		final Probe probe = data.findProbeById(info.id);
 		
 		switch (item.getItemId()) {
 
-			case R.id.task_list_contextmenu_run:
-				Log.d("PINGLY", "Running target: " + target);
+			case R.id.probe_list_contextmenu_run:
+				Log.d("PINGLY", "Running probe: " + probe);
 				
-				goToTaskRunner(target.id);
+				goToProbeRunner(probe.id);
 				
 				return true;
 			
-			case R.id.task_list_contextmenu_edit:
-				Log.d("PINGLY", "Editing item: " + target);
+			case R.id.probe_list_contextmenu_edit:
+                Log.d("PINGLY", "Editing probe: " + probe);
 				
-				goToTaskDetails(target.id);
+				goToProbeDetails(probe.id);
 				
 				return true;
 
 
-			case R.id.task_list_contextmenu_delete:				
-				Log.d("PINGLY", "Deleting item: " + target);
+			case R.id.probe_list_contextmenu_delete:
+				Log.d("PINGLY", "Deleting probe: " + probe);
 				
 				AlertDialog dialog = new AlertDialog.Builder(this)
-						.setMessage("Are you sure you want to delete item '" + target.name + "'?")
+						.setMessage("Are you sure you want to delete probe '" + probe.name + "'?")
 				       .setCancelable(false)
 				       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				           public void onClick(DialogInterface dialog, int id) {
-				        	   data.deleteTask(target);
+				        	   data.deleteProbe(probe);
 								/* since we stay where we are (no activity state change), the startManagingCursor() registration in onCreate()
-								 * won't know to refresh the cursor/adapter.  We requery all tasks and pass the new cursor to the adapter. */
-								listAdapter.changeCursor(data.findAllTasks());								
+								 * won't know to refresh the cursor/adapter.  We requery all probes and pass the new cursor to the adapter. */
+								listAdapter.changeCursor(data.findAllProbes());
 				           }
 				       })
 				       .setNegativeButton("No", new DialogInterface.OnClickListener() {
