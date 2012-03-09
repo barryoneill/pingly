@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import net.nologin.meep.pingly.model.ProbeType;
 
 public class ProbeDetailActivity extends BasePinglyActivity {
 	
@@ -54,9 +55,9 @@ public class ProbeDetailActivity extends BasePinglyActivity {
         probeURL.setText(currentprobe.url);
 
         // attach contents
-        ProbeTypeAdapter adapter = new ProbeTypeAdapter(this);
-
-        probeType.setAdapter(adapter);
+        ProbeTypeAdapter typeAdapter = new ProbeTypeAdapter(this);
+        probeType.setAdapter(typeAdapter);
+        probeType.setSelection(typeAdapter.getItemPosition(currentprobe.type));
 
 
 		// attach listeners				
@@ -72,7 +73,8 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 				String name = probeName.getText().toString().trim();
 				String desc = probeDesc.getText().toString().trim();
 				String url = probeURL.getText().toString().trim();
-				
+				ProbeType type = (ProbeType)probeType.getSelectedItem();
+                
 				// TODO: i18n strings
 				if(StringUtils.isBlank(name)) {
                     probeName.setError("Please supply a name.");
@@ -88,7 +90,8 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 				currentprobe.name = name;
 				currentprobe.desc = desc;
 				currentprobe.url = url;
-				
+				currentprobe.type = type;
+
 				Log.d(LOG_TAG, "Saving probe: " + currentprobe);
 				probeDataHelper.saveProbe(currentprobe);
 				
@@ -100,6 +103,5 @@ public class ProbeDetailActivity extends BasePinglyActivity {
    }   
 
 
-  
 }
  	

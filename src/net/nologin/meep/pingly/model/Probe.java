@@ -7,19 +7,21 @@ public class Probe {
 	public String name = "";
 	public String desc = "";
 	public String url = "";
+    public ProbeType type;
 	
 	public Probe(){
 	}
-	
-	public Probe(long id, String name, String desc, String url) {
+
+	public Probe(long id, String name, String desc, String url, ProbeType type) {
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
 		this.url = url;
+        this.type = type;
 	}
-	
-	public Probe(String name, String desc, String url) {
-		this(-1,name,desc,url);		
+
+	public Probe(String name, String desc, String url,ProbeType type) {
+		this(-1,name,desc,url,type);
 	}
 
 	public boolean isNew(){
@@ -28,7 +30,7 @@ public class Probe {
 	
 	@Override
 	public String toString(){		
-		return "Probe[id=" + id + ",name='" + name + "']";
+		return "Probe[id=" + id + ",type=" + type + ",name='" + name + "']";
 	}
 	
 }

@@ -13,7 +13,9 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textSize="20sp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#00a"
         android:text="name_placeholder" />
     <TextView
         android:id="@+id/probe_type_listitem_desc"
@@ -23,5 +25,6 @@
         android:layout_alignParentLeft="true"
         android:singleLine="false"
         android:textSize="14sp"
+        android:textStyle="italic"
         android:text="desc_placeholder" />
 </RelativeLayout>

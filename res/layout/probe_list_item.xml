@@ -5,8 +5,9 @@
     android:padding="5dip" 
     >
 
+    <!-- TODO: move formatting to theme  -->
     <TextView
-        android:id="@+id/firstLine"
+        android:id="@+id/probe_item_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"        
         android:layout_alignParentLeft="true"
@@ -14,16 +15,30 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:singleLine="true"
+        android:text="[item name placeholder]"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/secondLine"
+        android:id="@+id/probe_item_type"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"        
-        android:layout_below="@id/firstLine"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/probe_item_name"
         android:layout_alignParentLeft="true"
         android:ellipsize="end"
-        android:singleLine="true" 
+        android:singleLine="true"
+        android:text="[item type placeholder]"
+        android:textStyle="italic"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/probe_item_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"        
+        android:layout_below="@id/probe_item_type"
+        android:layout_alignParentLeft="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="[item desc placeholder]"
         android:textSize="14sp" />
 
 </RelativeLayout>

@@ -11,33 +11,43 @@ import android.widget.TextView;
 import net.nologin.meep.pingly.model.ProbeType;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ProbeTypeAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private Context context;
-    // we'll just accept the enum source order for now
-    private ProbeType[] probeTypes = ProbeType.values();
+
+    private List<ProbeType> probeTypes;
 
     public ProbeTypeAdapter(Context context) {
         super();
 
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+
+        // just accept enum order for now
+        probeTypes = Arrays.asList(ProbeType.values());
     }
 
     @Override
     public int getCount() {
-        return probeTypes.length;
+        return probeTypes.size();
     }
 
     @Override
     public ProbeType getItem(int pos) {
-        return probeTypes[pos];
+        return probeTypes.get(pos);
     }
 
     @Override
     public long getItemId(int pos) {
         return getItem(pos).id;
+    }
+
+    public int getItemPosition(ProbeType type){
+        return probeTypes.indexOf(type);
     }
 
     static class ViewHolder {
@@ -68,7 +78,7 @@ public class ProbeTypeAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ProbeType type = probeTypes[position];
+        ProbeType type = getItem(position);
 
         holder.name.setText(PinglyUtils.loadStringForName(context,type.getResourceNameForName()));
 
@@ -98,7 +108,7 @@ public class ProbeTypeAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ProbeType type = probeTypes[position];
+        ProbeType type = getItem(position);
 
         holder.name.setText(PinglyUtils.loadStringForName(context,type.getResourceNameForName()));
         holder.description.setText(PinglyUtils.loadStringForName(context, type.getResourceNameForDesc()));

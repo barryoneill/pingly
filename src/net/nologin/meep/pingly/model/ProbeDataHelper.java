@@ -28,6 +28,7 @@ public class ProbeDataHelper extends SQLiteOpenHelper {
 		public static final String TBL_NAME = "pingly_probes";
 
 		public static final String COL_ID = BaseColumns._ID;
+        public static final String COL_TYPE_ID = "type_id";
 		public static final String COL_NAME = "probe_name";
 		public static final String COL_DESC = "desc";
 		public static final String COL_URL = "url";
@@ -37,14 +38,15 @@ public class ProbeDataHelper extends SQLiteOpenHelper {
 		// make sure names match above
 		public static final String CREATE_SQL = "CREATE TABLE pingly_probes " + "("
 				+ "   _id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "   type_id INTEGER NOT NULL,"
 				+ "   t_created DATETIME DEFAULT CURRENT_TIMESTAMP,"
 				+ "   t_lastmod DATETIME DEFAULT CURRENT_TIMESTAMP,"
 				+ "   probe_name TEXT NOT NULL UNIQUE,"
 				+ "   desc TEXT,"
 				+ "   url URL" + ")";
 		
-		public static final String[] FROM_ALL = { COL_ID, COL_NAME, COL_DESC,
-				COL_URL, COL_CREATED, COL_LASTMOD };
+		public static final String[] FROM_ALL = { COL_ID, COL_TYPE_ID, COL_NAME, COL_DESC,
+				                                COL_URL, COL_CREATED, COL_LASTMOD };
 	}
 
 	public ProbeDataHelper(Context context) {
@@ -137,23 +139,31 @@ public class ProbeDataHelper extends SQLiteOpenHelper {
 	public void generateTestItems() {
 	
 		String[][] items = {
-				{"Guardian Football Mobile", "Check the mobile version of the Guardian Football site", "http://m.guardian.co.uk/football?cat=football"},
-				{"Test Google","Do a test run against Google","http://www.google.com"},
-				{"Test Google HTTPS","Do a test run against Google (https)","https://www.google.com"},
-				{"Microsoft","Same again, against Microsoft","http://www.microsoft.com"},
-				{"Redbrick","This is a really long string to test that the truncation in the list view is working","http://www.redbrick.dcu.ie"},
-				{"Scrabblefinder","Ding ding ding", "http://www.scrabblefinder.com"}
+				{"Guardian Football Mobile", "0", "Check the mobile version of the Guardian Football site", "http://m.guardian.co.uk/football?cat=football"},
+				{"Test Google", "1", "Do a test run against Google","http://www.google.com"},
+				{"Test Google HTTPS", "2", "Do a test run against Google (https)","https://www.google.com"},
+				{"Microsoft", "3", "Same again, against Microsoft","http://www.microsoft.com"},
+				{"Redbrick", "4", "This is a really long string to test that the truncation in the list view is working","http://www.redbrick.dcu.ie"},
+				{"Scrabblefinder", "5", "Ding ding ding", "http://www.scrabblefinder.com"}
 		};
 		
+        String name, desc, url;
+        ProbeType type;
+        
 		for(String[] line : items){
 			
-			String name = line[0];
+			name = line[0];
+            type = ProbeType.fromId(Long.parseLong(line[1]));
+            desc = line[2];
+            url = line[3];
+            
 			if(findProbeByName(name) != null){
 				// names have to be unique, add something to further duplicates
 				name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";	
 			}
-			
-			saveProbe(new Probe(name, line[1], line[2]));
+			            
+            
+			saveProbe(new Probe(name,desc,url,type));
 		}
 		
 	}
@@ -162,9 +172,10 @@ public class ProbeDataHelper extends SQLiteOpenHelper {
 
 		ContentValues cv = new ContentValues();
 
+        cv.put(TBL_PROBE.COL_TYPE_ID, probe.type.id);
 		cv.put(TBL_PROBE.COL_NAME, probe.name);
 		cv.put(TBL_PROBE.COL_DESC, probe.desc);
-		cv.put(TBL_PROBE.COL_URL, probe.url);
+		cv.put(TBL_PROBE.COL_URL, probe.url);        
 
 		SQLiteDatabase db = getWritableDatabase();
 		if (probe.isNew()) {
@@ -187,6 +198,8 @@ public class ProbeDataHelper extends SQLiteOpenHelper {
 
 		Probe probe = new Probe();
 		probe.id = c.getLong(c.getColumnIndexOrThrow(TBL_PROBE.COL_ID));
+        long typeId = c.getLong(c.getColumnIndexOrThrow(TBL_PROBE.COL_TYPE_ID));
+        probe.type = ProbeType.fromId(typeId);
 		probe.name = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_NAME));
 		probe.desc = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_DESC));
 		probe.url = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_URL));
