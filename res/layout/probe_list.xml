@@ -1,72 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeLayout1"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+                android:id="@+id/relativeLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
     <LinearLayout
-        android:id="@+id/titleBar"
-        style="@style/TitleBar"
-        android:layout_alignParentTop="true" >
+            android:id="@+id/titleBar"
+            style="@style/TitleBar"
+            android:layout_alignParentTop="true">
 
-        <ImageView
-            style="@style/TitleBarLogo"
-            android:contentDescription="desc"
-            android:onClick="goHome"
-            android:src="@android:drawable/ic_menu_compass" />
+        <ImageView style="@style/TitleBarLogo"
+                   android:contentDescription="Go home"
+                   android:src="@drawable/menu_main"
+                   android:clickable="true"
+                   android:focusable="true"
+                   android:onClick="goHome"
+                   android:background="@drawable/titlebar_bgselector_dark"/>
 
-        <ImageView style="@style/TitleBarSeparator" />
+
+        <ImageView style="@style/TitleBarSeparator"/>
 
         <TextView
-            style="@style/TitleBarText"
-            android:text="Configured Probes" />
+                style="@style/TitleBarText"
+                android:text="Probes"/>
 
         <ImageButton
-            style="@style/TitleBarAction"
-            android:contentDescription="Configure New Probe"
-            android:onClick="createNewProbe"
-            android:src="@android:drawable/ic_menu_add" />
-        
+                style="@style/TitleBarAction"
+                android:contentDescription="Configure New Probe"
+                android:onClick="createNewProbe"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@android:drawable/ic_menu_add"
+                android:background="@drawable/titlebar_bgselector_dark"/>
+
         <!--  temp  -->
-		<ImageButton
-            android:id="@+id/but_generateTestItems"
-            style="@style/TitleBarAction"
-            android:contentDescription="Add Dummy Probes"
-            android:src="@android:drawable/ic_menu_upload"
-            android:clickable="true" />
-        
-		<!--  temp  -->
         <ImageButton
-            android:id="@+id/but_deleteAllItems"
-            style="@style/TitleBarAction"
-            android:contentDescription="Add Dummy Probes"
-            android:src="@android:drawable/ic_menu_delete"
-            android:clickable="true" />
-        
+                android:id="@+id/but_generateTestItems"
+                style="@style/TitleBarAction"
+                android:contentDescription="Add Dummy Probes"
+                android:src="@android:drawable/ic_menu_upload"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/titlebar_bgselector_dark"/>
+
+        <!--  temp  -->
+        <ImageButton
+                android:id="@+id/but_deleteAllItems"
+                style="@style/TitleBarAction"
+                android:contentDescription="Add Dummy Probes"
+                android:src="@android:drawable/ic_menu_delete"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/titlebar_bgselector_dark"/>
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/titleBar"
-        android:orientation="vertical" >
-
-        <ListView
-            android:id="@+id/probeList"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:divider="#FF004400"
-            android:dividerHeight="1dp"
-            android:drawSelectorOnTop="false">
+            android:layout_below="@id/titleBar"
+            android:orientation="vertical">
+
+        <ListView
+                android:id="@+id/probeList"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="#FF004400"
+                android:dividerHeight="1dp"
+                android:drawSelectorOnTop="false">
         </ListView>
 
         <TextView
-            android:id="@+id/emptyListElem"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="50dip"
-            android:gravity="center_horizontal"
-            android:text="No Probes Configured" />
+                android:id="@+id/emptyListElem"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="50dip"
+                android:gravity="center_horizontal"
+                android:text="No Probes Configured"/>
     </LinearLayout>
 
 </RelativeLayout>

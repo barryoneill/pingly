@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- <color name="title_background">#ff355689</color> -->
-    <color name="title_background">#ff005408</color>
+
+    <!-- dark green: <color name="title_background">#ff005408</color>-->
+    <color name="title_background">#ff006b82</color>
     <color name="title_text">#ffffffff</color>
     <color name="title_text_alt">#ff000000</color>
     <color name="foreground1">#ff355689</color>
@@ -16,4 +18,8 @@
     <color name="probe_status_running">#ffde9205</color>
     <color name="probe_status_success">#ff26bf1c</color>
     <color name="probe_status_failed">#ffc7100f</color>
+
+    <!-- backgrounds for the title bar bg selector -->
+    <drawable name="titlebar_icon_bg_focused">#44ffffff</drawable>
+    <drawable name="titlebar_icon_bg_pressed">#88ffffff</drawable>
 </resources>

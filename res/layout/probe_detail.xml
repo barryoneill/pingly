@@ -9,17 +9,19 @@
             style="@style/TitleBar"
             android:layout_alignParentTop="true">
 
-        <ImageView
-                style="@style/TitleBarLogo"
-                android:contentDescription="desc"
-                android:src="@android:drawable/ic_menu_compass"
-                android:onClick="goHome"/>
+        <ImageView style="@style/TitleBarLogo"
+                   android:contentDescription="Go home"
+                   android:src="@drawable/menu_main"
+                   android:clickable="true"
+                   android:focusable="true"
+                   android:onClick="goHome"
+                   android:background="@drawable/titlebar_bgselector_dark"/>
 
         <ImageView style="@style/TitleBarSeparator"/>
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Configure New Probe"/>
+                android:text="Configure Probe"/>
 
         <!--  buttons for new probe?  -->
 
