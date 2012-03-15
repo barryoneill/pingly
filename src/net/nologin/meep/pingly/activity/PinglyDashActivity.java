@@ -46,7 +46,7 @@ public class PinglyDashActivity extends BasePinglyActivity {
 
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-		int icon = R.drawable.smile;
+		int icon = R.drawable.pingly_notification;
 		CharSequence tickerText = "TickerTxt";
 		long when = System.currentTimeMillis();
 
@@ -59,8 +59,7 @@ public class PinglyDashActivity extends BasePinglyActivity {
 		CharSequence contentTitle = "Notification Title";
 		CharSequence contentText = "This is a long text I want to see what happens when really long text is passed in as the content to a notification.";
 		Intent notificationIntent = new Intent(this, PinglyDashActivity.class);
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-				notificationIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,notificationIntent, 0);
 
 		notification.setLatestEventInfo(context, contentTitle, contentText,
 				contentIntent);

@@ -50,14 +50,14 @@
             <Button
                     android:id="@+id/but_dash_showProbes"
                     style="@style/HomeButton"
-                    android:drawableTop="@drawable/dash_list"
+                    android:drawableTop="@drawable/dash_probe_list_selector"
                     android:onClick="dashButtonClicked"
                     android:text="My Probes"/>
 
             <Button
                     android:id="@+id/but_dash_newProbe"
                     style="@style/HomeButton"
-                    android:drawableTop="@drawable/dash_list"
+                    android:drawableTop="@drawable/dash_new_probe_selector"
                     android:onClick="createNewProbe"
                     android:text="New Probe"/>
         </LinearLayout>
@@ -71,7 +71,7 @@
             <Button
                     android:id="@+id/but_dash_testNotify"
                     style="@style/HomeButton"
-                    android:drawableTop="@drawable/dash_list"
+                    android:drawableTop="@drawable/dash_new_probe_selector"
                     android:onClick="dashButtonClicked"
                     android:text="Test Notify"/>
 
@@ -79,11 +79,9 @@
             <Button
                     android:id="@+id/but_dash_other"
                     style="@style/HomeButton"
-                    android:drawableTop="@drawable/dash_list"
+                    android:drawableTop="@drawable/dash_new_probe_selector"
                     android:onClick="dashButtonClicked"
-                    android:text="I do NOTHING"
-                    android:visibility="invisible"
-                    android:disabled="true"/>
+                    android:text="I do NOTHING"/>
         </LinearLayout>
 
         <!--  dummy a third, but empty row for spacing  -->
