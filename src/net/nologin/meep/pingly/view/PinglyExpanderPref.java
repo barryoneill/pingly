@@ -65,7 +65,7 @@ public class PinglyExpanderPref extends PinglyBasePrefView {
 
         // caller should have provided an onClick, but let's not die because of that
         if(StringUtils.isBlank(onClickMethodName)){
-            String msg = "No 'onClick' defined on " + PinglyExpanderPref.this.getClass() + " view, id='" + idText + "'";
+            String msg = "No 'onClick' defined on view " + PinglyExpanderPref.this.getClass();
             Log.w(PinglyConstants.LOG_TAG,msg);
             return;
         }
@@ -77,12 +77,14 @@ public class PinglyExpanderPref extends PinglyBasePrefView {
                 onClickMethod = getContext().getClass().getMethod(onClickMethodName,
                         View.class);
             } catch (NoSuchMethodException e) {
-
+                int id = getId();
+                String idText = id == NO_ID ? "" : " with id '"
+                        + getContext().getResources().getResourceEntryName(
+                        id) + "'";
                 throw new IllegalStateException("Could not find a method " +
                         onClickMethodName + "(View) in the activity "
                         + getContext().getClass() + " for onClick handler"
-                        + " on view " + PinglyExpanderPref.this.getClass()
-                        + ", id='" + idText + "'", e);
+                        + " on view " + PinglyExpanderPref.this.getClass() + idText, e);
             }
         }
 

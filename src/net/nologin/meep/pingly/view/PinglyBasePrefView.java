@@ -36,10 +36,6 @@ public abstract class PinglyBasePrefView extends RelativeLayout implements View.
 
     private void initViewCommon(Context context, AttributeSet attrs) {
 
-        if(getId() != NO_ID){ // convenience for logging
-            idText = getContext().getResources().getResourceName(getId());
-        }
-
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.pingly_basepref_view, this);
 

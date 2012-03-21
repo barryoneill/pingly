@@ -18,7 +18,8 @@ public class ScheduleListActivity extends BasePinglyActivity {
         PinglyBasePrefView prefView = (PinglyBasePrefView)v;
         
         switch(v.getId()){
-            
+
+            /*
             case R.id.scheduled_probe_enabled:
                 prefView.setSummary("ONE WAS CLICKED");
                 break;
@@ -26,6 +27,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
             case R.id.scheduled_probe_enabled2:
                 prefView.setSummary("TWO WAS CLICKED");
                 break;
+            */
 
         }
         

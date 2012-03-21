@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.CheckBox;
 import net.nologin.meep.pingly.R;
 
-public class PinglyBooleanPref extends PinglyBasePrefView {
+public class PinglyBooleanPref extends PinglyBasePrefView  {
 
     private CheckBox checkBox;
     private String summaryOnVal;
     private String summaryOffVal;
-    
+
     public PinglyBooleanPref(Context context) {
         super(context);
     }
@@ -31,7 +31,7 @@ public class PinglyBooleanPref extends PinglyBasePrefView {
         boolean checked = false;
 
         if(attrs != null){
-            
+
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs,
                     R.styleable.PinglyBooleanPref);
 
@@ -66,7 +66,7 @@ public class PinglyBooleanPref extends PinglyBasePrefView {
         // clicking is done on this view itself, not the checkbox
         checkBox.setFocusable(false);
         checkBox.setClickable(false);
-        
+
     }
 
 
