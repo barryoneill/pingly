@@ -24,14 +24,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b85c79b8-c5f6-49fa-835a-48b08d8be289" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\drawable-hdpi\sdk10_hdpi_expander_ic_minimized.9.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/pingly_basepref_view.xml" afterPath="$PROJECT_DIR$/res/layout/pingly_basepref_view.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/schedule_details.xml" afterPath="$PROJECT_DIR$/res/layout/schedule_details.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/attrs.xml" afterPath="$PROJECT_DIR$/res/values/attrs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java" />
-      <change type="MOVED" beforePath="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\src\net\nologin\meep\pingly\view\PinglyCustomPref.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java" />
     </list>
     <ignored path="Pingly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,7 +94,7 @@
       <file leaf-file-name="schedule_details.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/schedule_details.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="113" column="43" selection-start="4588" selection-end="4588" vertical-scroll-proportion="0.0">
+            <state line="103" column="0" selection-start="4037" selection-end="4037" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -106,25 +103,25 @@
       <file leaf-file-name="pingly_basepref_view.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/pingly_basepref_view.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="31" selection-start="719" selection-end="719" vertical-scroll-proportion="0.0">
+            <state line="21" column="31" selection-start="1076" selection-end="1076" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PinglyExpanderPref.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="PinglyExpanderPref.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="12" selection-start="2149" selection-end="2149" vertical-scroll-proportion="0.0">
+            <state line="84" column="29" selection-start="2894" selection-end="2894" vertical-scroll-proportion="0.515625">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PinglyBasePrefView.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="PinglyBasePrefView.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="0" selection-start="1966" selection-end="1966" vertical-scroll-proportion="0.32307693">
+            <state line="39" column="56" selection-start="1316" selection-end="1316" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -183,11 +180,11 @@
         <option value="$PROJECT_DIR$/res/values/attrs.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyCustomPref.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" />
-        <option value="$PROJECT_DIR$/res/layout/schedule_details.xml" />
-        <option value="$PROJECT_DIR$/res/layout/pingly_basepref_view.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java" />
+        <option value="$PROJECT_DIR$/res/layout/pingly_basepref_view.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java" />
+        <option value="$PROJECT_DIR$/res/layout/schedule_details.xml" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java" />
       </list>
     </option>
   </component>
@@ -255,6 +252,66 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Pingly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -654,7 +711,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.49599144" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2041689" sideWeight="0.75473803" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22928914" sideWeight="0.74358976" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.49171567" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -667,9 +724,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997862" sideWeight="0.75473803" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.232496" sideWeight="0.75473803" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24526198" sideWeight="0.42116514" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25641027" sideWeight="0.44895777" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.232496" sideWeight="0.74358976" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16164994" sideWeight="0.42116514" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25641027" sideWeight="0.44895777" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -711,7 +768,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="finally decided on how the scheduler will look.  Tried overriding system prefs api, but stackoverflow indicates it's a bad idea, so I'm writing a pref-life View tag for the scheduler page (rather than have a monstrous unmaintainable page)" />
+    <option name="LAST_COMMIT_MESSAGE" value="adjusted naming convention, moved onclick definition to subclass, and fixed onclick for boolean pref view" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -729,6 +786,7 @@
     <MESSAGE value="Add types, add spinner with custom adapter for types." />
     <MESSAGE value="save probe type" />
     <MESSAGE value="finally decided on how the scheduler will look.  Tried overriding system prefs api, but stackoverflow indicates it's a bad idea, so I'm writing a pref-life View tag for the scheduler page (rather than have a monstrous unmaintainable page)" />
+    <MESSAGE value="adjusted naming convention, moved onclick definition to subclass, and fixed onclick for boolean pref view" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -738,11 +796,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2519" column="0" selection-start="90511" selection-end="90511" vertical-scroll-proportion="0.6609375" />
-      </provider>
-    </entry>
     <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/view/LayoutInflater.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="350" column="16" selection-start="13317" selection-end="13317" vertical-scroll-proportion="0.3323077" />
@@ -790,20 +843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/schedule_details.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="43" selection-start="4588" selection-end="4588" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/pingly_basepref_view.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="31" selection-start="719" selection-end="719" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/values/attrs.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="58" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0">
@@ -818,16 +857,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java">
+    <entry file="file://$PROJECT_DIR$/res/layout/pingly_basepref_view.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="12" selection-start="2149" selection-end="2149" vertical-scroll-proportion="0.0">
+        <state line="21" column="31" selection-start="1076" selection-end="1076" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="642" column="28" selection-start="27211" selection-end="27211" vertical-scroll-proportion="0.3328125">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="0" selection-start="1966" selection-end="1966" vertical-scroll-proportion="0.32307693">
+        <state line="39" column="56" selection-start="1316" selection-end="1316" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/schedule_details.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="0" selection-start="4037" selection-end="4037" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="29" selection-start="2894" selection-end="2894" vertical-scroll-proportion="0.515625">
           <folding />
         </state>
       </provider>

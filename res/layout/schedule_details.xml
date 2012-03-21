@@ -87,9 +87,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     pingly:name="Enabled:"
-                    pingly:summary="This Probe is Enabled"
-                    pingly:summaryOff="SCHEDULE DISABLED :("
-                    pingly:summaryOn="SCHEDULE IS ACTIVE :)"/>
+                    pingly:summaryOff="This scheduled probe is inactive"
+                    pingly:summaryOn="This scheduled probe is active"/>
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
@@ -100,7 +99,8 @@
                     android:layout_height="wrap_content"
                     pingly:name="Repetition:"
                     pingly:summary="Every 5 minutes"
-                    pingly:onClick="doIt"/>
+                    pingly:onClick="woggle"
+                    />
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>

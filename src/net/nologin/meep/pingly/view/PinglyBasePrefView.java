@@ -11,11 +11,12 @@ import net.nologin.meep.pingly.StringUtils;
 
 public abstract class PinglyBasePrefView extends RelativeLayout implements View.OnClickListener {
 
-    private TextView nameTextView;
-    private TextView summaryTextView;
+    protected TextView nameTextView;
+    protected TextView summaryTextView;
     protected ImageView expanderImage;
     protected CheckBox checkBox;
-
+    protected String idText = "";
+    
     public PinglyBasePrefView(Context context) {
         super(context);
         this.initViewCommon(context, null);
@@ -34,6 +35,10 @@ public abstract class PinglyBasePrefView extends RelativeLayout implements View.
     protected abstract void preparePinglyView(Context context, AttributeSet attrs);
 
     private void initViewCommon(Context context, AttributeSet attrs) {
+
+        if(getId() != NO_ID){ // convenience for logging
+            idText = getContext().getResources().getResourceName(getId());
+        }
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.pingly_basepref_view, this);
