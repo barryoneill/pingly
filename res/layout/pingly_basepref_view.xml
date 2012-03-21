@@ -22,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:src="@drawable/sdk10_hdpi_expander_ic_minimized"/>
+                android:src="@drawable/sdk_15_expander_ic_minimized"/>
+
     </LinearLayout>
 
     <TextView
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@id/pcp_rightContainer"
-            android:text="Enabled"
+            android:text=""
             style="@style/FormLabel"/>
     <TextView
             android:id="@+id/pcp_summary"
@@ -40,6 +41,6 @@
             android:layout_below="@id/pcp_name"
             android:layout_toLeftOf="@id/pcp_rightContainer"
             android:layout_alignLeft="@id/pcp_name"
-            android:text="This scheduled probe is active"/>
+            android:text=""/>
 
 </RelativeLayout>

@@ -1,18 +1,10 @@
 package net.nologin.meep.pingly.activity;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.core.AlarmTriggeredProbeReceiver;
-import net.nologin.meep.pingly.view.PinglyCustomPref;
-
-import java.util.Calendar;
-import java.util.TimeZone;
+import net.nologin.meep.pingly.view.PinglyBasePrefView;
 
 public class ScheduleListActivity extends Activity {
 
@@ -23,7 +15,7 @@ public class ScheduleListActivity extends Activity {
 
     public void doIt(View v) {
 
-        PinglyCustomPref prefView = (PinglyCustomPref)v;
+        PinglyBasePrefView prefView = (PinglyBasePrefView)v;
         
         switch(v.getId()){
             

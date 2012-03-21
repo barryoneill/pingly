@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="PinglyCustomPref">
+    <declare-styleable name="PinglyBasePrefView">
         <attr name="prefName" format="reference|string" />
-        <attr name="prefSummary" format="reference|string" />
+        <attr name="prefSummary" format="reference|string"/>
+    </declare-styleable>
+
+    <declare-styleable name="PinglyCustomPref">
         <attr name="prefOnClick" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="PinglyBooleanPref">
+        <attr name="checked" format="boolean" />
+        <attr name="prefSummaryOn" format="reference|string"/>
+        <attr name="prefSummaryOff" format="reference|string"/>
+    </declare-styleable>
+
 
 </resources>
