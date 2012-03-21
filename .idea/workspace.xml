@@ -23,23 +23,11 @@
     </option>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b85c79b8-c5f6-49fa-835a-48b08d8be289" name="Default" comment="add dummy">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/main_schedule.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/main_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/pingly_custom_pref.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/schedule_details.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/attrs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/days_of_week.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/SettingsActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/AlarmTriggeredProbeReceiver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/OnBootAlarmReschedulerReceiver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeIntentService.java" />
+    <list default="true" id="b85c79b8-c5f6-49fa-835a-48b08d8be289" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/sdk_15_expander_ic_minimized.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/sdk_15_expander_ic_minimized.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyCustomPref.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/main_dashboard.xml" afterPath="$PROJECT_DIR$/res/layout/main_dashboard.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/styles.xml" afterPath="$PROJECT_DIR$/res/values/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/PinglyDashActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/PinglyDashActivity.java" />
     </list>
     <ignored path="Pingly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -598,7 +586,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32998884" sideWeight="0.49599144" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32998884" sideWeight="0.49599144" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2041689" sideWeight="0.75473803" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -611,7 +599,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997862" sideWeight="0.75473803" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.232496" sideWeight="0.67001116" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.232496" sideWeight="0.67001116" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24526198" sideWeight="0.42116514" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25641027" sideWeight="0.44895777" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -656,7 +644,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="save probe type" />
+    <option name="LAST_COMMIT_MESSAGE" value="finally decided on how the scheduler will look.  Tried overriding system prefs api, but stackoverflow indicates it's a bad idea, so I'm writing a pref-life View tag for the scheduler page (rather than have a monstrous unmaintainable page)" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -673,6 +661,7 @@
     <MESSAGE value="start task run by clicking on it; add some status color stuff" />
     <MESSAGE value="Add types, add spinner with custom adapter for types." />
     <MESSAGE value="save probe type" />
+    <MESSAGE value="finally decided on how the scheduler will look.  Tried overriding system prefs api, but stackoverflow indicates it's a bad idea, so I'm writing a pref-life View tag for the scheduler page (rather than have a monstrous unmaintainable page)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
