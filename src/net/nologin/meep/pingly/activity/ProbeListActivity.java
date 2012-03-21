@@ -66,7 +66,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 			public void onClick(View v) {
 	
 				AlertDialog dialog = new AlertDialog.Builder(ProbeListActivity.this)
-				.setMessage("Generate Test Items?")
+				.setMessage("Generate ResourceListProvider Items?")
 				.setCancelable(false)
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			       public void onClick(DialogInterface dialog, int id) {

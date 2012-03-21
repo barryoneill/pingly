@@ -20,4 +20,20 @@
     <string name="probe_type_5_desc">Check the response body for the specified content</string>
     <string name="probe_type_6_name">Pingly JSON</string>
     <string name="probe_type_6_desc">The response delivers JSON which indicates a success or fail situation</string>
+    
+    <string name="day_of_week_0_name">Monday</string>
+    <string name="day_of_week_1_name">Tuesday</string>
+    <string name="day_of_week_2_name">Wednesday</string>
+    <string name="day_of_week_3_name">Thursday</string>
+    <string name="day_of_week_4_name">Friday</string>
+    <string name="day_of_week_5_name">Saturday</string>
+    <string name="day_of_week_6_name">Sunday</string>
+
+    <string name="scheduler_repetition_unit_0_name">Seconds</string>
+    <string name="scheduler_repetition_unit_1_name">Minutes</string>
+    <string name="scheduler_repetition_unit_2_name">Hours</string>
+    <string name="scheduler_repetition_unit_3_name">Days</string>
+    <string name="scheduler_repetition_unit_4_name">Weeks</string>
+    <string name="scheduler_repetition_unit_5_name">Months</string>
+    
 </resources>

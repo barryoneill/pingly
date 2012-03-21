@@ -4,6 +4,14 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import net.nologin.meep.pingly.PinglyConstants;
+import net.nologin.meep.pingly.StringUtils;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
 
 public class PinglyUtils {
 
@@ -26,4 +34,23 @@ public class PinglyUtils {
         }
         return context.getString(resId);
     }
+
+
+    public static String[] enumToResourceValueArray(Class c, String resourceNameMethod, Context ctx){
+
+        List<String> result = new ArrayList<String>();
+        try {
+            Method m = c.getMethod(resourceNameMethod);
+            for(Object enumElem : c.getEnumConstants()){
+                String resName = (String)m.invoke(enumElem);
+                result.add(loadStringForName(ctx,resName));
+            }
+        }
+        catch(Exception e){
+            Log.e(PinglyConstants.LOG_TAG,"Error parsing " + c,e);
+        }
+            
+        return result.toArray(new String[result.size()]);
+    }
+
 }

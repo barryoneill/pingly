@@ -69,8 +69,6 @@ public class PinglyExpanderPref extends PinglyBasePrefView {
             Log.w(PinglyConstants.LOG_TAG,msg);
             return;
         }
-        
-        Toast.makeText(getContext(), "And clicked", Toast.LENGTH_SHORT).show();
 
         if (onClickMethod == null) {
             try {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="days_of_week_names">
-        <item>Monday</item>
+        <item >Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
         <item>Thursday</item>
@@ -18,4 +18,6 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+
 </resources>
+

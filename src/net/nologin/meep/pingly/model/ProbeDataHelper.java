@@ -140,8 +140,8 @@ public class ProbeDataHelper extends SQLiteOpenHelper {
 	
 		String[][] items = {
 				{"Guardian Football Mobile", "0", "Check the mobile version of the Guardian Football site", "http://m.guardian.co.uk/football?cat=football"},
-				{"Test Google", "1", "Do a test run against Google","http://www.google.com"},
-				{"Test Google HTTPS", "2", "Do a test run against Google (https)","https://www.google.com"},
+				{"ResourceListProvider Google", "1", "Do a test run against Google","http://www.google.com"},
+				{"ResourceListProvider Google HTTPS", "2", "Do a test run against Google (https)","https://www.google.com"},
 				{"Microsoft", "3", "Same again, against Microsoft","http://www.microsoft.com"},
 				{"Redbrick", "4", "This is a really long string to test that the truncation in the list view is working","http://www.redbrick.dcu.ie"},
 				{"Scrabblefinder", "5", "Ding ding ding", "http://www.scrabblefinder.com"}
