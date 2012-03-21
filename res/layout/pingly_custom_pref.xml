@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="5dp">
+
+    <LinearLayout android:id="@+id/pcp_rightContainer"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_centerInParent="true">
+        <CheckBox
+                android:id="@+id/pcp_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"/>
+
+        <ImageView
+                android:id="@+id/pcp_expander"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:src="@drawable/sdk10_hdpi_expander_ic_minimized"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/pcp_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/pcp_rightContainer"
+            android:text="Enabled"
+            style="@style/FormLabel"/>
+    <TextView
+            android:id="@+id/pcp_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pcp_name"
+            android:layout_toLeftOf="@id/pcp_rightContainer"
+            android:layout_alignLeft="@id/pcp_name"
+            android:text="This scheduled probe is active"/>
+
+</RelativeLayout>

@@ -1,15 +1,16 @@
 package net.nologin.meep.pingly.activity;
 
+import android.util.Log;
 import net.nologin.meep.pingly.R;
-import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class PinglyDashActivity extends BasePinglyActivity {
 
@@ -30,11 +31,25 @@ public class PinglyDashActivity extends BasePinglyActivity {
 		case R.id.but_dash_newProbe:
 			createNewProbe(v);
 			break;
-		case R.id.but_dash_testNotify:			
-			doNotificationTest();
+		case R.id.but_dash_schedule:
+
+            //doNotificationTest();
+            Log.d(LOG_TAG, "Going to scheduler");
+            Intent slIndent = new Intent(getApplicationContext(),
+                    ScheduleListActivity.class);
+            slIndent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(slIndent);
+
 			break;
-		case R.id.but_dash_other: 
-			showDialog("Unimplemented");
+		case R.id.but_dash_settings:
+
+            Log.d(LOG_TAG, "Going to settings");
+            Intent scIntent = new Intent(getApplicationContext(),
+                    SettingsActivity.class);
+            scIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(scIntent);
+
+
 			break;
 		default:
 			break;
@@ -71,20 +86,20 @@ public class PinglyDashActivity extends BasePinglyActivity {
 	}
 
 
-	private void showDialog(String msg) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(
-				PinglyDashActivity.this);
-
-		builder.setMessage(msg)
-				.setCancelable(false)
-				.setPositiveButton("*Robotic Cough*",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
+//	private void showDialog(String msg) {
+//		AlertDialog.Builder builder = new AlertDialog.Builder(
+//				PinglyDashActivity.this);
+//
+//		builder.setMessage(msg)
+//				.setCancelable(false)
+//				.setPositiveButton("*Robotic Cough*",
+//						new DialogInterface.OnClickListener() {
+//							public void onClick(DialogInterface dialog, int id) {
+//								dialog.cancel();
+//							}
+//						});
+//		AlertDialog alert = builder.create();
+//		alert.show();
+//	}
 
 }

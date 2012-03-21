@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PinglyCustomPref">
+        <attr name="prefName" format="reference|string" />
+        <attr name="prefSummary" format="reference|string" />
+        <attr name="prefOnClick" format="string" />
+    </declare-styleable>
+
+</resources>

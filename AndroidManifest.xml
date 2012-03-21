@@ -6,27 +6,36 @@
 
     <uses-sdk android:minSdkVersion="7" />
 
-	<uses-permission android:name="android.permission.INTERNET" />    
+    <!-- reason: useless without internet -->
+	<uses-permission android:name="android.permission.INTERNET" />
+    <!-- reason: probes check internet connection present before running -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
-    <!-- android:icon="@drawable/smile" -->
+    <!-- reason: reschedule probes on reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
-        android:icon="@drawable/main_launcher_icon"
-        android:label="@string/app_name" 
-        android:theme="@style/Theme.D1"
-        android:name=".core.PinglyApplication">
-        <activity
-            android:label="@string/app_name"
-            android:name=".activity.PinglyDashActivity">
+        android:icon="@drawable/main_launcher_icon" android:label="@string/app_name"
+        android:theme="@style/Theme.D1" android:name=".core.PinglyApplication">
+
+        <activity android:label="@string/app_name" android:name=".activity.PinglyDashActivity">
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ProbeListActivity" android:label="@string/app_name"></activity>
-        <!--  android:windowSoftInputMode="adjustPan" stops the buttons being moved when the scrollview is resized for soft keyboard  -->
-        <activity android:name=".activity.ProbeDetailActivity" android:label="@string/app_name" android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".activity.ProbeRunActivity" android:label="@string/app_name"></activity>
+        <activity android:name=".activity.ProbeListActivity" android:label="@string/app_name"/>
+        <activity android:name=".activity.ProbeDetailActivity" android:label="@string/app_name" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activity.ProbeRunActivity" android:label="@string/app_name"/>
+        <activity android:name=".activity.SettingsActivity" android:label="@string/app_name"/>
+        <activity android:name=".activity.ScheduleListActivity" android:label="@string/app_name"/>
+
+        <receiver android:name=".core.OnBootAlarmReschedulerReceiver">
+            <intent-filter><action android:name="android.intent.action.BOOT_COMPLETED" /></intent-filter>
+        </receiver>
+        <receiver android:name=".core.AlarmTriggeredProbeReceiver"></receiver>
+
+        <service android:name=".core.ProbeIntentService"/>
+
     </application>
 
 </manifest>

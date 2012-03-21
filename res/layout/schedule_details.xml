@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:pingly="http://schemas.android.com/apk/res/net.nologin.meep.pingly"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+    <!--  title bar  -->
+    <LinearLayout
+            android:id="@+id/titleBar"
+            style="@style/TitleBar"
+            android:layout_alignParentTop="true">
+
+        <ImageView style="@style/TitleBarLogo"
+                   android:contentDescription="Go home"
+                   android:src="@drawable/menu_main"
+                   android:clickable="true"
+                   android:focusable="true"
+                   android:onClick="goHome"
+                   android:background="@drawable/titlebar_bgselector_dark"/>
+
+        <ImageView style="@style/TitleBarSeparator"/>
+
+        <TextView
+                style="@style/TitleBarText"
+                android:text="Schedule"/>
+
+        <!--  buttons for new probe?  -->
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/footerBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            style="@android:style/ButtonBar">
+
+        <Button
+                android:id="@+id/but_newProbe_save"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Save"/>
+
+        <Button
+                android:id="@+id/but_newProbe_cancel"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel"/>
+    </LinearLayout>
+
+    <!-- new probe form -->
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/footerBar"
+            android:layout_below="@id/titleBar"
+            android:scrollbars="vertical">
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="6dip">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Probe Summary"
+                    style="@style/FormLabel">
+            </TextView>
+
+            <TextView
+                    android:id="@+id/probe_detail_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="probe name">
+            </TextView>
+
+            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:background="?android:attr/listDivider"/>
+
+            <net.nologin.meep.pingly.view.PinglyCustomPref
+                    android:id="@+id/scheduled_probe_enabled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    pingly:prefName="Enabled:"
+                    pingly:prefSummary="This Probe is Enabled"
+                    pingly:prefOnClick="doIt"/>
+
+            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:background="?android:attr/listDivider"/>
+
+            <net.nologin.meep.pingly.view.PinglyCustomPref
+                    android:id="@+id/scheduled_probe_enabled3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    pingly:prefName="Repetition:"
+                    pingly:prefSummary="Every 5 minutes"
+                    pingly:prefOnClick="doIt"/>
+
+            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:background="?android:attr/listDivider"/>
+
+            <net.nologin.meep.pingly.view.PinglyCustomPref
+                    android:id="@+id/scheduled_probe_enabled2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    pingly:prefName="Active on Days:"
+                    pingly:prefSummary="Every Day"
+                    pingly:prefOnClick="doIt"/>
+
+            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:background="?android:attr/listDivider"/>
+
+            <net.nologin.meep.pingly.view.PinglyCustomPref
+                    android:id="@+id/scheduled_probe_enabled2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    pingly:prefName="Active during Hours:"
+                    pingly:prefSummary="All Day"
+                    pingly:prefOnClick="doIt"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

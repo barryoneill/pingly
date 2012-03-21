@@ -107,5 +107,7 @@
         <item name="android:textStyle">bold</item>
         <!--  <item name="android:textColor">@color/secondary_text_light</item> -->
     </style>
-    
+
+
+
 </resources>

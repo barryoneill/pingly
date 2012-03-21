@@ -69,14 +69,14 @@
                 android:orientation="horizontal">
 
             <Button
-                    android:id="@+id/but_dash_testNotify"
+                    android:id="@+id/but_dash_schedule"
                     style="@style/HomeButton"
                     android:drawableTop="@drawable/dash_schedule_selector"
                     android:onClick="dashButtonClicked"
                     android:text="Schedule"/>
 
             <Button
-                    android:id="@+id/but_dash_other"
+                    android:id="@+id/but_dash_settings"
                     style="@style/HomeButton"
                     android:drawableTop="@drawable/dash_settings_selector"
                     android:onClick="dashButtonClicked"
