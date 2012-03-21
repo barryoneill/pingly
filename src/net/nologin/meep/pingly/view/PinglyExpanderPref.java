@@ -13,20 +13,20 @@ import net.nologin.meep.pingly.StringUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class PinglyCustomPref extends PinglyBasePrefView implements View.OnClickListener {
+public class PinglyExpanderPref extends PinglyBasePrefView {
 
-    private String prefOnClick;
+    private String onClickMethodName;
     private Method onClickMethod;
 
-    public PinglyCustomPref(Context context) {
+    public PinglyExpanderPref(Context context) {
         super(context);
     }
 
-    public PinglyCustomPref(Context context, AttributeSet attrs) {
+    public PinglyExpanderPref(Context context, AttributeSet attrs) {
         super(context,attrs);
     }
 
-    public PinglyCustomPref(Context context, AttributeSet attrs, int defStyle) {
+    public PinglyExpanderPref(Context context, AttributeSet attrs, int defStyle) {
         super(context,attrs,defStyle);
     }
 
@@ -35,17 +35,17 @@ public class PinglyCustomPref extends PinglyBasePrefView implements View.OnClick
 
         if(attrs != null){
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs,
-                    R.styleable.PinglyCustomPref);
+                    R.styleable.PinglyExpanderPref);
 
             final int n = styledAttrs.getIndexCount();
             for (int i = 0; i < n; ++i) {
                 int attr = styledAttrs.getIndex(i);
                 
-                if(attr == R.styleable.PinglyCustomPref_prefOnClick){
+                if(attr == R.styleable.PinglyExpanderPref_onClick){
                     if (context.isRestricted()) {
                         throw new IllegalStateException("Onclick method attribute cannot be used within a restricted context");
                     }
-                    setPrefOnClick(styledAttrs.getString(attr));
+                    onClickMethodName = styledAttrs.getString(attr);
 
                 }
             }
@@ -53,29 +53,12 @@ public class PinglyCustomPref extends PinglyBasePrefView implements View.OnClick
         }
 
         // ensure checkbox gone but expander present
-        findViewById(R.id.pcp_checkBox).setVisibility(GONE);
-        findViewById(R.id.pcp_expander).setVisibility(VISIBLE);
+        checkBox.setVisibility(GONE);
+        expanderImage.setVisibility(VISIBLE);
         
     }
 
-    public void setPrefOnClick(String prefOnClick) {
 
-        Log.e(PinglyConstants.LOG_TAG, "INIT ON " + prefOnClick);
-
-        // this is based on android.view.View's constructor
-        this.prefOnClick = prefOnClick;
-
-
-        if(!StringUtils.isBlank(prefOnClick)) {
-
-            setOnClickListener(this);
-
-            // allow selection/highlight similar to a list item
-            setFocusable(true);
-            setBackgroundDrawable(getResources().getDrawable(android.R.drawable.list_selector_background));
-        }
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -84,7 +67,7 @@ public class PinglyCustomPref extends PinglyBasePrefView implements View.OnClick
 
         if (onClickMethod == null) {
             try {
-                onClickMethod = getContext().getClass().getMethod(prefOnClick,
+                onClickMethod = getContext().getClass().getMethod(onClickMethodName,
                         View.class);
             } catch (NoSuchMethodException e) {
                 int id = getId();
@@ -92,14 +75,14 @@ public class PinglyCustomPref extends PinglyBasePrefView implements View.OnClick
                         + getContext().getResources().getResourceEntryName(
                         id) + "'";
                 throw new IllegalStateException("Could not find a method " +
-                        prefOnClick + "(View) in the activity "
+                        onClickMethodName + "(View) in the activity "
                         + getContext().getClass() + " for onClick handler"
-                        + " on view " + PinglyCustomPref.this.getClass() + idText, e);
+                        + " on view " + PinglyExpanderPref.this.getClass() + idText, e);
             }
         }
 
         try {
-            onClickMethod.invoke(getContext(), PinglyCustomPref.this);
+            onClickMethod.invoke(getContext(), PinglyExpanderPref.this);
         } catch (IllegalAccessException e) {
             throw new IllegalStateException("Could not execute non "
                     + "public method of the activity", e);

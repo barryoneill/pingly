@@ -86,43 +86,43 @@
                     android:id="@+id/scheduled_probe_enabled"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:prefName="Enabled:"
-                    pingly:prefSummary="This Probe is Enabled"
-                    pingly:prefSummaryOff="SCHEDULE DISABLED :("
-                    pingly:prefSummaryOn="SCHEDULE IS ACTIVE :)"/>
+                    pingly:name="Enabled:"
+                    pingly:summary="This Probe is Enabled"
+                    pingly:summaryOff="SCHEDULE DISABLED :("
+                    pingly:summaryOn="SCHEDULE IS ACTIVE :)"/>
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
 
-            <net.nologin.meep.pingly.view.PinglyCustomPref
+            <net.nologin.meep.pingly.view.PinglyExpanderPref
                     android:id="@+id/scheduled_probe_enabled2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:prefName="Repetition:"
-                    pingly:prefSummary="Every 5 minutes"
-                    pingly:prefOnClick="b"/>
+                    pingly:name="Repetition:"
+                    pingly:summary="Every 5 minutes"
+                    pingly:onClick="doIt"/>
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
 
-            <net.nologin.meep.pingly.view.PinglyCustomPref
+            <net.nologin.meep.pingly.view.PinglyExpanderPref
                     android:id="@+id/scheduled_probe_enabled3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:prefName="Active on Days:"
-                    pingly:prefSummary="Every Day"
-                    pingly:prefOnClick="c"/>
+                    pingly:name="Active on Days:"
+                    pingly:summary="Every Day"
+                    pingly:onClick="doIt"/>
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
 
-            <net.nologin.meep.pingly.view.PinglyCustomPref
+            <net.nologin.meep.pingly.view.PinglyExpanderPref
                     android:id="@+id/scheduled_probe_enabled4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:prefName="Active during Hours:"
-                    pingly:prefSummary="All Day"
-                    pingly:prefOnClick="d"/>
+                    pingly:name="Active during Hours:"
+                    pingly:summary="All Day"
+                    pingly:onClick="doIt"/>
 
 
         </LinearLayout>

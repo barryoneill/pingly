@@ -24,14 +24,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b85c79b8-c5f6-49fa-835a-48b08d8be289" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java" />
       <change type="DELETED" beforePath="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\drawable-hdpi\sdk10_hdpi_expander_ic_minimized.9.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/schedule_details.xml" afterPath="$PROJECT_DIR$/res/layout/schedule_details.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/attrs.xml" afterPath="$PROJECT_DIR$/res/values/attrs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyCustomPref.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyCustomPref.java" />
-      <change type="MOVED" beforePath="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\layout\pingly_custom_pref.xml" afterPath="$PROJECT_DIR$/res/layout/pingly_basepref_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java" />
+      <change type="MOVED" beforePath="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\src\net\nologin\meep\pingly\view\PinglyCustomPref.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java" />
     </list>
     <ignored path="Pingly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,16 +97,25 @@
       <file leaf-file-name="schedule_details.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/schedule_details.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="34" selection-start="3368" selection-end="3368" vertical-scroll-proportion="0.0">
+            <state line="113" column="43" selection-start="4588" selection-end="4588" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PinglyCustomPref.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyCustomPref.java">
+      <file leaf-file-name="pingly_basepref_view.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/pingly_basepref_view.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="33" selection-start="590" selection-end="590" vertical-scroll-proportion="0.0">
+            <state line="16" column="31" selection-start="719" selection-end="719" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PinglyExpanderPref.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="70" column="12" selection-start="2149" selection-end="2149" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -115,7 +124,7 @@
       <file leaf-file-name="PinglyBasePrefView.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="9" selection-start="2493" selection-end="2493" vertical-scroll-proportion="0.66346157">
+            <state line="54" column="0" selection-start="1966" selection-end="1966" vertical-scroll-proportion="0.32307693">
               <folding />
             </state>
           </provider>
@@ -124,7 +133,7 @@
       <file leaf-file-name="PinglyBooleanPref.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="18" selection-start="2660" selection-end="2660" vertical-scroll-proportion="0.0">
+            <state line="87" column="9" selection-start="2640" selection-end="2640" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -133,7 +142,7 @@
       <file leaf-file-name="ScheduleListActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="59" selection-start="805" selection-end="805" vertical-scroll-proportion="0.0">
+            <state line="15" column="20" selection-start="451" selection-end="455" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -142,7 +151,7 @@
       <file leaf-file-name="attrs.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/values/attrs.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="48" selection-start="422" selection-end="422" vertical-scroll-proportion="0.0">
+            <state line="15" column="58" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -163,8 +172,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/layout/scheduled_item_details.xml" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/res/values/days_of_week.xml" />
         <option value="$PROJECT_DIR$/res/xml/scheduled_item_prefs.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduledItemPreferences.java" />
@@ -172,13 +179,15 @@
         <option value="$PROJECT_DIR$/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBaseView.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePref.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyCustomPref.java" />
         <option value="$PROJECT_DIR$/res/layout/pingly_custom_pref.xml" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java" />
         <option value="$PROJECT_DIR$/res/values/attrs.xml" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyCustomPref.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/schedule_details.xml" />
+        <option value="$PROJECT_DIR$/res/layout/pingly_basepref_view.xml" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java" />
       </list>
     </option>
   </component>
@@ -240,7 +249,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -374,6 +382,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -774,49 +783,51 @@
         <state line="205" column="26" selection-start="7163" selection-end="7163" vertical-scroll-proportion="0.24" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/pingly_basepref_view.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="26" selection-start="1729" selection-end="1729" vertical-scroll-proportion="0.99230766" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyCustomPref.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="33" selection-start="590" selection-end="590" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/attrs.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="48" selection-start="422" selection-end="422" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="59" selection-start="805" selection-end="805" vertical-scroll-proportion="0.0">
+        <state line="15" column="20" selection-start="451" selection-end="455" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/schedule_details.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="34" selection-start="3368" selection-end="3368" vertical-scroll-proportion="0.0">
+        <state line="113" column="43" selection-start="4588" selection-end="4588" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/pingly_basepref_view.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="31" selection-start="719" selection-end="719" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/attrs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="58" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="18" selection-start="2660" selection-end="2660" vertical-scroll-proportion="0.0">
+        <state line="87" column="9" selection-start="2640" selection-end="2640" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="12" selection-start="2149" selection-end="2149" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBasePrefView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="9" selection-start="2493" selection-end="2493" vertical-scroll-proportion="0.66346157">
+        <state line="54" column="0" selection-start="1966" selection-end="1966" vertical-scroll-proportion="0.32307693">
           <folding />
         </state>
       </provider>

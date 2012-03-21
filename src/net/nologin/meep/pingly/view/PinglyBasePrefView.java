@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import net.nologin.meep.pingly.StringUtils;
 
-public abstract class PinglyBasePrefView extends RelativeLayout {
+public abstract class PinglyBasePrefView extends RelativeLayout implements View.OnClickListener {
 
-    private TextView prefNameTV;
-    private TextView prefSummaryTV;
+    private TextView nameTextView;
+    private TextView summaryTextView;
+    protected ImageView expanderImage;
+    protected CheckBox checkBox;
 
     public PinglyBasePrefView(Context context) {
         super(context);
@@ -36,6 +38,11 @@ public abstract class PinglyBasePrefView extends RelativeLayout {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.pingly_basepref_view, this);
 
+        summaryTextView = (TextView)findViewById(R.id.pcp_summary);
+        nameTextView = (TextView)findViewById(R.id.pcp_name);
+        expanderImage = (ImageView)findViewById(R.id.pcp_expander);
+        checkBox = (CheckBox)findViewById(R.id.pcp_checkBox);
+        
         if(attrs != null){
 
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs,
@@ -46,38 +53,40 @@ public abstract class PinglyBasePrefView extends RelativeLayout {
                 int attr = styledAttrs.getIndex(i);
                 switch (attr) {
 
-                    case R.styleable.PinglyBasePrefView_prefName:
-                        setPrefName(styledAttrs.getString(attr));
+                    case R.styleable.PinglyBasePrefView_name:
+                        setName(styledAttrs.getString(attr));
                         break;
 
-                    case R.styleable.PinglyBasePrefView_prefSummary:
-                        setPrefSummary(styledAttrs.getString(attr));
+                    case R.styleable.PinglyBasePrefView_summary:
+                        setSummary(styledAttrs.getString(attr));
                         break;
                 }
             }
             styledAttrs.recycle();
         }
 
+        // allow selection/highlight similar to a list item
+        setFocusable(true);
+        setClickable(true);
+        setBackgroundDrawable(getResources().getDrawable(android.R.drawable.list_selector_background));
+
+        // each subclass should define onClick
+        setOnClickListener(this);
+
         // subclass do its stuff too
         preparePinglyView(context,attrs);
 
     }
 
-    public void setPrefName(String prefName) {
+    public void setName(String prefName) {
 
-        if(prefNameTV == null){
-            prefNameTV = (TextView)findViewById(R.id.pcp_name);
-        }
-        prefNameTV.setText(StringUtils.isBlank(prefName) ? "" : prefName);
+        nameTextView.setText(StringUtils.isBlank(prefName) ? "" : prefName);
 
     }
 
-    public void setPrefSummary(String prefSummary) {
+    public void setSummary(String prefSummary) {
 
-        if(prefSummaryTV == null){
-            prefSummaryTV = (TextView)findViewById(R.id.pcp_summary);
-        }
-        prefSummaryTV.setText(StringUtils.isBlank(prefSummary) ? "" : prefSummary);
+        summaryTextView.setText(StringUtils.isBlank(prefSummary) ? "" : prefSummary);
 
     }
 

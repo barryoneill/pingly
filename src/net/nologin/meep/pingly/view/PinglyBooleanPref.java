@@ -3,10 +3,9 @@ package net.nologin.meep.pingly.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.StringUtils;
 
 public class PinglyBooleanPref extends PinglyBasePrefView {
 
@@ -27,7 +26,7 @@ public class PinglyBooleanPref extends PinglyBasePrefView {
     }
 
     @Override
-    protected void preparePinglyView(Context context, AttributeSet attrs) {
+    protected void preparePinglyView(final Context context, AttributeSet attrs) {
 
         boolean checked = false;
 
@@ -45,11 +44,11 @@ public class PinglyBooleanPref extends PinglyBasePrefView {
                         checked = styledAttrs.getBoolean(attr,false);
                         break;
 
-                    case R.styleable.PinglyBooleanPref_prefSummaryOn:
+                    case R.styleable.PinglyBooleanPref_summaryOn:
                         summaryOnVal = styledAttrs.getString(attr);
                         break;
 
-                    case R.styleable.PinglyBooleanPref_prefSummaryOff:
+                    case R.styleable.PinglyBooleanPref_summaryOff:
                         summaryOffVal = styledAttrs.getString(attr);
                         break;
                 }
@@ -61,9 +60,13 @@ public class PinglyBooleanPref extends PinglyBasePrefView {
         setChecked(checked);
 
         // ensure expander gone but checkbox present
-        findViewById(R.id.pcp_checkBox).setVisibility(VISIBLE);
-        findViewById(R.id.pcp_expander).setVisibility(GONE);
+        checkBox.setVisibility(VISIBLE);
+        expanderImage.setVisibility(GONE);
 
+        // clicking is done on this view itself, not the checkbox
+        checkBox.setFocusable(false);
+        checkBox.setClickable(false);
+        
     }
 
 
@@ -79,12 +82,18 @@ public class PinglyBooleanPref extends PinglyBasePrefView {
             checkBox = (CheckBox)findViewById(R.id.pcp_checkBox);
         }
         checkBox.setChecked(checked);
-        
+
         if(checked && summaryOnVal != null){
-            setPrefSummary(summaryOnVal);
+            setSummary(summaryOnVal);
         }
         if(!checked && summaryOffVal != null){
-            setPrefSummary(summaryOffVal);
+            setSummary(summaryOffVal);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        setChecked(!getChecked());
     }
 }

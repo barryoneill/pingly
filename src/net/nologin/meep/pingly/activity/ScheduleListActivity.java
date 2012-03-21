@@ -6,7 +6,7 @@ import android.view.View;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.view.PinglyBasePrefView;
 
-public class ScheduleListActivity extends Activity {
+public class ScheduleListActivity extends BasePinglyActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,11 +20,11 @@ public class ScheduleListActivity extends Activity {
         switch(v.getId()){
             
             case R.id.scheduled_probe_enabled:
-                prefView.setPrefSummary("ONE WAS CLICKED");
+                prefView.setSummary("ONE WAS CLICKED");
                 break;
 
             case R.id.scheduled_probe_enabled2:
-                prefView.setPrefSummary("TWO WAS CLICKED");
+                prefView.setSummary("TWO WAS CLICKED");
                 break;
 
         }

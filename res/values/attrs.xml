@@ -2,18 +2,18 @@
 <resources>
 
     <declare-styleable name="PinglyBasePrefView">
-        <attr name="prefName" format="reference|string" />
-        <attr name="prefSummary" format="reference|string"/>
+        <attr name="name" format="reference|string" />
+        <attr name="summary" format="reference|string"/>
     </declare-styleable>
 
-    <declare-styleable name="PinglyCustomPref">
-        <attr name="prefOnClick" format="string" />
+    <declare-styleable name="PinglyExpanderPref">
+        <attr name="onClick" format="string" />
     </declare-styleable>
 
     <declare-styleable name="PinglyBooleanPref">
         <attr name="checked" format="boolean" />
-        <attr name="prefSummaryOn" format="reference|string"/>
-        <attr name="prefSummaryOff" format="reference|string"/>
+        <attr name="summaryOn" format="reference|string"/>
+        <attr name="summaryOff" format="reference|string"/>
     </declare-styleable>
 
 
