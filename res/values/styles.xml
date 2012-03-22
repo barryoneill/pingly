@@ -17,6 +17,7 @@
          -->
 	    <item name="android:textColorSecondaryInverse">@android:color/secondary_text_light</item>
     </style>
+    <!--
     <style name="Theme.D1dialog" parent="android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -24,6 +25,11 @@
     <style name="Theme.D1tranlucent" parent="android:style/Theme.Translucent">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+-->
+
+    <style name="PinglyDialogTheme" parent="android:style/Theme.Dialog">
+        <item name="android:textColor">#FFFFFFFF</item>
     </style>
 
     <style name="HomeButton">        	

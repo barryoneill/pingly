@@ -5,23 +5,34 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 
 public enum SchedulerRepetitionUnit  {
 
-    Seconds(0),
-    Minutes(1),
-    Hours(2),
-    Days(3),
-    Weeks(4),
-    Months(5);
+    // Name(id,maxvalue)
+    Seconds(0,59),
+    Minutes(1,59),
+    Hours(2,23),
+    Days(3,31),
+    Weeks(4,52),
+    Months(5,12);
 
-    private static String[] SPINNER_RESOURCE_VALUES;
+    private static IdValuePair[] ADAPTER_VALUES;
 
     public int id;
-
-    SchedulerRepetitionUnit(int id){
+    public int rangeUpperLimit;
+    
+    SchedulerRepetitionUnit(int id, int rangeUpperLimit){
         this.id = id;
+        this.rangeUpperLimit = rangeUpperLimit;
     }
 
+    public int getId(){
+        return id;
+    }
+    
     public String getResourceNameForName(){
         return "scheduler_repetition_unit_" + id + "_name";
+    }
+
+    public String getResourceNameForSummary(){
+        return "scheduler_repetition_unit_" + id + "_summary";
     }
 
     public static SchedulerRepetitionUnit fromId(long id){
@@ -33,13 +44,13 @@ public enum SchedulerRepetitionUnit  {
         throw new IllegalArgumentException("ID " + id  + " not a valid " + SchedulerRepetitionUnit.class.getSimpleName());
     }
 
-    public static String[] toSpinnerValueArray(Context ctx){
+    public static IdValuePair[] toSpinnerValueArray(Context ctx){
 
-        if(SPINNER_RESOURCE_VALUES == null){
-            SPINNER_RESOURCE_VALUES = PinglyUtils.enumToResourceValueArray(SchedulerRepetitionUnit.class,
-                                                                           "getResourceNameForName", ctx);
+        if(ADAPTER_VALUES == null){
+            ADAPTER_VALUES = PinglyUtils.enumToAdapterValuesArray(ctx, SchedulerRepetitionUnit.class,
+                                                                "getId","getResourceNameForName");
         }
-        return SPINNER_RESOURCE_VALUES;
+        return ADAPTER_VALUES;
     }
 
 

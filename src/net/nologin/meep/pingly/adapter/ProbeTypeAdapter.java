@@ -58,7 +58,6 @@ public class ProbeTypeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
         ViewHolder holder;
 
         if (convertView == null) {

@@ -25,7 +25,7 @@ public class OnBootAlarmReschedulerReceiver extends BroadcastReceiver {
         long when = System.currentTimeMillis();
 
         Notification notification = new Notification(icon, tickerText, when);
-        notification.defaults |= Notification.DEFAULT_SOUND;
+//        notification.defaults |= Notification.DEFAULT_SOUND;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
         notification.defaults |= Notification.FLAG_AUTO_CANCEL;
 

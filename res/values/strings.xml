@@ -30,10 +30,27 @@
     <string name="day_of_week_6_name">Sunday</string>
 
     <string name="scheduler_repetition_unit_0_name">Seconds</string>
+    <plurals name="scheduler_repetition_unit_0_summary">
+        <item quantity="one">Every Second</item><item quantity="other">Every %d Seconds</item>
+    </plurals>
     <string name="scheduler_repetition_unit_1_name">Minutes</string>
+    <plurals name="scheduler_repetition_unit_1_summary">
+        <item quantity="one">Every Minute</item><item quantity="other">Every %d Minutes</item>
+    </plurals>
     <string name="scheduler_repetition_unit_2_name">Hours</string>
+    <plurals name="scheduler_repetition_unit_2_summary">
+        <item quantity="one">Every Hour</item><item quantity="other">Every %d Hours</item>
+    </plurals>
     <string name="scheduler_repetition_unit_3_name">Days</string>
+    <plurals name="scheduler_repetition_unit_3_summary">
+        <item quantity="one">Every Day</item><item quantity="other">Every %d Days</item>
+    </plurals>
     <string name="scheduler_repetition_unit_4_name">Weeks</string>
+    <plurals name="scheduler_repetition_unit_4_summary">
+        <item quantity="one">Every Week</item><item quantity="other">Every %d Weeks</item>
+    </plurals>
     <string name="scheduler_repetition_unit_5_name">Months</string>
-    
+    <plurals name="scheduler_repetition_unit_5_summary">
+        <item quantity="one">Every Months</item><item quantity="other">Every %d Months</item>
+    </plurals>
 </resources>
