@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+    <TextView
+            android:id="@+id/schedule_activehours_currentsel"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+            android:text="12:30 pm"
+            android:textStyle="bold"/>
+
+    <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+        <TextView
+                android:id="@+id/schedule_repetition_freq_lowerN"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="00:00"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"/>
+
+        <TextView
+                android:id="@+id/schedule_repetition_freq_upperN"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="23:59"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"/>
+
+        <SeekBar
+                android:id="@+id/scheduler_repetition_freq"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:max="20"
+                android:progress="0"
+                android:layout_below="@id/schedule_repetition_freq_upperN"/>
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

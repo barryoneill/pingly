@@ -44,7 +44,7 @@ public enum SchedulerRepetitionUnit  {
         throw new IllegalArgumentException("ID " + id  + " not a valid " + SchedulerRepetitionUnit.class.getSimpleName());
     }
 
-    public static IdValuePair[] toSpinnerValueArray(Context ctx){
+    public static IdValuePair[] toAdapterValueArray(Context ctx){
 
         if(ADAPTER_VALUES == null){
             ADAPTER_VALUES = PinglyUtils.enumToAdapterValuesArray(ctx, SchedulerRepetitionUnit.class,

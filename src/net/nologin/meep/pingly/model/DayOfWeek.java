@@ -16,6 +16,7 @@ public enum DayOfWeek {
 
     public long id;
 
+    private static String[] STRING_VALUES;
 
     DayOfWeek(long id){
         this.id = id;
@@ -23,6 +24,14 @@ public enum DayOfWeek {
 
     public String getResourceNameForName(){
         return "day_of_week_" + id + "_name";
+    }
+
+    public static String[] toStringValueArray(Context ctx){
+
+        if(STRING_VALUES == null){
+            STRING_VALUES = PinglyUtils.enumToStringValuesArray(ctx, DayOfWeek.class,"getResourceNameForName");
+        }
+        return STRING_VALUES;
     }
 
     public static DayOfWeek fromId(long id){

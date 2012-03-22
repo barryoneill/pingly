@@ -6,20 +6,18 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.text.format.Time;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import net.nologin.meep.pingly.R;
+import net.nologin.meep.pingly.model.DayOfWeek;
 import net.nologin.meep.pingly.model.IdValuePair;
 import net.nologin.meep.pingly.model.SchedulerRepetitionUnit;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class ScheduleDetailActivity extends BasePinglyActivity {
@@ -149,7 +147,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         final TextView rangeUpper = (TextView) layout.findViewById(R.id.schedule_repetition_freq_upperN);
 
         // attach list to spinner
-        IdValuePair[] spinnerElems = SchedulerRepetitionUnit.toSpinnerValueArray(this);
+        IdValuePair[] spinnerElems = SchedulerRepetitionUnit.toAdapterValueArray(this);
         ArrayAdapter<IdValuePair> spinnerArrayAdapter = new ArrayAdapter<IdValuePair>(this, android.R.layout.simple_spinner_item, spinnerElems);
         repUnitSpinner.setAdapter(spinnerArrayAdapter);
 
@@ -219,14 +217,54 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
     public void configureActiveDays(View v) {
 
-        //PinglyBasePrefView prefView = (PinglyBasePrefView) v;
+        // resource list for days of week
+        String[] stringValues = DayOfWeek.toStringValueArray(this);
+        boolean[] selections = new boolean[stringValues.length];
+        for(int i=0; i<selections.length; i++){
+            selections[i] = true;
+        }
 
+        AlertDialog.Builder builder = getAlertDialogBuilder();
+        builder.setTitle("Choose Days")
+            .setMultiChoiceItems(stringValues, selections, new DialogInterface.OnMultiChoiceClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                    }
+                });
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //MyActivity.this.finish();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
 
     }
 
     public void configureActiveHours(View v) {
 
-        //PinglyBasePrefView prefView = (PinglyBasePrefView) v;
+        View layout = inflateScheduleDialogLayout(R.layout.schedule_detail_dialog_activehours);
+
+        AlertDialog.Builder builder = getAlertDialogBuilder();
+        builder.setView(layout);
+        builder.setTitle("Configure Active Hours");
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //MyActivity.this.finish();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        builder.create().show();
 
 
     }

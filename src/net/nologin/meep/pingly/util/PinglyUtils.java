@@ -51,6 +51,25 @@ public class PinglyUtils {
         return context.getResources().getQuantityString(resId,count,count);
     }
 
+    public static String[] enumToStringValuesArray(Context ctx, Class c, String valueMethod){
+
+        List<String> result = new ArrayList<String>();
+        try {
+            Method mVal = c.getMethod(valueMethod);
+
+            for(Object enumElem : c.getEnumConstants()){
+                String resVal = (String)mVal.invoke(enumElem);
+                result.add(loadStringForName(ctx,resVal));
+            }
+        }
+        catch(Exception e){
+            Log.e(PinglyConstants.LOG_TAG,"Error parsing " + c,e);
+        }
+
+        return result.toArray(new String[result.size()]);
+    }
+
+
     public static IdValuePair[] enumToAdapterValuesArray(Context ctx, Class c, String idMethod, String valueMethod){
 
         List<IdValuePair> result = new ArrayList<IdValuePair>();
