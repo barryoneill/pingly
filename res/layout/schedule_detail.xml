@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     pingly:name="Starts On:"
                     pingly:summary="21/03/2011 at 19:00"
-                    pingly:onClick=""
+                    pingly:onClick="configureStartTime"
                     />
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
