@@ -81,7 +81,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 					return;
 				}
 				
-				Probe duplicate = probeDataHelper.findProbeByName(name);
+				Probe duplicate = probeDAO.findProbeByName(name);
 				if(duplicate != null && duplicate.id != currentprobe.id) {
                     probeName.setError("That name is already in use by another probe");
 					return;
@@ -93,7 +93,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 				currentprobe.type = type;
 
 				Log.d(LOG_TAG, "Saving probe: " + currentprobe);
-				probeDataHelper.saveProbe(currentprobe);
+				probeDAO.saveProbe(currentprobe);
 				
 				goToProbeList(v);
 			}

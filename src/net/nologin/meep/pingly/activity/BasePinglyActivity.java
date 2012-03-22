@@ -1,8 +1,10 @@
 package net.nologin.meep.pingly.activity;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
+
+import net.nologin.meep.pingly.db.ProbeDAO;
+import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.Probe;
-import net.nologin.meep.pingly.model.ProbeDataHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,22 +15,27 @@ public abstract class BasePinglyActivity extends Activity {
 	
 	public static final String PARAMETER_PROBE_ID = "param_probe";
 
-	protected ProbeDataHelper probeDataHelper;
+	protected ProbeDAO probeDAO;
+    protected ScheduleDAO scheduleDAO;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		
-		probeDataHelper = new ProbeDataHelper(this);
+		probeDAO = new ProbeDAO(this);
+        scheduleDAO = new ScheduleDAO(this);
 	}	
 	
 	@Override
 	protected void onDestroy() {
 	    super.onDestroy();
-	    if (probeDataHelper != null) {
-	        probeDataHelper.close();
+	    if (probeDAO != null) {
+	        probeDAO.close();
 	    }
+        if (scheduleDAO != null) {
+            scheduleDAO.close();
+        }
 	}
 	
 	public Probe loadProbeParamIfPresent() {
@@ -42,7 +49,7 @@ public abstract class BasePinglyActivity extends Activity {
 			if(probeId >= 0){
 				Log.d(LOG_TAG, "Will be loading probe ID " + probeId);
 								
-				result = probeDataHelper.findProbeById(probeId);
+				result = probeDAO.findProbeById(probeId);
 				Log.d(LOG_TAG, "Got probe: " + result);
 			}
 		}

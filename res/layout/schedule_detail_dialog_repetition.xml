@@ -7,7 +7,7 @@
         android:padding="10dp">
 
     <Spinner
-            android:id="@+id/scheduler_repetition_type"
+            android:id="@+id/schedule_repetition_type"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
     </Spinner>
@@ -44,7 +44,7 @@
                 android:layout_alignParentRight="true"/>
 
         <SeekBar
-                android:id="@+id/scheduler_repetition_freq"
+                android:id="@+id/schedule_repetition_freq"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:max="20"

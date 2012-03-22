@@ -2,7 +2,7 @@ package net.nologin.meep.pingly.activity;
 
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.PinglyCursorProbeAdapter;
-import net.nologin.meep.pingly.model.ProbeDataHelper;
+import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.model.Probe;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -24,7 +24,7 @@ import android.widget.ListView;
 
 public class ProbeListActivity extends BasePinglyActivity {
 
-	private ProbeDataHelper data;
+	private ProbeDAO probeDAO;
 	private PinglyCursorProbeAdapter listAdapter;
 	
 	@Override
@@ -32,9 +32,9 @@ public class ProbeListActivity extends BasePinglyActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.probe_list);
 
-		data = new ProbeDataHelper(this);
+		probeDAO = new ProbeDAO(this);
 
-		Cursor allProbesCursor = data.findAllProbes();
+		Cursor allProbesCursor = probeDAO.findAllProbes();
 		listAdapter = new PinglyCursorProbeAdapter(this,allProbesCursor);
 		ListView lv = (ListView) findViewById(R.id.probeList);
 		lv.setAdapter(listAdapter);
@@ -70,8 +70,8 @@ public class ProbeListActivity extends BasePinglyActivity {
 				.setCancelable(false)
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			       public void onClick(DialogInterface dialog, int id) {
-						data.generateTestItems();
-						listAdapter.changeCursor(data.findAllProbes());
+						probeDAO.generateTestItems();
+						listAdapter.changeCursor(probeDAO.findAllProbes());
 			       }
 			   })
 			   .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -93,8 +93,8 @@ public class ProbeListActivity extends BasePinglyActivity {
 				.setCancelable(false)
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			       public void onClick(DialogInterface dialog, int id) {
-						data.deleteAll();
-						listAdapter.changeCursor(data.findAllProbes());
+						probeDAO.deleteAll();
+						listAdapter.changeCursor(probeDAO.findAllProbes());
 			       }
 			   })
 			   .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -115,8 +115,8 @@ public class ProbeListActivity extends BasePinglyActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if (data != null) {
-			data.close();
+		if (probeDAO != null) {
+			probeDAO.close();
 		}
 	}
 
@@ -132,7 +132,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 
 			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
-			Probe target = data.findProbeById(info.id);
+			Probe target = probeDAO.findProbeById(info.id);
 			menu.setHeaderTitle("Probe: '" + target.name + "'");
 
 			MenuInflater inflater1 = getMenuInflater();
@@ -154,7 +154,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
 
-		final Probe probe = data.findProbeById(info.id);
+		final Probe probe = probeDAO.findProbeById(info.id);
 		
 		switch (item.getItemId()) {
 
@@ -181,10 +181,10 @@ public class ProbeListActivity extends BasePinglyActivity {
 				       .setCancelable(false)
 				       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				           public void onClick(DialogInterface dialog, int id) {
-				        	   data.deleteProbe(probe);
+				        	   probeDAO.deleteProbe(probe);
 								/* since we stay where we are (no activity state change), the startManagingCursor() registration in onCreate()
 								 * won't know to refresh the cursor/adapter.  We requery all probes and pass the new cursor to the adapter. */
-								listAdapter.changeCursor(data.findAllProbes());
+                               listAdapter.changeCursor(probeDAO.findAllProbes());
 				           }
 				       })
 				       .setNegativeButton("No", new DialogInterface.OnClickListener() {
