@@ -3,22 +3,23 @@ package net.nologin.meep.pingly.model;
 import android.content.Context;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-public enum SchedulerRepetitionUnit  {
+public enum SchedulerRepeatType {
 
     // Name(id,maxvalue)
-    Seconds(0,59),
-    Minutes(1,59),
-    Hours(2,23),
-    Days(3,31),
-    Weeks(4,52),
-    Months(5,12);
+    OnceOff(0,1),
+    Seconds(1,59),
+    Minutes(2,59),
+    Hours(3,23),
+    Days(4,31),
+    Weeks(5,52),
+    Months(6,12);
 
     private static IdValuePair[] ADAPTER_VALUES;
 
     public int id;
     public int rangeUpperLimit;
     
-    SchedulerRepetitionUnit(int id, int rangeUpperLimit){
+    SchedulerRepeatType(int id, int rangeUpperLimit){
         this.id = id;
         this.rangeUpperLimit = rangeUpperLimit;
     }
@@ -35,19 +36,19 @@ public enum SchedulerRepetitionUnit  {
         return "scheduler_repetition_unit_" + id + "_summary";
     }
 
-    public static SchedulerRepetitionUnit fromId(long id){
-        for(SchedulerRepetitionUnit t : SchedulerRepetitionUnit.values()){
+    public static SchedulerRepeatType fromId(long id){
+        for(SchedulerRepeatType t : SchedulerRepeatType.values()){
             if(id == t.id){
                 return t;
             }
         }
-        throw new IllegalArgumentException("ID " + id  + " not a valid " + SchedulerRepetitionUnit.class.getSimpleName());
+        throw new IllegalArgumentException("ID " + id  + " not a valid " + SchedulerRepeatType.class.getSimpleName());
     }
 
     public static IdValuePair[] toAdapterValueArray(Context ctx){
 
         if(ADAPTER_VALUES == null){
-            ADAPTER_VALUES = PinglyUtils.enumToAdapterValuesArray(ctx, SchedulerRepetitionUnit.class,
+            ADAPTER_VALUES = PinglyUtils.enumToAdapterValuesArray(ctx, SchedulerRepeatType.class,
                                                                 "getId","getResourceNameForName");
         }
         return ADAPTER_VALUES;

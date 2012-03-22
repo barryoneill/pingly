@@ -30,12 +30,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b85c79b8-c5f6-49fa-835a-48b08d8be289" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/schedule_detail_dialog_activehours.xml" />
+      <change type="DELETED" beforePath="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\layout\schedule_detail_dialog_activehours.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/schedule_detail.xml" afterPath="$PROJECT_DIR$/res/layout/schedule_detail.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/schedule_detail_dialog_repetition.xml" afterPath="$PROJECT_DIR$/res/layout/schedule_detail_dialog_repetition.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/DayOfWeek.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/DayOfWeek.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepetitionUnit.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepetitionUnit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/util/PinglyUtils.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/util/PinglyUtils.java" />
+      <change type="MOVED" beforePath="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\src\net\nologin\meep\pingly\model\SchedulerRepetitionUnit.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepeatType.java" />
     </list>
     <ignored path="Pingly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -105,8 +106,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -118,8 +119,40 @@
       <file leaf-file-name="schedule_detail.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="0" selection-start="4648" selection-end="4648" vertical-scroll-proportion="0.0">
+            <state line="102" column="0" selection-start="3978" selection-end="3978" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SchedulerRepeatType.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepeatType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="48" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="55" selection-start="1692" selection-end="1692" vertical-scroll-proportion="0.27586207">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ScheduleDetailActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="176" column="59" selection-start="8150" selection-end="8150" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6742#6755#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -127,20 +160,8 @@
       <file leaf-file-name="schedule_detail_dialog_repetition.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail_dialog_repetition.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="0" selection-end="1989" vertical-scroll-proportion="0.0">
+            <state line="23" column="58" selection-start="799" selection-end="828" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ScheduleDetailActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="232" column="21" selection-start="10022" selection-end="10022" vertical-scroll-proportion="0.42068964">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#6667#6680#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -149,17 +170,6 @@
         <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/DayOfWeek.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="28" column="45" selection-start="504" selection-end="522" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="schedule_detail_dialog_activehours.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail_dialog_activehours.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="19" selection-start="594" selection-end="594" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -180,22 +190,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/Test.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/ResourceListProvider.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/adapter/ProbeTypeAdapter.java" />
         <option value="$PROJECT_DIR$/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/IdValuePair.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/OnBootAlarmReschedulerReceiver.java" />
-        <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/res/layout/schedule_detail_dialog_repetition.xml" />
-        <option value="$PROJECT_DIR$/res/layout/schedule_detail.xml" />
         <option value="$PROJECT_DIR$/res/layout/schedule_detail_dialog_starttime.xml" />
         <option value="$PROJECT_DIR$/res/layout/schedule_detail_dialog_activedays.xml" />
-        <option value="$PROJECT_DIR$/res/layout/schedule_detail_dialog_activehours.xml" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepetitionUnit.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/util/PinglyUtils.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/DayOfWeek.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/view/RangeSeekBar.java" />
+        <option value="$PROJECT_DIR$/res/layout/schedule_detail_dialog_activehours.xml" />
+        <option value="$PROJECT_DIR$/res/layout/schedule_detail.xml" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepetitionUnit.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepeatType.java" />
+        <option value="$PROJECT_DIR$/res/layout/schedule_detail_dialog_repetition.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
       </list>
     </option>
   </component>
@@ -257,310 +267,14 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="Pingly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lang" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lang" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="reflect" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="text" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="text" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="format" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="content" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -588,6 +302,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -709,21 +445,19 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="52" />
-    <property name="OverrideImplement.combined" value="true" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="70" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="70" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="69" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="69" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="71" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="695" />
@@ -738,8 +472,8 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
@@ -747,8 +481,8 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="HT063PL07163" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -757,6 +491,7 @@
       <recent name="net.nologin.meep.pingly.receiver" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\drawable-hdpi" />
       <recent name="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\layout" />
       <recent name="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\drawable" />
       <recent name="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\menu" />
@@ -811,6 +546,24 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -836,24 +589,6 @@
       <envs />
       <properties />
       <listeners />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -1004,7 +739,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.49599144" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22928914" sideWeight="0.83835006" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.83835006" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.49171567" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1018,13 +753,13 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997862" sideWeight="0.75473803" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2346339" sideWeight="0.83835006" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39910814" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16164994" sideWeight="0.42116514" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39576367" sideWeight="0.44895777" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39910814" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1061,7 +796,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="date and time picker stubs added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stub for days added, this probably also not ideal" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1085,6 +820,7 @@
     <MESSAGE value="add spinner from enum support" />
     <MESSAGE value="sub dialog for 'repetition' added, among other stuff" />
     <MESSAGE value="date and time picker stubs added" />
+    <MESSAGE value="Stub for days added, this probably also not ideal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1094,112 +830,67 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/content/ContextWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="13" selection-start="1526" selection-end="1526" vertical-scroll-proportion="0.28745645">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/view/ContextThemeWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="1076" selection-end="1076" vertical-scroll-proportion="0.39198607">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/probe_detail.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="0" selection-start="2304" selection-end="2852" vertical-scroll-proportion="0.66206896">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12016" column="28" selection-start="452470" selection-end="452470" vertical-scroll-proportion="0.39448276">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="0" selection-start="4648" selection-end="4648" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/text/format/Time.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="262" column="32" selection-start="7893" selection-end="7893" vertical-scroll-proportion="-2.1310344">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/app/DatePickerDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="5" selection-start="2061" selection-end="2061" vertical-scroll-proportion="0.53931034">
-          <folding />
-        </state>
+        <state line="58" column="5" selection-start="2061" selection-end="2061" vertical-scroll-proportion="0.53931034" />
       </provider>
     </entry>
     <entry file="file://D:/apps/dev/android-sdk/sources/android-15/java/util/Calendar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="354" column="7" selection-start="15697" selection-end="15697" vertical-scroll-proportion="0.43586206">
-          <folding />
-        </state>
+        <state line="354" column="7" selection-start="15697" selection-end="15697" vertical-scroll-proportion="0.43586206" />
       </provider>
     </entry>
     <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/app/TimePickerDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="13" selection-start="1203" selection-end="1203" vertical-scroll-proportion="-0.12413793">
+        <state line="35" column="13" selection-start="1203" selection-end="1203" vertical-scroll-proportion="-0.12413793" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/util/PinglyUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="51" selection-start="2220" selection-end="2220" vertical-scroll-proportion="0.41517243" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/DayOfWeek.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="45" selection-start="504" selection-end="522" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/widget/ProgressBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="316" column="12" selection-start="12715" selection-end="12715" vertical-scroll-proportion="-0.051209103">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/widget/AbsSeekBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="198" column="44" selection-start="6638" selection-end="6638" vertical-scroll-proportion="0.28965518">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/apps/dev/android-sdk/sources/android-15/android/widget/SeekBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="35" selection-start="1200" selection-end="1200" vertical-scroll-proportion="0.37241378">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail_dialog_starttime.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="38" selection-start="880" selection-end="880" vertical-scroll-proportion="0.42674252">
+        <state line="20" column="38" selection-start="880" selection-end="880" vertical-scroll-proportion="0.42674252" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="0" selection-start="3978" selection-end="3978" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail_dialog_repetition.xml">
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepeatType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="0" selection-end="1989" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail_dialog_activehours.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="19" selection-start="594" selection-end="594" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/SchedulerRepetitionUnit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="62" selection-start="809" selection-end="809" vertical-scroll-proportion="0.45517242">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/util/PinglyUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="51" selection-start="2220" selection-end="2220" vertical-scroll-proportion="0.41517243">
-          <folding>
-            <element signature="e#2143#2151#0" expanded="true" />
-            <element signature="e#2763#2776#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/DayOfWeek.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="45" selection-start="504" selection-end="522" vertical-scroll-proportion="0.0">
+        <state line="16" column="48" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1208,11 +899,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="21" selection-start="10022" selection-end="10022" vertical-scroll-proportion="0.42068964">
+        <state line="176" column="59" selection-start="8150" selection-end="8150" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6667#6680#0" expanded="true" />
+            <element signature="e#6742#6755#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail_dialog_repetition.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="58" selection-start="799" selection-end="828" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="55" selection-start="1692" selection-end="1692" vertical-scroll-proportion="0.27586207">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -13,7 +13,7 @@ import android.widget.*;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.DayOfWeek;
 import net.nologin.meep.pingly.model.IdValuePair;
-import net.nologin.meep.pingly.model.SchedulerRepetitionUnit;
+import net.nologin.meep.pingly.model.SchedulerRepeatType;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
 import java.text.SimpleDateFormat;
@@ -140,34 +140,41 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         View layout = inflateScheduleDialogLayout(R.layout.schedule_detail_dialog_repetition);
         
         // get refs
-        final Spinner repUnitSpinner = (Spinner) layout.findViewById(R.id.scheduler_repetition_unit);
+        final Spinner repeatSpinner = (Spinner) layout.findViewById(R.id.scheduler_repetition_type);
+        final View seekBarGrp = layout.findViewById(R.id.schedule_repetiton_seekBarGrp);
         final SeekBar seekBar = (SeekBar) layout.findViewById(R.id.scheduler_repetition_freq);
         final TextView summary = (TextView) layout.findViewById(R.id.schedule_repetition_summary);
         final TextView rangeLower = (TextView) layout.findViewById(R.id.schedule_repetition_freq_lowerN);
         final TextView rangeUpper = (TextView) layout.findViewById(R.id.schedule_repetition_freq_upperN);
 
         // attach list to spinner
-        IdValuePair[] spinnerElems = SchedulerRepetitionUnit.toAdapterValueArray(this);
-        ArrayAdapter<IdValuePair> spinnerArrayAdapter = new ArrayAdapter<IdValuePair>(this, android.R.layout.simple_spinner_item, spinnerElems);
-        repUnitSpinner.setAdapter(spinnerArrayAdapter);
+        IdValuePair[] spinnerElems = SchedulerRepeatType.toAdapterValueArray(this);
+        ArrayAdapter<IdValuePair> spinnerAdapter = new ArrayAdapter<IdValuePair>(this, android.R.layout.simple_spinner_item, spinnerElems);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        repeatSpinner.setAdapter(spinnerAdapter);
 
         // init state (will trigger setOnItemSelectedListener, do dependent init there)
-        repUnitSpinner.setSelection(repUnitSpinner.getFirstVisiblePosition());
+        repeatSpinner.setSelection(repeatSpinner.getFirstVisiblePosition());
 
-        repUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        repeatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {
 
                 IdValuePair selected = (IdValuePair) adapter.getSelectedItem();
-                SchedulerRepetitionUnit unit = SchedulerRepetitionUnit.fromId(selected.id);
+                SchedulerRepeatType repType = SchedulerRepeatType.fromId(selected.id);
 
-                seekBar.setMax(unit.rangeUpperLimit - 1); // can't set min, and starts at 0, so compensate
-                rangeLower.setText(String.valueOf(1));
-                rangeUpper.setText(String.valueOf(unit.rangeUpperLimit));
+                if(repType == SchedulerRepeatType.OnceOff){
+                    seekBarGrp.setVisibility(View.GONE);
+                }
+                else{
+                    seekBarGrp.setVisibility(View.VISIBLE);
+                    seekBar.setMax(repType.rangeUpperLimit - 1); // can't set min, and starts at 0, so compensate
+                    rangeLower.setText(String.valueOf(1));
+                    rangeUpper.setText(String.valueOf(repType.rangeUpperLimit));
+                }
 
                 summary.setText(PinglyUtils.loadStringForPlural(ScheduleDetailActivity.this,
-                        unit.getResourceNameForSummary(), seekBar.getProgress() + 1));
-                                
+                        repType.getResourceNameForSummary(), seekBar.getProgress() + 1));
             }
 
 
@@ -180,8 +187,8 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                IdValuePair selected = (IdValuePair) repUnitSpinner.getSelectedItem();
-                SchedulerRepetitionUnit unit = SchedulerRepetitionUnit.fromId(selected.id);
+                IdValuePair selected = (IdValuePair) repeatSpinner.getSelectedItem();
+                SchedulerRepeatType unit = SchedulerRepeatType.fromId(selected.id);
                 summary.setText(PinglyUtils.loadStringForPlural(ScheduleDetailActivity.this,
                         unit.getResourceNameForSummary(), progress + 1));
             }
@@ -246,28 +253,6 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
     }
 
-    public void configureActiveHours(View v) {
-
-        View layout = inflateScheduleDialogLayout(R.layout.schedule_detail_dialog_activehours);
-
-        AlertDialog.Builder builder = getAlertDialogBuilder();
-        builder.setView(layout);
-        builder.setTitle("Configure Active Hours");
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                //MyActivity.this.finish();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-
-        builder.create().show();
-
-
-    }
 
 
 }

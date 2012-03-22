@@ -122,15 +122,6 @@
                     pingly:summary="Every Day"
                     pingly:onClick="configureActiveDays"/>
 
-            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
-                  android:background="?android:attr/listDivider"/>
-
-            <net.nologin.meep.pingly.view.PinglyExpanderPref
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    pingly:name="Active during Hours:"
-                    pingly:summary="All Day"
-                    pingly:onClick="configureActiveHours"/>
 
         </LinearLayout>
     </ScrollView>
