@@ -36,7 +36,7 @@ public class PinglyDashActivity extends BasePinglyActivity {
             //doNotificationTest();
             Log.d(LOG_TAG, "Going to scheduler");
             Intent slIndent = new Intent(getApplicationContext(),
-                    ScheduleDetailActivity.class);
+                    ScheduleListActivity.class);
             slIndent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(slIndent);
 

@@ -9,13 +9,7 @@
             style="@style/TitleBar"
             android:layout_alignParentTop="true">
 
-        <ImageView style="@style/TitleBarLogo"
-                   android:contentDescription="Go home"
-                   android:src="@drawable/menu_main"
-                   android:clickable="true"
-                   android:focusable="true"
-                   android:onClick="goHome"
-                   android:background="@drawable/titlebar_bgselector_dark"/>
+        <ImageView style="@style/TitleBarHomeButton" />
 
         <ImageView style="@style/TitleBarSeparator"/>
 

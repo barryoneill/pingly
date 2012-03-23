@@ -10,12 +10,7 @@
             android:layout_alignParentTop="true"
             android:focusable="true"> <!-- focusable prevents focus on home by default -->
 
-        <ImageView style="@style/TitleBarLogo"
-                   android:contentDescription="desc"
-                   android:src="@drawable/menu_main"
-                   android:clickable="true"
-                   android:focusable="true"
-                   android:background="@drawable/titlebar_bgselector_dark"/>
+        <ImageView style="@style/TitleBarHomeButton" />
 
         <ImageView style="@style/TitleBarSeparator"/>
 

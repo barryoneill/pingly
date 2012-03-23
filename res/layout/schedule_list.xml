@@ -11,34 +11,18 @@
 
         <ImageView style="@style/TitleBarHomeButton" />
 
-
         <ImageView style="@style/TitleBarSeparator"/>
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Probes"/>
-
-        <ImageView style="@style/TitleBarSeparator"/>
+                android:text="Schedule"/>
 
         <ImageButton
                 android:onClick="createNewProbe"
-                style="@style/TitleBarClickable"
-                android:src="@android:drawable/ic_menu_add"/>
-
-        <!--  temp  -->
-        <ImageButton
-                android:id="@+id/but_generateTestItems"
-                style="@style/TitleBarClickable"
-                android:src="@android:drawable/ic_menu_upload"/>
-
-        <!--  temp  -->
-        <ImageButton
-                android:id="@+id/but_deleteAllItems"
-                style="@style/TitleBarClickable"
-                android:src="@android:drawable/ic_menu_delete"         />
+                android:src="@android:drawable/ic_menu_add"
+                style="@style/TitleBarClickable"/>
 
     </LinearLayout>
-
 
     <LinearLayout
             android:layout_width="fill_parent"
@@ -47,7 +31,7 @@
             android:orientation="vertical">
 
         <ListView
-                android:id="@+id/probeList"
+                android:id="@+id/schdeuleList"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:divider="#FF004400"
@@ -61,7 +45,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="50dip"
                 android:gravity="center_horizontal"
-                android:text="No Probes Configured"/>
+                android:text="Blah moo bing"/>
     </LinearLayout>
 
 </RelativeLayout>

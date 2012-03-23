@@ -52,13 +52,6 @@
         <item name="android:background">@color/title_background</item>
     </style>
 
-    <style name="TitleBarAction">
-        <item name="android:layout_width">@dimen/title_height</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">@null</item>
-        <!-- <item name="android:background">@drawable/title_button</item> -->
-    </style>
-
     <style name="TitleBarProgressIndicator" parent="@android:style/Widget.ProgressBar.Small">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -74,11 +67,18 @@
         <item name="android:background">@color/title_separator</item>
     </style>
 
-    <style name="TitleBarLogo">
-         <!--  <item name="android:id">@id/title_logo</item>  -->
+
+    <style name="TitleBarClickable">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/titlebar_bgselector_dark</item>
+    </style>
+    <style name="TitleBarHomeButton" parent="@style/TitleBarClickable">
+         <!--  <item name="android:id">@id/title_logo</item>  -->
+        <item name="android:src">@drawable/menu_main</item>
+        <item name="android:onClick">goHome</item>
     </style>
 
     <style name="TitleBarSpring">

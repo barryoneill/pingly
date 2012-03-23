@@ -24,15 +24,12 @@ import android.widget.ListView;
 
 public class ProbeListActivity extends BasePinglyActivity {
 
-	private ProbeDAO probeDAO;
 	private PinglyCursorProbeAdapter listAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.probe_list);
-
-		probeDAO = new ProbeDAO(this);
 
 		Cursor allProbesCursor = probeDAO.findAllProbes();
 		listAdapter = new PinglyCursorProbeAdapter(this,allProbesCursor);
