@@ -7,6 +7,7 @@ import java.io.StringWriter;
 import java.net.URI;
 
 import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.util.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -15,7 +16,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.StringUtils;
 import net.nologin.meep.pingly.model.ProbeResult;
 import net.nologin.meep.pingly.util.PinglyUtils;
 

@@ -135,14 +135,6 @@ public class ProbeListActivity extends BasePinglyActivity {
 			MenuInflater inflater1 = getMenuInflater();
 			inflater1.inflate(R.menu.probe_list_context, menu);
 
-			
-			
-			// menu.setHeaderTitle(Countries[info.position]);
-			// String[] menuItems =
-			// getResources().getStringArray(R.array.probeList_context_menu);
-			// for (int i = 0; i < menuItems.length; i++) {
-			// menu.add(Menu.NONE, i, i, menuItems[i]);
-			// }
 		}
 	}
 
@@ -169,6 +161,13 @@ public class ProbeListActivity extends BasePinglyActivity {
 				
 				return true;
 
+            case R.id.probe_list_contextmenu_schedule:
+
+                Log.d("PINGLY", "Scheduling probe: " + probe);
+
+                goToProbeScheduling(probe.id);
+
+                return true;
 
 			case R.id.probe_list_contextmenu_delete:
 				Log.d("PINGLY", "Deleting probe: " + probe);

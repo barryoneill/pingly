@@ -8,6 +8,7 @@ public class Probe {
 	public String desc = "";
 	public String url = "";
     public ProbeType type;
+
 	
 	public Probe(){
 	}

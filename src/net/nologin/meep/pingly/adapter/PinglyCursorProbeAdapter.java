@@ -1,7 +1,9 @@
 package net.nologin.meep.pingly.adapter;
 
+import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.StringUtils;
+import net.nologin.meep.pingly.util.DBUtils;
+import net.nologin.meep.pingly.util.StringUtils;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -12,7 +14,10 @@ import android.widget.TextView;
 import net.nologin.meep.pingly.model.ProbeType;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-import static net.nologin.meep.pingly.model.ProbeDataHelper.TBL_PROBE;
+import java.util.Date;
+import java.util.TimeZone;
+
+import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 
 public class PinglyCursorProbeAdapter extends SimpleCursorAdapter {
 

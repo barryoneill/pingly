@@ -1,7 +1,6 @@
 package net.nologin.meep.pingly.db;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
-import static net.nologin.meep.pingly.PinglyConstants.DATETIME_ISO8601;
 
 import java.util.Date;
 
@@ -88,8 +87,8 @@ public class ProbeDAO extends PinglyDataHelper {
 
         String[][] items = {
                 {"Guardian Football Mobile", "0", "Check the mobile version of the Guardian Football site", "http://m.guardian.co.uk/football?cat=football"},
-                {"ResourceListProvider Google", "1", "Do a test run against Google","http://www.google.com"},
-                {"ResourceListProvider Google HTTPS", "2", "Do a test run against Google (https)","https://www.google.com"},
+                {"Google", "1", "Do a test run against Google","http://www.google.com"},
+                {"Google HTTPS", "2", "Do a test run against Google (https)","https://www.google.com"},
                 {"Microsoft", "3", "Same again, against Microsoft","http://www.microsoft.com"},
                 {"Redbrick", "4", "This is a really long string to test that the truncation in the list view is working","http://www.redbrick.dcu.ie"},
                 {"Scrabblefinder", "5", "Ding ding ding", "http://www.scrabblefinder.com"}
@@ -131,9 +130,7 @@ public class ProbeDAO extends PinglyDataHelper {
             return db.insertOrThrow(TBL_PROBE.TBL_NAME, null, cv);
         } else {
 
-            // leave ID and create date alone, but update last modified
-            cv.put(TBL_PROBE.COL_LASTMOD, DATETIME_ISO8601.format(new Date()));
-
+            // trigger will update last modified column
             String whereClause = TBL_PROBE.COL_ID + "=" + probe.id;
             db.update(TBL_PROBE.TBL_NAME, cv, whereClause, null);
             return probe.id;

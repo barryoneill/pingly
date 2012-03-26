@@ -65,20 +65,36 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
                 + COL_ACTIVE + " INTEGER NOT NULL, "
                 + "FOREIGN KEY(" + COL_PROBE_ID + ") REFERENCES "
                         + TBL_PROBE.TBL_NAME + "(" + TBL_PROBE.COL_ID + ")"
-				+ "   )";
+				+ "   ) ";
+               
 
+        // create trigger tbl_modb after update on tbl for each row 
+        //begin update tbl set b = current_timestamp where id = old.id; end;
+        
 		public static final String[] FROM_ALL = { COL_ID, COL_PROBE_ID, COL_ACTIVE,
 				                                COL_CREATED, COL_LASTMOD };
 	}
 
+    private static String generateLastModTrigger(String tblName, String idName, String lastModName){
 
+        return " CREATE TRIGGER " + tblName + "_LM_TRIG "
+                + "AFTER UPDATE ON " + tblName + " FOR EACH ROW BEGIN "
+                + "UPDATE " + tblName + " SET " + lastModName + "=CURRENT_TIMESTAMP "
+                + "WHERE " + idName + "=OLD." + idName  + "; END";
+        
+    }
+        
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        Log.d(LOG_TAG, "Creating table: " + TBL_PROBE.CREATE_SQL);
-        Log.d(LOG_TAG, "Creating table: " + TBL_SCHEDULE.CREATE_SQL);
-
+        Log.d(LOG_TAG, "Creating tables/triggers for: " + TBL_PROBE.TBL_NAME);
         db.execSQL(TBL_PROBE.CREATE_SQL);
+        db.execSQL(generateLastModTrigger(TBL_PROBE.TBL_NAME,TBL_PROBE.COL_ID, TBL_PROBE.COL_LASTMOD));
+
+
+        Log.d(LOG_TAG, "Creating tables/triggers for: " + TBL_PROBE.TBL_NAME);
+        db.execSQL(TBL_SCHEDULE.CREATE_SQL);
+        db.execSQL(generateLastModTrigger(TBL_SCHEDULE.TBL_NAME,TBL_SCHEDULE.COL_ID, TBL_SCHEDULE.COL_LASTMOD));
     }
 
     // TODO: verify impl!

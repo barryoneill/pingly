@@ -17,7 +17,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_list);
 
-        Cursor allProbesCursor = probeDAO.findAllProbes();
+        Cursor allProbesCursor = scheduleDAO.findAllScheduledItems();
         listAdapter = new PinglyCursorProbeAdapter(this,allProbesCursor);
         ListView lv = (ListView) findViewById(R.id.schdeuleList);
         lv.setAdapter(listAdapter);

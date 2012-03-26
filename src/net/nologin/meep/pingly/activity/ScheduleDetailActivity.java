@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.model.DayOfWeek;
-import net.nologin.meep.pingly.model.IdValuePair;
-import net.nologin.meep.pingly.model.ScheduleRepeatType;
+import net.nologin.meep.pingly.model.*;
 import net.nologin.meep.pingly.util.PinglyUtils;
+import net.nologin.meep.pingly.view.PinglyBooleanPref;
+import net.nologin.meep.pingly.view.PinglyExpanderPref;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,25 +22,41 @@ import java.util.Calendar;
 
 public class ScheduleDetailActivity extends BasePinglyActivity {
 
+    private ScheduleEntry schedule;    
+
+    TextView probeName;
+    TextView probeSummary;
+    
+    PinglyBooleanPref scheduleEnabled;
+    PinglyExpanderPref scheduleStartTime;
+    PinglyExpanderPref scheduleRepetition;
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_detail);
 
+        schedule = new ScheduleEntry();        
+        schedule.probe = loadProbeParamIfPresent();
+        if(schedule.probe == null){ // should never happen, but is it the correct handling?
+            throw new IllegalArgumentException("This activity expects requires a proble ID parameter");
+        }
+
+        probeName = (TextView) findViewById(R.id.scheduled_probe_name);
+        probeSummary = (TextView) findViewById(R.id.scheduled_probe_summary);
+        scheduleEnabled = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_enabled);
+        scheduleStartTime = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_start_time);
+        scheduleRepetition = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_repetition);
+
+        
+        // TODO: i18n!
+        probeName.setText("Probe: " + schedule.probe.name);
+        probeSummary.setText(schedule.probe.desc);
+        scheduleEnabled.setChecked(schedule.active);
+
 
     }
 
-    private Context getDialogContext(){
-        return new ContextThemeWrapper(this, R.style.PinglyDialogTheme);
-    }
 
-    private View inflateScheduleDialogLayout(int layoutId){
-
-        return View.inflate(getDialogContext(), layoutId, (ViewGroup) getCurrentFocus());
-    }
-
-    private AlertDialog.Builder getAlertDialogBuilder() {
-        return new AlertDialog.Builder(getDialogContext());
-    }
 
     public void configureStartTime(View v) {
 
@@ -123,6 +139,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //MyActivity.this.finish();
+
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -222,37 +239,47 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
     }
 
-    public void configureActiveDays(View v) {
+//    public void configureActiveDays(View v) {
+//
+//        // resource list for days of week
+//        String[] stringValues = DayOfWeek.toStringValueArray(this);
+//        boolean[] selections = new boolean[stringValues.length];
+//        for(int i=0; i<selections.length; i++){
+//            selections[i] = true;
+//        }
+//
+//        AlertDialog.Builder builder = getAlertDialogBuilder();
+//        builder.setTitle("Choose Days")
+//            .setMultiChoiceItems(stringValues, selections, new DialogInterface.OnMultiChoiceClickListener(){
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//
+//                    }
+//                });
+//        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                //MyActivity.this.finish();
+//            }
+//        });
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                dialog.cancel();
+//            }
+//        });
+//        builder.create().show();
+//
+//    }
 
-        // resource list for days of week
-        String[] stringValues = DayOfWeek.toStringValueArray(this);
-        boolean[] selections = new boolean[stringValues.length];
-        for(int i=0; i<selections.length; i++){
-            selections[i] = true;
-        }
-
-        AlertDialog.Builder builder = getAlertDialogBuilder();
-        builder.setTitle("Choose Days")
-            .setMultiChoiceItems(stringValues, selections, new DialogInterface.OnMultiChoiceClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
-                    }
-                });
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                //MyActivity.this.finish();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        builder.create().show();
-
+    private Context getDialogContext(){
+        return new ContextThemeWrapper(this, R.style.PinglyDialogTheme);
     }
 
+    private View inflateScheduleDialogLayout(int layoutId){
+        return View.inflate(getDialogContext(), layoutId, (ViewGroup) getCurrentFocus());
+    }
 
+    private AlertDialog.Builder getAlertDialogBuilder() {
+        return new AlertDialog.Builder(getDialogContext());
+    }
 
 }

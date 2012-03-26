@@ -1,17 +1,21 @@
 package net.nologin.meep.pingly.model;
 
 
-// coming to crash a device near you soon
+import java.util.Date;
+
 public class ScheduleEntry {
 
+    public long id = -1;
+    public Probe probe = null;
+    public boolean active = true;
+    public Date startTime = null;
+    public ScheduleRepeatType repetition = ScheduleRepeatType.Minutes;
+
+
     public ScheduleEntry(){
-        // needed by ormlite
+
     }
 
-    public long id = -1;
 
-    public long probeId = -1;
-
-    public boolean active = false;
 
 }

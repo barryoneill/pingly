@@ -7,7 +7,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import net.nologin.meep.pingly.StringUtils;
+import net.nologin.meep.pingly.util.StringUtils;
 
 public abstract class PinglyBasePrefView extends RelativeLayout implements View.OnClickListener {
 

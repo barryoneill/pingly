@@ -2,13 +2,12 @@ package net.nologin.meep.pingly.view;
 
 import android.content.res.TypedArray;
 import android.util.Log;
-import android.widget.*;
 import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import net.nologin.meep.pingly.StringUtils;
+import net.nologin.meep.pingly.util.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

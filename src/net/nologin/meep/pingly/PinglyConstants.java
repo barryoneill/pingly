@@ -7,7 +7,11 @@ public class PinglyConstants {
 
 	public static final String LOG_TAG = "Pingly";
 
-    // for saving strings into 'DATETIME' fields, ContentValues lacks support
-    public static final DateFormat DATETIME_ISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    // http://www.sqlite.org/lang_createtable.html
+    public static final String SQLITE_FMT_CURRENT_TIMESTAMP = "yyyy-MM-dd HH:mm:ss";
+    public static final String SQLITE_FMT_CURRENT_TIME = "HH:mm:ss";
+    public static final String SQLITE_FMT_CURRENT_DATE = "yyyy-MM-dd";
+
+    
 	
 }

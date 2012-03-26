@@ -80,8 +80,7 @@ public abstract class BasePinglyActivity extends Activity {
 		startActivity(intent);
 
 	}
-	
-	
+
 	public void goToProbeDetails(long probeId) {
 		
 		Log.d(LOG_TAG, "Starting activity: " + ProbeDetailActivity.class.getName());
@@ -95,6 +94,20 @@ public abstract class BasePinglyActivity extends Activity {
 		startActivity(intent);
 
 	}
+
+    public void goToProbeScheduling(long probeId) {
+
+        Log.d(LOG_TAG, "Starting activity: " + ScheduleDetailActivity.class.getName());
+
+        Intent intent = new Intent(getApplicationContext(),
+                ScheduleDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        addProbeIdParam(intent, probeId);
+
+        startActivity(intent);
+
+    }
 	
 	private void addProbeIdParam(Intent intent, long probeId){
 		// add parameter if valid

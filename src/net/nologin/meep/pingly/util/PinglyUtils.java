@@ -1,19 +1,14 @@
 package net.nologin.meep.pingly.util;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;
-import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.StringUtils;
 import net.nologin.meep.pingly.model.IdValuePair;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 
 public class PinglyUtils {
@@ -51,7 +46,7 @@ public class PinglyUtils {
         return context.getResources().getQuantityString(resId,count,count);
     }
 
-    public static String[] enumToStringValuesArray(Context ctx, Class c, String valueMethod){
+    public static String[] enumToStringValuesArray(Context ctx, Class<?> c, String valueMethod){
 
         List<String> result = new ArrayList<String>();
         try {
@@ -70,7 +65,7 @@ public class PinglyUtils {
     }
 
 
-    public static IdValuePair[] enumToAdapterValuesArray(Context ctx, Class c, String idMethod, String valueMethod){
+    public static IdValuePair[] enumToAdapterValuesArray(Context ctx, Class<?> c, String idMethod, String valueMethod){
 
         List<IdValuePair> result = new ArrayList<IdValuePair>();
         try {

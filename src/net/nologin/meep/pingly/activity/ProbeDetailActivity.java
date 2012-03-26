@@ -4,7 +4,7 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 import android.widget.Spinner;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.StringUtils;
+import net.nologin.meep.pingly.util.StringUtils;
 import net.nologin.meep.pingly.adapter.ProbeTypeAdapter;
 import net.nologin.meep.pingly.model.Probe;
 

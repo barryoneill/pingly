@@ -2,7 +2,6 @@ package net.nologin.meep.pingly.db;
 
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
-import static net.nologin.meep.pingly.PinglyConstants.DATETIME_ISO8601;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,28 +21,6 @@ public class ScheduleDAO extends PinglyDataHelper {
         super(context);
     }
 
-//
-//	public ScheduleDAO(Context context) {
-//		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//	}
-//
-//	@Override
-//	public void onCreate(SQLiteDatabase db) {
-//
-//		Log.d(LOG_TAG, "Creating table: " + TBL_SCHEDULER_ENTRY.CREATE_SQL);
-//
-//		db.execSQL(TBL_SCHEDULER_ENTRY.CREATE_SQL);
-//	}
-//
-//	// TODO: verify impl!
-//	@Override
-//	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//
-//		Log.d(LOG_TAG, "Upgrading table");
-//
-//		db.execSQL("DROP TABLE IF EXISTS " + TBL_SCHEDULER_ENTRY.TBL_NAME);
-//		onCreate(db);
-//	}
 //
 //	public ScheduleEntry findById(long id) {
 //
@@ -79,16 +56,16 @@ public class ScheduleDAO extends PinglyDataHelper {
 //	}
 //
 //
-//	public Cursor findAll() {
-//
-//		Log.d(LOG_TAG, "Querying Table");
-//
-//		SQLiteDatabase db = getReadableDatabase();
-//		Cursor cursor = db.query(TBL_SCHEDULER_ENTRY.TBL_NAME, TBL_SCHEDULER_ENTRY.FROM_ALL, null,
-//				null, null, null, TBL_SCHEDULER_ENTRY.COL_CREATED);
-//
-//		return cursor;
-//	}
+    public Cursor findAllScheduledItems() {
+
+		Log.d(LOG_TAG, "Querying Table");
+
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, TBL_SCHEDULE.FROM_ALL, null,
+				null, null, null, TBL_SCHEDULE.COL_CREATED);
+
+		return cursor;
+	}
 //
 //	public void delete(ScheduleEntry entry) {
 //

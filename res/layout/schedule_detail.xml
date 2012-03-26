@@ -56,21 +56,25 @@
         <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="6dip">
+                android:orientation="vertical">
 
             <TextView
+                    android:id="@+id/scheduled_probe_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Probe Summary"
-                    style="@style/FormLabel">
+                    style="@style/FormLabel"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp">
             </TextView>
 
             <TextView
-                    android:id="@+id/probe_detail_name"
+                    android:id="@+id/scheduled_probe_summary"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="probe name">
+                    android:text="probe summary"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="5dp">
             </TextView>
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -88,6 +92,7 @@
                   android:background="?android:attr/listDivider"/>
 
             <net.nologin.meep.pingly.view.PinglyExpanderPref
+                    android:id="@+id/scheduled_probe_start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     pingly:name="Starts On:"
@@ -99,6 +104,7 @@
                   android:background="?android:attr/listDivider"/>
 
             <net.nologin.meep.pingly.view.PinglyExpanderPref
+                    android:id="@+id/scheduled_probe_repetition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     pingly:name="Repetition:"
@@ -106,16 +112,18 @@
                     pingly:onClick="configureRepetition"
                     />
 
+            <!-- coming later
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
 
             <net.nologin.meep.pingly.view.PinglyExpanderPref
+                    android:id="@+id/scheduled_probe_active_days"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     pingly:name="Active on Days:"
                     pingly:summary="Every Day"
                     pingly:onClick="configureActiveDays"/>
-
+            -->
 
         </LinearLayout>
     </ScrollView>
