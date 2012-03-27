@@ -6,18 +6,23 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.*;
 import net.nologin.meep.pingly.util.PinglyUtils;
 import net.nologin.meep.pingly.view.PinglyBooleanPref;
 import net.nologin.meep.pingly.view.PinglyExpanderPref;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static net.nologin.meep.pingly.PinglyConstants.*;
 
 
 public class ScheduleDetailActivity extends BasePinglyActivity {
@@ -30,11 +35,14 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
     PinglyBooleanPref scheduleEnabled;
     PinglyExpanderPref scheduleStartTime;
     PinglyExpanderPref scheduleRepetition;
-    
+
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_detail);
 
+        // init the schedule/probe for this activity
         schedule = new ScheduleEntry();        
         schedule.probe = loadProbeParamIfPresent();
         if(schedule.probe == null){ // should never happen, but is it the correct handling?
@@ -47,43 +55,58 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         scheduleStartTime = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_start_time);
         scheduleRepetition = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_repetition);
 
-        
         // TODO: i18n!
         probeName.setText("Probe: " + schedule.probe.name);
         probeSummary.setText(schedule.probe.desc);
         scheduleEnabled.setChecked(schedule.active);
-
+        updateStartTimeSummary();
 
     }
 
+    private void updateStartTimeSummary(){
 
+        if(schedule.startOnSave){
+            scheduleStartTime.setSummary("Start Immediately on Save"); // TODO: i18n!
+        }
+        else{
+            DateFormat df = new SimpleDateFormat(PinglyConstants.FMT_DATE_AND_TIME_SUMMARY);
+            scheduleStartTime.setSummary(df.format(schedule.startTime));
+        }
 
+    }
+
+    // called by onclick on 'start time' view
     public void configureStartTime(View v) {
 
         View layout = inflateScheduleDialogLayout(R.layout.schedule_detail_dialog_starttime);
 
-        final View futureControlsGrp = layout.findViewById(R.id.schedule_starttime_futureControlsGrp);
+        final View specificTimeGrp = layout.findViewById(R.id.schedule_starttime_specifictime_grp);
         final RadioGroup radioGrp = (RadioGroup) layout.findViewById(R.id.schedule_starttime_radiogrp);
-        final RadioButton radioNow = (RadioButton) layout.findViewById(R.id.schedule_starttime_radionow);
+        final RadioButton radioOnSave = (RadioButton) layout.findViewById(R.id.schedule_starttime_radio_onsave);
+        final RadioButton radioSpecific = (RadioButton) layout.findViewById(R.id.schedule_starttime_radio_specific);
         final TextView dateInfo = (TextView) layout.findViewById(R.id.schedule_starttime_dateinfo);
         final TextView timeInfo = (TextView) layout.findViewById(R.id.schedule_starttime_timeinfo);
         final Button dateBut = (Button) layout.findViewById(R.id.schedule_starttime_datebut);
         final Button timeBut = (Button) layout.findViewById(R.id.schedule_starttime_timebut);
 
-        // TODO: to be updated
-        Calendar now = Calendar.getInstance();
-        dateInfo.setText(new SimpleDateFormat("EEE, d MMM yyyy").format(now.getTime()));
-        timeInfo.setText(new SimpleDateFormat("h:mm a").format(now.getTime()));
+        // dialog holds its own 'date'.  If canceled, current schedule start date remains untouched
+        final Calendar localStartTime = Calendar.getInstance();
+        if(schedule.startTime != null){
+            localStartTime.setTime(schedule.startTime);
+        }
 
-        // init
-        radioNow.setSelected(true);
-        futureControlsGrp.setVisibility(View.INVISIBLE);
+        radioOnSave.setChecked(schedule.startOnSave);
+        radioSpecific.setChecked(!schedule.startOnSave);
+        specificTimeGrp.setVisibility(schedule.startOnSave ? View.INVISIBLE : View.VISIBLE);
+
+        dateInfo.setText(new SimpleDateFormat(FMT_DAY_DATE_DISPLAY).format(localStartTime.getTime()));
+        timeInfo.setText(new SimpleDateFormat(FMT_TIME_12H_DISPLAY).format(localStartTime.getTime()));
 
         radioGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                boolean futureSelected = checkedId == R.id.schedule_starttime_radiofuture;
-                futureControlsGrp.setVisibility(futureSelected ? View.VISIBLE : View.INVISIBLE);
+                boolean specific = checkedId == R.id.schedule_starttime_radio_specific;
+                specificTimeGrp.setVisibility(specific ? View.VISIBLE : View.INVISIBLE);
             }
         });
 
@@ -91,23 +114,25 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
             @Override
             public void onClick(View v) {
 
-                // TODO: change this
-                Calendar onClickTime = Calendar.getInstance();
-                
-                DatePickerDialog dateDialog = new DatePickerDialog(ScheduleDetailActivity.this,
+                DatePickerDialog dialog = new DatePickerDialog(ScheduleDetailActivity.this,
+
                         new DatePickerDialog.OnDateSetListener() {
+
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
-                                Calendar c= Calendar.getInstance();
-                                c.set(Calendar.YEAR,year);
-                                c.set(Calendar.MONTH, monthOfYear);
-                                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                dateInfo.setText(new SimpleDateFormat("EEE, d MMM yyyy").format(c.getTime()));
-                            }},
-                            // init with current time
-                            onClickTime.get(Calendar.YEAR),onClickTime.get(Calendar.MONTH),onClickTime.get(Calendar.DAY_OF_MONTH));
-                // dateDlg.updateDate(2012,12,25);
-                dateDialog.show();
+
+                                localStartTime.set(Calendar.YEAR,year);
+                                localStartTime.set(Calendar.MONTH, monthOfYear);
+                                localStartTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                dateInfo.setText(new SimpleDateFormat(FMT_DAY_DATE_DISPLAY).format(localStartTime.getTime()));
+                            }
+                        },
+                        // init with current time
+                        localStartTime.get(Calendar.YEAR),
+                        localStartTime.get(Calendar.MONTH),
+                        localStartTime.get(Calendar.DAY_OF_MONTH));
+
+                dialog.show();
             }
         });
         
@@ -115,38 +140,35 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
             @Override
             public void onClick(View v) {
 
-                // TODO: change this
-                Calendar onClickTime = Calendar.getInstance();
-
-                TimePickerDialog timeDialog = new TimePickerDialog(ScheduleDetailActivity.this,
+                TimePickerDialog dialog = new TimePickerDialog(ScheduleDetailActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                Calendar c= Calendar.getInstance();
-                                c.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                                c.set(Calendar.MINUTE, minute);
-                                timeInfo.setText(new SimpleDateFormat("h:mm a").format(c.getTime()));
+
+                                localStartTime.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                                localStartTime.set(Calendar.MINUTE, minute);
+                                timeInfo.setText(new SimpleDateFormat(FMT_TIME_12H_DISPLAY).format(localStartTime.getTime()));
 
                             }
-                        }, onClickTime.get(Calendar.HOUR_OF_DAY), onClickTime.get(Calendar.MINUTE), false);
-                timeDialog.show();
+                        }, localStartTime.get(Calendar.HOUR_OF_DAY), localStartTime.get(Calendar.MINUTE), false);
+                dialog.show();
             }
         });
 
         AlertDialog.Builder builder = getAlertDialogBuilder();
         builder.setView(layout);
-        builder.setTitle("Configure Start Time");
+        builder.setTitle("Configure Start Time");// TODO: i18n
 
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //MyActivity.this.finish();
+
+                // we're done, update the schedule held by the view with the local values
+                schedule.startOnSave = radioOnSave.isChecked();
+                schedule.startTime = localStartTime.getTime();
+                updateStartTimeSummary();
 
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton("Cancel",null); // TODO: i18n
 
         builder.create().show();
 
@@ -229,11 +251,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
                 //MyActivity.this.finish();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton("Cancel",null); // TODO: i18n
 
         builder.create().show();
 
@@ -261,11 +279,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 //                //MyActivity.this.finish();
 //            }
 //        });
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int id) {
-//                dialog.cancel();
-//            }
-//        });
+//        builder.setNegativeButton("Cancel",null); // TODO: i18n
 //        builder.create().show();
 //
 //    }

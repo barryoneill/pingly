@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:pingly="http://schemas.android.com/apk/res/net.nologin.meep.pingly"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
@@ -13,24 +12,22 @@
             android:layout_width="fill_parent"
             android:orientation="horizontal">
         <RadioButton
-                android:id="@+id/schedule_starttime_radionow"
-                android:text="Now"
+                android:id="@+id/schedule_starttime_radio_onsave"
+                android:text="On Save"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:checked="true"
                 />
         <RadioButton
-                android:id="@+id/schedule_starttime_radiofuture"
+                android:id="@+id/schedule_starttime_radio_specific"
                 android:text="Specific Time"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:checked="false"/>
+                android:layout_weight="1"/>
     </RadioGroup>
 
     <LinearLayout
-                android:id="@+id/schedule_starttime_futureControlsGrp"
+                android:id="@+id/schedule_starttime_specifictime_grp"
                     android:layout_height="wrap_content"
                   android:layout_width="fill_parent"
                    android:orientation="vertical"

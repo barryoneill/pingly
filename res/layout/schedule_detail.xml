@@ -95,8 +95,7 @@
                     android:id="@+id/scheduled_probe_start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:name="Starts On:"
-                    pingly:summary="21/03/2011 at 19:00"
+                    pingly:name="Starts:"
                     pingly:onClick="configureStartTime"
                     />
 
@@ -108,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     pingly:name="Repetition:"
-                    pingly:summary="Every 5 minutes"
+                    pingly:summary=""
                     pingly:onClick="configureRepetition"
                     />
 

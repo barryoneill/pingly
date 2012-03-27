@@ -89,10 +89,10 @@ public class PinglyExpanderPref extends PinglyBasePrefView {
             onClickMethod.invoke(getContext(), PinglyExpanderPref.this);
         } catch (IllegalAccessException e) {
             throw new IllegalStateException("Could not execute non "
-                    + "public method of the activity", e);
+                    + "public method '" + onClickMethodName + "' of the activity", e);
         } catch (InvocationTargetException e) {
             throw new IllegalStateException("Could not execute "
-                    + "method of the activity", e);
+                    + "method '" + onClickMethodName + "' of the activity", e);
         }
     }
 
