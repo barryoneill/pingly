@@ -1,27 +1,31 @@
 package net.nologin.meep.pingly.model;
 
-import android.content.Context;
-import net.nologin.meep.pingly.util.PinglyUtils;
 
 public enum ScheduleRepeatType {
 
     // Name(id,maxvalue)
-    OnceOff(0,1),
-    Seconds(1,59),
-    Minutes(2,59),
-    Hours(3,23),
-    Days(4,31),
-    Weeks(5,52),
-    Months(6,12);
-
-    private static IdValuePair[] ADAPTER_VALUES;
+    OnceOff(0,1,1),
+    Seconds(1,59,30),
+    Minutes(2,59,30),
+    Hours(3,23,1),
+    Days(4,31,1),
+    Weeks(5,52,1),
+    Months(6,12,1);
 
     public int id;
+    public int rangeLowerLimit;
     public int rangeUpperLimit;
+    public int defaultValue;
     
-    ScheduleRepeatType(int id, int rangeUpperLimit){
+    ScheduleRepeatType(int id, int rangeUpperLimit, int defaultValue){
+        this(id,1,rangeUpperLimit,defaultValue);
+    }
+
+    ScheduleRepeatType(int id, int rangeLowerLimit, int rangeUpperLimit, int defaultValue){
         this.id = id;
+        this.rangeLowerLimit = rangeLowerLimit;
         this.rangeUpperLimit = rangeUpperLimit;
+        this.defaultValue = defaultValue;
     }
 
     public int getId(){
@@ -43,15 +47,6 @@ public enum ScheduleRepeatType {
             }
         }
         throw new IllegalArgumentException("ID " + id  + " not a valid " + ScheduleRepeatType.class.getSimpleName());
-    }
-
-    public static IdValuePair[] toAdapterValueArray(Context ctx){
-
-        if(ADAPTER_VALUES == null){
-            ADAPTER_VALUES = PinglyUtils.enumToAdapterValuesArray(ctx, ScheduleRepeatType.class,
-                                                                "getId","getResourceNameForName");
-        }
-        return ADAPTER_VALUES;
     }
 
 

@@ -5,7 +5,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;
-import net.nologin.meep.pingly.model.IdValuePair;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -65,25 +64,6 @@ public class PinglyUtils {
     }
 
 
-    public static IdValuePair[] enumToAdapterValuesArray(Context ctx, Class<?> c, String idMethod, String valueMethod){
-
-        List<IdValuePair> result = new ArrayList<IdValuePair>();
-        try {
-            Method mVal = c.getMethod(valueMethod);
-            Method mId = c.getMethod(idMethod);
-            
-            for(Object enumElem : c.getEnumConstants()){
-                int id = (Integer)mId.invoke(enumElem);
-                String resVal = (String)mVal.invoke(enumElem);
-                result.add(new IdValuePair(id,loadStringForName(ctx,resVal)));
-            }
-        }
-        catch(Exception e){
-            Log.e(PinglyConstants.LOG_TAG,"Error parsing " + c,e);
-        }
-            
-        return result.toArray(new IdValuePair[result.size()]);
-    }
 
 
 }

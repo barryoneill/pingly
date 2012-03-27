@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
+import net.nologin.meep.pingly.adapter.ScheduleRepeatTypeAdapter;
 import net.nologin.meep.pingly.model.*;
 import net.nologin.meep.pingly.util.PinglyUtils;
 import net.nologin.meep.pingly.view.PinglyBooleanPref;
@@ -20,6 +21,7 @@ import net.nologin.meep.pingly.view.PinglyExpanderPref;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import static net.nologin.meep.pingly.PinglyConstants.*;
@@ -27,15 +29,14 @@ import static net.nologin.meep.pingly.PinglyConstants.*;
 
 public class ScheduleDetailActivity extends BasePinglyActivity {
 
-    private ScheduleEntry schedule;    
+    private ScheduleEntry schedule;
 
     TextView probeName;
     TextView probeSummary;
-    
+
     PinglyBooleanPref scheduleEnabled;
     PinglyExpanderPref scheduleStartTime;
     PinglyExpanderPref scheduleRepetition;
-
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,9 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         setContentView(R.layout.schedule_detail);
 
         // init the schedule/probe for this activity
-        schedule = new ScheduleEntry();        
+        schedule = new ScheduleEntry();
         schedule.probe = loadProbeParamIfPresent();
-        if(schedule.probe == null){ // should never happen, but is it the correct handling?
+        if (schedule.probe == null) { // should never happen, but is it the correct handling?
             throw new IllegalArgumentException("This activity expects requires a proble ID parameter");
         }
 
@@ -60,20 +61,9 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         probeSummary.setText(schedule.probe.desc);
         scheduleEnabled.setChecked(schedule.active);
         updateStartTimeSummary();
-
+        updateRepetitionSummary();
     }
 
-    private void updateStartTimeSummary(){
-
-        if(schedule.startOnSave){
-            scheduleStartTime.setSummary("Start Immediately on Save"); // TODO: i18n!
-        }
-        else{
-            DateFormat df = new SimpleDateFormat(PinglyConstants.FMT_DATE_AND_TIME_SUMMARY);
-            scheduleStartTime.setSummary(df.format(schedule.startTime));
-        }
-
-    }
 
     // called by onclick on 'start time' view
     public void configureStartTime(View v) {
@@ -91,7 +81,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
         // dialog holds its own 'date'.  If canceled, current schedule start date remains untouched
         final Calendar localStartTime = Calendar.getInstance();
-        if(schedule.startTime != null){
+        if (schedule.startTime != null) {
             localStartTime.setTime(schedule.startTime);
         }
 
@@ -119,9 +109,9 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-                                localStartTime.set(Calendar.YEAR,year);
+                                localStartTime.set(Calendar.YEAR, year);
                                 localStartTime.set(Calendar.MONTH, monthOfYear);
                                 localStartTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                                 dateInfo.setText(new SimpleDateFormat(FMT_DAY_DATE_DISPLAY).format(localStartTime.getTime()));
@@ -135,7 +125,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
                 dialog.show();
             }
         });
-        
+
         timeBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +134,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                                localStartTime.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                                localStartTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
                                 localStartTime.set(Calendar.MINUTE, minute);
                                 timeInfo.setText(new SimpleDateFormat(FMT_TIME_12H_DISPLAY).format(localStartTime.getTime()));
 
@@ -168,16 +158,27 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
             }
         });
-        builder.setNegativeButton("Cancel",null); // TODO: i18n
+        builder.setNegativeButton("Cancel", null); // TODO: i18n
 
         builder.create().show();
+
+    }
+
+    private void updateStartTimeSummary() {
+
+        if (schedule.startOnSave) {
+            scheduleStartTime.setSummary("Start Immediately on Save"); // TODO: i18n!
+        } else {
+            DateFormat df = new SimpleDateFormat(PinglyConstants.FMT_DATE_AND_TIME_SUMMARY);
+            scheduleStartTime.setSummary(df.format(schedule.startTime));
+        }
 
     }
 
     public void configureRepetition(View v) {
 
         View layout = inflateScheduleDialogLayout(R.layout.schedule_detail_dialog_repetition);
-        
+
         // get refs
         final Spinner repeatSpinner = (Spinner) layout.findViewById(R.id.schedule_repetition_type);
         final View seekBarGrp = layout.findViewById(R.id.schedule_repetiton_seekBarGrp);
@@ -187,35 +188,32 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         final TextView rangeUpper = (TextView) layout.findViewById(R.id.schedule_repetition_freq_upperN);
 
         // attach list to spinner
-        IdValuePair[] spinnerElems = ScheduleRepeatType.toAdapterValueArray(this);
-        ArrayAdapter<IdValuePair> spinnerAdapter = new ArrayAdapter<IdValuePair>(this, android.R.layout.simple_spinner_item, spinnerElems);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        repeatSpinner.setAdapter(spinnerAdapter);
+        ScheduleRepeatTypeAdapter adapter = new ScheduleRepeatTypeAdapter(this);
+        repeatSpinner.setAdapter(adapter);
 
-        // init state (will trigger setOnItemSelectedListener, do dependent init there)
-        repeatSpinner.setSelection(repeatSpinner.getFirstVisiblePosition());
+        // init
+        repeatSpinner.setSelection(adapter.getItemPosition(schedule.repeatType));
+        seekBar.setMax(schedule.repeatType.rangeUpperLimit - 1); // setProgress has no effect until max is set
+        seekBar.setProgress(schedule.repeatAmount);
 
         repeatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {
 
-                IdValuePair selected = (IdValuePair) adapter.getSelectedItem();
-                ScheduleRepeatType repType = ScheduleRepeatType.fromId(selected.id);
+                ScheduleRepeatType selected = (ScheduleRepeatType) adapter.getSelectedItem();
 
-                if(repType == ScheduleRepeatType.OnceOff){
-                    seekBarGrp.setVisibility(View.GONE);
-                }
-                else{
+                if (selected == ScheduleRepeatType.OnceOff) {
+                    seekBarGrp.setVisibility(View.INVISIBLE);
+                } else {
                     seekBarGrp.setVisibility(View.VISIBLE);
-                    seekBar.setMax(repType.rangeUpperLimit - 1); // can't set min, and starts at 0, so compensate
+                    seekBar.setMax(selected.rangeUpperLimit - 1); // can't set min, and starts at 0, so compensate
                     rangeLower.setText(String.valueOf(1));
-                    rangeUpper.setText(String.valueOf(repType.rangeUpperLimit));
+                    rangeUpper.setText(String.valueOf(selected.rangeUpperLimit));
                 }
 
                 summary.setText(PinglyUtils.loadStringForPlural(ScheduleDetailActivity.this,
-                        repType.getResourceNameForSummary(), seekBar.getProgress() + 1));
+                        selected.getResourceNameForSummary(), seekBar.getProgress()));
             }
-
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -226,18 +224,17 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                IdValuePair selected = (IdValuePair) repeatSpinner.getSelectedItem();
-                ScheduleRepeatType unit = ScheduleRepeatType.fromId(selected.id);
+                ScheduleRepeatType selected = (ScheduleRepeatType) repeatSpinner.getSelectedItem();
                 summary.setText(PinglyUtils.loadStringForPlural(ScheduleDetailActivity.this,
-                        unit.getResourceNameForSummary(), progress + 1));
+                        selected.getResourceNameForSummary(), progress+1));
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar) { // nop
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch(SeekBar seekBar) { // nop
             }
 
         });
@@ -248,12 +245,27 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         builder.setTitle("Configure Frequency");
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //MyActivity.this.finish();
+
+                schedule.repeatType = (ScheduleRepeatType) repeatSpinner.getSelectedItem();
+                schedule.repeatAmount = seekBar.getProgress()+1;
+                updateRepetitionSummary();
+
             }
         });
-        builder.setNegativeButton("Cancel",null); // TODO: i18n
+        builder.setNegativeButton("Cancel", null); // TODO: i18n
 
         builder.create().show();
+
+    }
+
+
+    private void updateRepetitionSummary() {
+
+
+        String summary = PinglyUtils.loadStringForPlural(ScheduleDetailActivity.this,
+                schedule.repeatType.getResourceNameForSummary(), schedule.repeatAmount);
+
+        scheduleRepetition.setSummary(summary);
 
     }
 
@@ -284,11 +296,11 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 //
 //    }
 
-    private Context getDialogContext(){
+    private Context getDialogContext() {
         return new ContextThemeWrapper(this, R.style.PinglyDialogTheme);
     }
 
-    private View inflateScheduleDialogLayout(int layoutId){
+    private View inflateScheduleDialogLayout(int layoutId) {
         return View.inflate(getDialogContext(), layoutId, (ViewGroup) getCurrentFocus());
     }
 

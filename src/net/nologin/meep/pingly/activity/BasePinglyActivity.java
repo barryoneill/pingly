@@ -147,4 +147,6 @@ public abstract class BasePinglyActivity extends Activity {
 		}		
 	}
 
+
+
 }
