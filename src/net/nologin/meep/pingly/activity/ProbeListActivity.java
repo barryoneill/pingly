@@ -1,8 +1,7 @@
 package net.nologin.meep.pingly.activity;
 
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.adapter.PinglyCursorProbeAdapter;
-import net.nologin.meep.pingly.db.ProbeDAO;
+import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
 import net.nologin.meep.pingly.model.Probe;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -24,7 +23,7 @@ import android.widget.ListView;
 
 public class ProbeListActivity extends BasePinglyActivity {
 
-	private PinglyCursorProbeAdapter listAdapter;
+	private ProbeListCursorAdapter listAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 		setContentView(R.layout.probe_list);
 
 		Cursor allProbesCursor = probeDAO.findAllProbes();
-		listAdapter = new PinglyCursorProbeAdapter(this,allProbesCursor);
+		listAdapter = new ProbeListCursorAdapter(this,allProbesCursor);
 		ListView lv = (ListView) findViewById(R.id.probeList);
 		lv.setAdapter(listAdapter);
 		registerForContextMenu(lv);

@@ -6,25 +6,33 @@ import java.util.Date;
 public class ScheduleEntry {
 
     public long id = -1;
-    public Probe probe;
+    public long probe;
     public boolean active;
     public boolean startOnSave;
     public Date startTime;
     public ScheduleRepeatType repeatType;
-    public int repeatAmount;
+    public int repeatValue;
 
-    public ScheduleEntry(){
+    // probe for a new entry must exist
+    public ScheduleEntry(long probeId){
 
-        id = -1;
-        probe = null;
-        active = true;
-        startOnSave = true;
-        startTime = null;
-        repeatType = ScheduleRepeatType.Minutes;
-        repeatAmount = ScheduleRepeatType.Minutes.defaultValue;
+        this.id = -1;
+        this.probe = probeId;
+        this.active = true;
+        this.startOnSave = true;
+        this.startTime = null;
+        this.repeatType = ScheduleRepeatType.Minutes;
+        this.repeatValue = ScheduleRepeatType.Minutes.defaultValue;
 
     }
 
+    public boolean isNew(){
+        return id <= 0;
+    }
 
+    @Override
+    public String toString(){
+        return "ScheduleEntry[id=" + id + ",probe=" + probe + "]";
+    }
 
 }

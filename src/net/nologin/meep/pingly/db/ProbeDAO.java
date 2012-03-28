@@ -2,8 +2,6 @@ package net.nologin.meep.pingly.db;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-import java.util.Date;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,7 +23,7 @@ public class ProbeDAO extends PinglyDataHelper {
         SQLiteDatabase db = getReadableDatabase();
         String idClause = TBL_PROBE.COL_ID + "=" + id;
 
-        Cursor cursor = db.query(TBL_PROBE.TBL_NAME, TBL_PROBE.FROM_ALL,
+        Cursor cursor = db.query(TBL_PROBE.TBL_NAME, null,
                 idClause, null, null, null, null);
         if(!cursor.moveToFirst()){
             Log.d(LOG_TAG, "No probe found for ID: " + id);
@@ -40,7 +38,7 @@ public class ProbeDAO extends PinglyDataHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         String nameClause = TBL_PROBE.COL_NAME + "=?";
-        Cursor cursor = db.query(TBL_PROBE.TBL_NAME, TBL_PROBE.FROM_ALL,
+        Cursor cursor = db.query(TBL_PROBE.TBL_NAME, null,
                 nameClause, new String[]{name}, null, null, null);
 
         if(!cursor.moveToFirst()){
@@ -57,7 +55,7 @@ public class ProbeDAO extends PinglyDataHelper {
         Log.d(LOG_TAG, "Querying Table");
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TBL_PROBE.TBL_NAME, TBL_PROBE.FROM_ALL, null,
+        Cursor cursor = db.query(TBL_PROBE.TBL_NAME, null, null,
                 null, null, null, TBL_PROBE.COL_CREATED);
 
         return cursor;

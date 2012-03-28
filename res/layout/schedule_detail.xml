@@ -31,14 +31,14 @@
             style="@android:style/ButtonBar">
 
         <Button
-                android:id="@+id/but_newProbe_save"
+                android:id="@+id/but_scheduledetail_save"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Save"/>
 
         <Button
-                android:id="@+id/but_newProbe_cancel"
+                android:id="@+id/but_scheduledetail_cancel"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

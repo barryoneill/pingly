@@ -7,9 +7,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 import android.util.Log;
+import net.nologin.meep.pingly.model.ScheduleEntry;
+import net.nologin.meep.pingly.model.ScheduleRepeatType;
+import net.nologin.meep.pingly.util.DBUtils;
 
 import java.util.Date;
 
@@ -21,104 +22,113 @@ public class ScheduleDAO extends PinglyDataHelper {
         super(context);
     }
 
-//
-//	public ScheduleEntry findById(long id) {
-//
-//		Log.d(LOG_TAG, "Looking up probe with ID: " + id);
-//
-//		SQLiteDatabase db = getReadableDatabase();
-//		String idClause = TBL_SCHEDULER_ENTRY.COL_ID + "=" + id;
-//
-//		Cursor cursor = db.query(TBL_SCHEDULER_ENTRY.TBL_NAME, TBL_SCHEDULER_ENTRY.FROM_ALL,
-//				idClause, null, null, null, null);
-//		if(!cursor.moveToFirst()){
-//			Log.d(LOG_TAG, "No probe found for ID: " + id);
-//			return null;
-//		}
-//		return cursorToEntry(cursor, true);
-//	}
-//
-//	public ScheduleEntry findByProbe(int probeId) {
-//
-//		Log.d(LOG_TAG, "Looking up scheduled items for probe: " + probeId);
-//
-//		SQLiteDatabase db = getReadableDatabase();
-//		String nameClause = TBL_SCHEDULER_ENTRY.COL_PROBE_ID + "=?";
-//		Cursor cursor = db.query(TBL_SCHEDULER_ENTRY.TBL_NAME, TBL_SCHEDULER_ENTRY.FROM_ALL,
-//				nameClause, new String[]{probeId+""}, null, null, null);
-//
-//		if(!cursor.moveToFirst()){
-//			Log.d(LOG_TAG, "No entries found for probeId: " + probeId);
-//			return null;
-//		}
-//		return cursorToEntry(cursor, true);
-//
-//	}
-//
-//
+	public ScheduleEntry findById(long id) {
+
+		Log.d(LOG_TAG, "Looking up entry with ID: " + id);
+
+		SQLiteDatabase db = getReadableDatabase();
+		String idClause = TBL_SCHEDULE.COL_ID + "=" + id;
+
+		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
+				idClause, null, null, null, null);
+		if(!cursor.moveToFirst()){
+			Log.d(LOG_TAG, "No entry found for ID: " + id);
+			return null;
+		}
+		return cursorToEntry(cursor, true);
+	}
+
+	public ScheduleEntry findByProbe(int probeId) {
+
+		Log.d(LOG_TAG, "Looking up scheduled items for probe: " + probeId);
+
+		SQLiteDatabase db = getReadableDatabase();
+		String nameClause = TBL_SCHEDULE.COL_PROBE_FK + "=?";
+		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
+				nameClause, new String[]{probeId+""}, null, null, null);
+
+		if(!cursor.moveToFirst()){
+			Log.d(LOG_TAG, "No entries found for probeId: " + probeId);
+			return null;
+		}
+		return cursorToEntry(cursor, true);
+
+	}
+
+
     public Cursor findAllScheduledItems() {
 
 		Log.d(LOG_TAG, "Querying Table");
 
 		SQLiteDatabase db = getReadableDatabase();
-		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, TBL_SCHEDULE.FROM_ALL, null,
+		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null, null,
 				null, null, null, TBL_SCHEDULE.COL_CREATED);
 
 		return cursor;
 	}
-//
-//	public void delete(ScheduleEntry entry) {
-//
-//		Log.d(LOG_TAG, "Deleting entry " + entry);
-//
-//		SQLiteDatabase db = getWritableDatabase();
-//		String idClause = TBL_SCHEDULER_ENTRY.COL_ID + "=" + entry.id;
-//		db.delete(TBL_SCHEDULER_ENTRY.TBL_NAME, idClause, null);
-//
-//	}
-//
-//
-//	public long save(ScheduleEntry probe) {
-//
-//		ContentValues cv = new ContentValues();
-//
-//        cv.put(TBL_SCHEDULER_ENTRY.COL_TYPE_ID, probe.type.id);
-//		cv.put(TBL_SCHEDULER_ENTRY.COL_NAME, probe.name);
-//		cv.put(TBL_SCHEDULER_ENTRY.COL_DESC, probe.desc);
-//		cv.put(TBL_SCHEDULER_ENTRY.COL_URL, probe.url);
-//
-//		SQLiteDatabase db = getWritableDatabase();
-//		if (probe.isNew()) {
-//			// triggers will fill id, create/modify columns
-//			return db.insertOrThrow(TBL_SCHEDULER_ENTRY.TBL_NAME, null, cv);
-//		} else {
-//
-//			// leave ID and create date alone, but update last modified
-//			cv.put(TBL_SCHEDULER_ENTRY.COL_LASTMOD, DATETIME_ISO8601.format(new Date()));
-//
-//			String whereClause = TBL_SCHEDULER_ENTRY.COL_ID + "=" + probe.id;
-//			db.update(TBL_SCHEDULER_ENTRY.TBL_NAME, cv, whereClause, null);
-//			return probe.id;
-//		}
-//	}
-//
-//
-//	// keep the param so the caller doesn't forget about cursor responsibility
-//	private ScheduleEntry cursorToEntry(Cursor c, boolean closeCursor) {
-//
-//		ScheduleEntry entry = new ScheduleEntry();
-//        entry.id = c.getLong(c.getColumnIndexOrThrow(TBL_SCHEDULER_ENTRY.COL_ID));
-//        long typeId = c.getLong(c.getColumnIndexOrThrow(TBL_SCHEDULER_ENTRY.COL_TYPE_ID));
-//        entry.type = ProbeType.fromId(typeId);
-//        entry.name = c.getString(c.getColumnIndexOrThrow(TBL_SCHEDULER_ENTRY.COL_NAME));
-//        entry.desc = c.getString(c.getColumnIndexOrThrow(TBL_SCHEDULER_ENTRY.COL_DESC));
-//        entry.url = c.getString(c.getColumnIndexOrThrow(TBL_SCHEDULER_ENTRY.COL_URL));
-//
-//		if (closeCursor) {
-//			c.close();
-//		}
-//
-//		return entry;
-//	}
+
+	public void delete(ScheduleEntry entry) {
+
+		Log.d(LOG_TAG, "Deleting entry " + entry);
+
+		SQLiteDatabase db = getWritableDatabase();
+		String idClause = TBL_SCHEDULE.COL_ID + "=" + entry.id;
+		db.delete(TBL_SCHEDULE.TBL_NAME, idClause, null);
+
+	}
+
+
+    public long saveScheduleEntry(ScheduleEntry entry) {
+
+        Date now = new Date();
+        if(entry.startOnSave || entry.startTime == null || entry.startTime.before(now)){
+            entry.startTime = now;
+        }
+
+        ContentValues cv = new ContentValues();
+        cv.put(TBL_SCHEDULE.COL_PROBE_FK, entry.probe);
+        cv.put(TBL_SCHEDULE.COL_ACTIVE, entry.active ? 1 : 0);
+        cv.put(TBL_SCHEDULE.COL_STARTONSAVE, entry.startOnSave ? 1 : 0);
+        cv.put(TBL_SCHEDULE.COL_STARTTIME, DBUtils.toGMTDateTimeString(entry.startTime));
+        cv.put(TBL_SCHEDULE.COL_REPEATTYPE_ID, entry.repeatType.id);
+        cv.put(TBL_SCHEDULE.COL_REPEAT_VALUE, entry.repeatValue);
+
+
+        SQLiteDatabase db = getWritableDatabase();
+        if (entry.isNew()) {
+            // triggers will fill id, create/modify columns
+            return db.insertOrThrow(TBL_SCHEDULE.TBL_NAME, null, cv);
+        } else {
+
+            // trigger will update last modified column
+            String whereClause = TBL_SCHEDULE.COL_ID + "=" + entry.id;
+            db.update(TBL_SCHEDULE.TBL_NAME, cv, whereClause, null);
+            return entry.id;
+        }
+    }
+
+
+	// keep the param so the caller doesn't forget about cursor responsibility
+	private ScheduleEntry cursorToEntry(Cursor c, boolean closeCursor) {
+
+        CursorReader cr = new CursorReader(c);
+
+        long probeFk = cr.getLong(TBL_SCHEDULE.COL_PROBE_FK);
+
+		ScheduleEntry entry = new ScheduleEntry(probeFk);
+
+        entry.id = cr.getLong(TBL_SCHEDULE.COL_ID);
+        entry.active = cr.getBoolean(TBL_SCHEDULE.COL_ACTIVE);
+        entry.startOnSave = cr.getBoolean(TBL_SCHEDULE.COL_STARTONSAVE);
+        entry.startTime = cr.getDate(TBL_SCHEDULE.COL_STARTTIME,false);
+        entry.repeatType = ScheduleRepeatType.fromId(cr.getInt(TBL_SCHEDULE.COL_REPEATTYPE_ID));
+        entry.repeatValue = cr.getInt(TBL_SCHEDULE.COL_REPEAT_VALUE);
+
+		if (closeCursor) {
+			c.close();
+		}
+
+		return entry;
+	}
 
 }

@@ -19,14 +19,14 @@ import java.util.TimeZone;
 
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 
-public class PinglyCursorProbeAdapter extends SimpleCursorAdapter {
+public class ProbeListCursorAdapter extends SimpleCursorAdapter {
 
 	private LayoutInflater inflater;
 	private static final int PROBE_ITEM_LAYOUT = R.layout.probe_list_item;
 	private static final String FROM[] = {};
 	private static final int TO[] = {};
 		
-	public PinglyCursorProbeAdapter(Context context, Cursor c) {
+	public ProbeListCursorAdapter(Context context, Cursor c) {
 		super(context, PROBE_ITEM_LAYOUT, c, FROM, TO);
 		this.inflater = LayoutInflater.from(context);
 	}

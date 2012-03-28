@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dip" 
+    >
+
+    <!-- TODO: move formatting to theme  -->
+    <TextView
+        android:id="@+id/schedule_entry_probeinfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"        
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"        
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="[probe id placeholder]"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/schedule_entry_startinfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/schedule_entry_probeinfo"
+        android:layout_alignParentLeft="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="[item type placeholder]"
+        android:textStyle="italic"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/schedule_entry_repeatinfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"        
+        android:layout_below="@id/schedule_entry_startinfo"
+        android:layout_alignParentLeft="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="[item desc placeholder]"
+        android:textSize="14sp" />
+
+</RelativeLayout>

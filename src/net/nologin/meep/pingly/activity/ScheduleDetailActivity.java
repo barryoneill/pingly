@@ -16,12 +16,12 @@ import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ScheduleRepeatTypeAdapter;
 import net.nologin.meep.pingly.model.*;
 import net.nologin.meep.pingly.util.PinglyUtils;
+import net.nologin.meep.pingly.util.StringUtils;
 import net.nologin.meep.pingly.view.PinglyBooleanPref;
 import net.nologin.meep.pingly.view.PinglyExpanderPref;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 
 import static net.nologin.meep.pingly.PinglyConstants.*;
@@ -31,37 +31,62 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
     private ScheduleEntry schedule;
 
-    TextView probeName;
-    TextView probeSummary;
+    private TextView probeName;
+    private TextView probeSummary;
 
-    PinglyBooleanPref scheduleEnabled;
-    PinglyExpanderPref scheduleStartTime;
-    PinglyExpanderPref scheduleRepetition;
+    private PinglyBooleanPref scheduleEnabled;
+    private PinglyExpanderPref scheduleStartTime;
+    private PinglyExpanderPref scheduleRepetition;
+
+    private Button butSave;
+    private Button butCancel;
+    
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_detail);
 
-        // init the schedule/probe for this activity
-        schedule = new ScheduleEntry();
-        schedule.probe = loadProbeParamIfPresent();
-        if (schedule.probe == null) { // should never happen, but is it the correct handling?
+
+        Probe probe = loadProbeParamIfPresent();
+        if (probe == null) { // should never happen, but is it the correct handling?
             throw new IllegalArgumentException("This activity expects requires a proble ID parameter");
         }
+        // init the schedule/probe for this activity
+        schedule = new ScheduleEntry(probe.id);
 
         probeName = (TextView) findViewById(R.id.scheduled_probe_name);
         probeSummary = (TextView) findViewById(R.id.scheduled_probe_summary);
         scheduleEnabled = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_enabled);
         scheduleStartTime = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_start_time);
         scheduleRepetition = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_repetition);
+        butSave = (Button) findViewById(R.id.but_scheduledetail_save);
+        butCancel = (Button) findViewById(R.id.but_scheduledetail_cancel);
 
         // TODO: i18n!
-        probeName.setText("Probe: " + schedule.probe.name);
-        probeSummary.setText(schedule.probe.desc);
+        probeName.setText("Probe: " + probe.name);
+        probeSummary.setText(probe.desc);
         scheduleEnabled.setChecked(schedule.active);
         updateStartTimeSummary();
         updateRepetitionSummary();
+
+        // attach listeners
+        butCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        butSave.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Log.d(LOG_TAG, "Saving schedule: " + schedule);
+                scheduleDAO.saveScheduleEntry(schedule);
+
+                goToProbeList(v);
+            }
+        });
+
     }
 
 
@@ -194,7 +219,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
         // init
         repeatSpinner.setSelection(adapter.getItemPosition(schedule.repeatType));
         seekBar.setMax(schedule.repeatType.rangeUpperLimit - 1); // setProgress has no effect until max is set
-        seekBar.setProgress(schedule.repeatAmount);
+        seekBar.setProgress(schedule.repeatValue);
 
         repeatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -247,7 +272,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
             public void onClick(DialogInterface dialog, int id) {
 
                 schedule.repeatType = (ScheduleRepeatType) repeatSpinner.getSelectedItem();
-                schedule.repeatAmount = seekBar.getProgress()+1;
+                schedule.repeatValue = seekBar.getProgress()+1;
                 updateRepetitionSummary();
 
             }
@@ -263,7 +288,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
 
         String summary = PinglyUtils.loadStringForPlural(ScheduleDetailActivity.this,
-                schedule.repeatType.getResourceNameForSummary(), schedule.repeatAmount);
+                schedule.repeatType.getResourceNameForSummary(), schedule.repeatValue);
 
         scheduleRepetition.setSummary(summary);
 
