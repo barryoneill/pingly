@@ -8,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import net.nologin.meep.pingly.core.AlarmScheduler;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.ScheduleRepeatType;
 import net.nologin.meep.pingly.util.DBUtils;
@@ -71,9 +70,6 @@ public class ScheduleDAO extends PinglyDataHelper {
 
 	public void delete(ScheduleEntry entry) {
 
-		Log.d(LOG_TAG, "Cancelling alarms for entry " + entry);
-		AlarmScheduler.cancelAlarm(getDataHelperContext(),entry);
-
 		Log.d(LOG_TAG, "Deleting entry " + entry);
 
 		SQLiteDatabase db = getWritableDatabase();
@@ -110,8 +106,6 @@ public class ScheduleDAO extends PinglyDataHelper {
         }
 
 
-		Log.w(LOG_TAG,"Entry " + entry + " saved, now setting up alarm");
-		AlarmScheduler.setAlarm(getDataHelperContext(),entry);
 		return entry.id;
     }
 

@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.activity.PinglyDashActivity;
@@ -58,15 +57,13 @@ public class ProbeRunnerService extends IntentService {
 			return;
 		}
 
-		int alarmCount = intent.getExtras().getInt(Intent.EXTRA_ALARM_COUNT);
-
-		Log.i(LOG_TAG, "ProbeRunner called on scheduled entry : " + entry + " (alarm count: " + alarmCount + ")");
-        showAppNotification(this, entry, alarmCount);
+		Log.i(LOG_TAG, "ProbeRunner called on scheduled entry : " + entry);
+        showAppNotification(this, entry);
 
 
     }
 
-    void showAppNotification(Context ctx, ScheduleEntry entry, int alarmCount) {
+    void showAppNotification(Context ctx, ScheduleEntry entry) {
 
 
         NotificationManager mNotificationManager = (NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -80,17 +77,16 @@ public class ProbeRunnerService extends IntentService {
         notification.defaults |= Notification.FLAG_AUTO_CANCEL;
 
         Context appContext = ctx.getApplicationContext();
-        CharSequence contentTitle = "Latest Entry ID " + entry.id;
-        CharSequence contentText = "On Probe '" + entry.probe + "', alarm count " + alarmCount;
-		contentText = new Date().toLocaleString();
-        Intent notificationIntent = new Intent(ctx, PinglyDashActivity.class);
+        CharSequence contentTitle = "Entry ID " + entry;
+        CharSequence contentText = "Probe:'" + entry.probe + "', time: " + new Date().toLocaleString();
+
+		Intent notificationIntent = new Intent(ctx, PinglyDashActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,notificationIntent, 0);
 
         notification.setLatestEventInfo(appContext, contentTitle, contentText,
                 contentIntent);
 
-        int HELLO_ID = 1;
-        mNotificationManager.notify(HELLO_ID, notification);
+        mNotificationManager.notify((int) entry.id, notification);
 
 
         // AlarmScheduler.testIntentService(ctx);

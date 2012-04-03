@@ -92,23 +92,23 @@
                   android:background="?android:attr/listDivider"/>
 
             <net.nologin.meep.pingly.view.PinglyExpanderPref
-                    android:id="@+id/scheduled_probe_start_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    pingly:name="Starts:"
-                    pingly:onClick="configureStartTime"
-                    />
-
-            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
-                  android:background="?android:attr/listDivider"/>
-
-            <net.nologin.meep.pingly.view.PinglyExpanderPref
                     android:id="@+id/scheduled_probe_repetition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     pingly:name="Repetition:"
                     pingly:summary=""
                     pingly:onClick="configureRepetition"
+                    />
+
+            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:background="?android:attr/listDivider"/>
+
+            <net.nologin.meep.pingly.view.PinglyExpanderPref
+                    android:id="@+id/scheduled_probe_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    pingly:name="Starts:"
+                    pingly:onClick="configureStartTime"
                     />
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"

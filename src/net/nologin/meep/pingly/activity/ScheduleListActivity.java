@@ -11,9 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ScheduleListCursorAdapter;
+import net.nologin.meep.pingly.core.AlarmScheduler;
 import net.nologin.meep.pingly.model.ScheduleEntry;
+
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ScheduleListActivity extends BasePinglyActivity {
 
@@ -83,7 +87,15 @@ public class ScheduleListActivity extends BasePinglyActivity {
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                scheduleDAO.delete(entry);
+
+								Log.d(LOG_TAG, "Cancelling alarms for entry " + entry);
+								AlarmScheduler.cancelAlarm(ScheduleListActivity.this, entry);
+
+								// TODO: i18n
+								Toast.makeText(ScheduleListActivity.this, "Entry removed from scheduler", Toast.LENGTH_SHORT).show();
+
+								scheduleDAO.delete(entry);
+
                                 /* since we stay where we are (no activity state change), the startManagingCursor() registration in onCreate()
                                          * won't know to refresh the cursor/adapter.  We requery all probes and pass the new cursor to the adapter. */
                                 listAdapter.changeCursor(scheduleDAO.findAllScheduledItems());
