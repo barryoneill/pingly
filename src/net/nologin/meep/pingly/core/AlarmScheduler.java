@@ -87,29 +87,6 @@ public class AlarmScheduler {
 
      }
 
-
-    // TODO - schedule!
-//                Context ctx = ScheduleListActivity.this;
-//
-//                Calendar cal = Calendar.getInstance();
-//                cal.add(Calendar.SECOND,5);
-//
-//                String msg = "s_" + cal.getTimeInMillis();
-//                tv.setText("V=" + msg);
-//
-////                alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, System.currentTimeMillis(),
-////                        5 * 1000, buildAlarmIntent(ctx,strInputMsg));
-//
-//
-//                AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-//                // am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),buildAlarmIntent(ctx, msg));
-//
-//                am.setRepeating(AlarmManager.RTC, cal.getTimeInMillis(), 10000, buildAlarmIntent(ctx,msg));
-//
-//                Log.d(PinglyConstants.LOG_TAG, "Alarm registered for '" + msg);
-//
-
-
     private static PendingIntent buildAlarmIntent(Context ctx, ScheduleEntry entry) {
 
         Intent intent = new Intent(ctx, ProbeRunnerReceiver.class);
