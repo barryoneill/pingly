@@ -14,11 +14,11 @@ public enum DayOfWeek {
     Saturday(5),
     Sunday(6);
 
-    public long id;
+    public int id;
 
     private static String[] STRING_VALUES;
 
-    DayOfWeek(long id){
+    DayOfWeek(int id){
         this.id = id;
     }
 
@@ -34,7 +34,7 @@ public enum DayOfWeek {
         return STRING_VALUES;
     }
 
-    public static DayOfWeek fromId(long id){
+    public static DayOfWeek fromId(int id){
         for(DayOfWeek t : DayOfWeek.values()){
             if(id == t.id){
                 return t;

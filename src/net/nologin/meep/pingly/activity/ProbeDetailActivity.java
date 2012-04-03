@@ -94,7 +94,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 
 				Log.d(LOG_TAG, "Saving probe: " + currentprobe);
 				probeDAO.saveProbe(currentprobe);
-				
+
 				goToProbeList(v);
 			}
 		});

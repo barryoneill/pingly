@@ -68,7 +68,7 @@
                     style="@style/HomeButton"
                     android:drawableTop="@drawable/dash_schedule_selector"
                     android:onClick="dashButtonClicked"
-                    android:text="Schedule"/>
+                    android:text="Scheduler"/>
 
             <Button
                     android:id="@+id/but_dash_settings"

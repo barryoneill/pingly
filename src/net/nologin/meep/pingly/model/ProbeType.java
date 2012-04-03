@@ -11,10 +11,10 @@ public enum ProbeType implements Comparable<ProbeType> {
     ResponsebodyContents(5),
     PinglyJSON(6);
 
-    public long id;
+    public int id;
     
     
-    ProbeType(long id){
+    ProbeType(int id){
         this.id = id;    
     }
 
@@ -29,7 +29,7 @@ public enum ProbeType implements Comparable<ProbeType> {
     }
 
 
-    public static ProbeType fromId(long id){
+    public static ProbeType fromId(int id){
         for(ProbeType t : ProbeType.values()){
             if(id == t.id){
                 return t;

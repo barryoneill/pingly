@@ -77,7 +77,7 @@ public class ProbeListCursorAdapter extends SimpleCursorAdapter {
 		String probeName = cursor.getString(holder.colNameIdx);
 		String probeDesc = cursor.getString(holder.colDescIdx);
 
-        long typeId = cursor.getLong(holder.colTypeIdx);
+        int typeId = cursor.getInt(holder.colTypeIdx);
         ProbeType type = ProbeType.fromId(typeId);
 		
 		// TODO: replace hardcoded text with i18n

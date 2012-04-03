@@ -83,7 +83,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
                 Log.d(LOG_TAG, "Saving schedule: " + schedule);
                 scheduleDAO.saveScheduleEntry(schedule);
 
-                goToProbeList(v);
+                goToScheduleList(v);
             }
         });
 

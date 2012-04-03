@@ -128,11 +128,25 @@ public abstract class BasePinglyActivity extends Activity {
 			Log.d(LOG_TAG, "Going to probe list");
 			Intent intent = new Intent(getApplicationContext(),
 					ProbeListActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);			
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-		}		
+		}
 	}
-	
+
+    public void goToScheduleList(View v) {
+
+        if (this instanceof ScheduleListActivity) {
+            Log.d(LOG_TAG, "Already at schedule list, ignoring request");
+        }
+        else{
+            Log.d(LOG_TAG, "Going to probe list");
+            Intent intent = new Intent(getApplicationContext(),
+                    ScheduleListActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
+
 	public void goHome(View v) {
 
 		if (this instanceof PinglyDashActivity) {
@@ -146,6 +160,7 @@ public abstract class BasePinglyActivity extends Activity {
 			startActivity(intent);
 		}		
 	}
+
 
 
 

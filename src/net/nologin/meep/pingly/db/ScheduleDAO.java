@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import net.nologin.meep.pingly.core.AlarmScheduler;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.ScheduleRepeatType;
 import net.nologin.meep.pingly.util.DBUtils;
@@ -38,7 +39,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 		return cursorToEntry(cursor, true);
 	}
 
-	public ScheduleEntry findByProbe(int probeId) {
+	public ScheduleEntry findByProbe(long probeId) {
 
 		Log.d(LOG_TAG, "Looking up scheduled items for probe: " + probeId);
 
@@ -64,10 +65,14 @@ public class ScheduleDAO extends PinglyDataHelper {
 		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null, null,
 				null, null, null, TBL_SCHEDULE.COL_CREATED);
 
+
 		return cursor;
 	}
 
 	public void delete(ScheduleEntry entry) {
+
+		Log.d(LOG_TAG, "Cancelling alarms for entry " + entry);
+		AlarmScheduler.cancelAlarm(getDataHelperContext(),entry);
 
 		Log.d(LOG_TAG, "Deleting entry " + entry);
 
@@ -76,7 +81,6 @@ public class ScheduleDAO extends PinglyDataHelper {
 		db.delete(TBL_SCHEDULE.TBL_NAME, idClause, null);
 
 	}
-
 
     public long saveScheduleEntry(ScheduleEntry entry) {
 
@@ -97,14 +101,18 @@ public class ScheduleDAO extends PinglyDataHelper {
         SQLiteDatabase db = getWritableDatabase();
         if (entry.isNew()) {
             // triggers will fill id, create/modify columns
-            return db.insertOrThrow(TBL_SCHEDULE.TBL_NAME, null, cv);
+            entry.id = db.insertOrThrow(TBL_SCHEDULE.TBL_NAME, null, cv);
         } else {
 
             // trigger will update last modified column
             String whereClause = TBL_SCHEDULE.COL_ID + "=" + entry.id;
             db.update(TBL_SCHEDULE.TBL_NAME, cv, whereClause, null);
-            return entry.id;
         }
+
+
+		Log.w(LOG_TAG,"Entry " + entry + " saved, now setting up alarm");
+		AlarmScheduler.setAlarm(getDataHelperContext(),entry);
+		return entry.id;
     }
 
 
@@ -113,11 +121,11 @@ public class ScheduleDAO extends PinglyDataHelper {
 
         CursorReader cr = new CursorReader(c);
 
-        long probeFk = cr.getLong(TBL_SCHEDULE.COL_PROBE_FK);
+        int probeFk = cr.getInt(TBL_SCHEDULE.COL_PROBE_FK);
 
 		ScheduleEntry entry = new ScheduleEntry(probeFk);
 
-        entry.id = cr.getLong(TBL_SCHEDULE.COL_ID);
+        entry.id = cr.getInt(TBL_SCHEDULE.COL_ID);
         entry.active = cr.getBoolean(TBL_SCHEDULE.COL_ACTIVE);
         entry.startOnSave = cr.getBoolean(TBL_SCHEDULE.COL_STARTONSAVE);
         entry.startTime = cr.getDate(TBL_SCHEDULE.COL_STARTTIME,false);

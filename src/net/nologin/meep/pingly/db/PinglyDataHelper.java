@@ -21,11 +21,16 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Pingly.db";
     private static final int DATABASE_VERSION = 1;
+	private final Context context;
 
     public PinglyDataHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
     }
 
+	protected Context getDataHelperContext(){
+		return context;
+	}
 
     public static final class TBL_PROBE {
         public static final String TBL_NAME = "pingly_probes";

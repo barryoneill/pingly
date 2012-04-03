@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.util.Random;
+
 public class ProbeListActivity extends BasePinglyActivity {
 
 	private ProbeListCursorAdapter listAdapter;
@@ -116,8 +118,6 @@ public class ProbeListActivity extends BasePinglyActivity {
 		}
 	}
 
-
-	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
@@ -134,7 +134,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 			MenuInflater inflater1 = getMenuInflater();
 			inflater1.inflate(R.menu.probe_list_context, menu);
 
-		}
+        }
 	}
 
 	@Override

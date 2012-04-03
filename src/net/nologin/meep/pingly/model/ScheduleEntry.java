@@ -21,8 +21,8 @@ public class ScheduleEntry {
         this.active = true;
         this.startOnSave = true;
         this.startTime = null;
-        this.repeatType = ScheduleRepeatType.Minutes;
-        this.repeatValue = ScheduleRepeatType.Minutes.defaultValue;
+        this.repeatType = ScheduleRepeatType.Seconds; // TODO: revisit defaults
+        this.repeatValue = 6; // TODO: revisit!
 
     }
 

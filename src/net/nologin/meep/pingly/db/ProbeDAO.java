@@ -98,7 +98,7 @@ public class ProbeDAO extends PinglyDataHelper {
         for(String[] line : items){
 
             name = line[0];
-            type = ProbeType.fromId(Long.parseLong(line[1]));
+            type = ProbeType.fromId(Integer.parseInt(line[1]));
             desc = line[2];
             url = line[3];
 
@@ -140,8 +140,8 @@ public class ProbeDAO extends PinglyDataHelper {
     private Probe cursorToProbe(Cursor c, boolean closeCursor) {
 
         Probe probe = new Probe();
-        probe.id = c.getLong(c.getColumnIndexOrThrow(TBL_PROBE.COL_ID));
-        long typeId = c.getLong(c.getColumnIndexOrThrow(TBL_PROBE.COL_TYPE_ID));
+        probe.id = c.getInt(c.getColumnIndexOrThrow(TBL_PROBE.COL_ID));
+        int typeId = c.getInt(c.getColumnIndexOrThrow(TBL_PROBE.COL_TYPE_ID));
         probe.type = ProbeType.fromId(typeId);
         probe.name = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_NAME));
         probe.desc = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_DESC));

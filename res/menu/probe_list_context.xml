@@ -8,7 +8,7 @@
 
     <item
             android:id="@+id/probe_list_contextmenu_schedule"
-            android:title="Schedule Run"/>
+            android:title="Schedule Probe"/>
 
     <item
         android:id="@+id/probe_list_contextmenu_edit"

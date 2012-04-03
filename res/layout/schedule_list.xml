@@ -44,7 +44,8 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="50dip"
                 android:gravity="center_horizontal"
-                android:text="No Probes Configured"/>
+                android:text="No Probes Scheduled"/>
     </LinearLayout>
+
 
 </RelativeLayout>

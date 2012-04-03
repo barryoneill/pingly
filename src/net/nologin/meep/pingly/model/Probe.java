@@ -1,6 +1,5 @@
 package net.nologin.meep.pingly.model;
 
-
 public class Probe {
 
 	public long id = -1;
@@ -9,7 +8,6 @@ public class Probe {
 	public String url = "";
     public ProbeType type;
 
-	
 	public Probe(){
 	}
 
