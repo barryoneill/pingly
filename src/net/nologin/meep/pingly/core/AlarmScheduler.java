@@ -10,7 +10,6 @@ import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.ScheduleRepeatType;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -31,8 +30,8 @@ public class AlarmScheduler {
 
         ScheduleDAO scheduleDAO = new ScheduleDAO(ctx);
 
-        Intent intent = new Intent(ctx, ProbeRunnerService.class);
-        // intent.putExtra(ProbeRunnerService.PARAM_SCHEDULE_ENTRY_ID, strInputMsg);
+        Intent intent = new Intent(ctx, ProbeRunnerScheduleService.class);
+        // intent.putExtra(ProbeRunnerScheduleService.PARAM_SCHEDULE_ENTRY_ID, strInputMsg);
 
         scheduleDAO.close();
 
@@ -92,9 +91,9 @@ public class AlarmScheduler {
         Intent intent = new Intent(ctx, ProbeRunnerReceiver.class);
 
         int requestCode = getIntentReqCode(ctx, entry);
-        intent.putExtra(ProbeRunnerService.PARAM_SCHEDULE_ENTRY_ID, entry.id);
+        intent.putExtra(ProbeRunnerScheduleService.PARAM_SCHEDULE_ENTRY_ID, entry.id);
 
-		Log.d(LOG_TAG, "Building intent with extra : " + intent.getExtras().get(ProbeRunnerService.PARAM_SCHEDULE_ENTRY_ID));
+		Log.d(LOG_TAG, "Building intent with extra : " + intent.getExtras().get(ProbeRunnerScheduleService.PARAM_SCHEDULE_ENTRY_ID));
 
         return PendingIntent.getBroadcast(ctx, requestCode, intent, 0);
 

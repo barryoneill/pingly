@@ -16,14 +16,14 @@ import java.util.Date;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-public class ProbeRunnerService extends IntentService {
+public class ProbeRunnerScheduleService extends IntentService {
 
     public static final String PARAM_SCHEDULE_ENTRY_ID = "net.nologin.meep.pingly.core.ProbeRunnerService_schedule_entry_id";
 
 	private ScheduleDAO scheduleDAO;
 
     // important to have a no-paramter constructor for alarmmanager
-    public ProbeRunnerService() {
+    public ProbeRunnerScheduleService() {
         super("Probe Runner Service");
     }
 
@@ -43,7 +43,7 @@ public class ProbeRunnerService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-		Log.d(LOG_TAG, "ProbeRunnerService, handling: " + intent.toString());
+		Log.d(LOG_TAG, "ProbeRunnerScheduleService, handling: " + intent.toString());
 
 		long entryId = intent.getExtras().getLong(PARAM_SCHEDULE_ENTRY_ID);
 		if(entryId < 0){

@@ -1,16 +1,9 @@
 package net.nologin.meep.pingly.core;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
-import net.nologin.meep.pingly.PinglyConstants;
-import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.activity.PinglyDashActivity;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -28,7 +21,7 @@ public class ProbeRunnerReceiver extends BroadcastReceiver {
 
         Log.e(LOG_TAG, "ProbeRunnerReceiver: " + intent.toString());
 
-        Intent repackage = new Intent(context, ProbeRunnerService.class);
+        Intent repackage = new Intent(context, ProbeRunnerScheduleService.class);
         repackage.putExtras(intent.getExtras());
 
         context.startService(repackage);

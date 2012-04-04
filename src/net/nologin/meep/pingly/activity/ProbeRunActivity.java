@@ -4,11 +4,11 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.provider.Settings;
+import net.nologin.meep.pingly.core.ProbeRunnerInteractiveService;
 import net.nologin.meep.pingly.model.Probe;
 
 import net.nologin.meep.pingly.R;
@@ -22,10 +22,18 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import static net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.FILTER_UPDATE_DATA;
+
+
+
 public class ProbeRunActivity extends BasePinglyActivity {
 
 	static final int DIALOG_SERVICE_WAIT_ID = 0;
 	static final int DIALOG_NO_DATA_ID = 1;
+
+	final int SERVICE_REQUEST_CODE = 33333;
+
+	private ProgressDialog progressDialog;
 
 	private TextView probeName;
     private View probeInfoContainer;
@@ -35,6 +43,8 @@ public class ProbeRunActivity extends BasePinglyActivity {
 	private ScrollView probeLogScroller;
 
 	private Probe currentProbe;
+
+	private BroadcastReceiver callbackReceiver;
 
 	@Override
 	protected void onCreate(Bundle state) {
@@ -60,18 +70,79 @@ public class ProbeRunActivity extends BasePinglyActivity {
 				clearAndStartProbe();
 			}
 		});
-
         editProbeBut.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				goToProbeDetails(currentProbe.id);
 			}
 		});
 
+		// -----------------------------------------------------------------------
+
+
+		// Creates the BroadcastReceiver
+		callbackReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent){
+				Log.e(LOG_TAG,
+						" --------------  Broadcast Receiver onReceive!");
+
+				if(FILTER_UPDATE_DATA.equals(intent.getAction())){
+					Log.e(LOG_TAG,
+							" --------------  Broadcast Receiver matched " + FILTER_UPDATE_DATA);
+					appendLogLine("got update!");
+
+					// Updates the ProgressDialog
+					String value = intent.getStringExtra(ProbeRunnerInteractiveService.EXTRA_DATA_LOGTEST);
+					appendLogLine("Data: " + value);
+
+				}
+
+			}
+		};
+
+		// register the receiver for updates
+		IntentFilter filter = new IntentFilter(FILTER_UPDATE_DATA);
+		Log.e(LOG_TAG,
+				" --------------  Registering Receiver");
+		registerReceiver(callbackReceiver, filter);
+
+		// ------------------------------------------------------------------------
 
 		decorateProbeStatus(ProbeRunnerStatus.Inactive);
-
 		clearAndStartProbe();
 
+		// -----------------------------------------------------------------------------
+
+
+// TODO: ORIG		final Intent runnerServiceIntent = new Intent(ProbeRunnerInteractiveService.PROGRESS_SERVICE_ACTION);
+		final Intent runnerServiceIntent = new Intent(this, ProbeRunnerInteractiveService.class);
+
+		PendingIntent pi = createPendingResult(SERVICE_REQUEST_CODE,null,PendingIntent.FLAG_CANCEL_CURRENT);
+		runnerServiceIntent.putExtra(ProbeRunnerInteractiveService.EXTRA_CALLBACK_INTENT, pi);
+
+		startService(runnerServiceIntent);
+		// -----------------------------------------------------------------------------
+
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data){
+		// Compares the requestCode with the requestCode from above
+		if (requestCode == SERVICE_REQUEST_CODE) {
+
+			Log.e(LOG_TAG,
+					" --------------  onActivityResult!");
+
+			progressDialog.setOnCancelListener(null); // listener in onCreateDialog assumes failure on cancel
+			progressDialog.cancel();
+			decorateProbeStatus(ProbeRunnerStatus.Success);
+
+		}
+	}
+
+	@Override
+	protected void onDestroy(){
+		unregisterReceiver(callbackReceiver);
+		super.onDestroy();
 	}
 
 	private void clearAndStartProbe() {
@@ -125,6 +196,7 @@ public class ProbeRunActivity extends BasePinglyActivity {
 						decorateProbeStatus(ProbeRunnerStatus.Failed);
 					}
 				});
+				progressDialog = (ProgressDialog)dialog; // hold reference
 				break;
 			case DIALOG_NO_DATA_ID:
 				title = "Network Unavailable";

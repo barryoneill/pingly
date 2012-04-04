@@ -42,9 +42,15 @@
 
         <!-- TODO:  i18n label! -->
         <service
-                android:name=".core.ProbeRunnerService"
+                android:name=".core.ProbeRunnerScheduleService"
                 android:icon="@drawable/main_launcher_icon"
                 android:label="Pingly Probe Runner Service"
+                />
+
+        <service
+                android:name=".core.ProbeRunnerInteractiveService"
+                android:icon="@drawable/main_launcher_icon"
+                android:label="Pingly Probe Test Runner Service"
                 />
 
     </application>
