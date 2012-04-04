@@ -17,7 +17,7 @@
 
         <TextView
             style="@style/TitleBarText"
-            android:text="Probe Run Log" />
+            android:text="Probe Runner" />
     </LinearLayout>
 
     <!-- footer -->
@@ -31,12 +31,11 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/but_probeRun_cancel"
+            android:id="@+id/but_probeRun_edit"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Stop Probe"
-            android:enabled="false"/>
+            android:text="Edit Probe"/>
         
         
         <Button
@@ -58,19 +57,13 @@
         android:orientation="horizontal"        
         android:padding="6dip" >
 
-        <TextView
-            android:id="@+id/text_probe_namePrefix"
-            style="@style/FormLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Probe:" >
-        </TextView>
-
+        <!-- text dynamically populated -->
         <TextView
             android:id="@+id/text_probe_name"
             style="@style/FormLabel"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="[Probe Name + Status]"/>
     </LinearLayout>
 
     <!-- probe output -->
@@ -90,7 +83,8 @@
             android:layout_height="wrap_content"
             android:singleLine="false"
             android:typeface="monospace" 
-            android:textSize="10sp"
+            android:textSize="12sp"
+            android:text="[probe output log goes here]"
                      
             />
         

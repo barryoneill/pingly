@@ -5,6 +5,12 @@
     <string name="app_name">Pingly</string>
 
 
+    <!-- probe description formatters  -->
+    <string name="probe_runner_status_inactive">Probe: \'%1$s\'</string>
+    <string name="probe_runner_status_running">Running: \'%1$s\'</string>
+    <string name="probe_runner_status_success">Probe \'%1$s\' successful</string>
+    <string name="probe_runner_status_failed">Probe \'%1$s\' failed</string>
+
     <string name="probe_type_choose">Choose a Probe Type</string>
     <string name="probe_type_0_name">Service Response</string>
     <string name="probe_type_0_desc">Ensure that the service is at least up and accepting requests</string>

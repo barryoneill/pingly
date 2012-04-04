@@ -18,7 +18,7 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ProbeRunnerService extends IntentService {
 
-    public static final String PARAM_SCHEDULE_ENTRY_ID = "net.nologin.meep.pingly.core.ProbeRunnerService_entry_id";
+    public static final String PARAM_SCHEDULE_ENTRY_ID = "net.nologin.meep.pingly.core.ProbeRunnerService_schedule_entry_id";
 
 	private ScheduleDAO scheduleDAO;
 

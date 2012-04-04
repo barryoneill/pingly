@@ -14,10 +14,10 @@
     <color name="title_separator">#40ffffff</color>
 
     <!-- status colours for the probe runner -->
-    <color name="probe_status_inactive">#ff777777</color>
-    <color name="probe_status_running">#ffde9205</color>
-    <color name="probe_status_success">#ff26bf1c</color>
-    <color name="probe_status_failed">#ffc7100f</color>
+    <color name="probe_runner_status_inactive">#ff777777</color>
+    <color name="probe_runner_status_running">#ffde9205</color>
+    <color name="probe_runner_status_success">#ff26bf1c</color>
+    <color name="probe_runner_status_failed">#ffc7100f</color>
 
     <!-- backgrounds for the title bar bg selector -->
     <drawable name="titlebar_icon_bg_focused">#44ffffff</drawable>

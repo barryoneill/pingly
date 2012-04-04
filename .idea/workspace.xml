@@ -33,13 +33,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b85c79b8-c5f6-49fa-835a-48b08d8be289" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/schedule_detail.xml" afterPath="$PROJECT_DIR$/res/layout/schedule_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/colors.xml" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeRunActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeRunActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerService.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ScheduleDAO.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ScheduleDAO.java" />
+      <change type="MOVED" beforePath="D:\stuff\barry\Dropbox\projects\meepapps\Pingly\res\layout\probe_run_log.xml" afterPath="$PROJECT_DIR$/res/layout/probe_runner.xml" />
     </list>
     <ignored path="Pingly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -118,19 +117,7 @@
     <favorites_list name="Pingly" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="ProbeRunnerService.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="36" selection-start="758" selection-end="758" vertical-scroll-proportion="-0.67913383">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -144,22 +131,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/adapter/ProbeListCursorAdapter.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/AllAlarmsReschedulerReceiver.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/RescheduleAllAlarmsReceiver.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/util/PinglyUtils.java" />
-        <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/ScheduleRepeatType.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/PinglyDataHelper.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/ScheduleEntry.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerReceiver.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/AlarmScheduler.java" />
         <option value="$PROJECT_DIR$/res/layout/schedule_detail.xml" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerService.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ScheduleDAO.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleListActivity.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerService.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/OLDProbeRunActivity.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeRunActivityOLD.java" />
+        <option value="$PROJECT_DIR$/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/ProbeRunnerStatus.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeRunActivity.java" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/res/layout/probe_runner.xml" />
       </list>
     </option>
   </component>
@@ -400,7 +387,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
+              <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -578,9 +565,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="net.nologin.meep.pingly.activity" />
       <recent name="net.nologin.meep.pingly.adapter" />
       <recent name="net.nologin.meep.pingly.model" />
-      <recent name="net.nologin.meep.pingly.activity" />
       <recent name="net.nologin.meep.pingly.receiver" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -813,7 +800,11 @@
       <created>1333426237577</created>
       <updated>1333426237577</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="keep DAO stuff free of scheduler/non-dao stuff">
+      <created>1333488827943</created>
+      <updated>1333488827943</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -842,7 +833,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.49599144" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.6707589" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22875467" sideWeight="0.640625" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22875467" sideWeight="0.59709823" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.49171567" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -856,8 +847,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2346339" sideWeight="0.32700893" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997862" sideWeight="0.83835006" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.59709823" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4029018" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.59709823" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4029018" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -904,7 +895,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix extras data" />
+    <option name="LAST_COMMIT_MESSAGE" value="keep DAO stuff free of scheduler/non-dao stuff" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -938,6 +929,7 @@
     <MESSAGE value="coarse saving of schedule config added" />
     <MESSAGE value="Initial (and very rough) Alarm manager impl" />
     <MESSAGE value="fix extras data" />
+    <MESSAGE value="keep DAO stuff free of scheduler/non-dao stuff" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -947,79 +939,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/database/sqlite/SQLiteOpenHelper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="22" selection-start="170" selection-end="170" vertical-scroll-proportion="0.097087376" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/ScheduleEntry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.6533101" />
-      </provider>
-    </entry>
-    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/app/Service.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="22" selection-start="158" selection-end="158" vertical-scroll-proportion="0.10968921" />
-      </provider>
-    </entry>
-    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/app/IntentService.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="26" selection-start="659" selection-end="659" vertical-scroll-proportion="0.43875685" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/db/PinglyDataHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="27" selection-start="947" selection-end="947" vertical-scroll-proportion="0.54844606" />
-      </provider>
-    </entry>
-    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/os/Bundle.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="16" selection-start="5343" selection-end="5343" vertical-scroll-proportion="0.33272395" />
-      </provider>
-    </entry>
-    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/content/Intent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="33" selection-start="14247" selection-end="14247" vertical-scroll-proportion="0.6423221" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/core/RescheduleAllAlarmsReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="38" selection-start="799" selection-end="799" vertical-scroll-proportion="0.5019685">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/core/AlarmScheduler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="26" selection-start="971" selection-end="971" vertical-scroll-proportion="-1.476378">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/schedule_detail.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="0" selection-start="4620" selection-end="4620" vertical-scroll-proportion="0.7367459">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/app/Notification.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="16" selection-start="1942" selection-end="1942" vertical-scroll-proportion="0.72727275">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ScheduleDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="24" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1040,11 +962,98 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/ProbeType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="342" selection-end="342" vertical-scroll-proportion="0.5610236">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/Probe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="60" selection-start="450" selection-end="450" vertical-scroll-proportion="0.62007874">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="59" selection-start="1097" selection-end="1097" vertical-scroll-proportion="0.53149605">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/app/ProgressDialog.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="149" selection-end="149" vertical-scroll-proportion="0.121212125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/DayOfWeek.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="325" selection-end="325" vertical-scroll-proportion="0.53149605">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gen/net/nologin/meep/pingly/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="51" selection-start="3703" selection-end="3703" vertical-scroll-proportion="0.48765433">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/app/Dialog.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="145" column="36" selection-start="6601" selection-end="6649" vertical-scroll-proportion="0.33403805">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/core/ProbeRunnerService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="36" selection-start="758" selection-end="758" vertical-scroll-proportion="-0.67913383">
+        <state line="23" column="0" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="41" selection-start="1682" selection-end="1682" vertical-scroll-proportion="0.7677165">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="12" selection-start="1138" selection-end="1138" vertical-scroll-proportion="0.70866144">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/probe_runner.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="41" selection-start="2307" selection-end="2307" vertical-scroll-proportion="2.214567">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeRunActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="0" selection-start="4610" selection-end="4610" vertical-scroll-proportion="0.17322835">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1758#1849#0" expanded="true" />
+            <element signature="e#1844#1845#0" expanded="true" />
+            <element signature="e#1893#1997#0" expanded="true" />
+            <element signature="e#1992#1993#0" expanded="true" />
+            <element signature="e#3537#3824#0" expanded="true" />
+            <element signature="e#3817#3818#0" expanded="true" />
+            <element signature="e#4200#4387#0" expanded="true" />
+            <element signature="e#4378#4379#0" expanded="true" />
           </folding>
         </state>
       </provider>

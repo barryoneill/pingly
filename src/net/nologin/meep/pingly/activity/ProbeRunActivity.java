@@ -2,24 +2,18 @@ package net.nologin.meep.pingly.activity;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.URI;
-
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.Settings;
 import net.nologin.meep.pingly.model.Probe;
-import net.nologin.meep.pingly.util.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.model.ProbeResult;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,27 +22,25 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-// https://github.com/commonsguy/cw-android/blob/master/Rotation/RotationAsync/src/com/commonsware/android/rotation/async/RotationAsync.java
-
 public class ProbeRunActivity extends BasePinglyActivity {
 
+	static final int DIALOG_SERVICE_WAIT_ID = 0;
+	static final int DIALOG_NO_DATA_ID = 1;
+
 	private TextView probeName;
-    private TextView probeNamePrefix;
     private View probeInfoContainer;
 	private Button runAgainBut;
-	private Button stopProbeBut;
+	private Button editProbeBut;
 	private TextView probeLogOutput;
 	private ScrollView probeLogScroller;
-    
-	private Probe currentProbe;
 
-	private AsyncTaskRunner asyncTask;
+	private Probe currentProbe;
 
 	@Override
 	protected void onCreate(Bundle state) {
 
 		super.onCreate(state);
-		setContentView(R.layout.probe_run_log);
+		setContentView(R.layout.probe_runner);
 
 		// parameter must be present
 		currentProbe = loadProbeParamIfPresent();
@@ -56,11 +48,10 @@ public class ProbeRunActivity extends BasePinglyActivity {
 		Log.d(LOG_TAG, "Running probe " + currentProbe);
 
 		// load refs
-        probeInfoContainer = findViewById(R.id.probeInfoContainer);
+		probeInfoContainer = findViewById(R.id.probeInfoContainer);
 		probeName = (TextView) findViewById(R.id.text_probe_name);
-        probeNamePrefix = (TextView) findViewById(R.id.text_probe_namePrefix);
 		runAgainBut = (Button) findViewById(R.id.but_probeRun_runAgain);
-		stopProbeBut = (Button) findViewById(R.id.but_probeRun_cancel);
+		editProbeBut = (Button) findViewById(R.id.but_probeRun_edit);
 		probeLogOutput = (TextView) findViewById(R.id.probe_log_output);
 		probeLogScroller = (ScrollView) findViewById(R.id.probe_log_scroller);
         
@@ -70,64 +61,40 @@ public class ProbeRunActivity extends BasePinglyActivity {
 			}
 		});
 
-        stopProbeBut.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if (asyncTask != null && !asyncTask.isCancelled()) {
-                    asyncTask.cancel(true);
-                }
-            }
-        });
-
-		// init view
-        probeName.setText(currentProbe.name);
+        editProbeBut.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				goToProbeDetails(currentProbe.id);
+			}
+		});
 
 
+		decorateProbeStatus(ProbeRunnerStatus.Inactive);
 
-		// // after activity restart (screen rotate)
-		// if(state != null && state.containsKey("probeLogOutput")){
-		// probeLogOutput.setText(state.getString("probeLogOutput"));
-		// // hack to push to bottom _after_ scrollview resize
-		// probeLogScroller.post(new Runnable() {
-		// public void run() {
-		// ((ScrollView)
-		// findViewById(R.id.task_log_scroller)).fullScroll(View.FOCUS_DOWN);
-		// }
-		// });
-		// }
-
-		if (asyncTask == null
-				|| asyncTask.getStatus() == AsyncTask.Status.FINISHED) {
-			clearAndStartProbe();
-		}
+		clearAndStartProbe();
 
 	}
 
-
-
-	// @Override
-	// public void onSaveInstanceState(Bundle state) {
-	//
-	// super.onSaveInstanceState(state);
-	// state.putString("probeLogOutput", probeLogOutput.getText().toString());
-	// }
-	//
 	private void clearAndStartProbe() {
 
 		probeLogOutput.setText("");
 
 		if(!PinglyUtils.activeNetConnectionPresent(this)){
-			Log.d(LOG_TAG, "No net connection, not running probe");
-			appendLogLine("================================");
-			appendLogLine("     Network not available      ");  
-			appendLogLine(" Enable data/wifi and try again ");
-			appendLogLine("================================");
+			appendLogLine("Probe run aborted, no data connection present."); // TODO: i18n
+			decorateProbeStatus(ProbeRunnerStatus.Failed);
+			showDialog(DIALOG_NO_DATA_ID);
 			return;
         }
 
-        probeInfoContainer.setBackgroundResource(R.color.probe_status_running);
+		// and we're off
+		decorateProbeStatus(ProbeRunnerStatus.Running);
+		showDialog(DIALOG_SERVICE_WAIT_ID);
 
-		asyncTask = new AsyncTaskRunner();
-		asyncTask.execute(currentProbe);
+
+	}
+
+	private void decorateProbeStatus(ProbeRunnerStatus status){
+		probeInfoContainer.setBackgroundResource(status.colorResId);
+		probeName.setText(status.formatName(this,currentProbe.name));
 	}
 
 	private void appendLogLine(String txt) {
@@ -137,121 +104,73 @@ public class ProbeRunActivity extends BasePinglyActivity {
         probeLogScroller.fullScroll(ScrollView.FOCUS_DOWN);
 	}
 
-	private class AsyncTaskRunner extends
-			AsyncTask<Probe, String, ProbeResult> {
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-
-			runAgainBut.setEnabled(false);
-			stopProbeBut.setEnabled(true);
-
-			appendLogLine("Starting async task..");
-
-		}
-
-		@Override
-		protected ProbeResult doInBackground(Probe... params) {
-
-			Probe t = params[0];
-
-			publishProgress("Processing: " + t);
-
-			if (StringUtils.isBlank(t.url)) {
-				publishProgress("No URL specified, nothing to check.");
-				return null;
-			}
-
-			// sanity check
-			if(isCancelled()){
-				publishProgress("Cancelled, request will not be made");
-				return null;
-			}
-			
-			HttpClient client = new DefaultHttpClient();
-			HttpGet request = new HttpGet();
-			try {
-				publishProgress("HTTP req to: " + t.url);
-				request.setURI(new URI(t.url));
-				HttpResponse response = client.execute(request);
-
-				// execute can take some time, check that the asynctask hasn't been cancelled in the meantime
-				if(isCancelled()){
-					publishProgress("Req success, but probe cancelled in the meantime.");
-					return null;
-				}
-				
-				publishProgress("========== response start ==========");				
-				StatusLine status = response.getStatusLine();
-				if(status != null){
-					if(status.getProtocolVersion() != null){
-						publishProgress("Protocol Version: " + status.getProtocolVersion().toString());
+	// Note: Rather than creating dialogs directly in the methods above, we use showDialog() with
+	// this overridden method - Android will handle the dialog lifecycle for us (eg, it'll
+	// persist past screen rotations, etc)
+	// TODO: i18n!
+	protected Dialog onCreateDialog(int id) {
+		Dialog dialog;
+		String title;
+		String msg;
+		switch(id) {
+			case DIALOG_SERVICE_WAIT_ID:
+				msg = "This may take a few moments depending on your data connection and the probe's destination, please wait..";
+				dialog =  ProgressDialog.show(this, "Probe Running", msg, true);
+				dialog.setCancelable(true);
+				dialog.setOnCancelListener(new DialogInterface.OnCancelListener(){
+					@Override
+					public void onCancel(DialogInterface dialogInterface) {
+						// TODO: inform service to end processing?
+						appendLogLine("Probe was cancelled by the user.");
+						decorateProbeStatus(ProbeRunnerStatus.Failed);
 					}
-					if(status.getReasonPhrase() != null){
-						publishProgress("Reason Phrase: " + status.getReasonPhrase());
-					}
-					publishProgress("Status Code: " + status.getStatusCode());					
-				}
-				publishProgress(" ");
-				publishProgress("- Headers: ");
-				for(Header hdr : response.getAllHeaders()){
-					publishProgress(hdr.getName()  + ": " + hdr.getValue());
-				}
-				publishProgress("========== response end ==========");
-						
-				
-			} catch (Exception e) {
-				publishProgress(e);
-			}
-			
-			return null;
+				});
+				break;
+			case DIALOG_NO_DATA_ID:
+				title = "Network Unavailable";
+				msg = "Please enable mobile data/wifi and try again.";
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setTitle(title)
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setMessage(msg)
+						.setCancelable(true)
+						.setPositiveButton("Wireless Settings", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+							}
+						})
+						.setNegativeButton("Cancel", null);
+				dialog = builder.create();
+				break;
+			default:
+				Log.e(LOG_TAG,"Unknown dialog ID " + id);
+				dialog = null;
+		}
+		return dialog;
+	}
+
+	// bleh
+	enum ProbeRunnerStatus {
+
+		Inactive(R.color.probe_runner_status_inactive,R.string.probe_runner_status_inactive),
+		Running(R.color.probe_runner_status_running,R.string.probe_runner_status_running),
+		Success(R.color.probe_runner_status_success,R.string.probe_runner_status_success),
+		Failed(R.color.probe_runner_status_failed,R.string.probe_runner_status_failed);
+
+		public final int colorResId;
+		public final int nameFormatterResId;
+
+		ProbeRunnerStatus(int colorResId, int nameFormatterResId){
+			this.colorResId = colorResId;
+			this.nameFormatterResId = nameFormatterResId;
 		}
 
-		private void publishProgress(Exception e) {
-			publishProgress("========== exception ==========");
-			StringWriter sw = new StringWriter();
-			e.printStackTrace(new PrintWriter(sw));
-			publishProgress(sw.getBuffer().toString());
-			publishProgress("========== exception ==========");
-		}
-
-		@Override
-		protected void onProgressUpdate(String... values) {
-
-			super.onProgressUpdate(values);
-
-			for (String val : values) {
-				appendLogLine(val);
-			}
-
-		}
-
-		@Override
-		protected void onCancelled() {
-
-			super.onCancelled();
-
-			appendLogLine("Cancelled");
-
-            probeInfoContainer.setBackgroundResource(R.color.probe_status_inactive);
-
-            runAgainBut.setEnabled(true);
-			stopProbeBut.setEnabled(false);
-		}
-
-		@Override
-		protected void onPostExecute(ProbeResult result) {
-
-			appendLogLine("Async task finished.");
-
-            // TODO: status failed?
-            probeInfoContainer.setBackgroundResource(R.color.probe_status_success);
-
-            runAgainBut.setEnabled(true);
-			stopProbeBut.setEnabled(false);
-
+		public String formatName(Context ctx, String probeName){
+			String fmt = ctx.getString(nameFormatterResId);
+			return String.format(fmt,probeName);
 		}
 	}
 
 }
+
