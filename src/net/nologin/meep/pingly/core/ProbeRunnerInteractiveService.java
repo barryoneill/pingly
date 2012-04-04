@@ -55,15 +55,15 @@ public class ProbeRunnerInteractiveService extends IntentService {
 
 
 		// If you finished, use one of the two methods to send the result or an error
-		Intent i = new Intent();
+		Intent returnResultIntent = new Intent();
 		// BLAH i.putExtra(PROGRESS_DATA_RESULT, null);// blah
 
 		try {
 
-			callbackIntent.send(this, Activity.RESULT_OK, i);
+			callbackIntent.send(this, Activity.RESULT_OK, returnResultIntent);
 		} catch (PendingIntent.CanceledException e) {
 			Log.e(PinglyConstants.LOG_TAG,
-					"There is something wrong with the pending intent", e);
+					"There is something wrong with the callback intent", e);
 		}
 
 		//failed(exception, optionalMessage);

@@ -26,7 +26,7 @@ import static net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.FILTER_
 
 
 
-public class ProbeRunActivity extends BasePinglyActivity {
+public class ProbeRunnerActivity extends BasePinglyActivity {
 
 	static final int DIALOG_SERVICE_WAIT_ID = 0;
 	static final int DIALOG_NO_DATA_ID = 1;
@@ -106,22 +106,11 @@ public class ProbeRunActivity extends BasePinglyActivity {
 				" --------------  Registering Receiver");
 		registerReceiver(callbackReceiver, filter);
 
-		// ------------------------------------------------------------------------
 
 		decorateProbeStatus(ProbeRunnerStatus.Inactive);
 		clearAndStartProbe();
 
-		// -----------------------------------------------------------------------------
 
-
-// TODO: ORIG		final Intent runnerServiceIntent = new Intent(ProbeRunnerInteractiveService.PROGRESS_SERVICE_ACTION);
-		final Intent runnerServiceIntent = new Intent(this, ProbeRunnerInteractiveService.class);
-
-		PendingIntent pi = createPendingResult(SERVICE_REQUEST_CODE,null,PendingIntent.FLAG_CANCEL_CURRENT);
-		runnerServiceIntent.putExtra(ProbeRunnerInteractiveService.EXTRA_CALLBACK_INTENT, pi);
-
-		startService(runnerServiceIntent);
-		// -----------------------------------------------------------------------------
 
 	}
 
@@ -160,6 +149,15 @@ public class ProbeRunActivity extends BasePinglyActivity {
 		decorateProbeStatus(ProbeRunnerStatus.Running);
 		showDialog(DIALOG_SERVICE_WAIT_ID);
 
+		// -----------------------------------------------------------------------------
+		final Intent runnerServiceIntent = new Intent(this, ProbeRunnerInteractiveService.class);
+		PendingIntent callbackIntent = createPendingResult(SERVICE_REQUEST_CODE,null,PendingIntent.FLAG_CANCEL_CURRENT);
+		runnerServiceIntent.putExtra(ProbeRunnerInteractiveService.EXTRA_CALLBACK_INTENT, callbackIntent);
+		startService(runnerServiceIntent);
+
+
+
+		// -----------------------------------------------------------------------------
 
 	}
 

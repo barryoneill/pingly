@@ -69,10 +69,10 @@ public abstract class BasePinglyActivity extends Activity {
 
 	public void goToProbeRunner(long probeId) {
 		
-		Log.d(LOG_TAG, "Starting activity: " + ProbeRunActivity.class.getName());
+		Log.d(LOG_TAG, "Starting activity: " + ProbeRunnerActivity.class.getName());
 		
 		Intent intent = new Intent(getApplicationContext(),
-				ProbeRunActivity.class);
+				ProbeRunnerActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);			
 		
 		addProbeIdParam(intent, probeId);
