@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 public class PinglyConstants {
 
 	public static final String LOG_TAG = "Pingly";
-	public static final String LOG_TAG_PROTO = "PinglyProto";
 
     // http://www.sqlite.org/lang_createtable.html
     public static final String SQLITE_FMT_CURRENT_TIMESTAMP = "yyyy-MM-dd HH:mm:ss";
