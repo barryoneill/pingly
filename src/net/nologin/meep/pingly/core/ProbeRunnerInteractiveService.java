@@ -1,72 +1,53 @@
 package net.nologin.meep.pingly.core;
 
-
-import android.app.Activity;
 import android.app.IntentService;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
-import net.nologin.meep.pingly.PinglyConstants;
+
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG_PROTO;
 
 public class ProbeRunnerInteractiveService extends IntentService {
 
-	protected PendingIntent callbackIntent = null;
+	public static final String ACTION_UPDATE = "net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.ACTION_UPDATE";
+	public static final String ACTION_FINISHED = "net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.ACTION_FINISHED";
 
-	public static final String EXTRA_CALLBACK_INTENT = "CallbackIntent";
-
-	public static final String FILTER_UPDATE_DATA = "net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.FILTER_UPDATE_DATA";
-
+	public static final String EXTRA_PROBERUN_ID = "net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.EXTRA_DATA_RUN_ID";
 	public static final String EXTRA_DATA_LOGTEST = "net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.EXTRA_DATA_LOGTEST";
 
 	public ProbeRunnerInteractiveService() {
 		super("ProbeRunnerInteractiveService");
 	}
 
-
-
 	@Override
 	protected void onHandleIntent(Intent intent) {
 
-		callbackIntent = (PendingIntent) intent
-				.getParcelableExtra(EXTRA_CALLBACK_INTENT);
+		// callbackIntent = (PendingIntent) intent.getParcelableExtra(EXTRA_PROBERUN_ID);
+		long probeRunId = intent.getLongExtra(EXTRA_PROBERUN_ID,0);
 
-		if (callbackIntent == null) {
-			throw new RuntimeException("There is no pending intent!");
+		Log.e(LOG_TAG_PROTO, "handling onHandleIntent - probe run " + probeRunId);
+
+		for(int i=1;i<4;i++){
+
+			Log.e(LOG_TAG_PROTO, "sending update broadcast #" + i + " to " + ACTION_UPDATE);
+
+			Intent updateIntent = new Intent(ACTION_UPDATE);
+			updateIntent.putExtra(EXTRA_DATA_LOGTEST, "service update #" + i);
+			updateIntent.putExtra(EXTRA_PROBERUN_ID, probeRunId);
+			sendBroadcast(updateIntent);
+
+			Log.e(LOG_TAG_PROTO,"sleeping for a second");
+			SystemClock.sleep(1000);
 		}
 
-		Log.e(PinglyConstants.LOG_TAG,
-				" --------------  handling onHandleIntent, sleeping for 2s");
-		SystemClock.sleep(2000);
 
-		Log.e(PinglyConstants.LOG_TAG,
-				" --------------  sending broadcast to " + FILTER_UPDATE_DATA);
-		Intent updateIntent = new Intent(FILTER_UPDATE_DATA);
-		updateIntent.putExtra(EXTRA_DATA_LOGTEST, "wokka wokka");
-		sendBroadcast(updateIntent);
+		Log.e(LOG_TAG_PROTO,"finished sleeping, doing callback");
 
-		Log.e(PinglyConstants.LOG_TAG,
-				" --------------  handling onHandleIntent, sleeping for another 2s");
-		SystemClock.sleep(2000);
+		Intent doneIntent = new Intent(ACTION_FINISHED);
+		doneIntent.putExtra(EXTRA_PROBERUN_ID, probeRunId);
+		sendBroadcast(doneIntent);
 
 
-		Log.e(PinglyConstants.LOG_TAG,
-				" --------------  finished sleeping, doing callback");
-
-
-		// If you finished, use one of the two methods to send the result or an error
-		Intent returnResultIntent = new Intent();
-		// BLAH i.putExtra(PROGRESS_DATA_RESULT, null);// blah
-
-		try {
-
-			callbackIntent.send(this, Activity.RESULT_OK, returnResultIntent);
-		} catch (PendingIntent.CanceledException e) {
-			Log.e(PinglyConstants.LOG_TAG,
-					"There is something wrong with the callback intent", e);
-		}
-
-		//failed(exception, optionalMessage);
 	}
 
 

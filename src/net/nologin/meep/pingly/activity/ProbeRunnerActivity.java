@@ -4,7 +4,6 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.*;
 import android.provider.Settings;
@@ -22,21 +21,21 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import static net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.FILTER_UPDATE_DATA;
+import java.util.UUID;
 
-
+import static net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.EXTRA_PROBERUN_ID;
+import static net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.ACTION_UPDATE;
+import static net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.ACTION_FINISHED;
 
 public class ProbeRunnerActivity extends BasePinglyActivity {
 
 	static final int DIALOG_SERVICE_WAIT_ID = 0;
-	static final int DIALOG_NO_DATA_ID = 1;
+	static final int DIALOG_NO_DATACONN_ID = 1;
 
-	final int SERVICE_REQUEST_CODE = 33333;
-
-	private ProgressDialog progressDialog;
+	static final String BUNDLE_CURRENTRUNNER_ID = "bundle_currentRunnerID";
 
 	private TextView probeName;
-    private View probeInfoContainer;
+	private View probeInfoContainer;
 	private Button runAgainBut;
 	private Button editProbeBut;
 	private TextView probeLogOutput;
@@ -44,7 +43,8 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 
 	private Probe currentProbe;
 
-	private BroadcastReceiver callbackReceiver;
+	private ProbeRunnerCallBackReceiver callbackReceiver = null;
+	private Intent serviceCallIntent = null;
 
 	@Override
 	protected void onCreate(Bundle state) {
@@ -64,113 +64,162 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		editProbeBut = (Button) findViewById(R.id.but_probeRun_edit);
 		probeLogOutput = (TextView) findViewById(R.id.probe_log_output);
 		probeLogScroller = (ScrollView) findViewById(R.id.probe_log_scroller);
-        
+
 		runAgainBut.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				clearAndStartProbe();
 			}
 		});
-        editProbeBut.setOnClickListener(new OnClickListener() {
+		editProbeBut.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				goToProbeDetails(currentProbe.id);
 			}
 		});
 
-		// -----------------------------------------------------------------------
-
-
-		// Creates the BroadcastReceiver
-		callbackReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent){
-				Log.e(LOG_TAG,
-						" --------------  Broadcast Receiver onReceive!");
-
-				if(FILTER_UPDATE_DATA.equals(intent.getAction())){
-					Log.e(LOG_TAG,
-							" --------------  Broadcast Receiver matched " + FILTER_UPDATE_DATA);
-					appendLogLine("got update!");
-
-					// Updates the ProgressDialog
-					String value = intent.getStringExtra(ProbeRunnerInteractiveService.EXTRA_DATA_LOGTEST);
-					appendLogLine("Data: " + value);
-
-				}
-
-			}
-		};
-
-		// register the receiver for updates
-		IntentFilter filter = new IntentFilter(FILTER_UPDATE_DATA);
-		Log.e(LOG_TAG,
-				" --------------  Registering Receiver");
-		registerReceiver(callbackReceiver, filter);
-
-
 		decorateProbeStatus(ProbeRunnerStatus.Inactive);
-		clearAndStartProbe();
-
-
+		callbackReceiver = new ProbeRunnerCallBackReceiver();
 
 	}
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent data){
-		// Compares the requestCode with the requestCode from above
-		if (requestCode == SERVICE_REQUEST_CODE) {
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		savedInstanceState.putLong(BUNDLE_CURRENTRUNNER_ID, callbackReceiver.getRunnerId());
+		super.onSaveInstanceState(savedInstanceState);
+	}
 
-			Log.e(LOG_TAG,
-					" --------------  onActivityResult!");
-
-			progressDialog.setOnCancelListener(null); // listener in onCreateDialog assumes failure on cancel
-			progressDialog.cancel();
-			decorateProbeStatus(ProbeRunnerStatus.Success);
-
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		if (savedInstanceState.containsKey(BUNDLE_CURRENTRUNNER_ID)) {
+			long oldId = savedInstanceState.getLong(BUNDLE_CURRENTRUNNER_ID);
+			Log.d(LOG_TAG,"onRestoreInstanceState, setting callbackreceiver back to runner ID " + oldId);
+			callbackReceiver.setRunnerId(oldId);
 		}
 	}
 
 	@Override
-	protected void onDestroy(){
-		unregisterReceiver(callbackReceiver);
-		super.onDestroy();
+	public void onResume() {
+
+		super.onResume();
+
+		// register the receiver for updates
+		IntentFilter filter = new IntentFilter(ACTION_UPDATE);
+		filter.addAction(ACTION_FINISHED);
+
+		Log.e(LOG_TAG,
+				" --------------  Registering Receiver");
+		registerReceiver(callbackReceiver, filter);
 	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		unregisterReceiver(callbackReceiver);
+	}
+
+	// what a name
+	private class ProbeRunnerCallBackReceiver extends BroadcastReceiver {
+
+		private long runnerId;
+
+		public void setRunnerId(long runnerId) {
+			this.runnerId = runnerId;
+		}
+
+		public long setNewRunnerId() {
+			runnerId = System.currentTimeMillis(); // TODO: this sufficient?
+			return runnerId;
+		}
+
+		public long getRunnerId() {
+			return runnerId;
+		}
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			if (ACTION_UPDATE.equals(intent.getAction())) {
+
+				if (!checkRunnerId(intent)) {
+					return;
+				}
+
+				Log.d(LOG_TAG, " Broadcast Receiver matched " + ACTION_UPDATE);
+
+				// Updates the ProgressDialog
+				String value = intent.getStringExtra(ProbeRunnerInteractiveService.EXTRA_DATA_LOGTEST);
+				appendLogLine("Data: " + value);
+
+			}
+
+			if (ACTION_FINISHED.equals(intent.getAction())) {
+
+				if (!checkRunnerId(intent)) {
+					return;
+				}
+
+				Log.d(LOG_TAG, " Broadcast Receiver matched " + ACTION_UPDATE);
+				appendLogLine("Service finished processing");
+
+				// and we're done with the dialog
+				removeDialog(DIALOG_SERVICE_WAIT_ID);
+
+				decorateProbeStatus(ProbeRunnerStatus.Success);
+
+			}
+		}
+
+		boolean checkRunnerId(Intent intent) {
+
+			long probeRunId = intent.getLongExtra(EXTRA_PROBERUN_ID, 0);
+
+			if (this.runnerId == probeRunId) {
+				return true;
+			} else {
+				Log.w(LOG_TAG, "Matched broadcasted action " + intent.getAction()
+						+ ", but probe runner id " + probeRunId + " did not match " + this.runnerId
+						+ ", perhaps this is a broadcast from an older runner instant - ignoring");
+				return false;
+			}
+
+		}
+	}
+
 
 	private void clearAndStartProbe() {
 
 		probeLogOutput.setText("");
 
-		if(!PinglyUtils.activeNetConnectionPresent(this)){
+		if (!PinglyUtils.activeNetConnectionPresent(this)) {
 			appendLogLine("Probe run aborted, no data connection present."); // TODO: i18n
 			decorateProbeStatus(ProbeRunnerStatus.Failed);
-			showDialog(DIALOG_NO_DATA_ID);
+			showDialog(DIALOG_NO_DATACONN_ID);
 			return;
-        }
+		}
 
 		// and we're off
 		decorateProbeStatus(ProbeRunnerStatus.Running);
 		showDialog(DIALOG_SERVICE_WAIT_ID);
 
 		// -----------------------------------------------------------------------------
-		final Intent runnerServiceIntent = new Intent(this, ProbeRunnerInteractiveService.class);
-		PendingIntent callbackIntent = createPendingResult(SERVICE_REQUEST_CODE,null,PendingIntent.FLAG_CANCEL_CURRENT);
-		runnerServiceIntent.putExtra(ProbeRunnerInteractiveService.EXTRA_CALLBACK_INTENT, callbackIntent);
-		startService(runnerServiceIntent);
-
+		serviceCallIntent = new Intent(this, ProbeRunnerInteractiveService.class);
+		serviceCallIntent.putExtra(ProbeRunnerInteractiveService.EXTRA_PROBERUN_ID, callbackReceiver.setNewRunnerId());
+		startService(serviceCallIntent);
 
 
 		// -----------------------------------------------------------------------------
 
 	}
 
-	private void decorateProbeStatus(ProbeRunnerStatus status){
+	private void decorateProbeStatus(ProbeRunnerStatus status) {
 		probeInfoContainer.setBackgroundResource(status.colorResId);
-		probeName.setText(status.formatName(this,currentProbe.name));
+		probeName.setText(status.formatName(this, currentProbe.name));
 	}
 
 	private void appendLogLine(String txt) {
 
 		probeLogOutput.append(txt + "\n");
 		// probeLogScroller.smoothScrollTo(0, probeLogOutput.getBottom());
-        probeLogScroller.fullScroll(ScrollView.FOCUS_DOWN);
+		probeLogScroller.fullScroll(ScrollView.FOCUS_DOWN);
 	}
 
 	// Note: Rather than creating dialogs directly in the methods above, we use showDialog() with
@@ -181,12 +230,12 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		Dialog dialog;
 		String title;
 		String msg;
-		switch(id) {
+		switch (id) {
 			case DIALOG_SERVICE_WAIT_ID:
 				msg = "This may take a few moments depending on your data connection and the probe's destination, please wait..";
-				dialog =  ProgressDialog.show(this, "Probe Running", msg, true);
+				dialog = ProgressDialog.show(this, "Probe Running", msg, true);
 				dialog.setCancelable(true);
-				dialog.setOnCancelListener(new DialogInterface.OnCancelListener(){
+				dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 					@Override
 					public void onCancel(DialogInterface dialogInterface) {
 						// TODO: inform service to end processing?
@@ -194,9 +243,8 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 						decorateProbeStatus(ProbeRunnerStatus.Failed);
 					}
 				});
-				progressDialog = (ProgressDialog)dialog; // hold reference
 				break;
-			case DIALOG_NO_DATA_ID:
+			case DIALOG_NO_DATACONN_ID:
 				title = "Network Unavailable";
 				msg = "Please enable mobile data/wifi and try again.";
 
@@ -214,7 +262,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 				dialog = builder.create();
 				break;
 			default:
-				Log.e(LOG_TAG,"Unknown dialog ID " + id);
+				Log.e(LOG_TAG, "Unknown dialog ID " + id);
 				dialog = null;
 		}
 		return dialog;
@@ -223,22 +271,22 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	// bleh
 	enum ProbeRunnerStatus {
 
-		Inactive(R.color.probe_runner_status_inactive,R.string.probe_runner_status_inactive),
-		Running(R.color.probe_runner_status_running,R.string.probe_runner_status_running),
-		Success(R.color.probe_runner_status_success,R.string.probe_runner_status_success),
-		Failed(R.color.probe_runner_status_failed,R.string.probe_runner_status_failed);
+		Inactive(R.color.probe_runner_status_inactive, R.string.probe_runner_status_inactive),
+		Running(R.color.probe_runner_status_running, R.string.probe_runner_status_running),
+		Success(R.color.probe_runner_status_success, R.string.probe_runner_status_success),
+		Failed(R.color.probe_runner_status_failed, R.string.probe_runner_status_failed);
 
 		public final int colorResId;
 		public final int nameFormatterResId;
 
-		ProbeRunnerStatus(int colorResId, int nameFormatterResId){
+		ProbeRunnerStatus(int colorResId, int nameFormatterResId) {
 			this.colorResId = colorResId;
 			this.nameFormatterResId = nameFormatterResId;
 		}
 
-		public String formatName(Context ctx, String probeName){
+		public String formatName(Context ctx, String probeName) {
 			String fmt = ctx.getString(nameFormatterResId);
-			return String.format(fmt,probeName);
+			return String.format(fmt, probeName);
 		}
 	}
 
