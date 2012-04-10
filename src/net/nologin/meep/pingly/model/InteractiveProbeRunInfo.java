@@ -9,13 +9,15 @@ import net.nologin.meep.pingly.R;
 public class InteractiveProbeRunInfo {
 
 	public long probeRunId = 0;
+	public long probeId = 0;
 	public RunStatus status = RunStatus.Inactive;
 	public StringBuilder runLog;
 
 	private String newLine = System.getProperty("line.separator");
 
-	public InteractiveProbeRunInfo(long probeRunId){
-		this. probeRunId = probeRunId;
+	public InteractiveProbeRunInfo(long probeRunId, long probeId){
+		this.probeRunId = probeRunId;
+		this.probeId = probeId;
 		status = RunStatus.Inactive;
 		runLog = new StringBuilder();
 	}

@@ -8,31 +8,32 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class PinglyApplication extends Application {
 
-	public InteractiveProbeRunInfo probeRunLog;
+	public InteractiveProbeRunInfo probeRunInfo;
 
 	public void onCreate() {
 		super.onCreate();
 		Log.d(LOG_TAG,"Pingly Application OnCreate!");
 
-		probeRunLog = new InteractiveProbeRunInfo(-1); // dummy
+// 		probeRunInfo = new InteractiveProbeRunInfo(-1,-1); // dummy
+	}
+
+	public InteractiveProbeRunInfo createProbeRunInfo(long probeRunId, long probeId){
+
+		probeRunInfo = new InteractiveProbeRunInfo(probeRunId,probeId);
+		return probeRunInfo;
+
 	}
 
 	// TODO: doc
-	public InteractiveProbeRunInfo getProbeRunInfo(Long probeRunId, boolean forNew){
+	public InteractiveProbeRunInfo getProbeRunInfo(Long probeRunId){
 
-		// new probe run, replace with new log object and return
-		if(forNew){
-			probeRunLog = new InteractiveProbeRunInfo(probeRunId);
-			return probeRunLog;
+		// set, and id matches, return it
+		if(probeRunInfo != null && probeRunId == probeRunInfo.probeRunId){
+			return probeRunInfo;
 		}
 
-		// existing probe run, same id, return what we have
-		if(probeRunId == probeRunLog.probeRunId){
-			return probeRunLog;
-		}
+		return null;
 
-		// older service run, just give a dummy for it to write to
-		return new InteractiveProbeRunInfo(probeRunId);
 	}
 
 
