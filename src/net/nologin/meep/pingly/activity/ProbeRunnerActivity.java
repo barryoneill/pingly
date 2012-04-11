@@ -7,7 +7,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.*;
 import android.provider.Settings;
-import net.nologin.meep.pingly.core.ProbeRunnerInteractiveService;
+import net.nologin.meep.pingly.service.ProbeRunnerInteractiveService;
 import net.nologin.meep.pingly.model.InteractiveProbeRunInfo;
 import net.nologin.meep.pingly.model.Probe;
 
@@ -21,8 +21,8 @@ import android.view.View.OnClickListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import static net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID;
-import static net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.ACTION_UPDATE;
+import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID;
+import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.ACTION_UPDATE;
 import static net.nologin.meep.pingly.model.InteractiveProbeRunInfo.RunStatus;
 
 public class ProbeRunnerActivity extends BasePinglyActivity {

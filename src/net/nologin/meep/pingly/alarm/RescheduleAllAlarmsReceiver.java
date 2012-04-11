@@ -1,4 +1,4 @@
-package net.nologin.meep.pingly.core;
+package net.nologin.meep.pingly.alarm;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

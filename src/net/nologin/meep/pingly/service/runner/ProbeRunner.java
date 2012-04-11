@@ -1,4 +1,4 @@
-package net.nologin.meep.pingly.core;
+package net.nologin.meep.pingly.service.runner;
 
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;

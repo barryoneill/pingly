@@ -1,4 +1,4 @@
-package net.nologin.meep.pingly.core;
+package net.nologin.meep.pingly.alarm;
 
 
 import android.app.AlarmManager;
@@ -9,6 +9,7 @@ import android.util.Log;
 import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.ScheduleRepeatType;
+import net.nologin.meep.pingly.service.ProbeRunnerScheduleService;
 
 import java.util.Date;
 

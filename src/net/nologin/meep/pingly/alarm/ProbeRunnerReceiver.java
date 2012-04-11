@@ -1,9 +1,10 @@
-package net.nologin.meep.pingly.core;
+package net.nologin.meep.pingly.alarm;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import net.nologin.meep.pingly.service.ProbeRunnerScheduleService;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -14,8 +15,6 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
  * Called by the alarm manager to handle the task
  */
 public class ProbeRunnerReceiver extends BroadcastReceiver {
-
-    public static final String ACTION_RESP = "net.nologin.meep.Pingly.intent.action.MESSAGE_PROCESSED";
 
     public void onReceive(Context context, Intent intent) {
 

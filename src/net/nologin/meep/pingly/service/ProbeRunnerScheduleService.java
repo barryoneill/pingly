@@ -1,4 +1,4 @@
-package net.nologin.meep.pingly.core;
+package net.nologin.meep.pingly.service;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -18,7 +18,7 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ProbeRunnerScheduleService extends IntentService {
 
-    public static final String PARAM_SCHEDULE_ENTRY_ID = "net.nologin.meep.pingly.core.ProbeRunnerService_schedule_entry_id";
+    public static final String PARAM_SCHEDULE_ENTRY_ID = "net.nologin.meep.pingly.service.ProbeRunnerService_schedule_entry_id";
 
 	private ScheduleDAO scheduleDAO;
 

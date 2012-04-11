@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ScheduleListCursorAdapter;
-import net.nologin.meep.pingly.core.AlarmScheduler;
+import net.nologin.meep.pingly.alarm.AlarmScheduler;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;

@@ -1,4 +1,4 @@
-package net.nologin.meep.pingly.core;
+package net.nologin.meep.pingly;
 
 import android.app.Application;
 import android.util.Log;

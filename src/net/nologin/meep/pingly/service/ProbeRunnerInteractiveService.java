@@ -1,20 +1,22 @@
-package net.nologin.meep.pingly.core;
+package net.nologin.meep.pingly.service;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
+import net.nologin.meep.pingly.PinglyApplication;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.model.InteractiveProbeRunInfo;
 import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.service.runner.ProbeRunner;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ProbeRunnerInteractiveService extends Service {
 
-	public static final String ACTION_UPDATE = "net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.ACTION_UPDATE";
-	public static final String EXTRA_PROBE_RUN_ID = "net.nologin.meep.pingly.core.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID";
+	public static final String ACTION_UPDATE = "net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.ACTION_UPDATE";
+	public static final String EXTRA_PROBE_RUN_ID = "net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID";
 
 	ProbeRunnerAsyncTask runningTask;
 	ProbeDAO probeDAO;
