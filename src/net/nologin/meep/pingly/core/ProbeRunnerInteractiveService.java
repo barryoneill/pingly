@@ -4,20 +4,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.model.InteractiveProbeRunInfo;
 import net.nologin.meep.pingly.model.Probe;
-import net.nologin.meep.pingly.util.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.net.URI;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -78,8 +68,6 @@ public class ProbeRunnerInteractiveService extends Service {
 			return START_NOT_STICKY;
 		}
 
-
-
 		// signal any previously running task to cancel
 		if(runningTask != null && !runningTask.isCancelled()){
 			runningTask.cancel(true);
@@ -116,63 +104,18 @@ public class ProbeRunnerInteractiveService extends Service {
 
 			// ------------------------------------------------------------------------------------
 
-			try {
-
-				if (StringUtils.isBlank(probe.url)) {
-					throw new ProbeRunFailedException("No URL specified, aborting run");
-				}
-
-				// sanity check
-				if(probeRunCancelled(runInfo)){
-					return null;
-				}
-
-				HttpClient client = new DefaultHttpClient();
-				HttpGet request = new HttpGet();
-				try {
-
-					runInfo.writeLogLine("HTTP req to: " + probe.url);
+			final ProbeRunner runner = new ProbeRunner(probe);
+			runner.setUpdateListener(new ProbeRunner.ProbeUpdateListener() {
+				@Override
+				public void onUpdate(String newOutput) {
+					runInfo.writeLog(newOutput);
 					broadcastUpdate(runInfo);
-
-					request.setURI(new URI(probe.url));
-					HttpResponse response = client.execute(request);
-
-					// execute can take some time, check that the asynctask hasn't been cancelled in the meantime
-					if(probeRunCancelled(runInfo)){
-						return null;
+					if (probeRunCancelled(runInfo)) {
+						runner.cancel();
 					}
-
-					runInfo.writeLogLine("========== response start ==========");
-					StatusLine status = response.getStatusLine();
-					if(status != null){
-						if(status.getProtocolVersion() != null){
-							runInfo.writeLogLine("Protocol Version: " + status.getProtocolVersion().toString());
-						}
-						if(status.getReasonPhrase() != null){
-							runInfo.writeLogLine("Reason Phrase: " + status.getReasonPhrase());
-						}
-						runInfo.writeLogLine("Status Code: " + status.getStatusCode());
-					}
-					runInfo.writeLogLine(" ");
-					runInfo.writeLogLine("- Headers: ");
-					for(Header hdr : response.getAllHeaders()){
-						runInfo.writeLogLine(hdr.getName()  + ": " + hdr.getValue());
-					}
-					runInfo.writeLogLine("========== response end ==========");
-
-
 				}
-				catch (Exception e) {
-					Log.e(LOG_TAG, "Error running probe " + probe.id + " during probe run " + runInfo.probeRunId,e);
-					throw new ProbeRunFailedException(e.getClass().getName() + " - " + e.getMessage());
-				}
-			}
-			catch(ProbeRunFailedException e){
-
-				runInfo.writeLogLine("Error:" + e.getMessage());
-				runInfo.setFinishedWithFailure();
-				broadcastUpdate(runInfo);
-			}
+			});
+			runner.run();
 
 			// ------------------------------------------------------------------------------------
 
@@ -201,7 +144,8 @@ public class ProbeRunnerInteractiveService extends Service {
 			}
 
 			if(info.isFinished()){
-				Log.d(LOG_TAG, "Probe run " + info.probeRunId + " has been marked as finished, stopping processing");
+				Log.d(LOG_TAG, "ProbeRunnerInteractiveService - Probe run "
+						+ info.probeRunId + " has been marked as finished, stopping processing");
 				return true;
 			}
 
@@ -218,11 +162,5 @@ public class ProbeRunnerInteractiveService extends Service {
 
 	}
 
-	private class ProbeRunFailedException extends Exception {
-
-		public ProbeRunFailedException(String message){
-			super(message);
-		}
-	}
 
 }

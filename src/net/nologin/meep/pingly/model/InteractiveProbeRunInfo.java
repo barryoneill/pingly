@@ -2,8 +2,6 @@ package net.nologin.meep.pingly.model;
 
 
 import android.content.Context;
-import android.util.Log;
-import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
 
 public class InteractiveProbeRunInfo {
@@ -22,8 +20,12 @@ public class InteractiveProbeRunInfo {
 		runLog = new StringBuilder();
 	}
 
+	public void writeLog(String line){
+		runLog.append(line);
+	}
+
 	public void writeLogLine(String line){
-		runLog.append(line + newLine);
+		writeLog(line + newLine);
 	}
 
 	public void setFinishedWithSuccess(){
