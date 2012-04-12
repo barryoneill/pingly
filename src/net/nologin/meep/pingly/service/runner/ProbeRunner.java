@@ -2,8 +2,10 @@ package net.nologin.meep.pingly.service.runner;
 
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;
-import net.nologin.meep.pingly.model.Probe;
-import net.nologin.meep.pingly.model.ProbeType;
+import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
+import net.nologin.meep.pingly.model.probe.PingProbe;
+import net.nologin.meep.pingly.model.probe.Probe;
+import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 
 public abstract class ProbeRunner {
 
@@ -16,18 +18,17 @@ public abstract class ProbeRunner {
 	private boolean cancelRequested;
 
 	public static ProbeRunner getInstance(Probe p){
-		switch(p.type){
-			case SocketConnection:
-				return new ServiceCheckProbeRunner(p);
-			case HTTPResponse:
-				return new HTTPResponseProbeRunner(p);
-			case Ping :
-				return new PingProbeRunner(p);
-			default:
-				// this should never occur as long as the developer ensures that an appropriate
-				// runner class is configured here for each probe type.
-				throw new IllegalArgumentException("No runner implementation for " + p.type);
+
+		if(p instanceof PingProbe) {
+			return new PingProbeRunner(p);
 		}
+		if(p instanceof SocketConnectionProbe){
+			return new SocketConnectionProbeRunner(p);
+		}
+		if(p instanceof HTTPResponseProbe){
+			return new HTTPResponseProbeRunner(p);
+		}
+		throw new IllegalArgumentException("No runner implementation for " + p);
 	}
 
 	public ProbeRunner(Probe probe){

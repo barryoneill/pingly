@@ -1,6 +1,6 @@
 package net.nologin.meep.pingly.service.runner;
 
-import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.model.probe.Probe;
 
 import java.io.BufferedReader;
 import java.io.IOException;

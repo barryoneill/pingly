@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import net.nologin.meep.pingly.model.ProbeType;
-import net.nologin.meep.pingly.util.PinglyUtils;
+import net.nologin.meep.pingly.model.probe.Probe;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ProbeTypeAdapter extends BaseAdapter {
@@ -19,7 +17,7 @@ public class ProbeTypeAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Context context;
 
-    private List<ProbeType> probeTypes;
+    private List<String> probeTypeKeys;
 
     public ProbeTypeAdapter(Context context) {
         super();
@@ -27,27 +25,26 @@ public class ProbeTypeAdapter extends BaseAdapter {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
 
-        // just accept enum order for now
-        probeTypes = Arrays.asList(ProbeType.values());
+		probeTypeKeys = Probe.getProbeTypeKeys();
     }
 
     @Override
     public int getCount() {
-        return probeTypes.size();
+        return probeTypeKeys.size();
     }
 
     @Override
-    public ProbeType getItem(int pos) {
-        return probeTypes.get(pos);
+    public String getItem(int pos) {
+        return probeTypeKeys.get(pos);
     }
 
     @Override
     public long getItemId(int pos) {
-        return getItem(pos).id;
+        return pos; // we'll just use the array index
     }
 
-    public int getItemPosition(ProbeType type){
-        return probeTypes.indexOf(type);
+    public int getItemPosition(String typeKey){
+        return probeTypeKeys.indexOf(typeKey);
     }
 
     static class ViewHolder {
@@ -77,9 +74,8 @@ public class ProbeTypeAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ProbeType type = getItem(position);
-
-        holder.name.setText(PinglyUtils.loadStringForName(context,type.getResourceNameForName()));
+		String typeKey = getItem(position);
+        holder.name.setText(Probe.getTypeName(context,typeKey));
 
         return convertView;
 
@@ -107,10 +103,10 @@ public class ProbeTypeAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ProbeType type = getItem(position);
+		String typeKey = getItem(position);
 
-        holder.name.setText(PinglyUtils.loadStringForName(context,type.getResourceNameForName()));
-        holder.description.setText(PinglyUtils.loadStringForName(context, type.getResourceNameForDesc()));
+		holder.name.setText(Probe.getTypeName(context,typeKey));
+        holder.description.setText(Probe.getTypeDesc(context,typeKey));
 
         return convertView;
     }

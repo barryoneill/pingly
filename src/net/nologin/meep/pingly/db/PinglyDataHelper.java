@@ -6,10 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
-import net.nologin.meep.pingly.model.Probe;
-import net.nologin.meep.pingly.model.ScheduleRepeatType;
-
-import java.util.Date;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -36,21 +32,21 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
         public static final String TBL_NAME = "pingly_probes";
 
         public static final String COL_ID = BaseColumns._ID;
-        public static final String COL_TYPE_ID = "probe_type_id";
+        public static final String COL_TYPE_KEY = "probe_type_key";
         public static final String COL_NAME = "probe_name";
         public static final String COL_DESC = "desc";
-        public static final String COL_URL = "url";
+        public static final String COL_CONFIG = "config";
         public static final String COL_CREATED = "t_created";
         public static final String COL_LASTMOD = "t_lastmod";
 
         public static final String CREATE_SQL = "CREATE TABLE " + TBL_NAME + "( "
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_TYPE_ID + " INTEGER NOT NULL, "
+                + COL_TYPE_KEY + " TEXT NOT NULL, "
                 + COL_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP, "
                 + COL_LASTMOD + " DATETIME DEFAULT CURRENT_TIMESTAMP, "
                 + COL_NAME + " TEXT NOT NULL UNIQUE, "
                 + COL_DESC + " TEXT, "
-                + COL_URL + " TEXT )";
+                + COL_CONFIG + " TEXT )";
 
     }
 

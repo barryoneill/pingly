@@ -9,7 +9,7 @@ import android.content.*;
 import android.provider.Settings;
 import net.nologin.meep.pingly.service.ProbeRunnerInteractiveService;
 import net.nologin.meep.pingly.model.InteractiveProbeRunInfo;
-import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.model.probe.Probe;
 
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.util.PinglyUtils;

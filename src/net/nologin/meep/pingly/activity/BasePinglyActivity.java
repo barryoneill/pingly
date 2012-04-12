@@ -5,7 +5,7 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 import net.nologin.meep.pingly.PinglyApplication;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
-import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.model.probe.Probe;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -2,7 +2,7 @@ package net.nologin.meep.pingly.activity;
 
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
-import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.model.probe.Probe;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -20,8 +20,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-
-import java.util.Random;
 
 public class ProbeListActivity extends BasePinglyActivity {
 

@@ -8,7 +8,7 @@ import android.util.Log;
 import net.nologin.meep.pingly.PinglyApplication;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.model.InteractiveProbeRunInfo;
-import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;

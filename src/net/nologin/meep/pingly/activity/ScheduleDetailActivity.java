@@ -16,6 +16,7 @@ import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ScheduleRepeatTypeAdapter;
 import net.nologin.meep.pingly.alarm.AlarmScheduler;
 import net.nologin.meep.pingly.model.*;
+import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.PinglyUtils;
 import net.nologin.meep.pingly.view.PinglyBooleanPref;
 import net.nologin.meep.pingly.view.PinglyExpanderPref;

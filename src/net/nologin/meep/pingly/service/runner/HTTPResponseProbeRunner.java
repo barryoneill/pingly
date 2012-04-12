@@ -1,8 +1,7 @@
 package net.nologin.meep.pingly.service.runner;
 
-import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.StringUtils;
-import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
@@ -21,7 +20,9 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 
 		Probe probe = getProbe();
 
-		if (StringUtils.isBlank(probe.url)) {
+		String url = "";
+
+		if (StringUtils.isBlank(url)) {
 			publishUpdate("No URL specified");
 			return RUN_FAILED;
 		}
@@ -33,9 +34,9 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet();
 
-			publishUpdate("HTTP req to: \n" + probe.url);
+			publishUpdate("HTTP req to: \n" + url);
 
-			request.setURI(new URI(probe.url));
+			request.setURI(new URI(url));
 			HttpResponse response = client.execute(request);
 
 			// execute can take some time, check that the asynctask hasn't been checkCancelled in the meantime

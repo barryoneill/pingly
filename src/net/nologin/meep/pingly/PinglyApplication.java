@@ -13,8 +13,6 @@ public class PinglyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		Log.d(LOG_TAG,"Pingly Application OnCreate!");
-
-// 		probeRunInfo = new InteractiveProbeRunInfo(-1,-1); // dummy
 	}
 
 	public InteractiveProbeRunInfo createProbeRunInfo(long probeRunId, long probeId){

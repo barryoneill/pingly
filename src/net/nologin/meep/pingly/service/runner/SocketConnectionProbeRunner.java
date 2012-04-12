@@ -1,23 +1,26 @@
 package net.nologin.meep.pingly.service.runner;
 
-import net.nologin.meep.pingly.model.Probe;
+import net.nologin.meep.pingly.model.probe.Probe;
+import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 import net.nologin.meep.pingly.util.StringUtils;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
 
-public class ServiceCheckProbeRunner extends ProbeRunner {
+public class SocketConnectionProbeRunner extends ProbeRunner {
 
-	public ServiceCheckProbeRunner(Probe probe){
+	public SocketConnectionProbeRunner(Probe probe){
 		super(probe);
 	}
 
 	public boolean doRun() throws ProbeRunCancelledException {
 
-		Probe probe = getProbe();
+		SocketConnectionProbe probe = (SocketConnectionProbe)getProbe();
 
-		if (StringUtils.isBlank(probe.url)) {
+		String url = "www.google.com";
+
+		if (StringUtils.isBlank(url)) {
 			publishUpdate("No URL specified");
 			return RUN_FAILED;
 		}
