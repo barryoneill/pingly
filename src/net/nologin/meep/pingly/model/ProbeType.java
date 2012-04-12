@@ -5,7 +5,7 @@ public enum ProbeType implements Comparable<ProbeType> {
 
     SocketConnection(0),
     HTTPResponse(1),
-    HeaderPresent(2),
+    Ping(2),
     HeaderValue(3),
     ResponseSize(4),
     ResponsebodyContents(5),

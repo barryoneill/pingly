@@ -34,6 +34,7 @@ public class ServiceCheckProbeRunner extends ProbeRunner {
 
 			SocketChannel sc = SocketChannel.open();
 			sc.configureBlocking(false);
+
 			sc.connect(new InetSocketAddress(host, port));
 
 			int secondsWaited=1;

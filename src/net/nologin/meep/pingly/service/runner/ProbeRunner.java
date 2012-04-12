@@ -21,6 +21,8 @@ public abstract class ProbeRunner {
 				return new ServiceCheckProbeRunner(p);
 			case HTTPResponse:
 				return new HTTPResponseProbeRunner(p);
+			case Ping :
+				return new PingProbeRunner(p);
 			default:
 				// this should never occur as long as the developer ensures that an appropriate
 				// runner class is configured here for each probe type.

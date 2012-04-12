@@ -16,8 +16,8 @@
     <string name="probe_type_0_desc">Make a simple socket connection</string>
     <string name="probe_type_1_name">HTTP Response</string>
     <string name="probe_type_1_desc">Test for a response to a HTTP request, with optional status code tests, eg \'404\'</string>
-    <string name="probe_type_2_name">HTTP Response Header Present</string>
-    <string name="probe_type_2_desc">Check to see that a specific header is present in the response</string>
+    <string name="probe_type_2_name">Ping</string>
+    <string name="probe_type_2_desc">Perform an ICMP Ping</string>
     <string name="probe_type_3_name">HTTP Response Header Contents</string>
     <string name="probe_type_3_desc">Check to see that the specified response header contains the specified content</string>
     <string name="probe_type_4_name">Response Size</string>
