@@ -99,14 +99,13 @@ public class ProbeRunnerInteractiveService extends Service {
 
 			runInfo.status = InteractiveProbeRunInfo.RunStatus.Running;
 
-			runInfo.writeLogLine("Probe : " + probe.name);
-			runInfo.writeLogLine("Desc  : " + probe.desc);
-			runInfo.writeLogLine("Type  : " + probe.type);
+			runInfo.writeLogLine("Starting run for:\n" + probe.name);
+			runInfo.writeLogLine("");
 			broadcastUpdate(runInfo);
 
 			// ------------------------------------------------------------------------------------
 
-			final ProbeRunner runner = new ProbeRunner(probe);
+			final ProbeRunner runner = ProbeRunner.getInstance(probe);
 			runner.setUpdateListener(new ProbeRunner.ProbeUpdateListener() {
 				@Override
 				public void onUpdate(String newOutput) {
@@ -117,17 +116,17 @@ public class ProbeRunnerInteractiveService extends Service {
 					}
 				}
 			});
-			runner.run();
+			boolean runSuccessful = runner.run();
 
-			// ------------------------------------------------------------------------------------
-
-			if (probeRunCancelled(runInfo)) {
-				return null;
+			runInfo.writeLogLine("");
+			if(runSuccessful){
+				runInfo.writeLogLine("Probe successful");
+				runInfo.setFinishedWithSuccess();
 			}
-
-			Log.d(LOG_TAG, "finished sleeping, doing callback");
-			runInfo.writeLogLine(" -- finished -- ");
-			runInfo.setFinishedWithSuccess();
+			else{
+				runInfo.writeLogLine("Probe failed");
+				runInfo.setFinishedWithFailure();
+			}
 			broadcastUpdate(runInfo);
 
 			return null;

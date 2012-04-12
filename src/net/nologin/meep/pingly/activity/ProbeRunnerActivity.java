@@ -252,7 +252,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 					public void onCancel(DialogInterface dialogInterface) {
 						InteractiveProbeRunInfo info = getPinglyApp().getProbeRunInfo(probeRunId);
 						info.status = RunStatus.Failed; // let the service know to stop processing
-						info.writeLogLine("Cancelled By User");
+						info.writeLogLine("Cancel requested by user.");
 						updateActivityForRunInfo(info);
 						removeDialog(DIALOG_SERVICE_WAIT_ID);
 					}

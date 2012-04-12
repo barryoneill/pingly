@@ -3,25 +3,30 @@ package net.nologin.meep.pingly.service.runner;
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.model.Probe;
-import net.nologin.meep.pingly.util.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import net.nologin.meep.pingly.model.ProbeType;
 
-import java.net.URI;
-
-public class ProbeRunner {
+public abstract class ProbeRunner {
 
 	// make the returns in run() more readable
-	private final boolean RUN_SUCCESS = true;
-	private final boolean RUN_FAILED = false;
+	protected final boolean RUN_SUCCESS = true;
+	protected final boolean RUN_FAILED = false;
 
 	private Probe probe;
 	private ProbeUpdateListener updateListener;
 	private boolean cancelRequested;
+
+	public static ProbeRunner getInstance(Probe p){
+		switch(p.type){
+			case SocketConnection:
+				return new ServiceCheckProbeRunner(p);
+			case HTTPResponse:
+				return new HTTPResponseProbeRunner(p);
+			default:
+				// this should never occur as long as the developer ensures that an appropriate
+				// runner class is configured here for each probe type.
+				throw new IllegalArgumentException("No runner implementation for " + p.type);
+		}
+	}
 
 	public ProbeRunner(Probe probe){
 		this.probe = probe;
@@ -32,85 +37,47 @@ public class ProbeRunner {
 		this.updateListener = listener;
 	}
 
+	public Probe getProbe(){
+		return probe;
+	}
+
 	public void cancel() {
-		Log.d(PinglyConstants.LOG_TAG,"Proberunner (Probe " + probe.id + ") marked as cancelRequested.");
+		Log.d(PinglyConstants.LOG_TAG,"Proberunner (Probe " + probe.id + ") marked as checkCancelled.");
 		cancelRequested = true;
 	}
 
-	private boolean cancelRequested(){
-		return cancelRequested;
+	protected void checkCancelled() throws ProbeRunCancelledException {
+		if(cancelRequested){
+			throw new ProbeRunCancelledException();
+		}
 	}
 
-	public boolean run() {
+	public boolean run(){
 
-		if (StringUtils.isBlank(probe.url)) {
-			publishUpdateLine("No URL specified");
-			return RUN_FAILED;
-		}
-
-		// sanity check
-		if(cancelRequested()){
-			return RUN_FAILED;
-		}
-
-		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet();
+		// no exception from a runner should go higher than this point
 		try {
-
-
-			publishUpdateLine("Sleeping for 2");
-			Thread.sleep(2000);
-
-			publishUpdateLine("HTTP req to: " + probe.url);
-
-			request.setURI(new URI(probe.url));
-			HttpResponse response = client.execute(request);
-
-
-			// execute can take some time, check that the asynctask hasn't been cancelRequested in the meantime
-			if(cancelRequested()){
-				return RUN_FAILED;
-			}
-
-			publishUpdateLine("========== response start ==========");
-			StatusLine status = response.getStatusLine();
-			if(status != null){
-				if(status.getProtocolVersion() != null){
-					publishUpdateLine("Protocol Version: " + status.getProtocolVersion().toString());
-				}
-				if(status.getReasonPhrase() != null){
-					publishUpdateLine("Reason Phrase: " + status.getReasonPhrase());
-				}
-				publishUpdateLine("Status Code: " + status.getStatusCode());
-			}
-			publishUpdateLine(" ");
-			publishUpdateLine("- Headers: ");
-			for(Header hdr : response.getAllHeaders()){
-				publishUpdateLine(hdr.getName() + ": " + hdr.getValue());
-			}
-			publishUpdateLine("========== response end ==========");
-
-
+			return doRun();
 		}
-		catch (Exception e){
-			publishUpdateLine("Error: " + e.getClass().getSimpleName() + ", " + e.getMessage());
-			return RUN_FAILED;
+		catch(ProbeRunCancelledException e){
+			publishUpdate("Probe run cancelled");
+			return this.RUN_FAILED;
+		}
+		catch(Exception e){
+			publishUpdate("Internal Error (" + e.getClass().getName() + ":" + e.getMessage());
+			return this.RUN_FAILED;
 		}
 
-
-		return RUN_SUCCESS;
 	}
 
-	public void publishUpdate(String data){
+	protected abstract boolean doRun() throws ProbeRunCancelledException;
+
+	protected void publishUpdate(String data){
 		if(updateListener!=null){
-			updateListener.onUpdate(data);
+			updateListener.onUpdate(data + System.getProperty("line.separator"));
 		}
 	}
 
-	private void publishUpdateLine(String data) {
-		publishUpdate(data + System.getProperty("line.separator"));
-
-	}
+	protected class ProbeRunCancelledException extends Exception { }
 
 	public interface ProbeUpdateListener {
 

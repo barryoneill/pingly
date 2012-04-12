@@ -3,8 +3,8 @@ package net.nologin.meep.pingly.model;
 
 public enum ProbeType implements Comparable<ProbeType> {
 
-    ServiceResponding(0),
-    ResponseCode(1),
+    SocketConnection(0),
+    HTTPResponse(1),
     HeaderPresent(2),
     HeaderValue(3),
     ResponseSize(4),
