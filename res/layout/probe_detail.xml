@@ -91,21 +91,6 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Endpoint URL"
-                    style="@style/FormLabel">
-            </TextView>
-
-            <EditText
-                    android:id="@+id/probe_detail_url"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="URL"
-                    android:inputType="textUri">
-            </EditText>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Probe Type"
                     style="@style/FormLabel">
             </TextView>
@@ -115,7 +100,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:prompt="@string/probe_type_choose">
-
             </Spinner>
 
         </LinearLayout>
