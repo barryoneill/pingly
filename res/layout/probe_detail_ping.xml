@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+                android:orientation="vertical">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Host or IP Address"
+            style="@style/FormLabel">
+    </TextView>
+
+    <EditText
+            android:id="@+id/probe_detail_ping_host"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="host/ip"
+            android:inputType="textUri">
+    </EditText>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Request Packet Count (-c)"
+            style="@style/FormLabel">
+    </TextView>
+
+    <EditText
+            android:id="@+id/probe_detail_ping_count"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:inputType="number">
+    </EditText>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deadline, in seconds (-w)"
+            style="@style/FormLabel">
+    </TextView>
+
+    <EditText
+            android:id="@+id/probe_detail_ping_deadline"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:inputType="number">
+    </EditText>
+</LinearLayout>

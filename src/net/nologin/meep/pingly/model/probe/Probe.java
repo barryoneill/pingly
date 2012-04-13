@@ -10,7 +10,7 @@ import java.util.List;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-public abstract class Probe {
+public abstract class Probe implements Cloneable {
 
 	public long id = -1;
 	public String name = "";
@@ -51,6 +51,10 @@ public abstract class Probe {
 				+ "']";
 	}
 
+	public boolean isType(String typeKey){
+		return typeKey != null && typeKey.equals(getTypeKey());
+	}
+
 	public abstract String getTypeKey();
 
 	public abstract String configToString();
@@ -72,16 +76,31 @@ public abstract class Probe {
 		if(StringUtils.isBlank(typeKey)){
 			throw new IllegalArgumentException("Invalid TypeKey");
 		}
-		if(SocketConnectionProbe.TYPE_KEY.equals(typeKey)){
-			return new SocketConnectionProbe();
+		if(PingProbe.TYPE_KEY.equals(typeKey)){
+			return new PingProbe();
 		}
 		if(HTTPResponseProbe.TYPE_KEY.equals(typeKey)){
 			return new HTTPResponseProbe();
+		}
+		if(SocketConnectionProbe.TYPE_KEY.equals(typeKey)){
+			return new SocketConnectionProbe();
 		}
 
 		Log.e(LOG_TAG, "Unrecognized type key " + typeKey + ", returning a HTTP probe as default");
 		return new HTTPResponseProbe();
 
 	}
+
+	public static Probe getInstance(String typeKey, Probe copyFrom){
+
+		Probe newProbe = getInstance(typeKey);
+		newProbe.id = copyFrom.id;
+		newProbe.name = copyFrom.name;
+		newProbe.desc = copyFrom.desc;
+		newProbe.configFromString(copyFrom.configToString());
+
+		return newProbe;
+	}
+
 
 }

@@ -102,6 +102,12 @@
                     android:prompt="@string/probe_type_choose">
             </Spinner>
 
+            <LinearLayout
+                    android:id="@+id/probe_detail_typespecific_container"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

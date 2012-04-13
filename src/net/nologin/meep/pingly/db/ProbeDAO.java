@@ -9,9 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
-import net.nologin.meep.pingly.util.StringUtils;
-
-import java.security.PublicKey;
 
 public class ProbeDAO extends PinglyDataHelper {
 
@@ -127,6 +124,8 @@ public class ProbeDAO extends PinglyDataHelper {
     }
 
     public long saveProbe(Probe probe) {
+
+		Log.d(LOG_TAG, "Saving probe " + probe);
 
         ContentValues cv = new ContentValues();
 
