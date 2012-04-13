@@ -1,5 +1,6 @@
 package net.nologin.meep.pingly.service.runner;
 
+import net.nologin.meep.pingly.model.probe.PingProbe;
 import net.nologin.meep.pingly.model.probe.Probe;
 
 import java.io.BufferedReader;
@@ -30,9 +31,10 @@ public class PingProbeRunner extends ProbeRunner {
 		 * Note, ping on the emulator is unlikely to work, especially for non-local hosts
 		 * http://developer.android.com/guide/developing/devices/emulator.html#emulatornetworking
 		 */
-		String host = "www.google.ie";
-		int count = 5;
-		int deadline = 5;
+		PingProbe pingProbe = (PingProbe)getProbe(); // if everything is configured properly
+		String host = pingProbe.host;
+		int count = pingProbe.packetCount;
+		int deadline = pingProbe.deadline;
 
 		try{
 			// assumption - ping on path!

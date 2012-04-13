@@ -6,5 +6,5 @@ public class StringUtils {
 	public static final boolean isBlank(String str){
 		return str == null || str.trim().length() < 1;
 	}
-	
+
 }

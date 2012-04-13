@@ -4,6 +4,8 @@ public class HTTPResponseProbe extends Probe {
 
 	public static final String TYPE_KEY = "HTTP_RESP";
 
+	public String url;
+
 	@Override
 	public String getTypeKey() {
 		return TYPE_KEY;

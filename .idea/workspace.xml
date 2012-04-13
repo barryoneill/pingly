@@ -30,14 +30,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b85c79b8-c5f6-49fa-835a-48b08d8be289" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/probe_detail_httpresponse.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/probe_detail_ping.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/probe_detail_socketconnection.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/probe_detail.xml" afterPath="$PROJECT_DIR$/res/layout/probe_detail.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pingly.iml" afterPath="$PROJECT_DIR$/Pingly.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeDAO.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/Probe.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/Probe.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/HTTPResponseProbe.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/HTTPResponseProbe.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/PingProbe.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/PingProbe.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/PingProbeRunner.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/PingProbeRunner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/util/StringUtils.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/util/StringUtils.java" />
     </list>
     <ignored path="Pingly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -117,28 +117,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="probe_detail.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/probe_detail.xml">
+      <file leaf-file-name="PingProbe.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/PingProbe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="105" column="72" selection-start="3709" selection-end="3744" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="64" column="32" selection-start="1576" selection-end="1576" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProbeDetailActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ProbeDetailActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="504" selection-end="504" vertical-scroll-proportion="0.25139666">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProbeDAO.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeDAO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="125" column="29" selection-start="3976" selection-end="3976" vertical-scroll-proportion="0.0">
+            <state line="175" column="9" selection-start="5526" selection-end="5526" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -146,32 +139,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Probe.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/Probe.java">
+      <file leaf-file-name="PingProbeRunner.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/PingProbeRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="34" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0">
+            <state line="36" column="42" selection-start="1309" selection-end="1309" vertical-scroll-proportion="0.41899443">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1535#1543#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="probe_detail_httpresponse.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_httpresponse.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="38" selection-start="704" selection-end="711" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="probe_detail_socketconnection.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_socketconnection.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="48" selection-start="850" selection-end="850" vertical-scroll-proportion="0.0">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -179,8 +153,47 @@
       <file leaf-file-name="probe_detail_ping.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_ping.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="38" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0">
+            <state line="29" column="53" selection-start="1014" selection-end="1014" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StringUtils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/util/StringUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="0" selection-start="231" selection-end="231" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HTTPResponseProbe.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/HTTPResponseProbe.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="13" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SocketConnectionProbe.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="46" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Probe.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/Probe.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="0" selection-start="518" selection-end="518" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1535#1543#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -199,14 +212,8 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/HTTPResponseProbeRunner.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/adapter/ProbeTypeAdapter.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/PinglyApplication.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/HTTPResponseConnectionProbe.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/HTTPResponseProbe.java" />
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/PingProbe.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/ProbeRunner.java" />
         <option value="$PROJECT_DIR$/res/layout/probe_detail.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeDAO.java" />
@@ -214,7 +221,13 @@
         <option value="$PROJECT_DIR$/res/layout/probe_detail_httpresponse.xml" />
         <option value="$PROJECT_DIR$/res/layout/probe_detail_ping.xml" />
         <option value="$PROJECT_DIR$/res/layout/probe_detail_socketconnection.xml" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/HTTPResponseProbe.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/util/StringUtils.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/util/JSONUtils.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/PingProbe.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/PingProbeRunner.java" />
       </list>
     </option>
   </component>
@@ -379,7 +392,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; Android 2.3.3 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widget" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -408,6 +447,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -430,6 +491,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="runner" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -499,28 +586,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -554,24 +619,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gen" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pingly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -913,7 +960,11 @@
       <created>1334274549031</created>
       <updated>1334274549031</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Detail pages for three probe types fleshed out">
+      <created>1334281587021</created>
+      <updated>1334281587021</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -957,7 +1008,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997862" sideWeight="0.83835006" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18866916" sideWeight="0.8292411" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17075893" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17075893" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1004,7 +1055,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="url out" />
+    <option name="LAST_COMMIT_MESSAGE" value="Detail pages for three probe types fleshed out" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1017,7 +1068,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Stub for days added, this probably also not ideal" />
     <MESSAGE value="in the interest of finishing some time this decade I'm keeping the scheduler very simple for now, removed 'active hours' till I can find a nice two-thumb range slider solution." />
     <MESSAGE value="After doing initial attempt with ORMlite I've decided to stick with plain SQL for now (thought ORMlite integration is on the cards).  Separated DB setup and 'business logic' into Helper and DAOs (although the DAOs are simply subclasses).  This is likely to change with ORM integration.  Standardised on the use of 'Schedule' in naming" />
     <MESSAGE value="minor style cleanup" />
@@ -1042,6 +1092,7 @@
     <MESSAGE value="add ping probe runner impl" />
     <MESSAGE value="need to store probe-type specific somewhere during runtime, decided to just subclass probe with extra vars in each type.  Means no need anymore for ProbeType which is now gone (affects loads of stuff)" />
     <MESSAGE value="url out" />
+    <MESSAGE value="Detail pages for three probe types fleshed out" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1051,52 +1102,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/service/ProbeRunnerInteractiveService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="5" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/adapter/ProbeTypeAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="37" selection-start="688" selection-end="688" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/ProbeRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="42" selection-start="743" selection-end="743" vertical-scroll-proportion="0.35614526">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/db/CursorReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="294" selection-end="294" vertical-scroll-proportion="0.14664805">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/PingProbeRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="48" selection-start="786" selection-end="786" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="52" selection-start="1756" selection-end="1756" vertical-scroll-proportion="-2.472067">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="53" column="40" selection-start="1808" selection-end="1808" vertical-scroll-proportion="0.46341464">
@@ -1130,16 +1135,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="29" selection-start="3976" selection-end="3976" vertical-scroll-proportion="0.0">
+        <state line="125" column="29" selection-start="3976" selection-end="3976" vertical-scroll-proportion="0.33240223">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_httpresponse.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="38" selection-start="704" selection-end="711" vertical-scroll-proportion="0.37709498">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_socketconnection.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="48" selection-start="850" selection-end="850" vertical-scroll-proportion="0.48184356">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/HTTPResponseProbe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/Probe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="34" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0">
+        <state line="23" column="0" selection-start="518" selection-end="518" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1535#1543#0" expanded="true" />
@@ -1147,31 +1173,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_httpresponse.xml">
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/util/StringUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="38" selection-start="704" selection-end="711" vertical-scroll-proportion="0.0">
+        <state line="8" column="0" selection-start="231" selection-end="231" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="46" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/PingProbe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="32" selection-start="1576" selection-end="1576" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_ping.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="38" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0">
+        <state line="29" column="53" selection-start="1014" selection-end="1014" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_socketconnection.xml">
+    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/widget/TextView.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="48" selection-start="850" selection-end="850" vertical-scroll-proportion="0.0">
+        <state line="403" column="44" selection-start="17572" selection-end="17572" vertical-scroll-proportion="0.63726884">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="504" selection-end="504" vertical-scroll-proportion="0.25139666">
-          <folding />
+        <state line="175" column="9" selection-start="5526" selection-end="5526" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/service/runner/PingProbeRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="42" selection-start="1309" selection-end="1309" vertical-scroll-proportion="0.41899443">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

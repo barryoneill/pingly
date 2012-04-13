@@ -168,6 +168,11 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		@Override
 		public void afterLayoutInflation() {
 			Log.d(LOG_TAG, "afterLayoutInflation for PING");
+
+			PingProbe p = (PingProbe)currentprobe;
+			getHostField().setText(p.host);
+			getCountField().setText(Integer.toString(p.packetCount));
+			getDeadlineField().setText(Integer.toString(p.deadline));
 		}
 
 		@Override
@@ -181,11 +186,21 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 				return false;
 			}
 
+			PingProbe p = (PingProbe)currentprobe;
+			p.host = getHostField().getText().toString();
+			p.packetCount = Integer.parseInt(getCountField().getText().toString());
+			p.deadline = Integer.parseInt(getDeadlineField().getText().toString());
 			return true;
 		}
 
 		private EditText getHostField(){
 			return (EditText)findViewById(R.id.probe_detail_ping_host);
+		}
+		private EditText getCountField(){
+			return (EditText)findViewById(R.id.probe_detail_ping_count);
+		}
+		private EditText getDeadlineField(){
+			return (EditText)findViewById(R.id.probe_detail_ping_deadline);
 		}
 	}
 

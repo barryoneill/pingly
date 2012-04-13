@@ -4,6 +4,9 @@ public class SocketConnectionProbe extends Probe {
 
 	public static final String TYPE_KEY = "SOCK_CONN";
 
+	public String host;
+	public int port;
+
 	@Override
 	public String getTypeKey() {
 		return TYPE_KEY;
