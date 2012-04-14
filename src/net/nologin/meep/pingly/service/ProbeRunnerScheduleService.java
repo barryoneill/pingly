@@ -15,7 +15,6 @@ import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
 
-import java.io.StringWriter;
 import java.util.Date;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -66,6 +65,7 @@ public class ProbeRunnerScheduleService extends IntentService {
 		Probe probe = probeDAO.findProbeById(entry.probe);
 		if(probe == null){
 			Log.e(LOG_TAG, "Couldn't find probe id " + entry.probe + " specified in schedule entry " + entry);
+			return;
 		}
 
 		// ready, running the probe
