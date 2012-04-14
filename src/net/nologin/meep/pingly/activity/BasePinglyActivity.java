@@ -2,6 +2,7 @@ package net.nologin.meep.pingly.activity;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+import android.widget.EditText;
 import net.nologin.meep.pingly.PinglyApplication;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
@@ -166,6 +167,10 @@ public abstract class BasePinglyActivity extends Activity {
 		}		
 	}
 
+
+	protected EditText findEditText(int id){
+		return (EditText)BasePinglyActivity.this.findViewById(id);
+	}
 
 
 

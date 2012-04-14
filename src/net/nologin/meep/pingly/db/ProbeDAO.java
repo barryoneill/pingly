@@ -7,6 +7,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
+import net.nologin.meep.pingly.model.probe.PingProbe;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 
@@ -82,46 +84,39 @@ public class ProbeDAO extends PinglyDataHelper {
     // dummy some test data
     public void generateTestItems() {
 
-		// Socket Connection to redbrick port 80
-		Probe p1 = new SocketConnectionProbe();
-		p1.name = "Redbrick";
-		p1.desc = "Socket connection to redbrick port 80";
+		// --------- ping google --------------
+		PingProbe p1 = new PingProbe();
+		p1.name = "Ping Google";
+		p1.desc = "Ping Google, c=5, w=5";
+		p1.host = "www.google.com";
+		p1.packetCount = 5;
+		p1.deadline = 5;
 		if(findProbeByName(p1.name) != null){
 			p1.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
 		}
 		saveProbe(p1);
 
+		// --------- socket connection to guardian 80 --------------
+		SocketConnectionProbe p2 = new SocketConnectionProbe();
+		p2.name = "Guardian TCP 80";
+		p2.desc = "Make a TCP connection to the guardian port 80";
+		p2.host = "guardian.co.uk";
+		p2.port = 80;
+		if(findProbeByName(p2.name) != null){
+			p2.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
+		}
+		saveProbe(p2);
 
-//        String[][] items = {
-//                {"0","Guardian Football Mobile", "Check the mobile version of the Guardian Football site", "http://m.guardian.co.uk/football?cat=football"},
-//                {"0","Google", "Do a test run against Google","http://www.google.com"},
-//                {"1","Google HTTPS", "Do a test run against Google (https)","https://www.google.com"},
-//                {"1","Microsoft", "Same again, against Microsoft","http://www.microsoft.com"},
-//                {"2","Redbrick", "This is a really long string to test that the truncation in the list view is working","http://www.redbrick.dcu.ie"},
-//                {"2","Scrabblefinder", "Ding ding ding", "http://www.scrabblefinder.com"}
-//        };
-//
-//        ProbeType type;
-//
-//        for(String[] line : items){
-//
-//			type = ProbeType.fromId(Integer.parseInt(line[0]));
-//			Probe p = new Probe(type);
-//			p.name = line[1];
-//            p.desc = line[2];
-//            url = line[3];
-//
-//            if(findProbeByName(name) != null){
-//                // names have to be unique, add something to further duplicates
-//                name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
-//            }
-//
-//
-//
-//            saveProbe(new Probe(type,name,desc,url));
-//        }
-
-    }
+		// --------- HTTP to Microsoft --------------
+		HTTPResponseProbe p3 = new HTTPResponseProbe();
+		p3.name = "Microsoft HTTP";
+		p3.desc = "Make HTTP connection to Microsoft";
+		p3.url = "http://www.microsoft.com";
+		if(findProbeByName(p3.name) != null){
+			p3.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
+		}
+		saveProbe(p3);
+	}
 
     public long saveProbe(Probe probe) {
 

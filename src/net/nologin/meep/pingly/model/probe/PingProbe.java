@@ -1,15 +1,34 @@
 package net.nologin.meep.pingly.model.probe;
 
 import android.util.Log;
-import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.util.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class PingProbe extends Probe {
 
 	public static final String TYPE_KEY = "PING";
 
+	public static final int PACKET_COUNT_MIN = 1;
+	public static final int PACKET_COUNT_MAX = 99;
+	public static final int PACKET_COUNT_DEFAULT = 5;
+
+	public static final int DEADLINE_MIN = 1;
+	public static final int DEADLINE_MAX = 99;
+	public static final int DEADLINE_DEFAULT = 1;
+
+	/* Example of current JSON format
+	 *
+	 * {
+	 *    "PING": {
+	 *       "host":"127.0.0.1",
+	 *       "packetCount":5,
+	 *       "deadline":5
+	 *    }
+	 * }
+	 *
+	 */
 	private static final String JSON_ATTR_HOST = "host";
 	private static final String JSON_ATTR_PACKET_COUNT = "packetCount";
 	private static final String JSON_ATTR_DEADLINE = "deadline";
@@ -37,13 +56,13 @@ public class PingProbe extends Probe {
 			root.put(getTypeKey(),pingAttrs);
 
 			String asJSON = root.toString();
-			Log.d(PinglyConstants.LOG_TAG, "Config of " + this + " = " + asJSON);
+			Log.d(LOG_TAG, "Config of " + this + " = " + asJSON);
 
 			return asJSON;
 
 		}
 		catch (JSONException e){
-			Log.e(PinglyConstants.LOG_TAG, "Couldn't convert to JSON - " + e.getMessage(),e);
+			Log.e(LOG_TAG, "Couldn't convert to JSON - " + e.getMessage(),e);
 			return "";
 		}
 
@@ -55,15 +74,15 @@ public class PingProbe extends Probe {
 		try {
 
 			if(StringUtils.isBlank(config)){
-				Log.d(PinglyConstants.LOG_TAG, "No config to parse for " + this);
+				Log.d(LOG_TAG, "No config to parse for " + this);
 				return;
 			}
 
-			Log.d(PinglyConstants.LOG_TAG, "Parsing config for " + this + " from string " + config);
+			Log.d(LOG_TAG, "Parsing config for " + this + " from string " + config);
 
 			JSONObject root = new JSONObject(config);
 			if(!root.has(getTypeKey())){
-				Log.d(PinglyConstants.LOG_TAG, "No config for " + getTypeKey() + " in string: " + config);
+				Log.d(LOG_TAG, "No config for " + getTypeKey() + " in string: " + config);
 				return;
 			}
 
@@ -80,7 +99,7 @@ public class PingProbe extends Probe {
 
 		}
 		catch (JSONException e){
-			Log.e(PinglyConstants.LOG_TAG, "Couldn't populate from JSON - " + e.getMessage(),e);
+			Log.e(LOG_TAG, "Couldn't populate from JSON - " + e.getMessage(),e);
 		}
 
 	}

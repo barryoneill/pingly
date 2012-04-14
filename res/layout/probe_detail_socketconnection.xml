@@ -4,13 +4,14 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
                 android:orientation="vertical">
+
+    <!-- ============== Host =============== -->
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Host or IP Address"
             style="@style/FormLabel">
     </TextView>
-
     <EditText
             android:id="@+id/probe_detail_socketconnection_host"
             android:layout_width="fill_parent"
@@ -19,19 +20,20 @@
             android:inputType="textUri">
     </EditText>
 
+    <!-- ============== Port =============== -->
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Port"
             style="@style/FormLabel">
     </TextView>
-
     <EditText
             android:id="@+id/probe_detail_socketconnection_port"
-            android:layout_width="70dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:hint="port"
-            android:inputType="number">
+            android:inputType="number"
+            android:numeric="integer">
     </EditText>
     
 </LinearLayout>

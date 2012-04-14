@@ -16,29 +16,24 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 
 	public boolean doRun() throws ProbeRunCancelledException {
 
-		SocketConnectionProbe probe = (SocketConnectionProbe)getProbe();
+		SocketConnectionProbe probe = (SocketConnectionProbe)getProbe(); // if everything is configured properly
 
-		String url = "www.google.com";
-
-		if (StringUtils.isBlank(url)) {
+		if (StringUtils.isBlank(probe.host)) {
 			publishUpdate("No URL specified");
 			return RUN_FAILED;
 		}
 
 		checkCancelled();
 
+		SocketChannel sc = null;
 		try {
 
-			// TODO: read from probe!
-			String host = "mail.comcast.net";
-			int port = 25;
+			publishUpdate("Making socket request to: \n" + probe.host + "   port " + probe.port);
 
-			publishUpdate("Making socket request to: \n" + host  + "   port " + port);
-
-			SocketChannel sc = SocketChannel.open();
+			sc = SocketChannel.open();
 			sc.configureBlocking(false);
 
-			sc.connect(new InetSocketAddress(host, port));
+			sc.connect(new InetSocketAddress(probe.host, probe.port));
 
 			int secondsWaited=1;
 			while (!sc.finishConnect()) {
@@ -64,6 +59,14 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 		catch (IOException e){
 			publishUpdate("IO Error: " + e.getMessage());
 			return RUN_FAILED;
+		}
+		finally {
+			if(sc != null && sc.isConnected()){
+				try{
+					sc.close();  // cleanup
+				}
+				catch(IOException ignored){}
+			}
 		}
 
 	}

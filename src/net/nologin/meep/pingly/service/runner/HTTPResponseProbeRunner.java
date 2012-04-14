@@ -1,5 +1,6 @@
 package net.nologin.meep.pingly.service.runner;
 
+import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.StringUtils;
 import org.apache.http.HttpResponse;
@@ -18,11 +19,9 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 
 	public boolean doRun() throws ProbeRunCancelledException {
 
-		Probe probe = getProbe();
+		HTTPResponseProbe httpProbe = (HTTPResponseProbe)getProbe(); // if everything is configured properly
 
-		String url = "";
-
-		if (StringUtils.isBlank(url)) {
+		if (StringUtils.isBlank(httpProbe.url)) {
 			publishUpdate("No URL specified");
 			return RUN_FAILED;
 		}
@@ -34,9 +33,9 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet();
 
-			publishUpdate("HTTP req to: \n" + url);
+			publishUpdate("HTTP req to: \n" + httpProbe.url);
 
-			request.setURI(new URI(url));
+			request.setURI(new URI(httpProbe.url));
 			HttpResponse response = client.execute(request);
 
 			// execute can take some time, check that the asynctask hasn't been checkCancelled in the meantime

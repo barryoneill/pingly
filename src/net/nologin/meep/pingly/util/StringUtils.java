@@ -7,4 +7,27 @@ public class StringUtils {
 		return str == null || str.trim().length() < 1;
 	}
 
+	public static int getInt(String str, int defaultValue){
+
+		try{
+			return Integer.parseInt(str);
+		}
+		catch(NumberFormatException e){
+			return defaultValue;
+		}
+	}
+
+	public static int getInt(String str, int min, int max, int defaultValue){
+
+		try{
+			int val = Integer.parseInt(str);
+			return NumberUtils.checkRange(val,min,max);
+		}
+		catch(NumberFormatException e){
+			return NumberUtils.checkRange(defaultValue,min,max);
+		}
+
+	}
+
+
 }

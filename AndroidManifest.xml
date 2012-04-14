@@ -33,8 +33,8 @@
         <receiver android:name=".alarm.RescheduleAllAlarmsReceiver">
             <intent-filter><action android:name="android.intent.action.BOOT_COMPLETED" /></intent-filter>
             <!-- TODO: test
-            <intent-filter><action android:name="android.intent.action.PACKAGE_REPLACED" /></intent-filter>
-            <intent-filter><action android:name="android.intent.action.TIMEZONE_CHANGED" /></intent-filter>
+            <intent-ui><action android:name="android.intent.action.PACKAGE_REPLACED" /></intent-ui>
+            <intent-ui><action android:name="android.intent.action.TIMEZONE_CHANGED" /></intent-ui>
             <data android:scheme="package" android:path="your.app.package" />
             -->
         </receiver>
