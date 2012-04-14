@@ -3,17 +3,27 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-            android:title="About"
-            android:key="category_about">
+            android:title="General Settings"
+            android:key="category_general">
 
-        <EditTextPreference
-                android:key="copyright"
-                android:title="CopyRightBlah"
-                android:summary="This is a very long message about the copyright"
-                />
-
+        <RingtonePreference
+                android:key="DEFAULT_NOTIFICATION_SOUND"
+                android:title="Notification Sound"
+                android:summary="Select the notification sound"
+                android:showDefault="true"
+                android:showSilent="true"
+                android:ringtoneType="notification" />
 
 
     </PreferenceCategory>
+
+    <!--
+    <PreferenceCategory
+            android:title="About"
+            android:key="category_about">
+
+
+    </PreferenceCategory>
+    -->
 
 </PreferenceScreen>

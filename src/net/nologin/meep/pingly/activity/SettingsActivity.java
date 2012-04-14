@@ -10,6 +10,10 @@ public class SettingsActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.main_preferences);
 
+
+		// Uri ringtoneUri = Uri.parse(strRingtonePreference);
+		// Ringtone ringtone = RingtoneManager.getRingtone(context, ringtoneUri);
+		// String name = ringtone.getTitle(context);
     }
 
 

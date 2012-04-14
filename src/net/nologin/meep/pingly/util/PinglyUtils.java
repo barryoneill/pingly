@@ -1,10 +1,13 @@
 package net.nologin.meep.pingly.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import net.nologin.meep.pingly.PinglyConstants;
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ public class PinglyUtils {
         // avoiding "android.content.res.Resources$NotFoundException: String resource ID #0x0"
         // perhaps that's what _should_ happen..  Best not to kill the app cause of laziness I guess.
         if(resId <= 0){
-            Log.e("Pingly","No string resource defined for key '" + name +"'");
+            Log.e(LOG_TAG,"No string resource defined for key '" + name +"'");
             return "n/a";
         }
         return context.getString(resId);
@@ -39,7 +42,7 @@ public class PinglyUtils {
         // avoiding "android.content.res.Resources$NotFoundException: String resource ID #0x0"
         // perhaps that's what _should_ happen..  Best not to kill the app cause of laziness I guess.
         if(resId <= 0){
-            Log.e("Pingly","No plural resource defined for key '" + name +"'");
+            Log.e(LOG_TAG,"No plural resource defined for key '" + name +"'");
             return "n/a";
         }
         return context.getResources().getQuantityString(resId,count,count);
@@ -57,12 +60,19 @@ public class PinglyUtils {
             }
         }
         catch(Exception e){
-            Log.e(PinglyConstants.LOG_TAG,"Error parsing " + c,e);
+            Log.e(LOG_TAG,"Error parsing " + c,e);
         }
 
         return result.toArray(new String[result.size()]);
     }
 
+
+	public static Uri getSelectedNotificationSound(Context ctx){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		String notifPref = prefs.getString("DEFAULT_NOTIFICATION_SOUND", "DEFAULT_SOUND");
+		Log.d(LOG_TAG,"Returning notification sound: " + notifPref);
+		return Uri.parse(notifPref);
+	}
 
 
 

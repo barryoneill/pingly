@@ -14,6 +14,7 @@ import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
+import net.nologin.meep.pingly.util.PinglyUtils;
 
 import java.util.Date;
 
@@ -79,8 +80,10 @@ public class ProbeRunnerScheduleService extends IntentService {
 		});
 		boolean runSuccessful = runner.run();
 
+		// TODO, check scheduler hasn't been disabled/ entry disabled/ entry deleted since
+
 		Log.i(LOG_TAG, "Probe Run on " + entry + " successful:" + runSuccessful);
-        showAppNotification(this,probe.id,buf.toString());
+        showAppNotification(this, probe.id, buf.toString());
 
 
     }
@@ -98,6 +101,8 @@ public class ProbeRunnerScheduleService extends IntentService {
         notification.defaults |= Notification.DEFAULT_LIGHTS;
         notification.defaults |= Notification.FLAG_AUTO_CANCEL;
 
+		notification.sound = PinglyUtils.getSelectedNotificationSound(ctx);
+
         Context appContext = ctx.getApplicationContext();
 		CharSequence contentTitle = "ID:" + id;
         CharSequence contentText = msg + " (time: " + new Date().toLocaleString() + ")";
@@ -112,6 +117,8 @@ public class ProbeRunnerScheduleService extends IntentService {
 
         // AlarmScheduler.testIntentService(ctx);
     }
+
+
 
 
 }
