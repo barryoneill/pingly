@@ -70,7 +70,7 @@ public abstract class BasePinglyActivity extends Activity {
 	// available to all actions (TODO: name? goTO?)
 	public void createNewProbe(View v) {
 
-		goToProbeDetails(-1);
+		goToProbeDetailsForNew();
 	}
 
 	public void goToProbeRunner(long probeId) {
@@ -85,6 +85,10 @@ public abstract class BasePinglyActivity extends Activity {
 		
 		startActivity(intent);
 
+	}
+
+	public void goToProbeDetailsForNew() {
+		goToProbeDetails(-1);
 	}
 
 	public void goToProbeDetails(long probeId) {

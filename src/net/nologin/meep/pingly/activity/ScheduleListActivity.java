@@ -1,6 +1,7 @@
 package net.nologin.meep.pingly.activity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,13 +14,18 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import net.nologin.meep.pingly.R;
+import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
 import net.nologin.meep.pingly.adapter.ScheduleListCursorAdapter;
 import net.nologin.meep.pingly.alarm.AlarmScheduler;
+import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ScheduleListActivity extends BasePinglyActivity {
+
+	static final int DIALOG_NO_PROBES = 1;
+	static final int DIALOG_CHOOSE_PROBE = 2;
 
     private ScheduleListCursorAdapter listAdapter;
 
@@ -39,7 +45,20 @@ public class ScheduleListActivity extends BasePinglyActivity {
 
     }
 
-    @Override
+	// onClick handler for new schedule
+	public void createNewSchedule(View v){
+
+		if(probeDAO.getNumProbes() < 1){
+			showDialog(DIALOG_NO_PROBES);
+		}
+		else {
+			showDialog(DIALOG_CHOOSE_PROBE);
+		}
+
+	}
+
+
+	@Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
 
@@ -121,5 +140,63 @@ public class ScheduleListActivity extends BasePinglyActivity {
         return true;
     }
 
+	// TODO: i18n!
+	protected Dialog onCreateDialog(int id) {
+		Dialog dialog;
+		String title;
+		String msg;
+		AlertDialog.Builder builder;
+
+		switch (id) {
+			case DIALOG_NO_PROBES:
+				title = "No Probes Available";
+				msg = "No probes are available for scheduling. Please create one first.";
+
+				builder = new AlertDialog.Builder(this);
+				builder.setTitle(title)
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setMessage(msg)
+						.setCancelable(true)
+						.setPositiveButton("Create Probe", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								goToProbeDetailsForNew();
+							}
+						})
+						.setNegativeButton("Cancel", null);
+				dialog = builder.create();
+				break;
+			case DIALOG_CHOOSE_PROBE:
+
+				title = "Select Probe";
+
+				final Cursor allProbesCursor = probeDAO.findAllProbes();
+				final ProbeListCursorAdapter probeListAdapter = new ProbeListCursorAdapter(this,allProbesCursor);
+
+				builder = new AlertDialog.Builder(this);
+				builder.setTitle(title)
+						.setIcon(android.R.drawable.ic_dialog_info)
+						.setCancelable(true)
+						.setNeutralButton("Create New", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								goToProbeDetailsForNew();
+							}
+						})
+						.setNegativeButton("Cancel", null)
+						.setAdapter(probeListAdapter, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i) {
+								long selectedProbeId = ProbeDAO.cursorToProbeId(allProbesCursor);
+								goToProbeDetails(selectedProbeId);
+							}
+						});
+				dialog = builder.create();
+
+				break;
+			default:
+				Log.e(LOG_TAG, "Unknown dialog ID " + id);
+				dialog = null;
+		}
+		return dialog;
+	}
 
 }

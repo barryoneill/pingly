@@ -20,6 +20,11 @@
 
         <ImageView style="@style/TitleBarSeparator"/>
 
+        <ImageButton
+                android:onClick="createNewSchedule"
+                style="@style/TitleBarClickable"
+                android:src="@android:drawable/ic_menu_add"/>
+
     </LinearLayout>
 
 

@@ -5,6 +5,7 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
@@ -61,6 +62,11 @@ public class ProbeDAO extends PinglyDataHelper {
                 null, null, null, TBL_PROBE.COL_CREATED);
 
     }
+
+	public long getNumProbes(){
+		SQLiteDatabase db = getReadableDatabase();
+		return DatabaseUtils.queryNumEntries(db, TBL_PROBE.TBL_NAME);
+	}
 
     // danger here
     public void deleteAll(){
@@ -142,9 +148,12 @@ public class ProbeDAO extends PinglyDataHelper {
         }
     }
 
+	public static long cursorToProbeId(Cursor c){
+		 return c.getInt(c.getColumnIndexOrThrow(TBL_PROBE.COL_ID));
+	}
 
     // keep the param so the caller doesn't forget about cursor responsibility
-    private Probe cursorToProbe(Cursor c, boolean closeCursor) {
+    public static Probe cursorToProbe(Cursor c, boolean closeCursor) {
 
 		String typeKey = c.getString(c.getColumnIndexOrThrow(TBL_PROBE.COL_TYPE_KEY));
 		Probe probe = Probe.getInstance(typeKey);
