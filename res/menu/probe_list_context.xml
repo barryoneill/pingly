@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--  TODO: i18n strings!  -->
     <item
-        android:id="@+id/probe_list_contextmenu_run"
-        android:title="Run Now"/>
+            android:id="@+id/probe_list_contextmenu_run"
+            android:title="Run Now"/>
 
     <item
             android:id="@+id/probe_list_contextmenu_schedule"
-            android:title="Schedule Probe"/>
+            android:title="Schedule"/>
 
     <item
-        android:id="@+id/probe_list_contextmenu_edit"
-        android:title="Edit"/>
+            android:id="@+id/probe_list_contextmenu_edit"
+            android:title="Edit"/>
     <item
-        android:id="@+id/probe_list_contextmenu_delete"
-        android:title="Delete"/>
-    
+            android:id="@+id/probe_list_contextmenu_delete"
+            android:title="Delete"/>
+
 </menu>

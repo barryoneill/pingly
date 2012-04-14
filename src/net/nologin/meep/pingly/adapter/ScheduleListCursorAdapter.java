@@ -14,6 +14,7 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 
 import java.util.Date;
 
+import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_SCHEDULE;
 
 public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
@@ -33,7 +34,7 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 		TextView startInfo;
         TextView repeatInfo;
 		
-		int colProbeFKIdx;
+		int colProbeNameIdx;
 		int colStartTimeIdx;
 		int colRepeatTypeIdx;
 		int colRepeatValueIdx;
@@ -52,8 +53,8 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 		holder.startInfo = (TextView) newView.findViewById(R.id.schedule_entry_startinfo);
         holder.repeatInfo = (TextView) newView.findViewById(R.id.schedule_entry_repeatinfo);
 
-		// column indexes
-		holder.colProbeFKIdx = cursor.getColumnIndex(TBL_SCHEDULE.COL_PROBE_FK);
+		// column indexes - see ScheduleDAO.queryForScheduleListCursorAdapter() for query
+		holder.colProbeNameIdx = cursor.getColumnIndex(TBL_PROBE.COL_NAME);
 		holder.colStartTimeIdx = cursor.getColumnIndex(TBL_SCHEDULE.COL_STARTTIME);
 		holder.colRepeatTypeIdx = cursor.getColumnIndex(TBL_SCHEDULE.COL_REPEATTYPE_ID);
 		holder.colRepeatValueIdx = cursor.getColumnIndex(TBL_SCHEDULE.COL_REPEAT_VALUE);
@@ -70,13 +71,13 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 
-		long probeId = cursor.getLong(holder.colProbeFKIdx);
+		String probeName = cursor.getString(holder.colProbeNameIdx);
 		Date startTime = DBUtils.fromGMTDateTimeString(cursor.getString(holder.colStartTimeIdx));
 		ScheduleRepeatType repeatType = ScheduleRepeatType.fromId(cursor.getInt(holder.colRepeatTypeIdx));
 		int repeatValue = cursor.getInt(holder.colRepeatValueIdx);
 
 		// TODO: replace hardcoded text with i18n
-        holder.probeInfo.setText("Probe ID " + probeId);
+        holder.probeInfo.setText("Probe: " + probeName);
         holder.startInfo.setText("Start Time: " + startTime.toLocaleString());
         String summary = PinglyUtils.loadStringForPlural(context,repeatType.getResourceNameForSummary(),repeatValue);
         holder.repeatInfo.setText("Repeat: " + summary);

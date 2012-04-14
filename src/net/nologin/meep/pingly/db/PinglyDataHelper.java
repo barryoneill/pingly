@@ -58,6 +58,10 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
 		public static final String COL_ACTIVE = "is_active";
 		public static final String COL_CREATED = "t_created";
 		public static final String COL_LASTMOD = "t_lastmod";
+
+		// populated with a join on the probe table
+		public static final String COL_PROBE_READONLY_NAME = "probe_readonly_name";
+
         public static final String COL_STARTONSAVE = "start_on_save";
         public static final String COL_STARTTIME = "start_time";
         public static final String COL_REPEATTYPE_ID = "repeat_type_id";

@@ -53,7 +53,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 			throw new IllegalArgumentException("This activity expects requires a proble ID parameter");
 		}
 		// init the schedule/probe for this activity
-		schedule = new ScheduleEntry(probe.id);
+		schedule = new ScheduleEntry(probe);
 
 		probeName = (TextView) findViewById(R.id.scheduled_probe_name);
 		probeSummary = (TextView) findViewById(R.id.scheduled_probe_summary);

@@ -62,7 +62,7 @@
                     android:id="@+id/scheduled_probe_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Probe Summary"
+                    android:text="Probe Name"
                     style="@style/FormLabel"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp">

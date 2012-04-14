@@ -1,12 +1,14 @@
 package net.nologin.meep.pingly.model;
 
 
+import net.nologin.meep.pingly.model.probe.Probe;
+
 import java.util.Date;
 
 public class ScheduleEntry {
 
     public long id = -1;
-    public long probe;
+    public Probe probe;
     public boolean active;
     public boolean startOnSave;
     public Date startTime;
@@ -14,15 +16,15 @@ public class ScheduleEntry {
     public int repeatValue;
 
     // probe for a new entry must exist
-    public ScheduleEntry(long probeId){
+    public ScheduleEntry(Probe probe){
 
         this.id = -1;
-        this.probe = probeId;
+        this.probe = probe;
         this.active = true;
         this.startOnSave = true;
         this.startTime = null;
-        this.repeatType = ScheduleRepeatType.Seconds; // TODO: revisit defaults
-        this.repeatValue = 6; // TODO: revisit!
+        this.repeatType = ScheduleRepeatType.Minutes; // TODO: revisit defaults
+        this.repeatValue = 10; // TODO: revisit!
 
     }
 

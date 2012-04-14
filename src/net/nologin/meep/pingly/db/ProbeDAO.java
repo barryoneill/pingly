@@ -19,6 +19,15 @@ public class ProbeDAO extends PinglyDataHelper {
         super(context);
     }
 
+	// convenience method
+	public static Probe findProbeById(Context ctx, long id) {
+
+		ProbeDAO dao = new ProbeDAO(ctx);
+		Probe result = dao.findProbeById(id);
+		dao.close();
+		return result;
+	}
+
     public Probe findProbeById(long id) {
 
         Log.d(LOG_TAG, "Looking up probe with ID: " + id);

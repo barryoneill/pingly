@@ -12,7 +12,6 @@ import net.nologin.meep.pingly.activity.PinglyDashActivity;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.ScheduleEntry;
-import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
@@ -63,15 +62,10 @@ public class ProbeRunnerScheduleService extends IntentService {
 			Log.e(LOG_TAG, "Entry for ID " + entryId + " was not found, nothing to do!");
 			return;
 		}
-		Probe probe = probeDAO.findProbeById(entry.probe);
-		if(probe == null){
-			Log.e(LOG_TAG, "Couldn't find probe id " + entry.probe + " specified in schedule entry " + entry);
-			return;
-		}
 
 		// ready, running the probe
 		final StringBuffer buf = new StringBuffer();
-		final ProbeRunner runner = ProbeRunner.getInstance(probe);
+		final ProbeRunner runner = ProbeRunner.getInstance(entry.probe);
 		runner.setUpdateListener(new ProbeRunner.ProbeUpdateListener() {
 			@Override
 			public void onUpdate(String newOutput) {
@@ -83,7 +77,7 @@ public class ProbeRunnerScheduleService extends IntentService {
 		// TODO, check scheduler hasn't been disabled/ entry disabled/ entry deleted since
 
 		Log.i(LOG_TAG, "Probe Run on " + entry + " successful:" + runSuccessful);
-        showAppNotification(this, probe.id, buf.toString());
+        showAppNotification(this, entry.probe.id, buf.toString());
 
 
     }

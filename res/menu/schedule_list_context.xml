@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--  TODO: i18n strings!  -->
 
     <item
-        android:id="@+id/schedule_list_contextmenu_delete"
-        android:title="Delete"/>
+            android:id="@+id/schedule_list_contextmenu_edit_schedule"
+            android:title="Edit Schedule"/>
 
     <item
-        android:id="@+id/schedule_list_contextmenu_edit"
-        android:title="Edit"/>
+            android:id="@+id/schedule_list_contextmenu_edit_probe"
+            android:title="Edit Probe"/>
+
+    <item
+            android:id="@+id/schedule_list_contextmenu_delete"
+            android:title="Delete"/>
+
 
     <!-- title changed to 'activate'/'deactivate' by onCreateContextMenu depending on entry -->
     <item
-        android:id="@+id/schedule_list_contextmenu_activetoggle"
-        android:title="Ac/Deactivate"/>
+            android:id="@+id/schedule_list_contextmenu_activetoggle"
+            android:title="Ac/Deactivate"/>
 
 </menu>

@@ -33,7 +33,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_list);
 
-        Cursor schedCursor = scheduleDAO.findAllScheduledItems();
+        Cursor schedCursor = scheduleDAO.queryForScheduleListCursorAdapter();
         listAdapter = new ScheduleListCursorAdapter(this,schedCursor);
         ListView lv = (ListView) findViewById(R.id.scheduleList);
         lv.setAdapter(listAdapter);
@@ -69,7 +69,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
             ScheduleEntry target = scheduleDAO.findById(info.id);
-            menu.setHeaderTitle("Probe: '" + target.probe + "'");
+            menu.setHeaderTitle("Probe: '" + target.probe.name + "'");
 
             MenuInflater inflater1 = getMenuInflater();
             inflater1.inflate(R.menu.schedule_list_context, menu);
@@ -90,10 +90,26 @@ public class ScheduleListActivity extends BasePinglyActivity {
 
         switch (item.getItemId()) {
 
+			case R.id.schedule_list_contextmenu_edit_schedule:
+				Log.d("PINGLY", "Edit Schedule : " + entry);
+
+				// TODO: implement!
+				Toast.makeText(ScheduleListActivity.this,"Edit Schedule Unimplemented!",Toast.LENGTH_SHORT).show();
+
+				return true;
+
+			case R.id.schedule_list_contextmenu_edit_probe:
+				Log.d("PINGLY", "Edit Probe : " + entry);
+
+				goToProbeDetails(entry.probe.id);
+
+				return true;
+
             case R.id.schedule_list_contextmenu_activetoggle:
                 Log.d("PINGLY", "Toggling : " + entry);
 
                 // TODO: implement!
+				Toast.makeText(ScheduleListActivity.this,"Toggle Unimplemented",Toast.LENGTH_SHORT).show();
 
                 return true;
 
@@ -117,7 +133,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 
                                 /* since we stay where we are (no activity state change), the startManagingCursor() registration in onCreate()
                                          * won't know to refresh the cursor/adapter.  We requery all probes and pass the new cursor to the adapter. */
-                                listAdapter.changeCursor(scheduleDAO.findAllScheduledItems());
+                                listAdapter.changeCursor(scheduleDAO.queryForScheduleListCursorAdapter());
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
