@@ -9,6 +9,8 @@
              http://code.google.com/p/android/issues/detail?id=10378&q=setError&colspec=ID%20Type%20Status%20Owner%20Summary%20Stars
          -->
 	    <item name="android:textColorSecondaryInverse">@android:color/secondary_text_light</item>
+        <!-- also from http://code.google.com/p/android/issues/detail?id=22920 -->
+        <item name="android:textColorPrimaryInverse">@android:color/primary_text_light</item>
     </style>
     <!--
     <style name="Theme.D1dialog" parent="android:style/Theme.Dialog">

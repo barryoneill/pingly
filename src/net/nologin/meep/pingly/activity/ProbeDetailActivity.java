@@ -74,6 +74,8 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 				String name = probeName.getText().toString().trim();
 				String desc = probeDesc.getText().toString().trim();
 
+				probeName.setError(null); // clear any possible previous error
+
 				// TODO: i18n strings
 				if (StringUtils.isBlank(name)) {
 					probeName.setError("Please supply a name.");
