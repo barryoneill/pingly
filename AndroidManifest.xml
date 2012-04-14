@@ -15,7 +15,7 @@
 
     <application
         android:icon="@drawable/main_launcher_icon" android:label="@string/app_name"
-        android:theme="@style/Theme.D1" android:name=".PinglyApplication">
+        android:theme="@style/Theme.PinglyTheme" android:name=".PinglyApplication">
 
         <activity android:label="@string/app_name" android:name=".activity.PinglyDashActivity">
             <intent-filter >

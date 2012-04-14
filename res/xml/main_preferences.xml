@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="About"
+            android:key="category_about">
+
+        <EditTextPreference
+                android:key="copyright"
+                android:title="CopyRightBlah"
+                android:summary="This is a very long message about the copyright"
+                />
+
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

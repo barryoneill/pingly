@@ -1,14 +1,14 @@
 package net.nologin.meep.pingly.activity;
 
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import net.nologin.meep.pingly.R;
 
-public class SettingsActivity extends BasePinglyActivity {
+public class SettingsActivity extends PreferenceActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_settings);
-
+		addPreferencesFromResource(R.xml.main_preferences);
 
     }
 

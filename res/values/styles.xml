@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme is the default theme. -->
-    <style name="Theme" parent="android:Theme"></style>
 
-    <!-- Variation on the Light theme that turns off the title -->
-    <style name="Theme.D1t" parent="android:style/Theme.Light">
-        <item name="android:windowNoTitle">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-    <style name="Theme.D1" parent="android:style/Theme.Light">
+    <style name="Theme.PinglyTheme" parent="android:style/Theme.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <!--  'android:textColorSecondaryInverse' fix for setError, as documented in:
