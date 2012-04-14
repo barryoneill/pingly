@@ -186,7 +186,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int i) {
 								long selectedProbeId = ProbeDAO.cursorToProbeId(allProbesCursor);
-								goToProbeDetails(selectedProbeId);
+								goToProbeScheduling(selectedProbeId);
 							}
 						});
 				dialog = builder.create();
