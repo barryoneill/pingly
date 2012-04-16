@@ -43,13 +43,29 @@
                 android:drawSelectorOnTop="false">
         </ListView>
 
-        <TextView
+        <!-- TODO: add styling -->
+        <LinearLayout
                 android:id="@+id/emptyListElem"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
+                android:orientation="vertical"
                 android:layout_marginTop="50dip"
-                android:gravity="center_horizontal"
-                android:text="No Probes Scheduled"/>
+                android:layout_gravity="center">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="No Probes Scheduled!"
+                    android:layout_marginBottom="10dip"
+                    android:gravity="center"/>
+            <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Schedule A Probe"
+                    android:gravity="center"
+                    android:onClick="createNewSchedule"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 
