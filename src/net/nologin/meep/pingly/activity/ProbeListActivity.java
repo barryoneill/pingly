@@ -2,6 +2,8 @@ package net.nologin.meep.pingly.activity;
 
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
+import net.nologin.meep.pingly.alarm.AlarmScheduler;
+import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.probe.Probe;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -21,23 +23,25 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.util.List;
+
 public class ProbeListActivity extends BasePinglyActivity {
 
 	private ProbeListCursorAdapter listAdapter;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.probe_list);
 
 		Cursor allProbesCursor = probeDAO.findAllProbes();
-		listAdapter = new ProbeListCursorAdapter(this,allProbesCursor);
+		listAdapter = new ProbeListCursorAdapter(this, allProbesCursor);
 		ListView lv = (ListView) findViewById(R.id.probeList);
 		lv.setAdapter(listAdapter);
 		registerForContextMenu(lv);
 
-		View empty = findViewById(R.id.emptyListElem);	    
-	    lv.setEmptyView(empty);
+		View empty = findViewById(R.id.emptyListElem);
+		lv.setEmptyView(empty);
 
 //	    int[] colors = {0, 0xFF007700, 0}; //green
 //	    lv.setDivider(new GradientDrawable(Orientation.RIGHT_LEFT, colors));
@@ -46,68 +50,67 @@ public class ProbeListActivity extends BasePinglyActivity {
 		// any activity 
 		startManagingCursor(allProbesCursor);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int itemPos, long itemId) {
-                Log.d(LOG_TAG,"Got id " + itemId);
-                goToProbeRunner(itemId);
-            }
-        });
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int itemPos, long itemId) {
+				Log.d(LOG_TAG, "Got id " + itemId);
+				goToProbeRunner(itemId);
+			}
+		});
 
 		// ======================== test stuff start ==========================
 		// add button to quickly generate items
 		ImageButton testItemsBut = (ImageButton) findViewById(R.id.but_generateTestItems);
-		testItemsBut.setOnClickListener(new OnClickListener() {			
+		testItemsBut.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-	
+
 				AlertDialog dialog = new AlertDialog.Builder(ProbeListActivity.this)
-				.setMessage("Generate ResourceListProvider Items?")
-				.setCancelable(false)
-				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			       public void onClick(DialogInterface dialog, int id) {
-						probeDAO.generateTestItems();
-						listAdapter.changeCursor(probeDAO.findAllProbes());
-			       }
-			   })
-			   .setNegativeButton("No", new DialogInterface.OnClickListener() {
-			       public void onClick(DialogInterface dialog, int id) {
-			            dialog.cancel();
-			       }
-			   }).create();
-			dialog.show();						
+						.setMessage("Generate ResourceListProvider Items?")
+						.setCancelable(false)
+						.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								probeDAO.generateTestItems();
+								listAdapter.changeCursor(probeDAO.findAllProbes());
+							}
+						})
+						.setNegativeButton("No", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						}).create();
+				dialog.show();
 			}
 		});
-		
+
 		// add button to quickly generate items
 		ImageButton deleteAllBut = (ImageButton) findViewById(R.id.but_deleteAllItems);
-		deleteAllBut.setOnClickListener(new OnClickListener() {			
+		deleteAllBut.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-	
+
 				AlertDialog dialog = new AlertDialog.Builder(ProbeListActivity.this)
-				.setMessage("Are you sure you want to delete all items?")
-				.setCancelable(false)
-				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			       public void onClick(DialogInterface dialog, int id) {
-						probeDAO.deleteAll();
-						listAdapter.changeCursor(probeDAO.findAllProbes());
-			       }
-			   })
-			   .setNegativeButton("No", new DialogInterface.OnClickListener() {
-			       public void onClick(DialogInterface dialog, int id) {
-			            dialog.cancel();
-			       }
-			   }).create();
-			dialog.show();						
+						.setMessage("Are you sure you want to delete all items?")
+						.setCancelable(false)
+						.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								probeDAO.deleteAll();
+								listAdapter.changeCursor(probeDAO.findAllProbes());
+							}
+						})
+						.setNegativeButton("No", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						}).create();
+				dialog.show();
 			}
 		});
-		
-		
+
+
 		// ======================== temp stuff end ==========================
 	}
 
-	
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -118,7 +121,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+									ContextMenuInfo menuInfo) {
 
 		super.onCreateContextMenu(menu, v, menuInfo);
 
@@ -132,7 +135,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 			MenuInflater inflater1 = getMenuInflater();
 			inflater1.inflate(R.menu.probe_list_context, menu);
 
-        }
+		}
 	}
 
 	@Override
@@ -141,53 +144,69 @@ public class ProbeListActivity extends BasePinglyActivity {
 				.getMenuInfo();
 
 		final Probe probe = probeDAO.findProbeById(info.id);
-		
+
 		switch (item.getItemId()) {
 
 			case R.id.probe_list_contextmenu_run:
 				Log.d("PINGLY", "Running probe: " + probe);
-				
+
 				goToProbeRunner(probe.id);
-				
+
 				return true;
-			
+
 			case R.id.probe_list_contextmenu_edit:
-                Log.d("PINGLY", "Editing probe: " + probe);
-				
+				Log.d("PINGLY", "Editing probe: " + probe);
+
 				goToProbeDetails(probe.id);
-				
+
 				return true;
 
-            case R.id.probe_list_contextmenu_schedule:
+			case R.id.probe_list_contextmenu_schedule:
 
-                Log.d("PINGLY", "Scheduling probe: " + probe);
+				Log.d("PINGLY", "Scheduling probe: " + probe);
 
-                goToProbeScheduling(probe.id);
+				goToProbeScheduling(probe.id);
 
-                return true;
+				return true;
 
 			case R.id.probe_list_contextmenu_delete:
 				Log.d("PINGLY", "Deleting probe: " + probe);
-				
+
+				final List<ScheduleEntry> entries = scheduleDAO.findEntriesForProbe(probe.id);
+				final String msg = entries.size() > 0
+						? "Probe '" + probe.name + "' has scheduler entries, these will be stopped as well.  Continue?"
+						: "Are you sure you want to delete probe '" + probe.name + "'?";
+
 				AlertDialog dialog = new AlertDialog.Builder(this)
-						.setMessage("Are you sure you want to delete probe '" + probe.name + "'?")
-				       .setCancelable(false)
-				       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-				           public void onClick(DialogInterface dialog, int id) {
-				        	   probeDAO.deleteProbe(probe);
-								/* since we stay where we are (no activity state change), the startManagingCursor() registration in onCreate()
-								 * won't know to refresh the cursor/adapter.  We requery all probes and pass the new cursor to the adapter. */
-                               listAdapter.changeCursor(probeDAO.findAllProbes());
-				           }
-				       })
-				       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-				           public void onClick(DialogInterface dialog, int id) {
-				                dialog.cancel();
-				           }
-				       }).create();
-				dialog.show();				
+						.setTitle("Delete Probe")
+						.setMessage(msg)
+						.setCancelable(false)
+						.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+
+								// cancel alarms for those entries
+								AlarmScheduler.cancelAlarms(ProbeListActivity.this, entries);
+
+								// delete the entries
+								scheduleDAO.deleteForProbe(probe.id);
+
+								// then delete the probe
+								probeDAO.deleteProbe(probe);
+
+								/* since we stay where we are (no activity state change), the startManagingCursor()
+								 * registration in onCreate() won't know to refresh the cursor/adapter.  We requery
+								 * all probes and pass the new cursor to the adapter. */
+								listAdapter.changeCursor(probeDAO.findAllProbes());
+							}
+						})
+						.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						}).create();
+				dialog.show();
 				return true;
-				
+
 			default:
 				Log.d("PINGLY", "Unhandled Item ID " + item.getItemId());
 				super.onContextItemSelected(item);

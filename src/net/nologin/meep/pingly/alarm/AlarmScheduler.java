@@ -12,6 +12,7 @@ import net.nologin.meep.pingly.model.ScheduleRepeatType;
 import net.nologin.meep.pingly.service.ProbeRunnerScheduleService;
 
 import java.util.Date;
+import java.util.List;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -71,6 +72,14 @@ public class AlarmScheduler {
         }
 
     }
+
+	public static void cancelAlarms(Context ctx, List<ScheduleEntry> entries){
+
+		for(ScheduleEntry entry : entries){
+			cancelAlarm(ctx, entry);
+		}
+
+	}
 
     public static void cancelAlarm(Context ctx, ScheduleEntry entry) {
 

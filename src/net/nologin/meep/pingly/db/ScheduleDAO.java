@@ -13,7 +13,9 @@ import net.nologin.meep.pingly.model.ScheduleRepeatType;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.DBUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 // TODO: just like ProbeDAO, I need to find a non-bloated ORM helper
@@ -55,6 +57,27 @@ public class ScheduleDAO extends PinglyDataHelper {
 		return cursorToEntry(cursor, true);
 
 	}
+
+	public List<ScheduleEntry> findEntriesForProbe(long probeId) {
+
+		Log.d(LOG_TAG, "Looking up entries with probe ID: " + probeId);
+
+		SQLiteDatabase db = getReadableDatabase();
+		String idClause = TBL_SCHEDULE.COL_PROBE_FK + "=" + probeId;
+
+		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
+				idClause, null, null, null, null);
+		List<ScheduleEntry> entries = new ArrayList<ScheduleEntry>();
+		cursor.moveToFirst();
+
+		while(!cursor.isAfterLast()) {
+			entries.add(cursorToEntry(cursor, false));
+			cursor.moveToNext();
+		}
+
+		return entries;
+	}
+
 
 
 	public Cursor queryForScheduleListCursorAdapter() {
@@ -100,6 +123,17 @@ public class ScheduleDAO extends PinglyDataHelper {
 		db.delete(TBL_SCHEDULE.TBL_NAME, idClause, null);
 
 	}
+
+	public void deleteForProbe(long probeId) {
+
+		Log.d(LOG_TAG, "Deleting entries for probe " + probeId);
+
+		SQLiteDatabase db = getWritableDatabase();
+		String idClause = TBL_SCHEDULE.COL_PROBE_FK + "=" + probeId;
+		db.delete(TBL_SCHEDULE.TBL_NAME, idClause, null);
+
+	}
+
 
 	public long saveScheduleEntry(ScheduleEntry entry) {
 
