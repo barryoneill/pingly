@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
-import net.nologin.meep.pingly.PinglyApplication;
 import net.nologin.meep.pingly.db.ProbeDAO;
-import net.nologin.meep.pingly.model.InteractiveProbeRunInfo;
-import net.nologin.meep.pingly.model.probe.Probe;
+import net.nologin.meep.pingly.db.ProbeRunDAO;
+import net.nologin.meep.pingly.model.ProbeRun;
+import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -20,28 +20,34 @@ public class ProbeRunnerInteractiveService extends Service {
 
 	ProbeRunnerAsyncTask runningTask;
 	ProbeDAO probeDAO;
+	ProbeRunDAO probeRunDAO;
 
 	public void onCreate() {
 		super.onCreate();
 		Log.d(LOG_TAG, "ProbeRunnerInteractiveService created");
 
 		probeDAO = new ProbeDAO(this);
+		probeRunDAO = new ProbeRunDAO(this);
 	}
 
 	@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
 		Log.d(LOG_TAG, "ProbeRunnerInteractiveService started");
-
-		if (probeDAO != null) {
-			probeDAO.close();
-		}
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		Log.d(LOG_TAG, "ProbeRunnerInteractiveService destroyed");
+
+		if (probeDAO != null) {
+			probeDAO.close();
+		}
+		if (probeRunDAO != null) {
+			probeRunDAO.close();
+		}
+
 	}
 
 	@Override
@@ -53,21 +59,11 @@ public class ProbeRunnerInteractiveService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
 		long probeRunId = intent.getLongExtra(EXTRA_PROBE_RUN_ID, 0);
-		InteractiveProbeRunInfo runInfo = ((PinglyApplication) getApplication()).getProbeRunInfo(probeRunId);
-		if(runInfo == null){
+		ProbeRun probeRun = probeRunDAO.findProbeRunById(probeRunId);
+		if(probeRun == null){
 			Log.e(LOG_TAG,"No probe run info for " + probeRunId + " was found, ignoring service call");
 			return START_NOT_STICKY;
 
-		}
-		if(runInfo.probeId < 1){
-			Log.e(LOG_TAG,"Invalid Probe ID supplied, ignoring service call");
-			return START_NOT_STICKY;
-		}
-
-		Probe targetProbe = probeDAO.findProbeById(runInfo.probeId);
-		if(targetProbe == null){
-			Log.e(LOG_TAG,"No probe found for ID " + runInfo.probeId + ", ignoring service call");
-			return START_NOT_STICKY;
 		}
 
 		// signal any previously running task to cancel
@@ -75,7 +71,7 @@ public class ProbeRunnerInteractiveService extends Service {
 			runningTask.cancel(true);
 		}
 
-		runningTask = new ProbeRunnerAsyncTask(runInfo, targetProbe);
+		runningTask = new ProbeRunnerAsyncTask(probeRun);
 		runningTask.execute();
 
 		return START_NOT_STICKY;
@@ -86,48 +82,46 @@ public class ProbeRunnerInteractiveService extends Service {
 
 	private class ProbeRunnerAsyncTask extends AsyncTask<Void, Void, Void> {
 
-		private InteractiveProbeRunInfo runInfo;
-		private Probe probe;
+		private ProbeRun probeRun;
 
-		public ProbeRunnerAsyncTask(InteractiveProbeRunInfo runInfo, Probe probe){
-			this.runInfo = runInfo;
-			this.probe = probe;
+		public ProbeRunnerAsyncTask(ProbeRun probeRun){
+			this.probeRun = probeRun;
 		}
 
 		@Override
 		protected Void doInBackground(Void... voids) {
 
-			runInfo.status = InteractiveProbeRunInfo.RunStatus.Running;
+			probeRun.status = ProbeRunStatus.Running;
+			probeRun.appendLogLine("Starting run for:\n" + probeRun.probe.name);
+			probeRun.appendLogLine("");
 
-			runInfo.writeLogLine("Starting run for:\n" + probe.name);
-			runInfo.writeLogLine("");
-			broadcastUpdate(runInfo);
+			broadcastUpdate(probeRun);
 
 			// ------------------------------------------------------------------------------------
 
-			final ProbeRunner runner = ProbeRunner.getInstance(probe);
+			final ProbeRunner runner = ProbeRunner.getInstance(probeRun.probe);
 			runner.setUpdateListener(new ProbeRunner.ProbeUpdateListener() {
 				@Override
 				public void onUpdate(String newOutput) {
-					runInfo.writeLog(newOutput);
-					broadcastUpdate(runInfo);
-					if (probeRunCancelled(runInfo)) {
+					probeRun.appendLogLine(newOutput);
+					broadcastUpdate(probeRun);
+					if (probeRunCancelled(probeRun)) {
 						runner.cancel();
 					}
 				}
 			});
 			boolean runSuccessful = runner.run();
 
-			runInfo.writeLogLine("");
+			probeRun.appendLogLine("");
 			if(runSuccessful){
-				runInfo.writeLogLine("Probe successful");
-				runInfo.setFinishedWithSuccess();
+				probeRun.appendLogLine("Probe successful");
+				probeRun.setFinishedWithSuccess();
 			}
 			else{
-				runInfo.writeLogLine("Probe failed");
-				runInfo.setFinishedWithFailure();
+				probeRun.appendLogLine("Probe failed");
+				probeRun.setFinishedWithFailure();
 			}
-			broadcastUpdate(runInfo);
+			broadcastUpdate(probeRun);
 
 			return null;
 
@@ -136,17 +130,17 @@ public class ProbeRunnerInteractiveService extends Service {
 		/* TODO: make plenty of checks in running services for cancellations
 	     * especially in memory intensive tasks, or those that could potentially
 	     * download lots of data (eg, download in blocks and check each time) */
-		private boolean probeRunCancelled(InteractiveProbeRunInfo info){
+		private boolean probeRunCancelled(ProbeRun probeRun){
 
 			if(isCancelled()){
-				Log.d(LOG_TAG,"Async task for probe run " + info.probeRunId
+				Log.d(LOG_TAG,"Async task for probe run " + probeRun.id
 						+ " was cancelled, most likely due to a new probe run");
 				return true;
 			}
 
-			if(info.isFinished()){
+			if(probeRun.isFinished()){
 				Log.d(LOG_TAG, "ProbeRunnerInteractiveService - Probe run "
-						+ info.probeRunId + " has been marked as finished, stopping processing");
+						+ probeRun.id + " has been marked as finished, stopping processing");
 				return true;
 			}
 
@@ -155,10 +149,12 @@ public class ProbeRunnerInteractiveService extends Service {
 
 	}
 
-	private void broadcastUpdate(InteractiveProbeRunInfo probeRunInfo) {
+	private void broadcastUpdate(ProbeRun probeRun) {
+
+		probeRunDAO.saveProbeRun(probeRun);
 
 		Intent updateIntent = new Intent(ACTION_UPDATE);
-		updateIntent.putExtra(EXTRA_PROBE_RUN_ID, probeRunInfo.probeRunId);
+		updateIntent.putExtra(EXTRA_PROBE_RUN_ID, probeRun.id);
 		sendBroadcast(updateIntent);
 
 	}

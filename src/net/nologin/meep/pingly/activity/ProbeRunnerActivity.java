@@ -7,8 +7,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.*;
 import android.provider.Settings;
+import net.nologin.meep.pingly.model.ProbeRun;
+import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.service.ProbeRunnerInteractiveService;
-import net.nologin.meep.pingly.model.InteractiveProbeRunInfo;
 import net.nologin.meep.pingly.model.probe.Probe;
 
 import net.nologin.meep.pingly.R;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 
 import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID;
 import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.ACTION_UPDATE;
-import static net.nologin.meep.pingly.model.InteractiveProbeRunInfo.RunStatus;
 
 public class ProbeRunnerActivity extends BasePinglyActivity {
 
@@ -37,23 +37,15 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	private TextView probeLogOutput;
 	private ScrollView probeLogScroller;
 
-	// current probe chosen from the probe list
-	private Probe probeToRun;
+	// current probe chosen from the probe list, loaded from activity params bundle
+	private Probe selectedProbe;
 
-	// an identifier given to each 'run' of the probe
-	private long probeRunId = -1;
+	// an identifier given to each 'run' of the probe, created on run, persisted from onRestoreInstanceState
+	private ProbeRun currentRun;
 
 	// listens for broadcasts from the update server which inform of updates
 	private ProbeRunCallbackReceiver callbackReceiver = null;
 
-	protected long getProbeRunId(){
-		return probeRunId;
-	}
-
-	protected InteractiveProbeRunInfo createNewProbeRunInfo(){
-		probeRunId = System.currentTimeMillis();
-		return getPinglyApp().createProbeRunInfo(probeRunId,probeToRun.id);
-	}
 
 	@Override
 	protected void onCreate(Bundle state) {
@@ -62,9 +54,9 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		setContentView(R.layout.probe_runner);
 
 		// parameter must be present
-		probeToRun = loadProbeParamIfPresent();
+		selectedProbe = loadProbeParamIfPresent();
 
-		Log.d(LOG_TAG, "Running probe " + probeToRun);
+		Log.d(LOG_TAG, "Running probe " + selectedProbe);
 
 		// load refs
 		probeInfoContainer = findViewById(R.id.probeInfoContainer);
@@ -80,7 +72,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		});
 		findViewById(R.id.but_probeRun_edit).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				goToProbeDetails(probeToRun.id);
+				goToProbeDetails(selectedProbe.id);
 			}
 		});
 
@@ -92,7 +84,9 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		// so we know what probe run log to display after sleep/rotation etc
-		savedInstanceState.putLong(STATE_PROBERUN_ID, probeRunId);
+		if(currentRun != null){
+			savedInstanceState.putLong(STATE_PROBERUN_ID, currentRun.id);
+		}
 		super.onSaveInstanceState(savedInstanceState);
 	}
 
@@ -102,9 +96,9 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 
 		// we were previously running a probe, get the id of that run
 		if (savedInstanceState.containsKey(STATE_PROBERUN_ID)) {
-			long oldId = savedInstanceState.getLong(STATE_PROBERUN_ID);
-			Log.d(LOG_TAG, "onRestoreInstanceState, setting callbackreceiver back to runner ID " + oldId);
-			probeRunId = oldId;
+			long runId = savedInstanceState.getLong(STATE_PROBERUN_ID);
+			Log.d(LOG_TAG, "onRestoreInstanceState, we were process probe run: " + runId);
+			currentRun = probeRunDAO.findProbeRunById(runId);
 		}
 	}
 
@@ -118,13 +112,9 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		Log.d(LOG_TAG, "Registering Receiver " + this.getClass().getName());
 		registerReceiver(callbackReceiver, filter);
 
-		// if we were running a probe before dismissal, get back the current state
-		InteractiveProbeRunInfo info = getPinglyApp().getProbeRunInfo(probeRunId);
-		if(info == null){
-			info = createNewProbeRunInfo(); // just a dummy for now, will be replaced on service call
-		}
-		updateActivityForRunInfo(info);
-		if (info.isFinished()) {
+		refreshCurrentRunInfo();
+
+		if (currentRun != null && currentRun.isFinished()) {
 			removeDialog(DIALOG_SERVICE_WAIT_ID);
 		}
 	}
@@ -158,26 +148,19 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 				/* We also ensure that this broadcast is for the current run.  It's possible
 				 * that an older background task in the service hasn't yet detected that it
 				 * was 'cancelled', and may emit a broadcasts for the older run. */
-				long currentProbeRunId = getProbeRunId();
- 				long probeRunIdFromService = intent.getLongExtra(EXTRA_PROBE_RUN_ID, 0);
-				if (getProbeRunId() != probeRunIdFromService) {
+ 				long callbackRunId = intent.getLongExtra(EXTRA_PROBE_RUN_ID, 0);
+				if (currentRun.id != callbackRunId) {
 					Log.w(LOG_TAG, "Matched broadcasted action " + intent.getAction()
-							+ ", but probe runner id " + probeRunIdFromService + " did not match " + currentProbeRunId
+							+ ", but probe runner id " + callbackRunId + " did not match " + currentRun.id
 							+ ", perhaps this is a broadcast from an older runner instant - ignoring");
 					return;
 				}
 
-				InteractiveProbeRunInfo info = getPinglyApp().getProbeRunInfo(probeRunId);
-				if (info == null) {
-					Log.e(LOG_TAG, "Uh oh, couldn't get run info for runId " + currentProbeRunId);
-					return;
-				}
-
 				// update the log and status windows with the current info
-				updateActivityForRunInfo(info);
+				refreshCurrentRunInfo();
 
 				// if the run is finished, get rid of the progress dialog
-				if (info.isFinished()) {
+				if (currentRun.isFinished()) {
 					removeDialog(DIALOG_SERVICE_WAIT_ID);
 				}
 
@@ -195,7 +178,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		// nothing to run if we don't have a data connection
 		if (!PinglyUtils.activeNetConnectionPresent(this)) {
 			writeToProbeLogWindow("Probe run aborted, no data connection present.", false); // TODO: i18n
-			decorateProbeStatus(RunStatus.Failed);
+			decorateProbeStatus(ProbeRunStatus.Failed);
 			showDialog(DIALOG_NO_DATACONN_ID);
 			return;
 		}
@@ -205,16 +188,19 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 
 		// start the service, providing a unique id for the run and the id of the probe itself
 		Intent serviceCallIntent = new Intent(this, ProbeRunnerInteractiveService.class);
-		InteractiveProbeRunInfo newInfo = createNewProbeRunInfo();
-		serviceCallIntent.putExtra(EXTRA_PROBE_RUN_ID, newInfo.probeRunId);
+		currentRun = probeRunDAO.prepareNewProbeRun(selectedProbe, null);
+
+		Log.e(LOG_TAG, " ********************** " + currentRun);
+
+		serviceCallIntent.putExtra(EXTRA_PROBE_RUN_ID, currentRun.id);
 		startService(serviceCallIntent);
 
 	}
 
 	// update text/color of the summary box
-	private void decorateProbeStatus(RunStatus status) {
+	private void decorateProbeStatus(ProbeRunStatus status) {
 		probeInfoContainer.setBackgroundResource(status.colorResId);
-		probeName.setText(status.formatName(this, probeToRun.name));
+		probeName.setText(status.formatName(this, selectedProbe.name));
 	}
 
 	private void writeToProbeLogWindow(String txt, boolean append) {
@@ -229,9 +215,19 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	}
 
 	// update the log window with the current run's status
-	private void updateActivityForRunInfo(InteractiveProbeRunInfo info) {
-		writeToProbeLogWindow(info.runLog.toString(), false);
-		decorateProbeStatus(info.status);
+	private void refreshCurrentRunInfo() {
+
+		if(currentRun == null || currentRun.isNew()){
+			writeToProbeLogWindow("", false);
+			decorateProbeStatus(ProbeRunStatus.Inactive);
+		}
+		else {
+			// refresh the run info from the db
+			currentRun = probeRunDAO.findProbeRunById(currentRun.id);
+			writeToProbeLogWindow(currentRun.logText, false);
+			decorateProbeStatus(currentRun.status);
+		}
+
 	}
 
 	// Note: Rather than creating dialogs directly in the methods above, we use showDialog() with
@@ -250,10 +246,9 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 				dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 					@Override
 					public void onCancel(DialogInterface dialogInterface) {
-						InteractiveProbeRunInfo info = getPinglyApp().getProbeRunInfo(probeRunId);
-						info.status = RunStatus.Failed; // let the service know to stop processing
-						info.writeLogLine("Cancel requested by user.");
-						updateActivityForRunInfo(info);
+						currentRun.status = ProbeRunStatus.Failed; // let the service know to stop processing
+						currentRun.appendLogLine("Cancel requested by user.");
+						refreshCurrentRunInfo();
 						removeDialog(DIALOG_SERVICE_WAIT_ID);
 					}
 				});
@@ -281,7 +276,6 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		}
 		return dialog;
 	}
-
 
 }
 

@@ -10,7 +10,9 @@ import android.util.Log;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.activity.PinglyDashActivity;
 import net.nologin.meep.pingly.db.ProbeDAO;
+import net.nologin.meep.pingly.db.ProbeRunDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
+import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
 import net.nologin.meep.pingly.util.PinglyUtils;
@@ -25,6 +27,7 @@ public class ProbeRunnerScheduleService extends IntentService {
 
 	private ScheduleDAO scheduleDAO;
 	private ProbeDAO probeDAO;
+	private ProbeRunDAO probeRunDAO;
 
     // important to have a no-paramter constructor for alarmmanager
     public ProbeRunnerScheduleService() {
@@ -37,12 +40,14 @@ public class ProbeRunnerScheduleService extends IntentService {
 		super.onCreate();
 		scheduleDAO = new ScheduleDAO(this);
 		probeDAO = new ProbeDAO(this);
+		probeRunDAO = new ProbeRunDAO(this);
 	}
 
 	public void onDestroy() {
 		super.onDestroy();
 		scheduleDAO.close();
 		probeDAO.close();
+		probeRunDAO.close();
 	}
 
     // called asynchronously by android
@@ -73,6 +78,16 @@ public class ProbeRunnerScheduleService extends IntentService {
 			}
 		});
 		boolean runSuccessful = runner.run();
+
+		// save the log
+		ProbeRun probeRun = new ProbeRun(entry.probe, entry);
+		if(runSuccessful){
+			probeRun.setFinishedWithSuccess();
+		}
+		else{
+			probeRun.setFinishedWithFailure();
+		}
+		probeRunDAO.saveProbeRun(probeRun);
 
 		// TODO, check scheduler hasn't been disabled/ entry disabled/ entry deleted since
 

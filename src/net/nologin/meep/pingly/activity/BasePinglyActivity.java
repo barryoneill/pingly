@@ -5,6 +5,7 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 import android.widget.EditText;
 import net.nologin.meep.pingly.PinglyApplication;
 import net.nologin.meep.pingly.db.ProbeDAO;
+import net.nologin.meep.pingly.db.ProbeRunDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.probe.Probe;
 import android.app.Activity;
@@ -19,6 +20,7 @@ public abstract class BasePinglyActivity extends Activity {
 
 	protected ProbeDAO probeDAO;
     protected ScheduleDAO scheduleDAO;
+	protected ProbeRunDAO probeRunDAO;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public abstract class BasePinglyActivity extends Activity {
 		
 		probeDAO = new ProbeDAO(this);
         scheduleDAO = new ScheduleDAO(this);
+		probeRunDAO = new ProbeRunDAO(this);
 	}	
 	
 	@Override
@@ -38,6 +41,9 @@ public abstract class BasePinglyActivity extends Activity {
         if (scheduleDAO != null) {
             scheduleDAO.close();
         }
+		if (probeRunDAO != null) {
+			probeRunDAO.close();
+		}
 	}
 
 	protected PinglyApplication getPinglyApp(){

@@ -29,6 +29,15 @@ public class CursorReader {
         return c.getInt(c.getColumnIndexOrThrow(name));
     }
 
+	public int getInt(String name, int defaultVal){
+		try {
+			return getInt(name);
+		}
+		catch (Exception e) {
+			return defaultVal;
+		}
+	}
+
     public boolean getBoolean(String name){
         return c.getInt(c.getColumnIndexOrThrow(name)) > 0;
     }

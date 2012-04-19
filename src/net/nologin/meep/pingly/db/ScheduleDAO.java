@@ -25,6 +25,15 @@ public class ScheduleDAO extends PinglyDataHelper {
 		super(context);
 	}
 
+	// convenience method
+	public static ScheduleEntry findScheduleEntryById(Context ctx, long id) {
+
+		ScheduleDAO dao = new ScheduleDAO(ctx);
+		ScheduleEntry result = dao.findById(id);
+		dao.close();
+		return result;
+	}
+
 	public ScheduleEntry findById(long id) {
 
 		Log.d(LOG_TAG, "Looking up entry with ID: " + id);

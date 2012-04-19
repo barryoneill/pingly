@@ -83,6 +83,36 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
 
 	}
 
+	public static final class TBL_PROBE_RUN {
+		public static final String TBL_NAME = "pingly_proberun";
+
+		public static final String COL_ID = BaseColumns._ID;
+		public static final String COL_PROBE_FK = "probe_fk";
+		public static final String COL_SCHEDULEENTRY_FK = "scheduleentry_fk";
+		public static final String COL_STARTTIME = "start_time";
+		public static final String COL_ENDTIME = "end_time";
+		public static final String COL_STATUS = "status";
+		public static final String COL_RUN_SUMMARY = "run_summary";
+		public static final String COL_LOGTEXT = "logtext";
+
+		public static final String CREATE_SQL = "CREATE TABLE " + TBL_NAME + "( "
+				+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ COL_PROBE_FK + " INTEGER NOT NULL, "
+				+ COL_SCHEDULEENTRY_FK + " INTEGER, " // can be null for a manual run!
+				+ COL_STARTTIME + " DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, "
+				+ COL_ENDTIME + " DATETIME DEFAULT CURRENT_TIMESTAMP, " // null possible, only set on finish
+				+ COL_STATUS + " TEXT NOT NULL, "
+				+ COL_RUN_SUMMARY + " TEXT , "
+				+ COL_LOGTEXT + " TEXT , "
+				+ "FOREIGN KEY(" + COL_PROBE_FK + ") REFERENCES "
+				+ TBL_PROBE.TBL_NAME + "(" + TBL_PROBE.COL_ID + "), "
+				+ "FOREIGN KEY(" + COL_SCHEDULEENTRY_FK + ") REFERENCES "
+				+ TBL_SCHEDULE.TBL_NAME + "(" + TBL_SCHEDULE.COL_ID + ")"
+				+ "   ) ";
+
+
+	}
+
     private static String generateLastModTrigger(String tblName, String idName, String lastModName){
 
         return " CREATE TRIGGER " + tblName + "_LM_TRIG "
@@ -95,14 +125,17 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        Log.d(LOG_TAG, "Creating tables/triggers for: " + TBL_PROBE.TBL_NAME);
+		Log.d(LOG_TAG, "Handling onCreate for table: " + TBL_PROBE.TBL_NAME);
         db.execSQL(TBL_PROBE.CREATE_SQL);
         db.execSQL(generateLastModTrigger(TBL_PROBE.TBL_NAME,TBL_PROBE.COL_ID, TBL_PROBE.COL_LASTMOD));
 
-
-        Log.d(LOG_TAG, "Creating tables/triggers for: " + TBL_PROBE.TBL_NAME);
+        Log.d(LOG_TAG, "Handling onCreate for table: " + TBL_SCHEDULE.TBL_NAME);
         db.execSQL(TBL_SCHEDULE.CREATE_SQL);
         db.execSQL(generateLastModTrigger(TBL_SCHEDULE.TBL_NAME,TBL_SCHEDULE.COL_ID, TBL_SCHEDULE.COL_LASTMOD));
+
+		Log.d(LOG_TAG, "Handling onCreate for table: " + TBL_PROBE_RUN.TBL_NAME);
+		db.execSQL(TBL_PROBE_RUN.CREATE_SQL);
+
     }
 
     // TODO: verify impl!
@@ -111,8 +144,10 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
 
         Log.d(LOG_TAG, "Upgrading tables");
 
+		db.execSQL("DROP TABLE IF EXISTS " + TBL_PROBE_RUN.TBL_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + TBL_SCHEDULE.TBL_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TBL_PROBE.TBL_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_SCHEDULE.TBL_NAME);
+
         onCreate(db);
     }
 
