@@ -40,6 +40,27 @@ public class ProbeRunDAO extends PinglyDataHelper {
 		return log;
 	}
 
+	public Cursor queryForProbeRunHistoryCursorAdapter(Long probeId) {
+
+		Log.d(LOG_TAG, "queryForProbeRunHistoryCursorAdapter (probeId=" + probeId +")");
+
+		// See ProbeRunHistoryCursorAdapter.newView() for column use
+
+		SQLiteDatabase db = getReadableDatabase();
+
+		String idClause = null;
+		if(probeId != null){
+			idClause = TBL_PROBE_RUN.COL_PROBE_FK + "=" + probeId;
+		}
+
+		// a simple query on the run history table will do here
+		Cursor cursor = db.query(TBL_PROBE_RUN.TBL_NAME, null, idClause,
+					null, null, null, TBL_PROBE_RUN.COL_STARTTIME);
+
+		return cursor;
+	}
+
+
 	public ProbeRun prepareNewProbeRun(Probe probe, ScheduleEntry entry) {
 
 		ProbeRun probeRun = new ProbeRun(probe,entry);

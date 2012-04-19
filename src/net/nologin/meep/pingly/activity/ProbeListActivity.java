@@ -161,6 +161,13 @@ public class ProbeListActivity extends BasePinglyActivity {
 
 				return true;
 
+			case R.id.probe_list_contextmenu_run_history:
+				Log.d("PINGLY", "Going to run history for probe: " + probe);
+
+				goToProbeRunHistory(probe.id);
+
+				return true;
+
 			case R.id.probe_list_contextmenu_schedule:
 
 				Log.d("PINGLY", "Scheduling probe: " + probe);

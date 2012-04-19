@@ -19,6 +19,9 @@
     <color name="probe_runner_status_success">#ff26bf1c</color>
     <color name="probe_runner_status_failed">#ffc7100f</color>
 
+    <color name="probe_runhistory_details_bg">#dddddd</color>
+    <color name="probe_runhistory_details_rightseparator">#aaaaaa</color>
+
     <!-- backgrounds for the title bar bg selector -->
     <drawable name="titlebar_icon_bg_focused">#44ffffff</drawable>
     <drawable name="titlebar_icon_bg_pressed">#88ffffff</drawable>

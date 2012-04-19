@@ -26,9 +26,10 @@
         <activity android:name=".activity.ProbeListActivity" android:label="@string/app_name"/>
         <activity android:name=".activity.ProbeDetailActivity" android:label="@string/app_name" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.ProbeRunnerActivity" android:label="@string/app_name"/>
-        <activity android:name=".activity.SettingsActivity" android:label="@string/app_name"/>
+        <activity android:name=".activity.ProbeRunHistoryActivity" android:label="@string/app_name"/>
         <activity android:name=".activity.ScheduleListActivity" android:label="@string/app_name"/>
         <activity android:name=".activity.ScheduleDetailActivity" android:label="@string/app_name"/>
+        <activity android:name=".activity.SettingsActivity" android:label="@string/app_name"/>
 
         <receiver android:name=".alarm.RescheduleAllAlarmsReceiver">
             <intent-filter><action android:name="android.intent.action.BOOT_COMPLETED" /></intent-filter>

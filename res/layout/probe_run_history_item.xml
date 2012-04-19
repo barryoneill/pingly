@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="horizontal"
+
+        >
+
+    <!-- left column -->
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:paddingLeft="2dp"
+            android:paddingRight="5dp"
+            android:background="@color/probe_runhistory_details_bg">
+
+        <TextView
+                android:id="@+id/probeRun_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:text="12/12/2012"
+                android:textSize="12sp"
+                />
+
+        <TextView
+                android:id="@+id/probeRun_item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:text="22:22:22"
+                android:textSize="12sp"
+                />
+
+        <TextView
+                android:id="@+id/probeRun_item_runType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:text="Manual Run"
+                android:textSize="12sp"
+                />
+
+        <TextView
+                android:id="@+id/probeRun_item_timetaken"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:text="Time: 3s"
+                android:textSize="12sp"
+                />
+
+
+    </LinearLayout>
+
+    <View android:layout_width="1dp" android:layout_height="fill_parent"
+          android:background="@color/probe_runhistory_details_rightseparator"/>
+
+    <!-- right column -->
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+
+        <TextView
+                android:id="@+id/probeRun_item_status"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Success"
+                android:background="@color/probe_runner_status_success"
+                android:textSize="18sp"
+                />
+
+        <TextView
+                android:id="@+id/probeRun_item_summary"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Success fsd fsdf sdf sd fsd fsdfh fgdf jkghdfjghdfjkgh jdfkh gdjkfghdfjkghjkdf hgdjkfg"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+    </LinearLayout>
+
+
+</LinearLayout>

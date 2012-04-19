@@ -111,7 +111,23 @@ public abstract class BasePinglyActivity extends Activity {
 
 	}
 
-    public void goToProbeScheduling(long probeId) {
+
+	public void goToProbeRunHistory(long probeId) {
+
+		Log.d(LOG_TAG, "Starting activity: " + ProbeRunHistoryActivity.class.getName());
+
+		Intent intent = new Intent(getApplicationContext(),
+				ProbeRunHistoryActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+		addProbeIdParam(intent, probeId);
+
+		startActivity(intent);
+
+	}
+
+
+	public void goToProbeScheduling(long probeId) {
 
         Log.d(LOG_TAG, "Starting activity: " + ScheduleDetailActivity.class.getName());
 

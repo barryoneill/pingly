@@ -121,7 +121,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 		specificTimeGrp.setVisibility(schedule.startOnSave ? View.INVISIBLE : View.VISIBLE);
 
 		dateInfo.setText(new SimpleDateFormat(FMT_DAY_DATE_DISPLAY).format(localStartTime.getTime()));
-		timeInfo.setText(new SimpleDateFormat(FMT_TIME_12H_DISPLAY).format(localStartTime.getTime()));
+		timeInfo.setText(new SimpleDateFormat(FMT_12HR_MIN_TZ_DISPLAY).format(localStartTime.getTime()));
 
 		radioGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
@@ -167,7 +167,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
 								localStartTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
 								localStartTime.set(Calendar.MINUTE, minute);
-								timeInfo.setText(new SimpleDateFormat(FMT_TIME_12H_DISPLAY).format(localStartTime.getTime()));
+								timeInfo.setText(new SimpleDateFormat(FMT_12HR_MIN_TZ_DISPLAY).format(localStartTime.getTime()));
 
 							}
 						}, localStartTime.get(Calendar.HOUR_OF_DAY), localStartTime.get(Calendar.MINUTE), false);

@@ -14,7 +14,9 @@ public class PinglyConstants {
 
     // TODO: date formats should come from resources!
     public static final String FMT_DAY_DATE_DISPLAY = "EEE, d MMM yyyy";
-    public static final String FMT_TIME_12H_DISPLAY = "h:mm a z";
+    public static final String FMT_12HR_MIN_TZ_DISPLAY = "h:mm a z";
+	public static final String FMT_24HR_MIN_SEC_TZ_DISPLAY = "HH:mm:ss z";
+
     public static final String FMT_DATE_AND_TIME_SUMMARY = "EEE, dd MMM yyyy 'at' HH:mm z";
 	
 }
