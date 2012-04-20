@@ -3,11 +3,9 @@ package net.nologin.meep.pingly.activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -175,7 +173,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 			}
 		});
 
-		AlertDialog.Builder builder = getAlertDialogBuilder();
+		AlertDialog.Builder builder = PinglyUtils.getAlertDialogBuilder(this);
 		builder.setView(layout);
 		builder.setTitle("Configure Start Time");// TODO: i18n
 
@@ -271,7 +269,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 		});
 
 
-		AlertDialog.Builder builder = getAlertDialogBuilder();
+		AlertDialog.Builder builder = PinglyUtils.getAlertDialogBuilder(this);
 		builder.setView(layout);
 		builder.setTitle("Configure Frequency");
 		builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -327,16 +325,8 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 //
 //    }
 
-	private Context getDialogContext() {
-		return new ContextThemeWrapper(this, R.style.PinglyDialogTheme);
-	}
-
 	private View inflateScheduleDialogLayout(int layoutId) {
-		return View.inflate(getDialogContext(), layoutId, (ViewGroup) getCurrentFocus());
-	}
-
-	private AlertDialog.Builder getAlertDialogBuilder() {
-		return new AlertDialog.Builder(getDialogContext());
+		return View.inflate(PinglyUtils.getPinglyDialogContext(this), layoutId, (ViewGroup) getCurrentFocus());
 	}
 
 }

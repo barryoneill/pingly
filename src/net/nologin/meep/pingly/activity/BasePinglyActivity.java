@@ -18,6 +18,8 @@ public abstract class BasePinglyActivity extends Activity {
 	
 	public static final String PARAMETER_PROBE_ID = "param_probe";
 
+	public static final String STATE_PROBERUN_ID = "bundle_currentRunnerID";
+
 	protected ProbeDAO probeDAO;
     protected ScheduleDAO scheduleDAO;
 	protected ProbeRunDAO probeRunDAO;

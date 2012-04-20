@@ -30,8 +30,6 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	static final int DIALOG_SERVICE_WAIT_ID = 0;
 	static final int DIALOG_NO_DATACONN_ID = 1;
 
-	static final String STATE_PROBERUN_ID = "bundle_currentRunnerID";
-
 	private TextView probeName;
 	private View probeInfoContainer;
 	private TextView probeLogOutput;
@@ -97,7 +95,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		// we were previously running a probe, get the id of that run
 		if (savedInstanceState.containsKey(STATE_PROBERUN_ID)) {
 			long runId = savedInstanceState.getLong(STATE_PROBERUN_ID);
-			Log.d(LOG_TAG, "onRestoreInstanceState, we were process probe run: " + runId);
+			Log.d(LOG_TAG, "onRestoreInstanceState, we were processing probe run: " + runId);
 			currentRun = probeRunDAO.findProbeRunById(runId);
 		}
 	}

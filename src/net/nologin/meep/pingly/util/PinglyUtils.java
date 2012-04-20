@@ -1,5 +1,6 @@
 package net.nologin.meep.pingly.util;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -7,6 +8,9 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import net.nologin.meep.pingly.R;
+
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 import java.lang.reflect.Method;
@@ -76,4 +80,12 @@ public class PinglyUtils {
 
 
 
+
+	public static AlertDialog.Builder getAlertDialogBuilder(Context ctx) {
+		return new AlertDialog.Builder(getPinglyDialogContext(ctx));
+	}
+
+	public static Context getPinglyDialogContext(Context ctx) {
+		return new ContextThemeWrapper(ctx, R.style.PinglyDialogTheme);
+	}
 }
