@@ -36,7 +36,7 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 	protected void onCreate(Bundle state) {
 
 		super.onCreate(state);
-		setContentView(R.layout.probe_run_history);
+		setContentView(R.layout.probe_run_history_list);
 
 		currentProbe = loadProbeParamIfPresent();
 		Long probeId = currentProbe == null ? null : currentProbe.id;
@@ -52,6 +52,8 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 
 		startManagingCursor(runHistoryCursor);
 
+		((TextView) findViewById(R.id.probe_name)).setText(currentProbe.name);
+		((TextView) findViewById(R.id.probe_summary)).setText(currentProbe.desc);
 
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
