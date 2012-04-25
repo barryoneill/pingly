@@ -44,7 +44,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
 				idClause, null, null, null, null);
 		if (!cursor.moveToFirst()) {
-			Log.d(LOG_TAG, "No entry found for ID: " + id);
+			Log.d(LOG_TAG, "No schedule entry found for ID: " + id);
 			return null;
 		}
 		return cursorToEntry(cursor, true);

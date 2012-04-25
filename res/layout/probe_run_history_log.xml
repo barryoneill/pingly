@@ -1,64 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+<LinearLayout
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical"
               android:padding="5dp">
 
     <TextView
-            android:id="@+id/probeRun_item_status"
+            android:id="@+id/probeRun_log_status_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:ellipsize="end"
-            android:text="[timetaken]"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            />
-
-    <TextView
-            android:id="@+id/probeRun_item_summary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:text="[timetaken]"
+            android:text="[summary]"
             android:textSize="12sp"
             android:textStyle="bold"
             />
 
 
     <TextView
-            android:id="@+id/probeRun_log_date_time"
+            android:id="@+id/probeRun_log_time_started"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="[date and time]"
+            android:text="[time info]"
             android:textSize="12sp"
             android:textStyle="bold"
-            />
-
-    <TextView
-            android:id="@+id/probeRun_log_runType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:text="[runtype]"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            />
-
-    <TextView
-            android:id="@+id/probeRun_log_timetaken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:text="[timetaken]"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="@color/probe_runhistory_details_bg"
             />
 
     <View android:layout_width="fill_parent" android:layout_height="1dp"
@@ -69,13 +38,10 @@
             android:id="@+id/probeRun_log_logText"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:singleLine="true"
-            android:ellipsize="end"
             android:text="[log details]"
             android:textSize="10sp"
             android:typeface="monospace"
             />
 
-
-
 </LinearLayout>
+</ScrollView>
