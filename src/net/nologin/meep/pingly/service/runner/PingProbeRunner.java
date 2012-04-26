@@ -1,7 +1,7 @@
 package net.nologin.meep.pingly.service.runner;
 
+import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.probe.PingProbe;
-import net.nologin.meep.pingly.model.probe.Probe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,12 +11,12 @@ import java.net.UnknownHostException;
 
 public class PingProbeRunner extends ProbeRunner {
 
-	public PingProbeRunner(Probe probe) {
-		super(probe);
+	public PingProbeRunner(ProbeRun probeRun) {
+		super(probeRun);
 	}
 
 	@Override
-	protected boolean doRun() throws ProbeRunCancelledException {
+	protected void doRun() throws ProbeRunCancelledException {
 
 		/**
 		 * Since java 5 there is an API method for performing ping, eg:
@@ -40,8 +40,8 @@ public class PingProbeRunner extends ProbeRunner {
 			// assumption - ping on path!
 			String pingCmd = String.format("ping -c %d -w %d %s",count,deadline,host);
 
-			publishUpdate("Pinging : " + host);
-			publishUpdate("With count=" + count + " and deadline=" + deadline + "s...\n");
+			notifyUpdate("Pinging : " + host);
+			notifyUpdate("With count=" + count + " and deadline=" + deadline + "s...\n");
 			Process proc =  Runtime.getRuntime().exec(pingCmd);
 
 			// make sure the output from both gets written
@@ -56,25 +56,20 @@ public class PingProbeRunner extends ProbeRunner {
 			int procStatus = proc.waitFor();
 			checkCancelled();
 			if(procStatus == 0) {
-				publishUpdate("\nPing was successful");
-				return RUN_SUCCESS;
+				notifyFinishedWithSuccess("Ping response OK");
 			} else {
-				publishUpdate("Ping failed.");
-				return RUN_FAILED;
+				notifyFinishedWithFailure("Ping failed.");
 			}
 
 		}
 		catch (InterruptedException e) {
-			publishUpdate("Ping Interrupted:" + e.getMessage());
-			return RUN_FAILED;
+			notifyFinishedWithFailure("Ping Interrupted:" + e.getMessage());
 		}
 		catch(UnknownHostException e){
-			publishUpdate("Unknown host error: " + e.getMessage());
-			return RUN_FAILED;
+			notifyFinishedWithFailure("Unknown host error: " + e.getMessage());
 		}
 		catch(IOException e){
-			publishUpdate("IO Error:" + e.getMessage());
-			return RUN_FAILED;
+			notifyFinishedWithFailure("IO Error:" + e.getMessage());
 		}
 
 	}
@@ -85,7 +80,7 @@ public class PingProbeRunner extends ProbeRunner {
 		String line;
 		while ((line = br.readLine()) != null) {
 			checkCancelled();
-			publishUpdate(line);
+			notifyUpdate(line);
 		}
 		br.close();
 	}

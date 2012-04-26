@@ -39,14 +39,6 @@ public class ProbeRun {
 		this.logText += line + "\n";
 	}
 
-	public void setFinishedWithFailure(){
-		status = ProbeRunStatus.Failed;
-	}
-
-	public void setFinishedWithSuccess(){
-		status = ProbeRunStatus.Success;
-	}
-
 	public boolean isFinished(){
 		return ProbeRunStatus.Failed.equals(status)
 				|| ProbeRunStatus.Success.equals(status);

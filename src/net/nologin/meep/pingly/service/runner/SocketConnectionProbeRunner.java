@@ -1,6 +1,6 @@
 package net.nologin.meep.pingly.service.runner;
 
-import net.nologin.meep.pingly.model.probe.Probe;
+import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 import net.nologin.meep.pingly.util.StringUtils;
 
@@ -10,17 +10,17 @@ import java.nio.channels.SocketChannel;
 
 public class SocketConnectionProbeRunner extends ProbeRunner {
 
-	public SocketConnectionProbeRunner(Probe probe){
-		super(probe);
+	public SocketConnectionProbeRunner(ProbeRun probeRun){
+		super(probeRun);
 	}
 
-	public boolean doRun() throws ProbeRunCancelledException {
+	public void doRun() throws ProbeRunCancelledException {
 
 		SocketConnectionProbe probe = (SocketConnectionProbe)getProbe(); // if everything is configured properly
 
 		if (StringUtils.isBlank(probe.host)) {
-			publishUpdate("No URL specified");
-			return RUN_FAILED;
+			notifyFinishedWithFailure("No URL specified");
+			return;
 		}
 
 		checkCancelled();
@@ -28,7 +28,7 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 		SocketChannel sc = null;
 		try {
 
-			publishUpdate("Making socket request to: \n" + probe.host + "   port " + probe.port);
+			notifyUpdate("Making socket request to: \n" + probe.host + "   port " + probe.port);
 
 			sc = SocketChannel.open();
 			sc.configureBlocking(false);
@@ -38,12 +38,12 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 			int secondsWaited=1;
 			while (!sc.finishConnect()) {
 				if(secondsWaited >= 5){ // TODO: configure timeout
-					publishUpdate("Timeout, connection failed");
+					notifyFinishedWithFailure("Timeout, connection to '" + probe.host + "' timed out");
 					sc.close();
-					return RUN_FAILED;
+					return;
 				}
 				checkCancelled();
-				publishUpdate("Waiting on connect.. " + secondsWaited++);
+				notifyUpdate("Waiting on connect.. " + secondsWaited++);
 				Thread.sleep(1000);
 			}
 
@@ -51,14 +51,14 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 			checkCancelled();
 
 
-			publishUpdate("Connection successful");
-			return RUN_SUCCESS;
+			notifyFinishedWithSuccess("Connection to '" + probe.host + "' was successful");
 
 		}
-		catch(InterruptedException e){ return RUN_FAILED; }
+		catch(InterruptedException e){
+			notifyFinishedWithFailure("Connection interruped");
+		}
 		catch (IOException e){
-			publishUpdate("IO Error: " + e.getMessage());
-			return RUN_FAILED;
+			notifyFinishedWithFailure("IO Error: " + e.getMessage());
 		}
 		finally {
 			if(sc != null && sc.isConnected()){

@@ -244,8 +244,10 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 				dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 					@Override
 					public void onCancel(DialogInterface dialogInterface) {
-						currentRun.status = ProbeRunStatus.Failed; // let the service know to stop processing
-						currentRun.appendLogLine("Cancel requested by user.");
+//						currentRun.status = ProbeRunStatus.Failed; // let the service know to stop processing
+//						currentRun.appendLogLine("Cancel requested by user.");
+//						fsdf
+
 						refreshCurrentRunInfo();
 						removeDialog(DIALOG_SERVICE_WAIT_ID);
 					}

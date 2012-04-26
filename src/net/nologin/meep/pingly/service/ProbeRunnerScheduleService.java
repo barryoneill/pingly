@@ -68,31 +68,19 @@ public class ProbeRunnerScheduleService extends IntentService {
 			return;
 		}
 
-		// ready, running the probe
-		final StringBuffer buf = new StringBuffer();
-		final ProbeRunner runner = ProbeRunner.getInstance(entry.probe);
-		runner.setUpdateListener(new ProbeRunner.ProbeUpdateListener() {
-			@Override
-			public void onUpdate(String newOutput) {
-				buf.append(newOutput);
-			}
-		});
-		boolean runSuccessful = runner.run();
-
-		// save the log
 		ProbeRun probeRun = new ProbeRun(entry.probe, entry);
-		if(runSuccessful){
-			probeRun.setFinishedWithSuccess();
-		}
-		else{
-			probeRun.setFinishedWithFailure();
-		}
+
+		// ready, running the probe
+		final ProbeRunner runner = ProbeRunner.getInstance(probeRun);
+
+		runner.run();
+
 		probeRunDAO.saveProbeRun(probeRun);
 
 		// TODO, check scheduler hasn't been disabled/ entry disabled/ entry deleted since
 
-		Log.i(LOG_TAG, "Probe Run on " + entry + " successful:" + runSuccessful);
-        showAppNotification(this, entry.probe.id, buf.toString());
+		Log.i(LOG_TAG, "Probe Run on " + entry + " successful:" + probeRun.status);
+        showAppNotification(this, entry.probe.id, probeRun.runSummary);
 
 
     }

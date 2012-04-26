@@ -2,37 +2,46 @@ package net.nologin.meep.pingly.service.runner;
 
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;
+import net.nologin.meep.pingly.adapter.ProbeTypeAdapter;
+import net.nologin.meep.pingly.model.ProbeRun;
+import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
 import net.nologin.meep.pingly.model.probe.PingProbe;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 
+import java.util.Date;
+
 public abstract class ProbeRunner {
 
-	// make the returns in run() more readable
-	protected final boolean RUN_SUCCESS = true;
-	protected final boolean RUN_FAILED = false;
-
-	private Probe probe;
+	private ProbeRun probeRun;
 	private ProbeUpdateListener updateListener;
 	private boolean cancelRequested;
 
-	public static ProbeRunner getInstance(Probe p){
+	private static final String newLine = System.getProperty("line.separator");
+
+	public static ProbeRunner getInstance(ProbeRun probeRun){
+
+		if(probeRun.probe == null){
+			throw new IllegalArgumentException("A probe must be specified");
+		}
+
+		Probe p = probeRun.probe;
 
 		if(p instanceof PingProbe) {
-			return new PingProbeRunner(p);
+			return new PingProbeRunner(probeRun);
 		}
 		if(p instanceof SocketConnectionProbe){
-			return new SocketConnectionProbeRunner(p);
+			return new SocketConnectionProbeRunner(probeRun);
 		}
 		if(p instanceof HTTPResponseProbe){
-			return new HTTPResponseProbeRunner(p);
+			return new HTTPResponseProbeRunner(probeRun);
 		}
 		throw new IllegalArgumentException("No runner implementation for " + p);
 	}
 
-	public ProbeRunner(Probe probe){
-		this.probe = probe;
+	public ProbeRunner(ProbeRun probeRun){
+		this.probeRun = probeRun;
 		this.updateListener = null;
 	}
 
@@ -41,11 +50,11 @@ public abstract class ProbeRunner {
 	}
 
 	public Probe getProbe(){
-		return probe;
+		return probeRun.probe;
 	}
 
 	public void cancel() {
-		Log.d(PinglyConstants.LOG_TAG,"Proberunner (Probe " + probe.id + ") marked as checkCancelled.");
+		Log.d(PinglyConstants.LOG_TAG,"Proberunner "+ probeRun + " marked as checkCancelled.");
 		cancelRequested = true;
 	}
 
@@ -55,37 +64,68 @@ public abstract class ProbeRunner {
 		}
 	}
 
-	public boolean run(){
+	public void run(){
+
+		probeRun.status = ProbeRunStatus.Running;
 
 		// no exception from a runner should go higher than this point
 		try {
-			return doRun();
+			doRun();
+
+			// in an implementation doesn't call notifyFinishedWithSuccess, status will still
+			// be 'running' - will just assume success.  :o)
+			if(probeRun.status == ProbeRunStatus.Running){
+				Log.w(PinglyConstants.LOG_TAG,"Probe runner impl " + getClass().getSimpleName()
+						+ " didn't call notifyFinishedWithSuccess, assuming success");
+				notifyFinishedWithSuccess("Probe appears to have finished successfully.");
+			}
 		}
 		catch(ProbeRunCancelledException e){
-			publishUpdate("Probe run cancelled");
-			return this.RUN_FAILED;
+			notifyFinishedWithFailure("Probe run cancelled");
 		}
 		catch(Exception e){
-			publishUpdate("Internal Error (" + e.getClass().getName() + ":" + e.getMessage());
-			return this.RUN_FAILED;
+			notifyFinishedWithFailure("Internal Error (" + e.getClass().getName() + ":" + e.getMessage());
 		}
 
 	}
 
-	protected abstract boolean doRun() throws ProbeRunCancelledException;
+	protected abstract void doRun() throws ProbeRunCancelledException;
 
-	protected void publishUpdate(String data){
+	protected void notifyFinishedWithFailure(String failureSummary)  {
+		probeRun.runSummary = failureSummary;
+		probeRun.status = ProbeRunStatus.Failed;
+		probeRun.endTime = new Date();
+
 		if(updateListener!=null){
-			updateListener.onUpdate(data + System.getProperty("line.separator"));
+			updateListener.onUpdate(newLine + failureSummary + newLine);
+		}
+	}
+
+	protected void notifyFinishedWithSuccess(String successSummary)  {
+		probeRun.runSummary = successSummary;
+		probeRun.status = ProbeRunStatus.Success;
+		probeRun.endTime = new Date();
+
+		if(updateListener!=null){
+			updateListener.onUpdate(newLine + successSummary + newLine);
+		}
+	}
+
+	protected void notifyUpdate(String data) throws ProbeRunCancelledException {
+
+		checkCancelled();
+
+		probeRun.appendLogLine(data);
+
+		if(updateListener!=null){
+			updateListener.onUpdate(data);
 		}
 	}
 
 	protected class ProbeRunCancelledException extends Exception { }
 
 	public interface ProbeUpdateListener {
-
 		public void onUpdate(String newOutput);
-
 	}
 
 

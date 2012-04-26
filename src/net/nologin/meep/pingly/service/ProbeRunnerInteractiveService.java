@@ -8,7 +8,6 @@ import android.util.Log;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ProbeRunDAO;
 import net.nologin.meep.pingly.model.ProbeRun;
-import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -91,37 +90,24 @@ public class ProbeRunnerInteractiveService extends Service {
 		@Override
 		protected Void doInBackground(Void... voids) {
 
-			probeRun.status = ProbeRunStatus.Running;
-			probeRun.appendLogLine("Starting run for:\n" + probeRun.probe.name);
-			probeRun.appendLogLine("");
+			final ProbeRunner runner = ProbeRunner.getInstance(probeRun);
 
-			broadcastUpdate(probeRun);
-
-			// ------------------------------------------------------------------------------------
-
-			final ProbeRunner runner = ProbeRunner.getInstance(probeRun.probe);
 			runner.setUpdateListener(new ProbeRunner.ProbeUpdateListener() {
 				@Override
 				public void onUpdate(String newOutput) {
-					probeRun.appendLogLine(newOutput);
-					broadcastUpdate(probeRun);
+
+					probeRunDAO.saveProbeRun(probeRun);
+					updateActivity(probeRun);
+
 					if (probeRunCancelled(probeRun)) {
 						runner.cancel();
 					}
 				}
 			});
-			boolean runSuccessful = runner.run();
 
-			probeRun.appendLogLine("");
-			if(runSuccessful){
-				probeRun.appendLogLine("Probe successful");
-				probeRun.setFinishedWithSuccess();
-			}
-			else{
-				probeRun.appendLogLine("Probe failed");
-				probeRun.setFinishedWithFailure();
-			}
-			broadcastUpdate(probeRun);
+			runner.run();
+
+			updateActivity(probeRun);
 
 			return null;
 
@@ -149,7 +135,7 @@ public class ProbeRunnerInteractiveService extends Service {
 
 	}
 
-	private void broadcastUpdate(ProbeRun probeRun) {
+	private void updateActivity(ProbeRun probeRun) {
 
 		probeRunDAO.saveProbeRun(probeRun);
 
