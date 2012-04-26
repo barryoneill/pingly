@@ -65,9 +65,9 @@ public class ProbeRunnerInteractiveService extends Service {
 
 		}
 
-		// signal any previously running task to cancel
+		// signal any previously running task to requestCancel
 		if(runThread != null){
-			Log.e(LOG_TAG,"**************************");
+			Log.e(LOG_TAG,"Previous thread still running, calling interrupt");
 			runThread.interrupt();
 		}
 
@@ -98,9 +98,11 @@ public class ProbeRunnerInteractiveService extends Service {
 				@Override
 				public void onUpdate(String newOutput) {
 
-					if(probeRunCancelled()){
-						runner.cancel();
-						return;
+					if(isInterrupted()){
+						Log.d(LOG_TAG,"Thread for probe run " + probeRun.id
+								+ " was interrupted, most likely due to a new probe run");
+
+						runner.requestCancel();
 					}
 
 					probeRunDAO.saveProbeRun(probeRun);
@@ -109,33 +111,15 @@ public class ProbeRunnerInteractiveService extends Service {
 				}
 			});
 
+			// blocking call, use update listener above to notify cancel request
 			runner.run();
 
+			// runner finished, but don't send an update if the thread was interrupted
 			if(!isInterrupted()){
 				updateActivity(probeRun);
 			}
 
 
-		}
-
-		/* Mmake plenty of checks in probe runners for cancellations
-	     * especially in memory intensive tasks, or those that could potentially
-	     * download lots of data (eg, download in blocks and check each time) */
-		private boolean probeRunCancelled(){
-
-			if(isInterrupted()){
-				Log.d(LOG_TAG,"Async task for probe run " + probeRun.id
-						+ " was cancelled, most likely due to a new probe run");
-				return true;
-			}
-
-			if(probeRun.isFinished()){
-				Log.d(LOG_TAG, "ProbeRunnerInteractiveService - Probe run "
-						+ probeRun.id + " has been marked as finished, stopping processing");
-				return true;
-			}
-
-			return false;
 		}
 
 	}

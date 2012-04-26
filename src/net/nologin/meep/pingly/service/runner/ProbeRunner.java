@@ -2,7 +2,6 @@ package net.nologin.meep.pingly.service.runner;
 
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;
-import net.nologin.meep.pingly.adapter.ProbeTypeAdapter;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
@@ -53,16 +52,6 @@ public abstract class ProbeRunner {
 		return probeRun.probe;
 	}
 
-	public void cancel() {
-		Log.d(PinglyConstants.LOG_TAG,"Proberunner "+ probeRun + " marked as checkCancelled.");
-		cancelRequested = true;
-	}
-
-	protected void checkCancelled() throws ProbeRunCancelledException {
-		if(cancelRequested){
-			throw new ProbeRunCancelledException();
-		}
-	}
 
 	public void run(){
 
@@ -120,7 +109,25 @@ public abstract class ProbeRunner {
 		if(updateListener!=null){
 			updateListener.onUpdate(data);
 		}
+
+		checkCancelled();
 	}
+
+	public void requestCancel() {
+		Log.d(PinglyConstants.LOG_TAG,"Cancel requested for Proberunner "+ probeRun + ".");
+		probeRun.runSummary = "Canceled";
+		probeRun.status = ProbeRunStatus.Failed;
+		probeRun.endTime = new Date();
+
+		cancelRequested = true;
+	}
+
+	protected void checkCancelled() throws ProbeRunCancelledException {
+		if(cancelRequested){
+			throw new ProbeRunCancelledException();
+		}
+	}
+
 
 	protected class ProbeRunCancelledException extends Exception { }
 

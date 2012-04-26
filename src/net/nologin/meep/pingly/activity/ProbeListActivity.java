@@ -191,7 +191,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 						.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 
-								// cancel alarms for those entries
+								// requestCancel alarms for those entries
 								AlarmScheduler.cancelAlarms(ProbeListActivity.this, entries);
 
 								// delete the entries

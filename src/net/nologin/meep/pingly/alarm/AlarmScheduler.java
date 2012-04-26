@@ -83,7 +83,7 @@ public class AlarmScheduler {
 
     public static void cancelAlarm(Context ctx, ScheduleEntry entry) {
 
-        /* A PendingIntent which matches that used to set the alarm must be passed to AlarmManager.cancel().
+        /* A PendingIntent which matches that used to set the alarm must be passed to AlarmManager.requestCancel().
          * PendingItents are equal if pi.filterEquals(Intent) matches.  According to the javadoc, that means:
          * "if their action, data, type, class, and categories are the same. This does not compare any extra data
          * included in the intents." */

@@ -95,7 +95,7 @@ public class PinglyDashActivity extends BasePinglyActivity {
 //				.setPositiveButton("*Robotic Cough*",
 //						new DialogInterface.OnClickListener() {
 //							public void onClick(DialogInterface dialog, int id) {
-//								dialog.cancel();
+//								dialog.requestCancel();
 //							}
 //						});
 //		AlertDialog alert = builder.create();
