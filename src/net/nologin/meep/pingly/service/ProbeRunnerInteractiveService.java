@@ -2,7 +2,6 @@ package net.nologin.meep.pingly.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
 import net.nologin.meep.pingly.db.ProbeDAO;
@@ -17,7 +16,7 @@ public class ProbeRunnerInteractiveService extends Service {
 	public static final String ACTION_UPDATE = "net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.ACTION_UPDATE";
 	public static final String EXTRA_PROBE_RUN_ID = "net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID";
 
-	ProbeRunnerAsyncTask runningTask;
+	ProbeRunnerThread runThread;
 	ProbeDAO probeDAO;
 	ProbeRunDAO probeRunDAO;
 
@@ -63,15 +62,17 @@ public class ProbeRunnerInteractiveService extends Service {
 			Log.e(LOG_TAG,"No probe run info for " + probeRunId + " was found, ignoring service call");
 			return START_NOT_STICKY;
 
+
 		}
 
 		// signal any previously running task to cancel
-		if(runningTask != null && !runningTask.isCancelled()){
-			runningTask.cancel(true);
+		if(runThread != null){
+			Log.e(LOG_TAG,"**************************");
+			runThread.interrupt();
 		}
 
-		runningTask = new ProbeRunnerAsyncTask(probeRun);
-		runningTask.execute();
+		runThread = new ProbeRunnerThread(probeRun);
+		runThread.start();
 
 		return START_NOT_STICKY;
 
@@ -79,16 +80,17 @@ public class ProbeRunnerInteractiveService extends Service {
 
 
 
-	private class ProbeRunnerAsyncTask extends AsyncTask<Void, Void, Void> {
+	private class ProbeRunnerThread extends Thread {
 
 		private ProbeRun probeRun;
 
-		public ProbeRunnerAsyncTask(ProbeRun probeRun){
+		public ProbeRunnerThread(ProbeRun probeRun){
 			this.probeRun = probeRun;
 		}
 
 		@Override
-		protected Void doInBackground(Void... voids) {
+		public void run() {
+
 
 			final ProbeRunner runner = ProbeRunner.getInstance(probeRun);
 
@@ -96,29 +98,32 @@ public class ProbeRunnerInteractiveService extends Service {
 				@Override
 				public void onUpdate(String newOutput) {
 
+					if(probeRunCancelled()){
+						runner.cancel();
+						return;
+					}
+
 					probeRunDAO.saveProbeRun(probeRun);
 					updateActivity(probeRun);
 
-					if (probeRunCancelled(probeRun)) {
-						runner.cancel();
-					}
 				}
 			});
 
 			runner.run();
 
-			updateActivity(probeRun);
+			if(!isInterrupted()){
+				updateActivity(probeRun);
+			}
 
-			return null;
 
 		}
 
-		/* TODO: make plenty of checks in running services for cancellations
+		/* Mmake plenty of checks in probe runners for cancellations
 	     * especially in memory intensive tasks, or those that could potentially
 	     * download lots of data (eg, download in blocks and check each time) */
-		private boolean probeRunCancelled(ProbeRun probeRun){
+		private boolean probeRunCancelled(){
 
-			if(isCancelled()){
+			if(isInterrupted()){
 				Log.d(LOG_TAG,"Async task for probe run " + probeRun.id
 						+ " was cancelled, most likely due to a new probe run");
 				return true;

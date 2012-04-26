@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.*;
+import android.os.IBinder;
 import android.provider.Settings;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ProbeRunStatus;
@@ -248,8 +249,9 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 //						currentRun.appendLogLine("Cancel requested by user.");
 //						fsdf
 
-						refreshCurrentRunInfo();
-						removeDialog(DIALOG_SERVICE_WAIT_ID);
+//						refreshCurrentRunInfo();
+//						removeDialog(DIALOG_SERVICE_WAIT_ID);
+
 					}
 				});
 				break;
@@ -276,6 +278,8 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		}
 		return dialog;
 	}
+
+
 
 }
 
