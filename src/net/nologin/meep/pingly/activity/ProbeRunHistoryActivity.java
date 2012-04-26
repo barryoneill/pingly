@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import net.nologin.meep.pingly.PinglyConstants;
@@ -64,6 +65,13 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 				probeRunForLogDialog = probeRunDAO.findProbeRunById(itemId);
 				showDialog(DIALOG_PROBE_RUN_LOG);
 
+			}
+		});
+
+		findViewById(R.id.probeHistory_runNowBut).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				goToProbeRunner(currentProbe.id);
 			}
 		});
 

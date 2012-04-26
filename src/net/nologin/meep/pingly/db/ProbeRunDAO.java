@@ -40,6 +40,17 @@ public class ProbeRunDAO extends PinglyDataHelper {
 		return log;
 	}
 
+	public void deleteHistoryForProbe(long probeId) {
+
+		Log.d(LOG_TAG, "Deleting entries for probe " + probeId);
+
+		SQLiteDatabase db = getWritableDatabase();
+		String idClause = TBL_PROBE_RUN.COL_PROBE_FK + "=" + probeId;
+		db.delete(TBL_PROBE_RUN.TBL_NAME, idClause, null);
+
+	}
+
+
 	public Cursor queryForProbeRunHistoryCursorAdapter(Long probeId) {
 
 		Log.d(LOG_TAG, "queryForProbeRunHistoryCursorAdapter (probeId=" + probeId +")");
