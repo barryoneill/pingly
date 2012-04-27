@@ -7,6 +7,7 @@ import net.nologin.meep.pingly.PinglyApplication;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ProbeRunDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
+import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.probe.Probe;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.view.View;
 public abstract class BasePinglyActivity extends Activity {
 	
 	public static final String PARAMETER_PROBE_ID = "param_probe";
+	public static final String PARAMETER_SCHEDULE_ID = "param_schedule";
 
 	public static final String STATE_PROBERUN_ID = "bundle_currentRunnerID";
 
@@ -48,10 +50,6 @@ public abstract class BasePinglyActivity extends Activity {
 		}
 	}
 
-	protected PinglyApplication getPinglyApp(){
-		return (PinglyApplication)getApplication();
-	}
-
 	public Probe loadProbeParamIfPresent() {
 
 		Probe result = null;
@@ -61,10 +59,7 @@ public abstract class BasePinglyActivity extends Activity {
 		if(b != null && b.containsKey(PARAMETER_PROBE_ID)){
 			Long probeId = b.getLong(PARAMETER_PROBE_ID, -1);
 			if(probeId >= 0){
-				Log.d(LOG_TAG, "Will be loading probe ID " + probeId);
-								
 				result = probeDAO.findProbeById(probeId);
-				Log.d(LOG_TAG, "Got probe: " + result);
 			}
 		}
 		
@@ -74,6 +69,23 @@ public abstract class BasePinglyActivity extends Activity {
 		
 		return result;
 	}
+
+	public ScheduleEntry loadScheduleParamIfPresent() {
+
+		ScheduleEntry result = null;
+
+		// populate fields if param set
+		Bundle b = getIntent().getExtras();
+		if(b != null && b.containsKey(PARAMETER_SCHEDULE_ID)){
+			Long scheduleId = b.getLong(PARAMETER_SCHEDULE_ID, -1);
+			if(scheduleId >= 0){
+				result = scheduleDAO.findById(scheduleId);
+			}
+		}
+
+		return result;
+	}
+
 	
 	// available to all actions (TODO: name? goTO?)
 	public void createNewProbe(View v) {

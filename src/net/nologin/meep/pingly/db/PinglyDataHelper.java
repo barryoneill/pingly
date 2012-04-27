@@ -58,14 +58,11 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
 		public static final String COL_ACTIVE = "is_active";
 		public static final String COL_CREATED = "t_created";
 		public static final String COL_LASTMOD = "t_lastmod";
-
-		// populated with a join on the probe table
-		public static final String COL_PROBE_READONLY_NAME = "probe_readonly_name";
-
         public static final String COL_STARTONSAVE = "start_on_save";
         public static final String COL_STARTTIME = "start_time";
         public static final String COL_REPEATTYPE_ID = "repeat_type_id";
         public static final String COL_REPEAT_VALUE = "repeat_value";
+		public static final String COL_NOTIFY_OPTS = "notify_opts";
 
         public static final String CREATE_SQL = "CREATE TABLE " + TBL_NAME + "( "
 				+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -77,6 +74,7 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
                 + COL_STARTTIME + " DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, "
                 + COL_REPEATTYPE_ID + " INTEGER NOT NULL DEFAULT 0,"
                 + COL_REPEAT_VALUE + " INTEGER, "
+				+ COL_NOTIFY_OPTS + " TEXT, "
                 + "FOREIGN KEY(" + COL_PROBE_FK + ") REFERENCES "
                         + TBL_PROBE.TBL_NAME + "(" + TBL_PROBE.COL_ID + ")"
 				+ "   ) ";

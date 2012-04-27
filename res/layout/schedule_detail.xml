@@ -114,6 +114,28 @@
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
 
+            <net.nologin.meep.pingly.view.PinglyBooleanPref
+                    android:id="@+id/scheduled_probe_notify_success"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    pingly:name="Notify on Success:"
+                    pingly:summaryOn="Success notifications enabled"
+                    pingly:summaryOff="Success notifications disabled"/>
+
+            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:background="?android:attr/listDivider"/>
+
+            <net.nologin.meep.pingly.view.PinglyBooleanPref
+                    android:id="@+id/scheduled_probe_notify_failure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    pingly:name="Notify on Failure:"
+                    pingly:summaryOn="Failure notifications enabled"
+                    pingly:summaryOff="Failure notifications disabled"/>
+
+            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:background="?android:attr/listDivider"/>
+
             <!-- coming later
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>

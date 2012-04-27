@@ -158,6 +158,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 		cv.put(TBL_SCHEDULE.COL_STARTTIME, DBUtils.toGMTDateTimeString(entry.startTime));
 		cv.put(TBL_SCHEDULE.COL_REPEATTYPE_ID, entry.repeatType.id);
 		cv.put(TBL_SCHEDULE.COL_REPEAT_VALUE, entry.repeatValue);
+		cv.put(TBL_SCHEDULE.COL_NOTIFY_OPTS, entry.getNotifyOptsString());
 
 
 		SQLiteDatabase db = getWritableDatabase();
@@ -194,6 +195,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 		entry.startTime = cr.getDate(TBL_SCHEDULE.COL_STARTTIME, false);
 		entry.repeatType = ScheduleRepeatType.fromId(cr.getInt(TBL_SCHEDULE.COL_REPEATTYPE_ID));
 		entry.repeatValue = cr.getInt(TBL_SCHEDULE.COL_REPEAT_VALUE);
+		entry.setNotifyOptsFromString(cr.getString(TBL_SCHEDULE.COL_NOTIFY_OPTS));
 
 		if (closeCursor) {
 			c.close();

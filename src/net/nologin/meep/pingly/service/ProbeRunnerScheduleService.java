@@ -6,36 +6,38 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.activity.PinglyDashActivity;
+import net.nologin.meep.pingly.activity.BasePinglyActivity;
+import net.nologin.meep.pingly.activity.ProbeRunHistoryActivity;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ProbeRunDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.ProbeRun;
+import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-import java.util.Date;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ProbeRunnerScheduleService extends IntentService {
 
-    public static final String PARAM_SCHEDULE_ENTRY_ID = "net.nologin.meep.pingly.service.ProbeRunnerService_schedule_entry_id";
+	public static final String PARAM_SCHEDULE_ENTRY_ID = "net.nologin.meep.pingly.service.ProbeRunnerService_schedule_entry_id";
 
 	private ScheduleDAO scheduleDAO;
 	private ProbeDAO probeDAO;
 	private ProbeRunDAO probeRunDAO;
 
-    // important to have a no-paramter constructor for alarmmanager
-    public ProbeRunnerScheduleService() {
-        super("Probe Runner Service");
-    }
+	// important to have a no-paramter constructor for alarmmanager
+	public ProbeRunnerScheduleService() {
+		super("Probe Runner Service");
+	}
 
 	@Override
-	public void onCreate(){
+	public void onCreate() {
 
 		super.onCreate();
 		scheduleDAO = new ScheduleDAO(this);
@@ -50,71 +52,92 @@ public class ProbeRunnerScheduleService extends IntentService {
 		probeRunDAO.close();
 	}
 
-    // called asynchronously by android
-    @Override
-    protected void onHandleIntent(Intent intent) {
+	// called asynchronously by android
+	@Override
+	protected void onHandleIntent(Intent intent) {
 
 		Log.d(LOG_TAG, "ProbeRunnerScheduleService, handling: " + intent.toString());
 
 		// load all the required data, lots of checking
 		long entryId = intent.getExtras().getLong(PARAM_SCHEDULE_ENTRY_ID);
-		if(entryId < 0){
-			Log.e(LOG_TAG,"Alarm triggered, but invalid entry ID supplied, ignoring alarm!");
+		if (entryId < 0) {
+			Log.e(LOG_TAG, "Alarm triggered, but invalid entry ID supplied, ignoring alarm!");
 			return;
 		}
-		ScheduleEntry entry = scheduleDAO.findById(entryId);
-		if(entry == null){
+		ScheduleEntry scheduleEntry = scheduleDAO.findById(entryId);
+		if (scheduleEntry == null) {
 			Log.e(LOG_TAG, "Entry for ID " + entryId + " was not found, nothing to do!");
 			return;
 		}
 
-		ProbeRun probeRun = new ProbeRun(entry.probe, entry);
+		ProbeRun probeRun = new ProbeRun(scheduleEntry.probe, scheduleEntry);
 
-		// ready, running the probe
 		final ProbeRunner runner = ProbeRunner.getInstance(probeRun);
-
 		runner.run();
 
 		probeRunDAO.saveProbeRun(probeRun);
 
 		// TODO, check scheduler hasn't been disabled/ entry disabled/ entry deleted since
 
-		Log.i(LOG_TAG, "Probe Run on " + entry + " successful:" + probeRun.status);
-        showAppNotification(this, entry.probe.id, probeRun.runSummary);
+		Log.i(LOG_TAG, "Probe Run on " + scheduleEntry + " successful:" + probeRun.status);
+
+		if (doNotification(probeRun)) {
+			showNotification(this,probeRun);
+		}
+
+	}
+
+	boolean doNotification(ProbeRun probeRun) {
+
+		// possibly add in a global preference to disable notifications
+		ScheduleEntry entry = probeRun.scheduleEntry;
+
+		return (entry.notifyOnSuccess && ProbeRunStatus.Success.equals(probeRun.status))
+				||
+				(entry.notifyOnFailure && ProbeRunStatus.Failed.equals(probeRun.status));
+
+	}
 
 
-    }
+	void showNotification(Context ctx, ProbeRun probeRun) {
 
-    void showAppNotification(Context ctx, long id, String msg) {
+		boolean successful = ProbeRunStatus.Success.equals(probeRun.status);
+
+		// green or red icons for status
+		int iconRes = successful ? R.drawable.pingly_notification_success : R.drawable.pingly_notification_failure;
+
+		// set in the app settings screen
+		Uri soundRes = PinglyUtils.getSelectedNotificationSound(ctx);
+
+		// run should have an end time (if not, use now)
+		long probeFinishTime = probeRun.endTime != null ? probeRun.endTime.getTime() : System.currentTimeMillis();
+
+		// Probe 'blah' was successful, etc
+		CharSequence tickerText = probeRun.status.formatName(ctx, probeRun.probe.name);
+
+		// setup the notification
+		Notification notification = new Notification(iconRes, tickerText, probeFinishTime);
+		notification.sound = soundRes;
+		notification.defaults |= Notification.DEFAULT_LIGHTS;
+		notification.defaults |= Notification.FLAG_AUTO_CANCEL;
+
+		// what it's going to start
+		Intent probeRunHistoryIntent = new Intent(ctx, ProbeRunHistoryActivity.class); // TODO: add extra for probeRun
+		probeRunHistoryIntent.putExtra(BasePinglyActivity.PARAMETER_PROBE_ID, probeRun.probe.id);
+
+		PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, probeRunHistoryIntent, 0);
+
+		// notification data
+		notification.setLatestEventInfo(ctx.getApplicationContext(), tickerText, probeRun.runSummary, contentIntent);
+
+		NotificationManager notifyMan = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		// TODO: revisit
+		notifyMan.notify((int)probeRun.id, notification);
 
 
-        NotificationManager mNotificationManager = (NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int icon = R.drawable.pingly_notification;
-        CharSequence tickerText = "Pingly Alarm";
-        long when = System.currentTimeMillis();
-
-        Notification notification = new Notification(icon, tickerText, when);
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
-        notification.defaults |= Notification.FLAG_AUTO_CANCEL;
-
-		notification.sound = PinglyUtils.getSelectedNotificationSound(ctx);
-
-        Context appContext = ctx.getApplicationContext();
-		CharSequence contentTitle = "ID:" + id;
-        CharSequence contentText = msg + " (time: " + new Date().toLocaleString() + ")";
-
-		Intent notificationIntent = new Intent(ctx, PinglyDashActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,notificationIntent, 0);
-
-        notification.setLatestEventInfo(appContext, contentTitle, contentText, contentIntent);
-
-        mNotificationManager.notify((int)id, notification);
-
-
-        // AlarmScheduler.testIntentService(ctx);
-    }
-
+	}
 
 
 

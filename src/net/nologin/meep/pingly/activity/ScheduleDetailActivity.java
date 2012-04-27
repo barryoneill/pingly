@@ -28,57 +28,72 @@ import static net.nologin.meep.pingly.PinglyConstants.*;
 
 public class ScheduleDetailActivity extends BasePinglyActivity {
 
+	private Probe probe;
 	private ScheduleEntry schedule;
 
-	private TextView probeName;
-	private TextView probeSummary;
-
-	private PinglyBooleanPref scheduleEnabled;
-	private PinglyExpanderPref scheduleStartTime;
-	private PinglyExpanderPref scheduleRepetition;
-
-	private Button butSave;
-	private Button butCancel;
-
+	private PinglyBooleanPref scheduleEnabled, scheduleNotifySuccess, scheduleNotifyFailure;
+	private PinglyExpanderPref scheduleStartTime, scheduleRepetition;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.schedule_detail);
 
 
-		Probe probe = loadProbeParamIfPresent();
+		probe = loadProbeParamIfPresent();
 		if (probe == null) { // should never happen, but is it the correct handling?
 			throw new IllegalArgumentException("This activity expects requires a proble ID parameter");
 		}
-		// init the schedule/probe for this activity
-		schedule = new ScheduleEntry(probe);
 
-		probeName = (TextView) findViewById(R.id.scheduled_probe_name);
-		probeSummary = (TextView) findViewById(R.id.scheduled_probe_summary);
+		// if there's a schedule param, we use that
+		schedule = loadScheduleParamIfPresent();
+		if(schedule != null){
+			// ensure probe is the right one if a schedule entry is specified
+			probe = schedule.probe;
+		}
+		else{
+			// new schedule
+			schedule = new ScheduleEntry(probe);
+		}
+
+
+		TextView probeName = (TextView) findViewById(R.id.scheduled_probe_name);
+		TextView probeSummary = (TextView) findViewById(R.id.scheduled_probe_summary);
+
 		scheduleEnabled = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_enabled);
 		scheduleStartTime = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_start_time);
 		scheduleRepetition = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_repetition);
-		butSave = (Button) findViewById(R.id.but_scheduledetail_save);
-		butCancel = (Button) findViewById(R.id.but_scheduledetail_cancel);
 
-		// TODO: i18n!
-		probeName.setText("Probe: " + probe.name);
+		scheduleNotifySuccess = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_notify_success);
+		scheduleNotifyFailure = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_notify_failure);
+
+
+		// init view
+		probeName.setText(probe.name);
 		probeSummary.setText(probe.desc);
 		scheduleEnabled.setChecked(schedule.active);
+		scheduleNotifySuccess.setChecked(schedule.notifyOnSuccess);
+		scheduleNotifyFailure.setChecked(schedule.notifyOnFailure);
 		updateStartTimeSummary();
 		updateRepetitionSummary();
 
 		// attach listeners
-		butCancel.setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.but_scheduledetail_cancel).setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				finish();
 			}
 		});
 
-		butSave.setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.but_scheduledetail_save).setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
 				Log.d(LOG_TAG, "Saving schedule: " + schedule);
+
+				// update object before save
+				// start time, repetition automatically updated on dialog 'save' actions
+				schedule.active = scheduleEnabled.getChecked();
+				schedule.notifyOnSuccess = scheduleNotifySuccess.getChecked();
+				schedule.notifyOnFailure = scheduleNotifyFailure.getChecked();
+
 				scheduleDAO.saveScheduleEntry(schedule);
 
 				Log.w(LOG_TAG,"Entry " + schedule + " saved, now setting up alarm");
