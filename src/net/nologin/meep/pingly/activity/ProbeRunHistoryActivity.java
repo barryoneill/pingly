@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import net.nologin.meep.pingly.PinglyConstants;
@@ -39,7 +38,14 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 		super.onCreate(state);
 		setContentView(R.layout.probe_run_history_list);
 
-		currentProbe = loadProbeParamIfPresent();
+		currentProbe = getIntentExtraProbe();
+
+		// if a probe run param is supplied, that overrides the probe param
+		probeRunForLogDialog = getIntentExtraProbeRun();
+		if(probeRunForLogDialog != null){
+			currentProbe = probeRunForLogDialog.probe;
+		}
+
 		Long probeId = currentProbe == null ? null : currentProbe.id;
 
 		Cursor runHistoryCursor = probeRunDAO.queryForProbeRunHistoryCursorAdapter(probeId);

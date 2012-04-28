@@ -112,7 +112,7 @@ public class ProbeRunnerInteractiveService extends Service {
 			});
 
 			// blocking call, use update listener above to notify cancel request
-			runner.run();
+			runner.run(ProbeRunnerInteractiveService.this);
 
 			// runner finished, but don't send an update if the thread was interrupted
 			if(!isInterrupted()){

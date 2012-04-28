@@ -64,9 +64,11 @@ public class ProbeRunDAO extends PinglyDataHelper {
 			idClause = TBL_PROBE_RUN.COL_PROBE_FK + "=" + probeId;
 		}
 
+		String orderBy = TBL_PROBE_RUN.COL_ENDTIME + " DESC";
+
 		// a simple query on the run history table will do here
 		Cursor cursor = db.query(TBL_PROBE_RUN.TBL_NAME, null, idClause,
-					null, null, null, TBL_PROBE_RUN.COL_STARTTIME);
+					null, null, null, orderBy);
 
 		return cursor;
 	}

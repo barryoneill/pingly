@@ -3,10 +3,10 @@ package net.nologin.meep.pingly.activity;
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 import android.widget.EditText;
-import net.nologin.meep.pingly.PinglyApplication;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ProbeRunDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
+import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.probe.Probe;
 import android.app.Activity;
@@ -17,8 +17,9 @@ import android.view.View;
 
 public abstract class BasePinglyActivity extends Activity {
 	
-	public static final String PARAMETER_PROBE_ID = "param_probe";
-	public static final String PARAMETER_SCHEDULE_ID = "param_schedule";
+	private static final String EXTRA_PROBE_ID = "net.nologin.meep.pingly.intent.extra_probe_id";
+	private static final String EXTRA_SCHEDULE_ID = "net.nologin.meep.pingly.intent.extra_schedule_id";
+	private static final String EXTRA_PROBE_RUN_ID = "net.nologin.meep.pingly.intent.extra_probe_run_id";
 
 	public static final String STATE_PROBERUN_ID = "bundle_currentRunnerID";
 
@@ -50,43 +51,58 @@ public abstract class BasePinglyActivity extends Activity {
 		}
 	}
 
-	public Probe loadProbeParamIfPresent() {
+	public Probe getIntentExtraProbe() {
 
-		Probe result = null;
-		
-		// populate fields if param set	
-		Bundle b = getIntent().getExtras();		
-		if(b != null && b.containsKey(PARAMETER_PROBE_ID)){
-			Long probeId = b.getLong(PARAMETER_PROBE_ID, -1);
-			if(probeId >= 0){
-				result = probeDAO.findProbeById(probeId);
-			}
-		}
-		
-		if(result == null){
-			Log.e(LOG_TAG, "No probe found");
-		}
-		
-		return result;
-	}
-
-	public ScheduleEntry loadScheduleParamIfPresent() {
-
-		ScheduleEntry result = null;
-
-		// populate fields if param set
+		long id = 0;
 		Bundle b = getIntent().getExtras();
-		if(b != null && b.containsKey(PARAMETER_SCHEDULE_ID)){
-			Long scheduleId = b.getLong(PARAMETER_SCHEDULE_ID, -1);
-			if(scheduleId >= 0){
-				result = scheduleDAO.findById(scheduleId);
-			}
+		if(b != null && b.containsKey(EXTRA_PROBE_ID)){
+			id = b.getLong(EXTRA_PROBE_ID, -1);
 		}
-
-		return result;
+		return id >= 0 ? probeDAO.findProbeById(id) : null;
 	}
 
-	
+	public ScheduleEntry getIntentExtraScheduleEntry() {
+
+		long id = 0;
+		Bundle b = getIntent().getExtras();
+		if(b != null && b.containsKey(EXTRA_SCHEDULE_ID)){
+			id = b.getLong(EXTRA_SCHEDULE_ID, -1);
+		}
+		return id >= 0 ? scheduleDAO.findById(id) : null;
+	}
+
+	public ProbeRun getIntentExtraProbeRun() {
+
+		long id = 0;
+		Bundle b = getIntent().getExtras();
+		if(b != null && b.containsKey(EXTRA_PROBE_RUN_ID)){
+			id = b.getLong(EXTRA_PROBE_RUN_ID, -1);
+		}
+		return id >= 0 ? probeRunDAO.findProbeRunById(id) : null;
+	}
+
+	public static void setIntentExtraProbe(Intent intent, long probeId) {
+		addIdExtraInternal(intent, EXTRA_PROBE_ID, probeId);
+	}
+
+	public static void setIntentExtraScheduleEntry(Intent intent, long entryId) {
+		addIdExtraInternal(intent, EXTRA_SCHEDULE_ID, entryId);
+	}
+
+	public static void setIntentExtraProbeRun(Intent intent, long probeRunId) {
+		addIdExtraInternal(intent, EXTRA_PROBE_RUN_ID, probeRunId);
+	}
+
+	private static void addIdExtraInternal(Intent intent, String constant, long id){
+		if(id > 0){
+			Log.d(LOG_TAG, "Adding '" + constant + "' param: " + id);
+			Bundle b = new Bundle();
+			b.putLong(constant, id);
+			intent.putExtras(b);
+		}
+	}
+
+
 	// available to all actions (TODO: name? goTO?)
 	public void createNewProbe(View v) {
 
@@ -101,7 +117,7 @@ public abstract class BasePinglyActivity extends Activity {
 				ProbeRunnerActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);			
 		
-		addProbeIdParam(intent, probeId);
+		setIntentExtraProbe(intent, probeId);
 		
 		startActivity(intent);
 
@@ -119,7 +135,7 @@ public abstract class BasePinglyActivity extends Activity {
 				ProbeDetailActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);			
 		
-		addProbeIdParam(intent, probeId);
+		setIntentExtraProbe(intent, probeId);
 		
 		startActivity(intent);
 
@@ -134,7 +150,7 @@ public abstract class BasePinglyActivity extends Activity {
 				ProbeRunHistoryActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-		addProbeIdParam(intent, probeId);
+		setIntentExtraProbe(intent, probeId);
 
 		startActivity(intent);
 
@@ -149,21 +165,12 @@ public abstract class BasePinglyActivity extends Activity {
                 ScheduleDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        addProbeIdParam(intent, probeId);
+        setIntentExtraProbe(intent, probeId);
 
         startActivity(intent);
 
     }
-	
-	private void addProbeIdParam(Intent intent, long probeId){
-		// add parameter if valid
-		if(probeId > 0){
-			Log.d(LOG_TAG, "Adding probe id param: " + probeId);
-			Bundle b = new Bundle();
-			b.putLong(ProbeDetailActivity.PARAMETER_PROBE_ID, probeId);
-			intent.putExtras(b);	
-		}
-	}
+
 	
 	public void goToProbeList(View v) {
 

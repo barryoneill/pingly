@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.*;
-import android.os.IBinder;
 import android.provider.Settings;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ProbeRunStatus;
@@ -53,7 +52,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		setContentView(R.layout.probe_runner);
 
 		// parameter must be present
-		selectedProbe = loadProbeParamIfPresent();
+		selectedProbe = getIntentExtraProbe();
 
 		Log.d(LOG_TAG, "Running probe " + selectedProbe);
 

@@ -1,5 +1,6 @@
 package net.nologin.meep.pingly.service.runner;
 
+import android.content.Context;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
 import net.nologin.meep.pingly.util.StringUtils;
@@ -19,7 +20,7 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 		super(probeRun);
 	}
 
-	public void doRun() throws ProbeRunCancelledException {
+	public void doRun(Context ctx) throws ProbeRunCancelledException {
 
 		HTTPResponseProbe httpProbe = (HTTPResponseProbe)getProbe(); // if everything is configured properly
 
@@ -61,6 +62,11 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 			notifyFinishedWithFailure("IO Error while fetching URL '" + httpProbe.url + "': " + e.getMessage());
 		}
 
+	}
+
+	@Override
+	protected boolean requiresActiveNetConnection() {
+		return true;
 	}
 
 

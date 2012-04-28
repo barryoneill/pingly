@@ -1,5 +1,6 @@
 package net.nologin.meep.pingly.service.runner;
 
+import android.content.Context;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.probe.PingProbe;
 
@@ -16,7 +17,7 @@ public class PingProbeRunner extends ProbeRunner {
 	}
 
 	@Override
-	protected void doRun() throws ProbeRunCancelledException {
+	protected void doRun(Context ctx) throws ProbeRunCancelledException {
 
 		/**
 		 * Since java 5 there is an API method for performing ping, eg:
@@ -72,6 +73,11 @@ public class PingProbeRunner extends ProbeRunner {
 			notifyFinishedWithFailure("IO Error:" + e.getMessage());
 		}
 
+	}
+
+	@Override
+	protected boolean requiresActiveNetConnection() {
+		return true;
 	}
 
 	private void publishStream(InputStream ins) throws ProbeRunCancelledException, IOException {

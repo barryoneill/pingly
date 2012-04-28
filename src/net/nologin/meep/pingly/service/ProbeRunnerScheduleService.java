@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.activity.BasePinglyActivity;
 import net.nologin.meep.pingly.activity.ProbeRunHistoryActivity;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ProbeRunDAO;
@@ -73,9 +72,9 @@ public class ProbeRunnerScheduleService extends IntentService {
 		ProbeRun probeRun = new ProbeRun(scheduleEntry.probe, scheduleEntry);
 
 		final ProbeRunner runner = ProbeRunner.getInstance(probeRun);
-		runner.run();
+		runner.run(this);
 
-		probeRunDAO.saveProbeRun(probeRun);
+		probeRun.id = probeRunDAO.saveProbeRun(probeRun);
 
 		// TODO, check scheduler hasn't been disabled/ entry disabled/ entry deleted since
 
@@ -122,10 +121,11 @@ public class ProbeRunnerScheduleService extends IntentService {
 		notification.defaults |= Notification.FLAG_AUTO_CANCEL;
 
 		// what it's going to start
-		Intent probeRunHistoryIntent = new Intent(ctx, ProbeRunHistoryActivity.class); // TODO: add extra for probeRun
-		probeRunHistoryIntent.putExtra(BasePinglyActivity.PARAMETER_PROBE_ID, probeRun.probe.id);
+		Intent probeRunHistoryIntent = new Intent(ctx, ProbeRunHistoryActivity.class);
+		ProbeRunHistoryActivity.setIntentExtraProbeRun(probeRunHistoryIntent, probeRun.id);
 
-		PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, probeRunHistoryIntent, 0);
+		// FLAG_UPDATE_CURRENT is required so new values for the extras (probe run id) will take effect
+		PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, probeRunHistoryIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		// notification data
 		notification.setLatestEventInfo(ctx.getApplicationContext(), tickerText, probeRun.runSummary, contentIntent);

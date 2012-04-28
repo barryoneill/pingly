@@ -19,6 +19,8 @@ import java.util.List;
 
 public class PinglyUtils {
 
+	private PinglyUtils() {}; // static methods
+
 	public static boolean activeNetConnectionPresent(Context ctx) {
 		
 	    ConnectivityManager cm = (ConnectivityManager)ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -77,9 +79,6 @@ public class PinglyUtils {
 		Log.d(LOG_TAG,"Returning notification sound: " + notifPref);
 		return Uri.parse(notifPref);
 	}
-
-
-
 
 	public static AlertDialog.Builder getAlertDialogBuilder(Context ctx) {
 		return new AlertDialog.Builder(getPinglyDialogContext(ctx));

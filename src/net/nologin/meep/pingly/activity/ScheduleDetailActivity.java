@@ -39,13 +39,13 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 		setContentView(R.layout.schedule_detail);
 
 
-		probe = loadProbeParamIfPresent();
+		probe = getIntentExtraProbe();
 		if (probe == null) { // should never happen, but is it the correct handling?
 			throw new IllegalArgumentException("This activity expects requires a proble ID parameter");
 		}
 
 		// if there's a schedule param, we use that
-		schedule = loadScheduleParamIfPresent();
+		schedule = getIntentExtraScheduleEntry();
 		if(schedule != null){
 			// ensure probe is the right one if a schedule entry is specified
 			probe = schedule.probe;

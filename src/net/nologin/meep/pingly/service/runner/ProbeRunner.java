@@ -1,5 +1,6 @@
 package net.nologin.meep.pingly.service.runner;
 
+import android.content.Context;
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.model.ProbeRun;
@@ -8,6 +9,7 @@ import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
 import net.nologin.meep.pingly.model.probe.PingProbe;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
+import net.nologin.meep.pingly.util.PinglyUtils;
 
 import java.util.Date;
 
@@ -53,13 +55,19 @@ public abstract class ProbeRunner {
 	}
 
 
-	public void run(){
+	public void run(Context ctx){
 
 		probeRun.status = ProbeRunStatus.Running;
 
 		// no exception from a runner should go higher than this point
 		try {
-			doRun();
+
+			if(requiresActiveNetConnection() && !PinglyUtils.activeNetConnectionPresent(ctx)){
+				notifyFinishedWithFailure("Required active data connection not available, cannot run");
+				return;
+			}
+
+			doRun(ctx);
 
 			// in an implementation doesn't call notifyFinishedWithSuccess, status will still
 			// be 'running' - will just assume success.  :o)
@@ -78,7 +86,9 @@ public abstract class ProbeRunner {
 
 	}
 
-	protected abstract void doRun() throws ProbeRunCancelledException;
+	protected abstract void doRun(Context ctx) throws ProbeRunCancelledException;
+
+	protected abstract boolean requiresActiveNetConnection();
 
 	protected void notifyFinishedWithFailure(String failureSummary)  {
 		probeRun.runSummary = failureSummary;

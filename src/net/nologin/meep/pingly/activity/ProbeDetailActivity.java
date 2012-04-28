@@ -43,7 +43,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		Button butSave = (Button) findViewById(R.id.but_newProbe_save);
 		Button butCancel = (Button) findViewById(R.id.but_newProbe_cancel);
 
-		currentprobe = loadProbeParamIfPresent();
+		currentprobe = getIntentExtraProbe();
 
 		if (currentprobe == null) {
 			Log.d(LOG_TAG, "Preparing form for new probe");

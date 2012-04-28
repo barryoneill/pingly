@@ -1,5 +1,6 @@
 package net.nologin.meep.pingly.service.runner;
 
+import android.content.Context;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 import net.nologin.meep.pingly.util.StringUtils;
@@ -14,7 +15,7 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 		super(probeRun);
 	}
 
-	public void doRun() throws ProbeRunCancelledException {
+	public void doRun(Context ctx) throws ProbeRunCancelledException {
 
 		SocketConnectionProbe probe = (SocketConnectionProbe)getProbe(); // if everything is configured properly
 
@@ -69,6 +70,11 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 			}
 		}
 
+	}
+
+	@Override
+	protected boolean requiresActiveNetConnection() {
+		return true;
 	}
 
 
