@@ -62,34 +62,36 @@ public class ProbeRunDAO extends PinglyDataHelper {
 
 		int numToKeep = PinglyPrefs.getProbeHistorySize(getDataHelperContext());
 
-		if (numToKeep < 0) {
-			numToKeep = 0;
-		}
-
 		Log.d(LOG_TAG, "Pruning probe history, keeping newest " + numToKeep + " entries");
 
-		// delete from moo where n not in (select n from moo order by t desc limit 0);
-
+		// the nested IN is required here because android's SQLlite impl doesn't
+		// have LIMIT support for the outer DELETE query, so we do it on the inner select
 
 		String sql =
-				TBL_PROBE_RUN.COL_PROBE_FK + "=? "
-						+ TBL_PROBE_RUN.COL_ID + " NOT IN ( "
+				// delete entries for this probe which are finished
+				TBL_PROBE_RUN.COL_PROBE_FK + "=? AND "
+				+ TBL_PROBE_RUN.COL_ENDTIME + " IS NOT NULL AND "
 
-							// subselect decides what to keep
-							+ "SELECT " + TBL_PROBE_RUN.COL_ID
-							+ " FROM " + TBL_PROBE_RUN.TBL_NAME
-							+ " WHERE " + TBL_PROBE_RUN.COL_PROBE_FK + "=? "
-							+ " AND " + TBL_PROBE_RUN.COL_ENDTIME + " IS NOT NULL "
-							+ " ORDER BY " + TBL_PROBE_RUN.COL_ENDTIME + " DESC "
-							+ " LIMIT ?"
+				// except for
+				+ TBL_PROBE_RUN.COL_ID + " NOT IN ( "
 
-						+ " )";
+					// the following N most recent, finished runs for this probe
+					+ "SELECT " + TBL_PROBE_RUN.COL_ID
+					+ " FROM " + TBL_PROBE_RUN.TBL_NAME
+					+ " WHERE " + TBL_PROBE_RUN.COL_PROBE_FK + "=? "
+					+ " AND " + TBL_PROBE_RUN.COL_ENDTIME + " IS NOT NULL "
+					+ " ORDER BY " + TBL_PROBE_RUN.COL_ENDTIME + " DESC "
+					+ " LIMIT ?"
+
+				+ " )";
 
 		String[] args = new String[]{
 				String.valueOf(probeId), // outer query
 				String.valueOf(probeId), // inner select
 				String.valueOf(numToKeep) // limit
 		};
+
+		Log.d(LOG_TAG, "SQL: " + sql);
 
 		SQLiteDatabase db = getWritableDatabase();
 		int changed = db.delete(TBL_PROBE_RUN.TBL_NAME, sql, args);
@@ -148,14 +150,21 @@ public class ProbeRunDAO extends PinglyDataHelper {
 		cv.put(TBL_PROBE_RUN.COL_LOGTEXT, probeRun.logText);
 
 		SQLiteDatabase db = getWritableDatabase();
+
+		long affectedId;
 		if (probeRun.isNew()) {
 			// id should be automatically generated
-			return db.insertOrThrow(TBL_PROBE_RUN.TBL_NAME, null, cv);
+			affectedId = db.insertOrThrow(TBL_PROBE_RUN.TBL_NAME, null, cv);
 		} else {
 			String whereClause = TBL_PROBE_RUN.COL_ID + "=" + probeRun.id;
 			db.update(TBL_PROBE_RUN.TBL_NAME, cv, whereClause, null);
-			return probeRun.id;
+			affectedId = probeRun.id;
 		}
+
+		// maintain history max size
+		this.pruneHistoryForProbe(probeRun.probe.id);
+
+		return affectedId;
 	}
 
 

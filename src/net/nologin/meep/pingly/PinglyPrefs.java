@@ -32,7 +32,14 @@ public class PinglyPrefs {
 
 	public static int getProbeHistorySize(Context ctx) {
 
-		return getPrefs(ctx).getInt(PREF_PROBE_RUN_HISTORY_SIZE, PROBE_RUN_HISTORY_SIZE_DEFAULT);
+		// EditTextPreference stores the value as a string
+		String valStr = getPrefs(ctx).getString(PREF_PROBE_RUN_HISTORY_SIZE, String.valueOf(PROBE_RUN_HISTORY_SIZE_DEFAULT));
+		try {
+			return Integer.parseInt(valStr);
+		}
+		catch(NumberFormatException e){
+			return PROBE_RUN_HISTORY_SIZE_DEFAULT;
+		}
 
 	}
 

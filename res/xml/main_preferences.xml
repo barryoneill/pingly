@@ -9,7 +9,7 @@
         <EditTextPreference
                 android:key="PROBE_RUN_HISTORY_SIZE"
                 android:title="Per-Probe History Size"
-                android:summary="The larger this value, the more storage space will be required (depending on frequency and output)."
+                android:summary="The larger this value, the more storage space will be required (depending on frequency and output). Takes effect on a probe's next run."
                 android:maxLines="1"
                 android:inputType="number"
                 android:numeric="integer"/>
