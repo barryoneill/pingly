@@ -73,13 +73,6 @@ public class PinglyUtils {
     }
 
 
-	public static Uri getSelectedNotificationSound(Context ctx){
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-		String notifPref = prefs.getString("DEFAULT_NOTIFICATION_SOUND", "DEFAULT_SOUND");
-		Log.d(LOG_TAG,"Returning notification sound: " + notifPref);
-		return Uri.parse(notifPref);
-	}
-
 	public static AlertDialog.Builder getAlertDialogBuilder(Context ctx) {
 		return new AlertDialog.Builder(getPinglyDialogContext(ctx));
 	}

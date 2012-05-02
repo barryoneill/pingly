@@ -194,8 +194,8 @@ public class ProbeListActivity extends BasePinglyActivity {
 								// requestCancel alarms for those entries
 								AlarmScheduler.cancelAlarms(ProbeListActivity.this, entries);
 
-								// delete the run history
-								probeRunDAO.deleteHistoryForProbe(probe.id);
+								// delete the run history (all items, not just finished)
+								probeRunDAO.deleteHistoryForProbe(probe.id,false);
 
 								// delete the entries
 								scheduleDAO.deleteForProbe(probe.id);

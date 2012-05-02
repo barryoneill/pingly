@@ -73,6 +73,12 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 				goToProbeDetails(selectedProbe.id);
 			}
 		});
+		findViewById(R.id.but_probeRun_history).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				goToProbeRunHistory(selectedProbe.id);
+			}
+		});
 
 		// create receiver, will be registered until onResume()
 		callbackReceiver = new ProbeRunCallbackReceiver();

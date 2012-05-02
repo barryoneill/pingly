@@ -9,6 +9,7 @@ import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeRunHistoryCursorAdapter;
@@ -78,6 +79,16 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 			@Override
 			public void onClick(View view) {
 				goToProbeRunner(currentProbe.id);
+			}
+		});
+
+		findViewById(R.id.but_clearHistory).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				// delete any finished probes
+				probeRunDAO.deleteHistoryForProbe(currentProbe.id, true);
+				listAdapter.changeCursor(probeRunDAO.queryForProbeRunHistoryCursorAdapter(currentProbe.id));
 			}
 		});
 

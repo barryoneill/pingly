@@ -20,6 +20,10 @@
 
         <ImageView style="@style/TitleBarSeparator"/>
 
+        <ImageButton
+                android:id="@+id/but_clearHistory"
+                style="@style/TitleBarClickable"
+                android:src="@android:drawable/ic_menu_delete"  />
 
     </LinearLayout>
 

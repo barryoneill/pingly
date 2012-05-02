@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import net.nologin.meep.pingly.PinglyPrefs;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.activity.ProbeRunHistoryActivity;
 import net.nologin.meep.pingly.db.ProbeDAO;
@@ -17,7 +18,6 @@ import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
-import net.nologin.meep.pingly.util.PinglyUtils;
 
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -106,7 +106,7 @@ public class ProbeRunnerScheduleService extends IntentService {
 		int iconRes = successful ? R.drawable.pingly_notification_success : R.drawable.pingly_notification_failure;
 
 		// set in the app settings screen
-		Uri soundRes = PinglyUtils.getSelectedNotificationSound(ctx);
+		Uri soundRes = PinglyPrefs.getNotificationSound(ctx);
 
 		// run should have an end time (if not, use now)
 		long probeFinishTime = probeRun.endTime != null ? probeRun.endTime.getTime() : System.currentTimeMillis();

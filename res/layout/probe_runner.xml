@@ -35,16 +35,23 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Edit Probe"/>
-        
-        
+            android:text="Edit"/>
+
+        <Button
+                android:id="@+id/but_probeRun_history"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="History"/>
+
         <Button
             android:id="@+id/but_probeRun_runAgain"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+
             android:text="Run" />
-        
+
     </LinearLayout>
 
     <!-- probe info -->

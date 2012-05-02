@@ -3,8 +3,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-            android:title="General Settings"
-            android:key="category_general">
+            android:title="Probe Settings"
+            android:key="category_probe">
+
+        <EditTextPreference
+                android:key="PROBE_RUN_HISTORY_SIZE"
+                android:title="Per-Probe History Size"
+                android:summary="The larger this value, the more storage space will be required (depending on frequency and output)."
+                android:maxLines="1"
+                android:inputType="number"
+                android:numeric="integer"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="Notification Preferences"
+            android:key="category_notification">
 
         <RingtonePreference
                 android:key="DEFAULT_NOTIFICATION_SOUND"
@@ -17,13 +31,5 @@
 
     </PreferenceCategory>
 
-    <!--
-    <PreferenceCategory
-            android:title="About"
-            android:key="category_about">
-
-
-    </PreferenceCategory>
-    -->
 
 </PreferenceScreen>
