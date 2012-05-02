@@ -13,6 +13,8 @@
     <color name="background3">#ffe3e8f1</color>
     <color name="title_separator">#40ffffff</color>
 
+    <color name="probe_detailsheader_bgcolor">#ffbddeff</color>
+
     <!-- status colours for the probe runner -->
     <color name="probe_runner_status_inactive">#ff777777</color>
     <color name="probe_runner_status_running">#ffde9205</color>

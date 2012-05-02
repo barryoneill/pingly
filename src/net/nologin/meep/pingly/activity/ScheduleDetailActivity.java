@@ -18,6 +18,7 @@ import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.PinglyUtils;
 import net.nologin.meep.pingly.view.PinglyBooleanPref;
 import net.nologin.meep.pingly.view.PinglyExpanderPref;
+import net.nologin.meep.pingly.view.PinglyProbeDetailsView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,9 +56,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 			schedule = new ScheduleEntry(probe);
 		}
 
-
-		TextView probeName = (TextView) findViewById(R.id.scheduled_probe_name);
-		TextView probeSummary = (TextView) findViewById(R.id.scheduled_probe_summary);
+		PinglyProbeDetailsView probeDetails = (PinglyProbeDetailsView)findViewById(R.id.scheduled_probe_details);
 
 		scheduleEnabled = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_enabled);
 		scheduleStartTime = (PinglyExpanderPref) findViewById(R.id.scheduled_probe_start_time);
@@ -68,8 +67,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
 
 		// init view
-		probeName.setText(probe.name);
-		probeSummary.setText(probe.desc);
+		probeDetails.initForProbe(probe);
 		scheduleEnabled.setChecked(schedule.active);
 		scheduleNotifySuccess.setChecked(schedule.notifyOnSuccess);
 		scheduleNotifyFailure.setChecked(schedule.notifyOnFailure);

@@ -16,5 +16,9 @@
         <attr name="summaryOff" format="reference|string"/>
     </declare-styleable>
 
+    <declare-styleable name="PinglyProbeDetailsView">
+        <attr name="probeName" format="reference|string" />
+        <attr name="probeDesc" format="reference|string" />
+    </declare-styleable>
 
 </resources>

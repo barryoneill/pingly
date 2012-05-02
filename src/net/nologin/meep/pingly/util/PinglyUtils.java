@@ -2,6 +2,7 @@ package net.nologin.meep.pingly.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +11,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import net.nologin.meep.pingly.R;
+import net.nologin.meep.pingly.activity.BasePinglyActivity;
+import net.nologin.meep.pingly.activity.ProbeDetailActivity;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -80,4 +83,20 @@ public class PinglyUtils {
 	public static Context getPinglyDialogContext(Context ctx) {
 		return new ContextThemeWrapper(ctx, R.style.PinglyDialogTheme);
 	}
+
+
+	// TODO: move all similar stuff here
+	public static void startActivityProbeDetail(Context ctx, long probeId) {
+
+		Log.d(LOG_TAG, "Starting activity: " + ProbeDetailActivity.class.getName());
+
+		Intent intent = new Intent(ctx,ProbeDetailActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+		BasePinglyActivity.setIntentExtraProbe(intent, probeId);
+
+		ctx.startActivity(intent);
+
+	}
+
 }

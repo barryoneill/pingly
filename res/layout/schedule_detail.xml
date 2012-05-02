@@ -58,24 +58,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <TextView
-                    android:id="@+id/scheduled_probe_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Probe Name"
-                    style="@style/FormLabel"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="5dp">
-            </TextView>
-
-            <TextView
-                    android:id="@+id/scheduled_probe_summary"
+            <net.nologin.meep.pingly.view.PinglyProbeDetailsView
+                    android:id="@+id/scheduled_probe_details"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="probe summary"
-                    android:paddingLeft="5dp"
-                    android:paddingBottom="5dp">
-            </TextView>
+                    pingly:probeName="NameTest"
+                    pingly:probeDesc="DescTest"
+                    />
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>

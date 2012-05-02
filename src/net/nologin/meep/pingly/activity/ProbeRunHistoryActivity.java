@@ -18,6 +18,7 @@ import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.PinglyUtils;
 import net.nologin.meep.pingly.util.StringUtils;
+import net.nologin.meep.pingly.view.PinglyProbeDetailsView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -60,8 +61,8 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 
 		startManagingCursor(runHistoryCursor);
 
-		((TextView) findViewById(R.id.probe_name)).setText(currentProbe.name);
-		((TextView) findViewById(R.id.probe_summary)).setText(currentProbe.desc);
+		PinglyProbeDetailsView probeDetails = (PinglyProbeDetailsView)findViewById(R.id.probeSummaryHeader);
+		probeDetails.initForProbe(currentProbe);
 
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
