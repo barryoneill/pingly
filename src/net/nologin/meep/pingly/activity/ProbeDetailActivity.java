@@ -71,15 +71,17 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 
 		butSave.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				saveProbe();
-				goToProbeList(v);
+				if(saveProbe()){
+					goToProbeList(v);
+				}
 			}
 		});
 
 		butSaveRun.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				saveProbe();
-				goToProbeRunner(currentprobe.id);
+				if(saveProbe()){
+					goToProbeRunner(currentprobe.id);
+				}
 			}
 		});
 
@@ -99,7 +101,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		});
 	}
 
-	private void saveProbe(){
+	private boolean saveProbe(){
 		String name = probeName.getText().toString().trim();
 		String desc = probeDesc.getText().toString().trim();
 
@@ -108,13 +110,13 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		// TODO: i18n strings
 		if (StringUtils.isBlank(name)) {
 			probeName.setError("Please supply a name.");
-			return;
+			return false;
 		}
 
 		Probe duplicate = probeDAO.findProbeByName(name);
 		if (duplicate != null && duplicate.id != currentprobe.id) {
 			probeName.setError("That name is already in use by another probe");
-			return;
+			return false;
 		}
 
 		currentprobe.name = name;
@@ -122,11 +124,13 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 
 		// let the current type's manager do any processing and validation before saving
 		if (!getManagerForType(currentprobe.getTypeKey()).beforeProbeSave()) {
-			return;
+			return false;
 		}
 
 		Log.d(LOG_TAG, "Saving probe: " + currentprobe);
 		currentprobe.id = probeDAO.saveProbe(currentprobe);
+
+		return true;
 
 	}
 
@@ -309,7 +313,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 			}
 
 			if (StringUtils.isBlank(port.getText().toString())) {
-				host.setError("Please specify a port");
+				port.setError("Please specify a port");
 				return false;
 			}
 
