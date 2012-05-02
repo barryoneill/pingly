@@ -30,14 +30,20 @@
             style="@android:style/ButtonBar">
 
         <Button
-                android:id="@+id/but_newProbe_save"
+                android:id="@+id/but_probeDetail_save"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Save"/>
 
         <Button
-                android:id="@+id/but_newProbe_cancel"
+                android:id="@+id/but_probeDetail_saveRun"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Save &amp; Run"/>
+        <Button
+                android:id="@+id/but_probeDetail_cancel"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

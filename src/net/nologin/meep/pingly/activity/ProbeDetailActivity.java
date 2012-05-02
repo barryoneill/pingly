@@ -40,8 +40,9 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		Spinner probeType = (Spinner) findViewById(R.id.probe_detail_type);
 		typeSpecificContainer = (LinearLayout) findViewById(R.id.probe_detail_typespecific_container);
 
-		Button butSave = (Button) findViewById(R.id.but_newProbe_save);
-		Button butCancel = (Button) findViewById(R.id.but_newProbe_cancel);
+		Button butSave = (Button) findViewById(R.id.but_probeDetail_save);
+		Button butSaveRun = (Button) findViewById(R.id.but_probeDetail_saveRun);
+		Button butCancel = (Button) findViewById(R.id.but_probeDetail_cancel);
 
 		currentprobe = getIntentExtraProbe();
 
@@ -70,38 +71,20 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 
 		butSave.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-
-				String name = probeName.getText().toString().trim();
-				String desc = probeDesc.getText().toString().trim();
-
-				probeName.setError(null); // clear any possible previous error
-
-				// TODO: i18n strings
-				if (StringUtils.isBlank(name)) {
-					probeName.setError("Please supply a name.");
-					return;
-				}
-
-				Probe duplicate = probeDAO.findProbeByName(name);
-				if (duplicate != null && duplicate.id != currentprobe.id) {
-					probeName.setError("That name is already in use by another probe");
-					return;
-				}
-
-				currentprobe.name = name;
-				currentprobe.desc = desc;
-
-				// let the current type's manager do any processing and validation before saving
-				if (!getManagerForType(currentprobe.getTypeKey()).beforeProbeSave()) {
-					return;
-				}
-
-				Log.d(LOG_TAG, "Saving probe: " + currentprobe);
-				probeDAO.saveProbe(currentprobe);
-
+				saveProbe();
 				goToProbeList(v);
 			}
 		});
+
+		butSaveRun.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				saveProbe();
+				goToProbeRunner(currentprobe.id);
+			}
+		});
+
+
+
 
 		probeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -114,6 +97,37 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 
 			}
 		});
+	}
+
+	private void saveProbe(){
+		String name = probeName.getText().toString().trim();
+		String desc = probeDesc.getText().toString().trim();
+
+		probeName.setError(null); // clear any possible previous error
+
+		// TODO: i18n strings
+		if (StringUtils.isBlank(name)) {
+			probeName.setError("Please supply a name.");
+			return;
+		}
+
+		Probe duplicate = probeDAO.findProbeByName(name);
+		if (duplicate != null && duplicate.id != currentprobe.id) {
+			probeName.setError("That name is already in use by another probe");
+			return;
+		}
+
+		currentprobe.name = name;
+		currentprobe.desc = desc;
+
+		// let the current type's manager do any processing and validation before saving
+		if (!getManagerForType(currentprobe.getTypeKey()).beforeProbeSave()) {
+			return;
+		}
+
+		Log.d(LOG_TAG, "Saving probe: " + currentprobe);
+		currentprobe.id = probeDAO.saveProbe(currentprobe);
+
 	}
 
 	private void setupForProbeType(String newProbeTypeKey) {
