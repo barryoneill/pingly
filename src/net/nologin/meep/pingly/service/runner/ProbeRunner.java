@@ -95,6 +95,8 @@ public abstract class ProbeRunner {
 		probeRun.status = ProbeRunStatus.Failed;
 		probeRun.endTime = new Date();
 
+		probeRun.appendLogLine(failureSummary);
+
 		if(updateListener!=null){
 			updateListener.onUpdate(newLine + failureSummary + newLine);
 		}
@@ -104,6 +106,8 @@ public abstract class ProbeRunner {
 		probeRun.runSummary = successSummary;
 		probeRun.status = ProbeRunStatus.Success;
 		probeRun.endTime = new Date();
+
+		probeRun.appendLogLine(successSummary);
 
 		if(updateListener!=null){
 			updateListener.onUpdate(newLine + successSummary + newLine);

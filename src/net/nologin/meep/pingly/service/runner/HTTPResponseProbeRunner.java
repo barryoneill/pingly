@@ -36,7 +36,7 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet();
 
-			notifyUpdate("HTTP req to: \n" + httpProbe.url);
+			notifyUpdate("Starting request to: \n" + httpProbe.url);
 
 			request.setURI(new URI(httpProbe.url));
 			HttpResponse response = client.execute(request);
