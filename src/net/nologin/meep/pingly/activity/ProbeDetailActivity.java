@@ -229,6 +229,13 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		@Override
 		public void afterLayoutInflation() {
 			Log.d(LOG_TAG, "afterLayoutInflation for HTTP");
+
+			EditText urlTxt = findEditText(R.id.probe_detail_httpresponse_url);
+
+			HTTPResponseProbe p = (HTTPResponseProbe) currentprobe;
+
+			urlTxt.setText(p.url);
+
 		}
 
 		@Override
@@ -240,6 +247,9 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 				url.setError("Please specify a URL");
 				return false;
 			}
+
+			HTTPResponseProbe p = (HTTPResponseProbe) currentprobe;
+			p.url = url.getText().toString();
 
 			return true;
 		}
@@ -258,11 +268,17 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		public void afterLayoutInflation() {
 			Log.d(LOG_TAG, "afterLayoutInflation for Socket Connection");
 
+			EditText hostTxt = findEditText(R.id.probe_detail_socketconnection_host);
 			EditText port = findEditText(R.id.probe_detail_socketconnection_port);
 
 			port.addTextChangedListener(
 					new NumberRangeTextWatcher(SocketConnectionProbe.PORT_MIN, SocketConnectionProbe.PORT_MAX));
 
+			SocketConnectionProbe p = (SocketConnectionProbe) currentprobe;
+			p.port = NumberUtils.checkRange(p.port, SocketConnectionProbe.PORT_MIN, SocketConnectionProbe.PORT_MAX);
+
+			hostTxt.setText(p.host);
+			port.setText(String.valueOf(p.port));
 
 		}
 
@@ -283,6 +299,15 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 				return false;
 			}
 
+
+			SocketConnectionProbe p = (SocketConnectionProbe) currentprobe;
+			p.host = host.getText().toString();
+
+			p.port = StringUtils.getInt(port.getText().toString(),
+					SocketConnectionProbe.PORT_MIN,
+					SocketConnectionProbe.PORT_MAX,
+					SocketConnectionProbe.PORT_DEFAULT
+					);
 
 			return true;
 		}

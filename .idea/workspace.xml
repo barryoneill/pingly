@@ -34,9 +34,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b85c79b8-c5f6-49fa-835a-48b08d8be289" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/xml/main_preferences.xml" afterPath="$PROJECT_DIR$/res/xml/main_preferences.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/PinglyPrefs.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/PinglyPrefs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeRunDAO.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeRunDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java" afterPath="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java" />
     </list>
     <ignored path="Pingly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -116,37 +115,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SettingsActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/SettingsActivity.java">
+      <file leaf-file-name="ProbeDetailActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="5" selection-start="1063" selection-end="1063" vertical-scroll-proportion="0.0">
+            <state line="16" column="25" selection-start="630" selection-end="630" vertical-scroll-proportion="-6.0156794">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProbeRunDAO.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeRunDAO.java">
+      <file leaf-file-name="SocketConnectionProbe.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="20" selection-start="2146" selection-end="2146" vertical-scroll-proportion="0.9076655">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PinglyPrefs.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/PinglyPrefs.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="56" selection-start="1106" selection-end="1106" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main_preferences.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/xml/main_preferences.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="659" selection-end="659" vertical-scroll-proportion="0.0">
+            <state line="15" column="45" selection-start="473" selection-end="473" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -166,9 +147,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java" />
-        <option value="$PROJECT_DIR$/res/layout/schedule_detail.xml" />
-        <option value="$PROJECT_DIR$/res/layout/probe_run_history_list.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeRunnerActivity.java" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeRunHistoryActivity.java" />
         <option value="$PROJECT_DIR$/res/drawable/pingly_probedetails_bgselector.xml" />
@@ -182,6 +160,9 @@
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/res/xml/main_preferences.xml" />
         <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeRunDAO.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/PingProbe.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java" />
+        <option value="$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java" />
       </list>
     </option>
   </component>
@@ -342,7 +323,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pingly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="probe" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -365,24 +372,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Pingly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xml" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -878,7 +867,11 @@
       <created>1335985628479</created>
       <updated>1335985628479</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="prune on save">
+      <created>1335989015850</created>
+      <updated>1335989015850</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -970,7 +963,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="bgcolor a bit garish" />
+    <option name="LAST_COMMIT_MESSAGE" value="prune on save" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -983,7 +976,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="cleanup" />
     <MESSAGE value="test using runners in scheduler service" />
     <MESSAGE value="np check" />
     <MESSAGE value="notification sound pref test" />
@@ -1008,6 +1000,7 @@
     <MESSAGE value="New component 'PinglyProbeDetails' for header of any specific probe-related view" />
     <MESSAGE value="button in new component made everything confusing/cluttered - Removed the button, made the whole header itself clickable" />
     <MESSAGE value="bgcolor a bit garish" />
+    <MESSAGE value="prune on save" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1017,26 +1010,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ScheduleDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="0" selection-start="1898" selection-end="2006" vertical-scroll-proportion="0.6794425" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/probe_run_history_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="47" selection-start="1031" selection-end="1049" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://D:/apps/dev/android-sdk/platforms/android-10/android.jar!/android/R.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="345" column="32" selection-start="19566" selection-end="19566" vertical-scroll-proportion="0.33275262" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyExpanderPref.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="5" selection-start="861" selection-end="861" vertical-scroll-proportion="0.4965157" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/view/PinglyBooleanPref.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="73" column="29" selection-start="2214" selection-end="2214" vertical-scroll-proportion="0.0" />
@@ -1093,7 +1066,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/xml/main_preferences.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="659" selection-end="659" vertical-scroll-proportion="0.0">
+        <state line="15" column="0" selection-start="659" selection-end="659" vertical-scroll-proportion="0.40106952">
           <folding />
         </state>
       </provider>
@@ -1107,14 +1080,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/PinglyPrefs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="56" selection-start="1106" selection-end="1106" vertical-scroll-proportion="0.0">
+        <state line="32" column="56" selection-start="1106" selection-end="1106" vertical-scroll-proportion="0.4773519">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/db/ProbeRunDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="20" selection-start="2146" selection-end="2146" vertical-scroll-proportion="0.9076655">
+        <state line="61" column="0" selection-start="1744" selection-end="1744" vertical-scroll-proportion="-2.7369337">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/probe_detail_httpresponse.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="54" selection-start="573" selection-end="573" vertical-scroll-proportion="0.39198607">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/PingProbe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="256" selection-end="256" vertical-scroll-proportion="0.10452962">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/model/probe/SocketConnectionProbe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="45" selection-start="473" selection-end="473" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/nologin/meep/pingly/activity/ProbeDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="25" selection-start="630" selection-end="630" vertical-scroll-proportion="-6.0156794">
           <folding />
         </state>
       </provider>

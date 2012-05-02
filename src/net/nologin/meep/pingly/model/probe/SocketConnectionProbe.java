@@ -13,6 +13,7 @@ public class SocketConnectionProbe extends Probe {
 
 	public static final int PORT_MIN = 1;
 	public static final int PORT_MAX = 65535;
+	public static final int PORT_DEFAULT = 80;
 
 	/* Example of current JSON format
 	 *
