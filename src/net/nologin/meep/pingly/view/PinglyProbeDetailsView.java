@@ -3,20 +3,23 @@ package net.nologin.meep.pingly.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-public class PinglyProbeDetailsView extends RelativeLayout {
+
+public class PinglyProbeDetailsView extends RelativeLayout implements View.OnClickListener {
 
     protected TextView nameTextView;
     protected TextView summaryTextView;
-    protected Button editButton;
+
+	private Probe probe = null;
 
     public PinglyProbeDetailsView(Context context) {
         super(context);
@@ -40,7 +43,6 @@ public class PinglyProbeDetailsView extends RelativeLayout {
 
         nameTextView = (TextView)findViewById(R.id.view_probedetails_name);
 		summaryTextView = (TextView)findViewById(R.id.view_probedetails_desc);
-        editButton = (Button)findViewById(R.id.view_probedetails_editButton);
 
         if(attrs != null){
 
@@ -66,6 +68,10 @@ public class PinglyProbeDetailsView extends RelativeLayout {
             styledAttrs.recycle();
         }
 
+		setFocusable(true);
+		setClickable(true);
+		setOnClickListener(this);
+
     }
 
 	/**
@@ -76,21 +82,15 @@ public class PinglyProbeDetailsView extends RelativeLayout {
 	public void initForProbe(final Probe probe){
 
 		if(probe == null){
+			this.probe = null;
 			setProbeName("");
 			setProbeDesc("");
-			editButton.setOnClickListener(null);
 			return;
 		}
 
+		this.probe = probe;
 		setProbeName(probe.name);
 		setProbeDesc(probe.desc);
-
-		editButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				PinglyUtils.startActivityProbeDetail(getContext(), probe.id);
-			}
-		});
 
 	}
 
@@ -103,6 +103,15 @@ public class PinglyProbeDetailsView extends RelativeLayout {
 	}
 
 
+	@Override
+	public void onClick(View view) {
 
+		if(probe == null){
+			Log.w(PinglyConstants.LOG_TAG, "No probe set, ignoring onclick");
+			return;
+		}
 
+		Log.d(PinglyConstants.LOG_TAG, "Clicked, going to probe " + probe);
+		PinglyUtils.startActivityProbeDetail(getContext(), this.probe.id);
+	}
 }

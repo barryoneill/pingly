@@ -6,19 +6,11 @@
         android:padding="5dp"
         style="@style/ProbeDetailsHeader">
 
-    <Button
-            android:id="@+id/view_probedetails_editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="Edit"/>
-
     <TextView
             android:id="@+id/view_probedetails_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/view_probedetails_editButton"
             android:text="[name]"
             android:ellipsize="end"
             android:singleLine="true"
@@ -28,7 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_probedetails_name"
-            android:layout_toLeftOf="@id/view_probedetails_editButton"
             android:layout_alignLeft="@id/view_probedetails_name"
             android:ellipsize="end"
             android:singleLine="true"

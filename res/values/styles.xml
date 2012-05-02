@@ -109,9 +109,9 @@
         <!--  <item name="android:textColor">@color/secondary_text_light</item> -->
     </style>
 
+    <!-- TODO: selector for background instead of static color -->
     <style name="ProbeDetailsHeader">
         <item name="android:background">@color/probe_detailsheader_bgcolor</item>
-
     </style>
 
 

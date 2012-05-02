@@ -27,4 +27,5 @@
     <!-- backgrounds for the title bar bg selector -->
     <drawable name="titlebar_icon_bg_focused">#44ffffff</drawable>
     <drawable name="titlebar_icon_bg_pressed">#88ffffff</drawable>
+
 </resources>
