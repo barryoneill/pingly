@@ -18,6 +18,7 @@ import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
+import net.nologin.meep.pingly.util.PinglyUtils;
 
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -122,7 +123,7 @@ public class ProbeRunnerScheduleService extends IntentService {
 
 		// what it's going to start
 		Intent probeRunHistoryIntent = new Intent(ctx, ProbeRunHistoryActivity.class);
-		ProbeRunHistoryActivity.setIntentExtraProbeRun(probeRunHistoryIntent, probeRun.id);
+		PinglyUtils.setIntentExtraProbeId(probeRunHistoryIntent, probeRun.id);
 
 		// FLAG_UPDATE_CURRENT is required so new values for the extras (probe run id) will take effect
 		PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, probeRunHistoryIntent, PendingIntent.FLAG_UPDATE_CURRENT);

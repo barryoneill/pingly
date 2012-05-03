@@ -3,26 +3,29 @@ package net.nologin.meep.pingly.util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.View;
 import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.activity.BasePinglyActivity;
-import net.nologin.meep.pingly.activity.ProbeDetailActivity;
-
-import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
+import net.nologin.meep.pingly.activity.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
+
 public class PinglyUtils {
 
-	private PinglyUtils() {}; // static methods
+	private static final String INTENT_EXTRA_PROBE_ID = "net.nologin.meep.pingly.intent.extra_probe_id";
+	private static final String INTENT_EXTRA_SCHEDULE_ID = "net.nologin.meep.pingly.intent.extra_schedule_id";
+	private static final String INTENT_EXTRA_PROBE_RUN_ID = "net.nologin.meep.pingly.intent.extra_probe_run_id";
+
+
+	private PinglyUtils() {} // static methods
 
 	public static boolean activeNetConnectionPresent(Context ctx) {
 		
@@ -85,18 +88,112 @@ public class PinglyUtils {
 	}
 
 
-	// TODO: move all similar stuff here
+	/* --------- centralised intent extra set/getters ------------ */
+
+	public static long getIntentExtraProbeId(Intent intent) {
+		return getIntentExtraIdInternal(intent, INTENT_EXTRA_PROBE_ID);
+	}
+
+	public static long getIntentExtraScheduleEntryId(Intent intent) {
+		return getIntentExtraIdInternal(intent, INTENT_EXTRA_SCHEDULE_ID);
+	}
+
+	public static long getIntentExtraProbeRunId(Intent intent) {
+		return getIntentExtraIdInternal(intent, INTENT_EXTRA_PROBE_RUN_ID);
+	}
+
+	private static long getIntentExtraIdInternal(Intent intent, String key) {
+		Bundle b = intent.getExtras();
+		if(b != null && b.containsKey(key)){
+			return b.getLong(key, -1);
+		}
+		return -1;
+	}
+
+	public static void setIntentExtraProbeId(Intent intent, long id) {
+		setIntentExtraInternal(intent, INTENT_EXTRA_PROBE_ID, id);
+	}
+
+	public static void setIntentExtraScheduleEntryId(Intent intent, long id) {
+		setIntentExtraInternal(intent, INTENT_EXTRA_SCHEDULE_ID, id);
+	}
+
+	public static void setIntentExtraProbeRunId(Intent intent, long id) {
+		setIntentExtraInternal(intent, INTENT_EXTRA_PROBE_RUN_ID, id);
+	}
+
+
+	private static void setIntentExtraInternal(Intent intent, String constant, long id){
+		if(id > 0){
+			Log.d(LOG_TAG, "Adding '" + constant + "' param: " + id);
+			Bundle b = new Bundle();
+			b.putLong(constant, id);
+			intent.putExtras(b);
+		}
+	}
+
+	/* ---------------- activity-starting convenience methods ------------------ */
+
+	public static void startActivityMainDash(Context ctx) {
+		startActivityInternal(ctx, PinglyDashActivity.class, true);
+	}
+
+	public static void startActivityProbeList(Context ctx) {
+		startActivityInternal(ctx,ProbeListActivity.class, true);
+	}
+
+	public static void startActivityScheduleList(Context ctx) {
+		startActivityInternal(ctx, ScheduleListActivity.class, true);
+	}
+
+	public static void startActivitySettings(Context ctx) {
+		startActivityInternal(ctx, SettingsActivity.class, true);
+	}
+
+	public static void startActivityProbeDetail(Context ctx) {
+		startActivityProbeDetail(ctx,-1);
+	}
+
 	public static void startActivityProbeDetail(Context ctx, long probeId) {
+		startActivityInternal(ctx, ProbeDetailActivity.class, true, probeId);
+	}
 
-		Log.d(LOG_TAG, "Starting activity: " + ProbeDetailActivity.class.getName());
+	public static void startActivityProbeRunHistory(Context ctx, long probeId) {
+		startActivityInternal(ctx, ProbeRunHistoryActivity.class, true, probeId);
+	}
 
-		Intent intent = new Intent(ctx,ProbeDetailActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	public static void startActivityProbeRunner(Context ctx, long probeId) {
+		startActivityInternal(ctx, ProbeRunnerActivity.class, true, probeId);
+	}
 
-		BasePinglyActivity.setIntentExtraProbe(intent, probeId);
+	public static void startActivityScheduleEntryDetail(Context ctx, long probeId) {
+		startActivityInternal(ctx, ScheduleDetailActivity.class, true, probeId);
+	}
+
+	private static void startActivityInternal(Context ctx, Class activityClass,boolean clearTop) {
+		startActivityInternal(ctx, activityClass, clearTop, -1);
+	}
+
+	private static void startActivityInternal(Context ctx, Class activityClass,
+											  boolean clearTop, long probeParam) {
+
+		Log.d(LOG_TAG, "Starting activity: " + activityClass.getName());
+
+		Intent intent = new Intent(ctx,activityClass);
+
+		if(clearTop){
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		}
+
+		if(probeParam > 0){
+			setIntentExtraProbeId(intent, probeParam);
+		}
 
 		ctx.startActivity(intent);
 
 	}
+
+
+	/* ------------------------------------------------------------------------------- */
 
 }

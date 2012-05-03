@@ -53,7 +53,7 @@
                     android:id="@+id/but_dash_newProbe"
                     style="@style/HomeButton"
                     android:drawableTop="@drawable/dash_new_probe_selector"
-                    android:onClick="createNewProbe"
+                    android:onClick="goToNewProbe"
                     android:text="New Probe"/>
         </LinearLayout>
 

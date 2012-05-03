@@ -70,13 +70,13 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		});
 		findViewById(R.id.but_probeRun_edit).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				goToProbeDetails(selectedProbe.id);
+				PinglyUtils.startActivityProbeDetail(ProbeRunnerActivity.this,selectedProbe.id);
 			}
 		});
 		findViewById(R.id.but_probeRun_history).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				goToProbeRunHistory(selectedProbe.id);
+				PinglyUtils.startActivityProbeRunHistory(ProbeRunnerActivity.this,selectedProbe.id);
 			}
 		});
 

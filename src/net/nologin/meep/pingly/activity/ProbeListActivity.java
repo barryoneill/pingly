@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import net.nologin.meep.pingly.util.PinglyUtils;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int itemPos, long itemId) {
 				Log.d(LOG_TAG, "Got id " + itemId);
-				goToProbeRunner(itemId);
+				PinglyUtils.startActivityProbeRunner(ProbeListActivity.this,itemId);
 			}
 		});
 
@@ -150,21 +151,21 @@ public class ProbeListActivity extends BasePinglyActivity {
 			case R.id.probe_list_contextmenu_run:
 				Log.d("PINGLY", "Running probe: " + probe);
 
-				goToProbeRunner(probe.id);
+				PinglyUtils.startActivityProbeRunner(this,probe.id);
 
 				return true;
 
 			case R.id.probe_list_contextmenu_edit:
 				Log.d("PINGLY", "Editing probe: " + probe);
 
-				goToProbeDetails(probe.id);
+				PinglyUtils.startActivityProbeDetail(this,probe.id);
 
 				return true;
 
 			case R.id.probe_list_contextmenu_run_history:
 				Log.d("PINGLY", "Going to run history for probe: " + probe);
 
-				goToProbeRunHistory(probe.id);
+				PinglyUtils.startActivityProbeRunHistory(this,probe.id);
 
 				return true;
 
@@ -172,7 +173,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 
 				Log.d("PINGLY", "Scheduling probe: " + probe);
 
-				goToProbeScheduling(probe.id);
+				PinglyUtils.startActivityScheduleEntryDetail(this,probe.id);
 
 				return true;
 

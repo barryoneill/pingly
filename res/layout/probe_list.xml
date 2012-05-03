@@ -21,7 +21,7 @@
         <ImageView style="@style/TitleBarSeparator"/>
 
         <ImageButton
-                android:onClick="createNewProbe"
+                android:onClick="goToNewProbe"
                 style="@style/TitleBarClickable"
                 android:src="@android:drawable/ic_menu_add"/>
 
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="Add A Probe"
                     android:gravity="center"
-                    android:onClick="createNewProbe"/>
+                    android:onClick="goToNewProbe"/>
         </LinearLayout>
 
 

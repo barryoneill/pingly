@@ -9,7 +9,6 @@ import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeRunHistoryCursorAdapter;
@@ -79,7 +78,7 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 		findViewById(R.id.probeHistory_runNowBut).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				goToProbeRunner(currentProbe.id);
+				PinglyUtils.startActivityProbeRunner(ProbeRunHistoryActivity.this,currentProbe.id);
 			}
 		});
 

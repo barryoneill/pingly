@@ -71,9 +71,8 @@
         <item name="android:background">@drawable/titlebar_bgselector_dark</item>
     </style>
     <style name="TitleBarHomeButton" parent="@style/TitleBarClickable">
-         <!--  <item name="android:id">@id/title_logo</item>  -->
         <item name="android:src">@drawable/menu_main</item>
-        <item name="android:onClick">goHome</item>
+        <item name="android:onClick">goToMainDash</item>
     </style>
 
     <style name="TitleBarSpring">

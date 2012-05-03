@@ -8,6 +8,7 @@ import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
 import net.nologin.meep.pingly.model.probe.PingProbe;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 import net.nologin.meep.pingly.util.NumberUtils;
+import net.nologin.meep.pingly.util.PinglyUtils;
 import net.nologin.meep.pingly.util.StringUtils;
 import net.nologin.meep.pingly.adapter.ProbeTypeAdapter;
 import net.nologin.meep.pingly.model.probe.Probe;
@@ -25,7 +26,6 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 	private EditText probeDesc;
 	private LinearLayout typeSpecificContainer;
 
-	private ProbeSpecificDetailHelper currentManager;
 	private Probe currentprobe;
 
 	@Override
@@ -80,7 +80,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		butSaveRun.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if(saveProbe()){
-					goToProbeRunner(currentprobe.id);
+					PinglyUtils.startActivityProbeRunner(ProbeDetailActivity.this,currentprobe.id);
 				}
 			}
 		});
@@ -145,8 +145,8 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		}
 
 		// and get the manager that handles probe-type specific work
-		currentManager = getManagerForType(newProbeTypeKey);
-		if (currentManager == null) {
+		ProbeSpecificDetailHelper currentMgr = getManagerForType(newProbeTypeKey);
+		if (currentMgr == null) {
 			Log.e(LOG_TAG, "No manager configured for probe type " + newProbeTypeKey);
 			return;
 		}
@@ -154,11 +154,11 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		// clear out what's currently there
 		typeSpecificContainer.removeAllViews();
 
-		Log.d(LOG_TAG, "Inflating layout " + Integer.toHexString(currentManager.getLayoutId()));
-		View container = getLayoutInflater().inflate(currentManager.getLayoutId(), typeSpecificContainer);
+		Log.d(LOG_TAG, "Inflating layout " + Integer.toHexString(currentMgr.getLayoutId()));
+		View container = getLayoutInflater().inflate(currentMgr.getLayoutId(), typeSpecificContainer);
 
 		// get the manager to setup the view we've just inflated
-		currentManager.afterLayoutInflation();
+		currentMgr.afterLayoutInflation();
 
 	}
 

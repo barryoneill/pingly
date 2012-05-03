@@ -19,6 +19,7 @@ import net.nologin.meep.pingly.adapter.ScheduleListCursorAdapter;
 import net.nologin.meep.pingly.alarm.AlarmScheduler;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.model.ScheduleEntry;
+import net.nologin.meep.pingly.util.PinglyUtils;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -101,7 +102,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 			case R.id.schedule_list_contextmenu_edit_probe:
 				Log.d("PINGLY", "Edit Probe : " + entry);
 
-				goToProbeDetails(entry.probe.id);
+				PinglyUtils.startActivityProbeDetail(this,entry.probe.id);
 
 				return true;
 
@@ -175,7 +176,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 						.setCancelable(true)
 						.setPositiveButton("Create Probe", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								goToProbeDetailsForNew();
+								PinglyUtils.startActivityProbeDetail(ScheduleListActivity.this);
 							}
 						})
 						.setNegativeButton("Cancel", null);
@@ -194,7 +195,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 						.setCancelable(true)
 						.setNeutralButton("Create New", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								goToProbeDetailsForNew();
+								PinglyUtils.startActivityProbeDetail(ScheduleListActivity.this);
 							}
 						})
 						.setNegativeButton("Cancel", null)
@@ -202,7 +203,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int i) {
 								long selectedProbeId = ProbeDAO.cursorToProbeId(allProbesCursor);
-								goToProbeScheduling(selectedProbeId);
+								PinglyUtils.startActivityScheduleEntryDetail(ScheduleListActivity.this,selectedProbeId);
 							}
 						});
 				dialog = builder.create();

@@ -19,5 +19,6 @@ public class PinglyConstants {
 
     public static final String FMT_DATE_AND_TIME_SUMMARY = "EEE, dd MMM yyyy 'at' HH:mm z";
 	public static final String FMT_DATE_AND_TIME_SUMMARY_SHORT = "dd MMM yyyy HH:mm z";
-	
+
+
 }
