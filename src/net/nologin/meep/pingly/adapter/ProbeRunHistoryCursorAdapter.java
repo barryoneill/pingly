@@ -110,7 +110,7 @@ public class ProbeRunHistoryCursorAdapter extends SimpleCursorAdapter {
 		holder.txtTime.setText(startTime == null ? "Time n/a" : holder.timeFormatter.format(startTime));
 		holder.txtRunType.setText(scheduleEntryId > 0 ? "Schedule " + scheduleEntryId : "Manual Start");
 		holder.txtTimeTaken.setText(timeTaken);
-		holder.txtStatus.setText(status.getKey());
+		holder.txtStatus.setText(status.getKeyForDisplay(context));
 		holder.txtStatus.setBackgroundResource(status.colorResId);
 		holder.txtSummary.setText(StringUtils.isBlank(summary)? "No Notes." : summary);
 //

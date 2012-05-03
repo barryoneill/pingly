@@ -113,7 +113,8 @@ public class ProbeRunnerScheduleService extends IntentService {
 		long probeFinishTime = probeRun.endTime != null ? probeRun.endTime.getTime() : System.currentTimeMillis();
 
 		// Probe 'blah' was successful, etc
-		CharSequence tickerText = probeRun.status.formatForProbe(ctx, probeRun.probe.name);
+		int tickerFmtRes = successful ? R.string.probe_notification_success : R.string.probe_notification_failure;
+		CharSequence tickerText = String.format(ctx.getString(tickerFmtRes),probeRun.probe.name);
 
 		// setup the notification
 		Notification notification = new Notification(iconRes, tickerText, probeFinishTime);

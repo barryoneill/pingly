@@ -211,7 +211,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	// update text/color of the summary box
 	private void decorateProbeStatus(ProbeRunStatus status) {
 		probeInfoContainer.setBackgroundResource(status.colorResId);
-		probeStatus.setText(status.formatForProbe(this, selectedProbe.name));
+		probeStatus.setText(status.getKeyForDisplay(this));
 	}
 
 	private void writeToProbeLogWindow(String txt, boolean append) {
