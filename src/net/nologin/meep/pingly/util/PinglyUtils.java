@@ -3,6 +3,8 @@ package net.nologin.meep.pingly.util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -26,6 +28,19 @@ public class PinglyUtils {
 
 
 	private PinglyUtils() {} // static methods
+
+	public static String getPinglyVersionName(Context ctx) {
+
+		try {
+			PackageInfo info = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(),0);
+			return info.versionName;
+
+		} catch (PackageManager.NameNotFoundException e) {
+			Log.e(LOG_TAG,"Error getting version number! " + e.getMessage(), e);
+			return "";
+		}
+
+	}
 
 	public static boolean activeNetConnectionPresent(Context ctx) {
 		

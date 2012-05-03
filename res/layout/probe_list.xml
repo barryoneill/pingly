@@ -25,17 +25,6 @@
                 style="@style/TitleBarClickable"
                 android:src="@android:drawable/ic_menu_add"/>
 
-        <!--  temp  -->
-        <ImageButton
-                android:id="@+id/but_generateTestItems"
-                style="@style/TitleBarClickable"
-                android:src="@android:drawable/ic_menu_upload"/>
-
-        <!--  temp  -->
-        <ImageButton
-                android:id="@+id/but_deleteAllItems"
-                style="@style/TitleBarClickable"
-                android:src="@android:drawable/ic_menu_delete"         />
 
     </LinearLayout>
 

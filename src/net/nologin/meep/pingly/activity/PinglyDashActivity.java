@@ -1,6 +1,7 @@
 package net.nologin.meep.pingly.activity;
 
 import android.util.Log;
+import net.nologin.meep.pingly.PinglyPrefs;
 import net.nologin.meep.pingly.R;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +17,11 @@ public class PinglyDashActivity extends BasePinglyActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_dashboard);
 
+		firstRunCheck();
+
 	}
 
+	// registered onClick handler on all the dashboard buttons
 	public void dashButtonClicked(View v) {
 		int id = v.getId();
 		switch (id) {
@@ -51,5 +55,23 @@ public class PinglyDashActivity extends BasePinglyActivity {
 		}
 	}
 
+
+	public void firstRunCheck() {
+
+		if(PinglyPrefs.isFirstRun(this)){
+			return;
+		}
+
+		Log.i(LOG_TAG, "First run of Pingly, performing setup");
+
+		// generate some sample probes
+		probeDAO.generateFirstRunItems();
+
+		// TODO: perhaps a 'welcome to pingly' message
+
+		// mark first run check as finished
+		PinglyPrefs.setFirstRunFinished(this);
+
+	}
 
 }

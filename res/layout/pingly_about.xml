@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip">
+
+    <ImageView
+            android:id="@+id/about_dialog_icon"
+            android:contentDescription="pingly icon"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/main_launcher_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            />
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/about_dialog_icon"
+            android:orientation="vertical">
+
+        <TextView android:id="@+id/about_title"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/about_apptitle"
+                  android:textStyle="bold"
+                  android:gravity="center_horizontal"
+                />
+
+        <TextView android:id="@+id/about_version"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/about_version_copyyear_fmt"
+                  android:gravity="center_horizontal"
+                />
+
+    </LinearLayout>
+
+    <View
+          android:id="@+id/disclaimer_separator"
+          android:layout_width="fill_parent" android:layout_height="1dp"
+          android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
+          android:layout_below="@id/about_dialog_icon"
+          android:background="@color/probe_runhistory_details_separator"/>
+
+    <TextView android:id="@+id/about_legal"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/disclaimer_separator"
+              android:text="@string/about_disclaimer"
+              android:textStyle="italic"
+              android:gravity="center_horizontal"
+
+            />
+
+</RelativeLayout>

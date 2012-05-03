@@ -31,5 +31,19 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+            android:title="Miscellaneous"
+            android:key="category_notification">
 
+        <!-- See class documentation for info. -->
+        <net.nologin.meep.pingly.view.pref.AboutDialogPreference
+                    android:key="ABOUT_PINGLY"
+                    android:title="About Pingly"
+                    android:dialogTitle=""
+                    android:negativeButtonText=""
+                    android:dialogLayout="@layout/pingly_about"
+                />
+
+
+     </PreferenceCategory>
 </PreferenceScreen>

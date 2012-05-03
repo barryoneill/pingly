@@ -4,12 +4,16 @@ package net.nologin.meep.pingly;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
 import android.util.Log;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class PinglyPrefs {
+
+	public static final String PREF_FIRST_RUN = "FIRST_RUN";
 
 	public static final String PREF_DEFAULT_NOTIFICATION_SOUND = "DEFAULT_NOTIFICATION_SOUND";
 	public static final String PREF_PROBE_RUN_HISTORY_SIZE = "PROBE_RUN_HISTORY_SIZE";
@@ -22,6 +26,8 @@ public class PinglyPrefs {
 
 	private static SharedPreferences getPrefs(Context ctx) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx);
+
+
 	}
 
 	public static Uri getNotificationSound(Context ctx){
@@ -42,5 +48,21 @@ public class PinglyPrefs {
 		}
 
 	}
+
+	public static boolean isFirstRun(Context ctx) {
+
+		return getPrefs(ctx).getBoolean(PREF_FIRST_RUN,false);
+
+	}
+
+	public static void setFirstRunFinished(Context ctx) {
+
+		SharedPreferences.Editor editor = getPrefs(ctx).edit();
+		editor.putBoolean(PREF_FIRST_RUN, true);
+		editor.commit();
+
+	}
+
+
 
 }

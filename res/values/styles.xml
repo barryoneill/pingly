@@ -12,16 +12,6 @@
         <!-- also from http://code.google.com/p/android/issues/detail?id=22920 -->
         <item name="android:textColorPrimaryInverse">@android:color/primary_text_light</item>
     </style>
-    <!--
-    <style name="Theme.D1dialog" parent="android:style/Theme.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-    <style name="Theme.D1tranlucent" parent="android:style/Theme.Translucent">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
--->
 
     <style name="PinglyDialogTheme" parent="android:style/Theme.Dialog">
         <item name="android:textColor">#FFFFFFFF</item>

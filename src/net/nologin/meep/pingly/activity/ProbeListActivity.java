@@ -1,5 +1,6 @@
 package net.nologin.meep.pingly.activity;
 
+import android.view.*;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
 import net.nologin.meep.pingly.alarm.AlarmScheduler;
@@ -13,11 +14,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -44,11 +41,6 @@ public class ProbeListActivity extends BasePinglyActivity {
 		View empty = findViewById(R.id.emptyListElem);
 		lv.setEmptyView(empty);
 
-//	    int[] colors = {0, 0xFF007700, 0}; //green
-//	    lv.setDivider(new GradientDrawable(Orientation.RIGHT_LEFT, colors));
-//	    lv.setDividerHeight(1);
-
-		// any activity 
 		startManagingCursor(allProbesCursor);
 
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,60 +48,17 @@ public class ProbeListActivity extends BasePinglyActivity {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int itemPos, long itemId) {
 				Log.d(LOG_TAG, "Got id " + itemId);
-				PinglyUtils.startActivityProbeRunner(ProbeListActivity.this,itemId);
+				// onclick used to just start the runner, but I noticed that people then don't
+				// realise that there's a long-press menu with other features
+				// PinglyUtils.startActivityProbeRunner(ProbeListActivity.this,itemId);
+
+				// onclick == long press, ie, open the context menu
+				openContextMenu(view);
 			}
 		});
 
-		// ======================== test stuff start ==========================
-		// add button to quickly generate items
-		ImageButton testItemsBut = (ImageButton) findViewById(R.id.but_generateTestItems);
-		testItemsBut.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-
-				AlertDialog dialog = new AlertDialog.Builder(ProbeListActivity.this)
-						.setMessage("Generate ResourceListProvider Items?")
-						.setCancelable(false)
-						.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								probeDAO.generateTestItems();
-								listAdapter.changeCursor(probeDAO.findAllProbes());
-							}
-						})
-						.setNegativeButton("No", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						}).create();
-				dialog.show();
-			}
-		});
-
-		// add button to quickly generate items
-		ImageButton deleteAllBut = (ImageButton) findViewById(R.id.but_deleteAllItems);
-		deleteAllBut.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-
-				AlertDialog dialog = new AlertDialog.Builder(ProbeListActivity.this)
-						.setMessage("Are you sure you want to delete all items?")
-						.setCancelable(false)
-						.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								probeDAO.deleteAll();
-								listAdapter.changeCursor(probeDAO.findAllProbes());
-							}
-						})
-						.setNegativeButton("No", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						}).create();
-				dialog.show();
-			}
-		});
-
-
-		// ======================== temp stuff end ==========================
 	}
+
 
 
 	@Override

@@ -77,15 +77,6 @@ public class ProbeDAO extends PinglyDataHelper {
 		return DatabaseUtils.queryNumEntries(db, TBL_PROBE.TBL_NAME);
 	}
 
-    // danger here
-    public void deleteAll(){
-
-        Log.d(LOG_TAG, "Deleting all probes");
-
-        SQLiteDatabase db = getWritableDatabase();
-        db.delete(TBL_PROBE.TBL_NAME, null, null);
-    }
-
     public void deleteProbe(Probe probe) {
 
         Log.d(LOG_TAG, "Deleting probe " + probe);
@@ -96,41 +87,45 @@ public class ProbeDAO extends PinglyDataHelper {
 
     }
 
-    // dummy some test data
-    public void generateTestItems() {
-
-		// --------- ping google --------------
-		PingProbe p1 = new PingProbe();
-		p1.name = "Ping Google";
-		p1.desc = "Ping Google, c=5, w=5";
-		p1.host = "www.google.com";
-		p1.packetCount = 5;
-		p1.deadline = 5;
-		if(findProbeByName(p1.name) != null){
-			p1.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
-		}
-		saveProbe(p1);
-
-		// --------- socket connection to guardian 80 --------------
-		SocketConnectionProbe p2 = new SocketConnectionProbe();
-		p2.name = "Guardian TCP 80";
-		p2.desc = "Make a TCP connection to the guardian port 80";
-		p2.host = "guardian.co.uk";
-		p2.port = 80;
-		if(findProbeByName(p2.name) != null){
-			p2.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
-		}
-		saveProbe(p2);
+	/**
+	 * Generates some test probes.
+	 */
+    public void generateFirstRunItems() {
 
 		// --------- HTTP to Microsoft --------------
-		HTTPResponseProbe p3 = new HTTPResponseProbe();
-		p3.name = "Microsoft HTTP";
-		p3.desc = "Make HTTP connection to Microsoft";
-		p3.url = "http://www.microsoft.com";
-		if(findProbeByName(p3.name) != null){
-			p3.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
+		HTTPResponseProbe sampleHTTP = new HTTPResponseProbe();
+		sampleHTTP.name = "Example: Microsoft HTTP Test";
+		sampleHTTP.desc = "Attempt a HTTP connection to Microsoft";
+		sampleHTTP.url = "http://www.microsoft.com";
+		if(findProbeByName(sampleHTTP.name) != null){
+			sampleHTTP.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
 		}
-		saveProbe(p3);
+		saveProbe(sampleHTTP);
+
+		// --------- ping google --------------
+		PingProbe samplePing = new PingProbe();
+		samplePing.name = "Example: Ping Localhost";
+		samplePing.desc = "Ping localhost with 5 packets & 5 sec deadline ";
+		samplePing.host = "localhost";
+		samplePing.packetCount = 5;
+		samplePing.deadline = 5;
+		if(findProbeByName(samplePing.name) != null){
+			samplePing.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
+		}
+		saveProbe(samplePing);
+
+		// --------- socket connection to guardian 80 --------------
+		SocketConnectionProbe sampleTCP = new SocketConnectionProbe();
+		sampleTCP.name = "Example: Google TCP 443";
+		sampleTCP.desc = "Connect to www.google.com port 443";
+		sampleTCP.host = "www.google.com";
+		sampleTCP.port = 443;
+		if(findProbeByName(sampleTCP.name) != null){
+			sampleTCP.name += " [" + Long.toHexString(System.currentTimeMillis()) + "]";
+		}
+		saveProbe(sampleTCP);
+
+
 	}
 
     public long saveProbe(Probe probe) {
