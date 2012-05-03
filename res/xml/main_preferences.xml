@@ -2,43 +2,46 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-            android:title="Probe Settings"
-            android:key="category_probe">
+    <PreferenceCategory android:title="@string/prefs_category_proberun">
 
         <EditTextPreference
-                android:key="PROBE_RUN_HISTORY_SIZE"
-                android:title="Per-Probe History Size"
-                android:summary="The larger this value, the more storage space will be required (depending on frequency and output). Takes effect on a probe's next run."
+                android:key="@string/prefs_key_PROBERUN_HIST_SIZE"
+                android:title="@string/prefs_proberun_histsize_title"
+                android:summary="@string/prefs_proberun_histsize_summary"
                 android:maxLines="1"
                 android:inputType="number"
                 android:numeric="integer"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-            android:title="Notification Preferences"
-            android:key="category_notification">
+    <PreferenceCategory android:title="@string/prefs_category_notification">
 
         <RingtonePreference
-                android:key="DEFAULT_NOTIFICATION_SOUND"
-                android:title="Notification Sound"
-                android:summary="Select the notification sound"
+                android:key="@string/prefs_key_NOTIFICATION_SOUND"
+                android:title="@string/prefs_notification_sound_title"
+                android:summary="@string/prefs_notification_sound_summary"
                 android:showDefault="true"
                 android:showSilent="true"
                 android:ringtoneType="notification" />
 
+        <CheckBoxPreference
+                android:key="@string/prefs_key_NOTIFICATION_ALLOW_VIBRATE"
+                android:title="@string/prefs_notification_allowvibrate_title"
+                android:summaryOn="@string/prefs_notification_allowvibrate_summaryOn"
+                android:summaryOff="@string/prefs_notification_allowvibrate_summaryOff"
+                android:defaultValue="false"
+                />
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-            android:title="Miscellaneous"
-            android:key="category_notification">
+    <PreferenceCategory android:title="@string/prefs_category_misc">
 
-        <!-- See class documentation for info. -->
+        <!-- See AboutDialogPreference source documentation for info.
+             (blank values for dialog title and button suppresses rendering of those items) -->
         <net.nologin.meep.pingly.view.pref.AboutDialogPreference
-                    android:key="ABOUT_PINGLY"
-                    android:title="About Pingly"
+                    android:key="@string/prefs_key_ABOUT_PINGLY"
+                    android:title="@string/prefs_about_title"
+                    android:summary="@string/prefs_about_summary"
                     android:dialogTitle=""
                     android:negativeButtonText=""
                     android:dialogLayout="@layout/pingly_about"

@@ -11,11 +11,6 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class PinglyPrefs {
 
-	public static final String PREF_FIRST_RUN = "FIRST_RUN";
-
-	public static final String PREF_DEFAULT_NOTIFICATION_SOUND = "DEFAULT_NOTIFICATION_SOUND";
-	public static final String PREF_PROBE_RUN_HISTORY_SIZE = "PROBE_RUN_HISTORY_SIZE";
-
 	public static final int PROBE_RUN_HISTORY_SIZE_DEFAULT = 20;
 	public static final int PROBE_RUN_HISTORY_SIZE_MIN = 1;
 	public static final int PROBE_RUN_HISTORY_SIZE_MAX = 200;
@@ -24,20 +19,25 @@ public class PinglyPrefs {
 
 	private static SharedPreferences getPrefs(Context ctx) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx);
-
-
 	}
 
 	public static Uri getNotificationSound(Context ctx){
-		String notifPref = getPrefs(ctx).getString(PREF_DEFAULT_NOTIFICATION_SOUND, "DEFAULT_SOUND");
+		String soundPrefKey = ctx.getString(R.string.prefs_key_NOTIFICATION_SOUND);
+		String notifPref = getPrefs(ctx).getString(soundPrefKey, "DEFAULT_SOUND");
 		Log.d(LOG_TAG, "Returning notification sound: " + notifPref);
 		return Uri.parse(notifPref);
+	}
+
+	public static boolean areVibrationsAllowed(Context ctx) {
+		String vibrationPrefKey = ctx.getString(R.string.prefs_key_NOTIFICATION_ALLOW_VIBRATE);
+		return getPrefs(ctx).getBoolean(vibrationPrefKey,false);
 	}
 
 	public static int getProbeHistorySize(Context ctx) {
 
 		// EditTextPreference stores the value as a string
-		String valStr = getPrefs(ctx).getString(PREF_PROBE_RUN_HISTORY_SIZE, String.valueOf(PROBE_RUN_HISTORY_SIZE_DEFAULT));
+		String histSizeKey = ctx.getString(R.string.prefs_key_PROBERUN_HIST_SIZE);
+		String valStr = getPrefs(ctx).getString(histSizeKey, String.valueOf(PROBE_RUN_HISTORY_SIZE_DEFAULT));
 		try {
 			return Integer.parseInt(valStr);
 		}
@@ -47,16 +47,18 @@ public class PinglyPrefs {
 
 	}
 
-	public static boolean isFirstRun(Context ctx) {
+	public static boolean isFirstRunComplete(Context ctx) {
 
-		return getPrefs(ctx).getBoolean(PREF_FIRST_RUN,false);
+		String frcKey = ctx.getString(R.string.prefs_key_FIRST_RUN_COMPLETE);
+		return getPrefs(ctx).getBoolean(frcKey,false);
 
 	}
 
-	public static void setFirstRunFinished(Context ctx) {
+	public static void setFirstRunComplete(Context ctx) {
 
+		String frcKey = ctx.getString(R.string.prefs_key_FIRST_RUN_COMPLETE);
 		SharedPreferences.Editor editor = getPrefs(ctx).edit();
-		editor.putBoolean(PREF_FIRST_RUN, true);
+		editor.putBoolean(frcKey, true);
 		editor.commit();
 
 	}

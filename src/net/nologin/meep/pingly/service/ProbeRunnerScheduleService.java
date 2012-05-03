@@ -119,7 +119,14 @@ public class ProbeRunnerScheduleService extends IntentService {
 		Notification notification = new Notification(iconRes, tickerText, probeFinishTime);
 		notification.sound = soundRes;
 		notification.defaults |= Notification.DEFAULT_LIGHTS;
-		notification.defaults |= Notification.FLAG_AUTO_CANCEL;
+
+		// only if the user allows them
+		if(PinglyPrefs.areVibrationsAllowed(this)){
+			notification.defaults |= Notification.DEFAULT_VIBRATE;
+		}
+
+		// clear when clicked on
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
 		// what it's going to start
 		Intent probeRunHistoryIntent = new Intent(ctx, ProbeRunHistoryActivity.class);

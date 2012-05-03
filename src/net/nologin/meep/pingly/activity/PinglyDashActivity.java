@@ -58,7 +58,7 @@ public class PinglyDashActivity extends BasePinglyActivity {
 
 	public void firstRunCheck() {
 
-		if(PinglyPrefs.isFirstRun(this)){
+		if(PinglyPrefs.isFirstRunComplete(this)){
 			return;
 		}
 
@@ -70,7 +70,7 @@ public class PinglyDashActivity extends BasePinglyActivity {
 		// TODO: perhaps a 'welcome to pingly' message
 
 		// mark first run check as finished
-		PinglyPrefs.setFirstRunFinished(this);
+		PinglyPrefs.setFirstRunComplete(this);
 
 	}
 

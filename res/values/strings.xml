@@ -27,6 +27,33 @@
     <string name="service_schedule_label">Pingly Scheduler Service</string>
     <string name="service_interactive_label">Pingly Probe Runner Service</string>
 
+    <!-- preference categories -->
+    <string name="prefs_category_proberun">Probe Runner Settings</string>
+    <string name="prefs_category_notification">Notification Preferences</string>
+    <string name="prefs_category_misc">Miscellaneous</string>
+    <!-- preference keys -->
+    <string name="prefs_key_FIRST_RUN_COMPLETE">FIRST_RUN_COMPLETE</string>
+    <string name="prefs_key_PROBERUN_HIST_SIZE">PROBERUN_HIST_SIZE</string>
+    <string name="prefs_key_NOTIFICATION_SOUND">NOTIFICATION_SOUND</string>
+    <string name="prefs_key_NOTIFICATION_ALLOW_VIBRATE">NOTIFICATION_ALLOW_VIBRATE</string>
+    <string name="prefs_key_ABOUT_PINGLY">ABOUT_PINGLY</string>
+
+    <!-- preferences - per-probe history size -->
+    <string name="prefs_proberun_histsize_title">Per-Probe History Size</string>
+    <string name="prefs_proberun_histsize_summary">The larger this value, the more storage space will be required
+        (depending on frequency and output). Takes effect on a probe\'s next run.
+    </string>
+    <string name="prefs_proberun_histsize_hint">Between %1$s and %2$s</string>
+    <string name="prefs_notification_sound_title">Notification Sound</string>
+    <string name="prefs_notification_sound_summary">Select the notification sound</string>
+    <string name="prefs_notification_allowvibrate_title">Vibrate on Notification</string>
+    <string name="prefs_notification_allowvibrate_summaryOn">Vibrations are enabled</string>
+    <string name="prefs_notification_allowvibrate_summaryOff">Vibrations are disabled</string>
+    <string name="prefs_about_title">About Pingly</string>
+    <string name="prefs_about_summary">Click for information about Pingly</string>
+
+
+
     <!-- probe description formatters  -->
     <string name="probe_runner_status_inactive">Inactive</string>
     <string name="probe_runner_status_running">Running</string>

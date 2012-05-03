@@ -15,10 +15,12 @@ public class SettingsActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.main_preferences);
 
 		// let's force a range
-		EditTextPreference runHistSize = (EditTextPreference) findPreference("PROBE_RUN_HISTORY_SIZE");
+		String histSizeKey = this.getString(R.string.prefs_key_PROBERUN_HIST_SIZE);
+		EditTextPreference runHistSize = (EditTextPreference) findPreference(histSizeKey);
 
-		String hint = "Between " + PinglyPrefs.PROBE_RUN_HISTORY_SIZE_MIN
-						+ " and " + PinglyPrefs.PROBE_RUN_HISTORY_SIZE_MAX;
+		String hintFmt = getString(R.string.prefs_proberun_histsize_hint);
+		String hint = String.format(hintFmt,
+					PinglyPrefs.PROBE_RUN_HISTORY_SIZE_MIN, PinglyPrefs.PROBE_RUN_HISTORY_SIZE_MAX);
 
 		runHistSize.setDefaultValue(PinglyPrefs.PROBE_RUN_HISTORY_SIZE_DEFAULT);
 		runHistSize.getEditText().setHint(hint);

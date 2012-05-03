@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- reason: reschedule probes on reboot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- reason: notifications (can be turned off in prefs) -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
             android:icon="@drawable/main_launcher_icon"
