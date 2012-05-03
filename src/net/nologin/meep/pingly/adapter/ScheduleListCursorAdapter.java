@@ -77,7 +77,7 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 		int repeatValue = cursor.getInt(holder.colRepeatValueIdx);
 
 		// TODO: replace hardcoded text with i18n
-        holder.probeInfo.setText("Probe: " + probeName);
+        holder.probeInfo.setText(probeName);
         holder.startInfo.setText("Start Time: " + startTime.toLocaleString());
         String summary = PinglyUtils.loadStringForPlural(context,repeatType.getResourceNameForSummary(),repeatValue);
         holder.repeatInfo.setText("Repeat: " + summary);

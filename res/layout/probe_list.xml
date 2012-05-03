@@ -16,7 +16,7 @@
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Probes"/>
+                android:text="@string/activity_probe_list"/>
 
         <ImageView style="@style/TitleBarSeparator"/>
 

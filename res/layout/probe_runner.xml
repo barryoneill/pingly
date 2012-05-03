@@ -18,7 +18,7 @@
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Probe Runner"/>
+                android:text="@string/activity_probe_runner"/>
     </LinearLayout>
 
     <!-- footer -->

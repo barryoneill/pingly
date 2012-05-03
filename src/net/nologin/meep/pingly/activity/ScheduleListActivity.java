@@ -43,6 +43,16 @@ public class ScheduleListActivity extends BasePinglyActivity {
         View empty = findViewById(R.id.emptyListElem);
         lv.setEmptyView(empty);
 
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int itemPos, long itemId) {
+				Log.d(LOG_TAG, "Got id " + itemId);
+
+				// onclick == long press, ie, open the context menu
+				openContextMenu(view);
+			}
+		});
 
     }
 
@@ -70,14 +80,16 @@ public class ScheduleListActivity extends BasePinglyActivity {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
             ScheduleEntry target = scheduleDAO.findById(info.id);
-            menu.setHeaderTitle("Probe: '" + target.probe.name + "'");
+            menu.setHeaderTitle(target.probe.name);
 
             MenuInflater inflater1 = getMenuInflater();
             inflater1.inflate(R.menu.schedule_list_context, menu);
 
             // update the text depending on status
             MenuItem del = menu.findItem(R.id.schedule_list_contextmenu_activetoggle);
-            del.setTitle(target.active ? "Deactivate" : "Activate"); // TODO: i18n
+            del.setTitle(target.active
+					? R.string.schedule_list_context_cancel
+					: R.string.schedule_list_context_activate);
 
         }
     }
@@ -113,6 +125,13 @@ public class ScheduleListActivity extends BasePinglyActivity {
 				Toast.makeText(ScheduleListActivity.this,"Toggle Unimplemented",Toast.LENGTH_SHORT).show();
 
                 return true;
+
+			case R.id.schedule_list_contextmenu_history:
+				Log.d("PINGLY", "Viewing history for : " + entry);
+
+				PinglyUtils.startActivityProbeRunHistory(this,entry.probe.id);
+
+				return true;
 
             case R.id.schedule_list_contextmenu_delete:
 

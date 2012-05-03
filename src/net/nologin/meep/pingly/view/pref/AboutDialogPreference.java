@@ -38,7 +38,7 @@ public class AboutDialogPreference extends DialogPreference {
 		// update the 'Version 1.0 (c) 2012' message with current data
 		String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 		String verName = PinglyUtils.getPinglyVersionName(ctx);
-		String verYearFmt = ctx.getString(R.string.about_version_copyyear_fmt);
+		String verYearFmt = ctx.getString(R.string.pingly_about_version_fmt);
 		txtVerYear.setText(String.format(verYearFmt, verName, year));
 
 

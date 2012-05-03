@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--  TODO: i18n strings!  -->
-    <item
-            android:id="@+id/probe_list_contextmenu_run"
-            android:title="Run Now"/>
+    <item android:id="@+id/probe_list_contextmenu_edit"
+          android:title="@string/probe_list_context_edit"/>
 
-    <item
-            android:id="@+id/probe_list_contextmenu_schedule"
-            android:title="Schedule Run"/>
+    <item android:id="@+id/probe_list_contextmenu_run"
+          android:title="@string/probe_list_context_run"/>
 
-    <item
-            android:id="@+id/probe_list_contextmenu_run_history"
-            android:title="Run History"/>
+    <item android:id="@+id/probe_list_contextmenu_schedule"
+          android:title="@string/probe_list_context_schedule"/>
 
-    <item
-            android:id="@+id/probe_list_contextmenu_edit"
-            android:title="Edit"/>
-    <item
-            android:id="@+id/probe_list_contextmenu_delete"
-            android:title="Delete"/>
+    <item android:id="@+id/probe_list_contextmenu_run_history"
+          android:title="@string/probe_list_context_history"/>
+
+    <item android:id="@+id/probe_list_contextmenu_delete"
+          android:title="@string/probe_list_context_delete"/>
 
 </menu>

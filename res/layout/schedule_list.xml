@@ -16,7 +16,7 @@
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Scheduled Probes"/>
+                android:text="@string/activity_schedule_detail"/>
 
         <ImageView style="@style/TitleBarSeparator"/>
 

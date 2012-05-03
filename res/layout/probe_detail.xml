@@ -15,9 +15,7 @@
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Configure Probe"/>
-
-        <!--  buttons for new probe?  -->
+                android:text="@string/activity_probe_detail"/>
 
     </LinearLayout>
 

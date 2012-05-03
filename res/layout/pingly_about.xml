@@ -24,7 +24,7 @@
         <TextView android:id="@+id/about_title"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  android:text="@string/about_apptitle"
+                  android:text="@string/pingly_about_apptitle"
                   android:textStyle="bold"
                   android:gravity="center_horizontal"
                 />
@@ -32,7 +32,7 @@
         <TextView android:id="@+id/about_version"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  android:text="@string/about_version_copyyear_fmt"
+                  android:text="@string/pingly_about_version_fmt"
                   android:gravity="center_horizontal"
                 />
 
@@ -49,7 +49,7 @@
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:layout_below="@id/disclaimer_separator"
-              android:text="@string/about_disclaimer"
+              android:text="@string/pingly_about_disclaimer"
               android:textStyle="italic"
               android:gravity="center_horizontal"
 

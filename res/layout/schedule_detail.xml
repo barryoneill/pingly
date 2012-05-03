@@ -16,7 +16,7 @@
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Schedule"/>
+                android:text="@string/activity_schedule_detail"/>
 
         <!--  buttons for new probe?  -->
 

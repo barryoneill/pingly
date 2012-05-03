@@ -14,14 +14,9 @@
 
         <ImageView style="@style/TitleBarSeparator"/>
 
-
         <TextView
                 style="@style/TitleBarText"
-                android:text="Pingly"/>
-
-
-        <!--  buttons for dash? -->
-
+                android:text="@string/activity_dashboard"/>
 
     </LinearLayout>
 

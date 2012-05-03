@@ -16,7 +16,7 @@
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="Probe Run History"/>
+                android:text="@string/activity_probe_run_history"/>
 
         <ImageView style="@style/TitleBarSeparator"/>
 

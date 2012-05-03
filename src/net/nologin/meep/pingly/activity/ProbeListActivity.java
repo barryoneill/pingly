@@ -80,7 +80,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
 			Probe target = probeDAO.findProbeById(info.id);
-			menu.setHeaderTitle("Probe: '" + target.name + "'");
+			menu.setHeaderTitle(target.name);
 
 			MenuInflater inflater1 = getMenuInflater();
 			inflater1.inflate(R.menu.probe_list_context, menu);
