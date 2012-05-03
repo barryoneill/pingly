@@ -1,11 +1,8 @@
 package net.nologin.meep.pingly.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
-import android.util.AttributeSet;
 import net.nologin.meep.pingly.PinglyPrefs;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.util.ui.NumberRangeTextWatcher;

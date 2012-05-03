@@ -1,27 +1,27 @@
 package net.nologin.meep.pingly.activity;
 
-import android.view.*;
-import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
-import net.nologin.meep.pingly.alarm.AlarmScheduler;
-import net.nologin.meep.pingly.model.ScheduleEntry;
-import net.nologin.meep.pingly.model.probe.Probe;
-
-import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnClickListener;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
+import net.nologin.meep.pingly.R;
+import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
+import net.nologin.meep.pingly.alarm.AlarmScheduler;
+import net.nologin.meep.pingly.model.ScheduleEntry;
+import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
 import java.util.List;
+
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ProbeListActivity extends BasePinglyActivity {
 

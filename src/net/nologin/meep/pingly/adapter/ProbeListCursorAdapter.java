@@ -1,8 +1,5 @@
 package net.nologin.meep.pingly.adapter;
 
-import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.model.probe.Probe;
-import net.nologin.meep.pingly.util.StringUtils;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import net.nologin.meep.pingly.R;
+import net.nologin.meep.pingly.model.probe.Probe;
+import net.nologin.meep.pingly.util.StringUtils;
 
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 

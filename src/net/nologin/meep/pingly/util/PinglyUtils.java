@@ -10,7 +10,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.View;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.activity.*;
 

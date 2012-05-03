@@ -4,9 +4,7 @@ package net.nologin.meep.pingly;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
-import android.util.AttributeSet;
 import android.util.Log;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -22,7 +20,7 @@ public class PinglyPrefs {
 	public static final int PROBE_RUN_HISTORY_SIZE_MIN = 1;
 	public static final int PROBE_RUN_HISTORY_SIZE_MAX = 200;
 
-	private PinglyPrefs () {};
+	private PinglyPrefs () {}
 
 	private static SharedPreferences getPrefs(Context ctx) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx);

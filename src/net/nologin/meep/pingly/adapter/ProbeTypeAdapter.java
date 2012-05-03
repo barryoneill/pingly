@@ -1,13 +1,12 @@
 package net.nologin.meep.pingly.adapter;
 
-import net.nologin.meep.pingly.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.probe.Probe;
 
 import java.util.List;

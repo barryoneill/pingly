@@ -1,30 +1,27 @@
 package net.nologin.meep.pingly.activity;
 
-import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.*;
-import android.provider.Settings;
-import net.nologin.meep.pingly.model.ProbeRun;
-import net.nologin.meep.pingly.model.ProbeRunStatus;
-import net.nologin.meep.pingly.service.ProbeRunnerInteractiveService;
-import net.nologin.meep.pingly.model.probe.Probe;
-
-import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.util.PinglyUtils;
-
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import net.nologin.meep.pingly.R;
+import net.nologin.meep.pingly.model.ProbeRun;
+import net.nologin.meep.pingly.model.ProbeRunStatus;
+import net.nologin.meep.pingly.model.probe.Probe;
+import net.nologin.meep.pingly.service.ProbeRunnerInteractiveService;
+import net.nologin.meep.pingly.util.PinglyUtils;
 import net.nologin.meep.pingly.view.PinglyProbeDetailsView;
 
-import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID;
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.ACTION_UPDATE;
+import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID;
 
 public class ProbeRunnerActivity extends BasePinglyActivity {
 

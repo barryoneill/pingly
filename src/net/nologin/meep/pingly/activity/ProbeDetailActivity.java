@@ -1,23 +1,22 @@
 package net.nologin.meep.pingly.activity;
 
-import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
-
-import android.widget.*;
-import net.nologin.meep.pingly.R;
-import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
-import net.nologin.meep.pingly.model.probe.PingProbe;
-import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
-import net.nologin.meep.pingly.util.NumberUtils;
-import net.nologin.meep.pingly.util.PinglyUtils;
-import net.nologin.meep.pingly.util.StringUtils;
-import net.nologin.meep.pingly.adapter.ProbeTypeAdapter;
-import net.nologin.meep.pingly.model.probe.Probe;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.*;
+import net.nologin.meep.pingly.R;
+import net.nologin.meep.pingly.adapter.ProbeTypeAdapter;
+import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
+import net.nologin.meep.pingly.model.probe.PingProbe;
+import net.nologin.meep.pingly.model.probe.Probe;
+import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
+import net.nologin.meep.pingly.util.NumberUtils;
+import net.nologin.meep.pingly.util.PinglyUtils;
+import net.nologin.meep.pingly.util.StringUtils;
 import net.nologin.meep.pingly.util.ui.NumberRangeTextWatcher;
+
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 
 public class ProbeDetailActivity extends BasePinglyActivity {

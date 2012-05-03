@@ -1,8 +1,6 @@
 package net.nologin.meep.pingly.db;
 
 
-import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,6 +14,8 @@ import net.nologin.meep.pingly.util.DBUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 
 // TODO: just like ProbeDAO, I need to find a non-bloated ORM helper

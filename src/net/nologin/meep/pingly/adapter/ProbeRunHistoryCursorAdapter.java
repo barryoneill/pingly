@@ -2,7 +2,6 @@ package net.nologin.meep.pingly.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

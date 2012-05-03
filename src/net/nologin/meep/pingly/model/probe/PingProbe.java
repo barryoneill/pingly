@@ -4,6 +4,7 @@ import android.util.Log;
 import net.nologin.meep.pingly.util.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class PingProbe extends Probe {

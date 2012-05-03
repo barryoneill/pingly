@@ -1,12 +1,15 @@
 package net.nologin.meep.pingly.view;
 
-import android.content.res.TypedArray;
-import android.widget.*;
-import net.nologin.meep.pingly.R;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.util.StringUtils;
 
 public abstract class PinglyBasePrefView extends RelativeLayout implements View.OnClickListener {

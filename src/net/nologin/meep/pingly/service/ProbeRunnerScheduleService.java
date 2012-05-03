@@ -20,7 +20,6 @@ import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.service.runner.ProbeRunner;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ProbeRunnerScheduleService extends IntentService {

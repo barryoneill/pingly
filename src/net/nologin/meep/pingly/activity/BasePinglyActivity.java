@@ -1,7 +1,9 @@
 package net.nologin.meep.pingly.activity;
 
-import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
-
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ProbeRunDAO;
@@ -9,11 +11,9 @@ import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.probe.Probe;
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import net.nologin.meep.pingly.util.PinglyUtils;
+
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public abstract class BasePinglyActivity extends Activity {
 	

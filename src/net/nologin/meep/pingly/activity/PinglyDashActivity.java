@@ -1,10 +1,10 @@
 package net.nologin.meep.pingly.activity;
 
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import net.nologin.meep.pingly.PinglyPrefs;
 import net.nologin.meep.pingly.R;
-import android.os.Bundle;
-import android.view.View;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;

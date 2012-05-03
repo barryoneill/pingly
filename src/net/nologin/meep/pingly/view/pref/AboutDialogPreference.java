@@ -1,8 +1,6 @@
 package net.nologin.meep.pingly.view.pref;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;

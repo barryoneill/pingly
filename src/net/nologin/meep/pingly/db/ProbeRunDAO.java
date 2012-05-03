@@ -3,7 +3,6 @@ package net.nologin.meep.pingly.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyPrefs;
@@ -12,7 +11,6 @@ import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.DBUtils;
-import net.nologin.meep.pingly.util.StringUtils;
 
 import java.util.Date;
 

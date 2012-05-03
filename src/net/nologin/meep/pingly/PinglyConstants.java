@@ -1,8 +1,5 @@
 package net.nologin.meep.pingly;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 public class PinglyConstants {
 
 	public static final String LOG_TAG = "Pingly";

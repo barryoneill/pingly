@@ -1,7 +1,5 @@
 package net.nologin.meep.pingly.db;
 
-import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,6 +10,8 @@ import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
 import net.nologin.meep.pingly.model.probe.PingProbe;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
+
+import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 public class ProbeDAO extends PinglyDataHelper {
 
