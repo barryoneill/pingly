@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+                xmlns:pingly="http://schemas.android.com/apk/res/net.nologin.meep.pingly"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
     <!-- title bar -->
 
     <LinearLayout
-        android:id="@+id/titleBar"
-        style="@style/TitleBar"
-        android:layout_alignParentTop="true" >
+            android:id="@+id/titleBar"
+            style="@style/TitleBar"
+            android:layout_alignParentTop="true">
 
-        <ImageView style="@style/TitleBarHomeButton" />
+        <ImageView style="@style/TitleBarHomeButton"/>
 
 
-        <ImageView style="@style/TitleBarSeparator" />
+        <ImageView style="@style/TitleBarSeparator"/>
 
         <TextView
-            style="@style/TitleBarText"
-            android:text="Probe Runner" />
+                style="@style/TitleBarText"
+                android:text="Probe Runner"/>
     </LinearLayout>
 
     <!-- footer -->
 
     <LinearLayout
-        android:id="@+id/footerBar"
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
+            android:id="@+id/footerBar"
+            style="@android:style/ButtonBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
 
         <Button
-            android:id="@+id/but_probeRun_edit"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Edit"/>
+                android:id="@+id/but_probeRun_edit"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit"/>
 
         <Button
                 android:id="@+id/but_probeRun_history"
@@ -45,56 +46,65 @@
                 android:text="History"/>
 
         <Button
-            android:id="@+id/but_probeRun_runAgain"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+                android:id="@+id/but_probeRun_runAgain"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
 
-            android:text="Run" />
+                android:text="Run"/>
 
     </LinearLayout>
 
     <!-- probe info -->
 
+    <net.nologin.meep.pingly.view.PinglyProbeDetailsView
+            android:id="@+id/probeSummaryHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleBar"
+            pingly:probeName="[probename]"
+            pingly:probeDesc="[probedesc]"
+            />
+
     <LinearLayout
-        android:id="@+id/probeInfoContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleBar"        
-        android:orientation="horizontal"        
-        android:padding="6dip" >
+            android:id="@+id/probeInfoContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/probeSummaryHeader"
+            android:orientation="vertical">
 
         <!-- text dynamically populated -->
         <TextView
-            android:id="@+id/text_probe_name"
-            style="@style/FormLabel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="[Probe Name + Status]"/>
+                android:id="@+id/text_probe_status"
+                style="@style/FormLabel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="[status]"
+                android:padding="3dp"/>
     </LinearLayout>
 
     <!-- probe output -->
 
-    <ScrollView     
-        android:id="@+id/probe_log_scroller"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" 
-        android:layout_below="@id/probeInfoContainer"
-        android:layout_above="@id/footerBar"        
-        android:scrollbars="vertical"
-        android:layout_margin="6dip" >
-        
-        <TextView 
-            android:id="@+id/probe_log_output"
+    <ScrollView
+            android:id="@+id/probe_log_scroller"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="false"
-            android:typeface="monospace" 
-            android:textSize="12sp"
-            android:text="[probe output log goes here]"
-                     
-            />
-        
+            android:layout_height="fill_parent"
+            android:layout_below="@id/probeInfoContainer"
+            android:layout_above="@id/footerBar"
+            android:scrollbars="vertical"
+            android:layout_margin="6dip">
+
+        <TextView
+                android:id="@+id/probe_log_output"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="false"
+                android:typeface="monospace"
+                android:textSize="12sp"
+                android:text="[probe output log goes here]"
+
+                />
+
     </ScrollView>
 
 </RelativeLayout>

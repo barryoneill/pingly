@@ -128,11 +128,11 @@ public class ProbeRunDAO extends PinglyDataHelper {
 	public ProbeRun prepareNewProbeRun(Probe probe, ScheduleEntry entry) {
 
 		ProbeRun probeRun = new ProbeRun(probe, entry);
-		probeRun.id = saveProbeRun(probeRun);
+		probeRun.id = saveProbeRun(probeRun, false);
 		return probeRun;
 	}
 
-	public long saveProbeRun(ProbeRun probeRun) {
+	public long saveProbeRun(ProbeRun probeRun, boolean pruneAfterSave) {
 
 		Log.d(LOG_TAG, "Saving probe run " + probeRun);
 
@@ -161,8 +161,10 @@ public class ProbeRunDAO extends PinglyDataHelper {
 			affectedId = probeRun.id;
 		}
 
-		// maintain history max size
-		this.pruneHistoryForProbe(probeRun.probe.id);
+		if(pruneAfterSave){
+			// maintain history max size
+			this.pruneHistoryForProbe(probeRun.probe.id);
+		}
 
 		return affectedId;
 	}

@@ -21,7 +21,11 @@ public enum ProbeRunStatus {
 		this.nameFormatterResId = nameFormatterResId;
 	}
 
-	public String formatName(Context ctx, String probeName) {
+	public String formatForKey(Context ctx){
+		return "";
+	}
+
+	public String formatForProbe(Context ctx, String probeName) {
 		String fmt = ctx.getString(nameFormatterResId);
 		return String.format(fmt, probeName);
 	}

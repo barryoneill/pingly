@@ -75,7 +75,7 @@ public class ProbeRunnerScheduleService extends IntentService {
 		final ProbeRunner runner = ProbeRunner.getInstance(probeRun);
 		runner.run(this);
 
-		probeRun.id = probeRunDAO.saveProbeRun(probeRun);
+		probeRun.id = probeRunDAO.saveProbeRun(probeRun,true);
 
 		// TODO, check scheduler hasn't been disabled/ entry disabled/ entry deleted since
 
@@ -113,7 +113,7 @@ public class ProbeRunnerScheduleService extends IntentService {
 		long probeFinishTime = probeRun.endTime != null ? probeRun.endTime.getTime() : System.currentTimeMillis();
 
 		// Probe 'blah' was successful, etc
-		CharSequence tickerText = probeRun.status.formatName(ctx, probeRun.probe.name);
+		CharSequence tickerText = probeRun.status.formatForProbe(ctx, probeRun.probe.name);
 
 		// setup the notification
 		Notification notification = new Notification(iconRes, tickerText, probeFinishTime);

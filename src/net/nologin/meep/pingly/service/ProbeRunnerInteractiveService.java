@@ -105,8 +105,7 @@ public class ProbeRunnerInteractiveService extends Service {
 						runner.requestCancel();
 					}
 
-					probeRunDAO.saveProbeRun(probeRun);
-					updateActivity(probeRun);
+					updateActivity(probeRun,false);
 
 				}
 			});
@@ -116,7 +115,7 @@ public class ProbeRunnerInteractiveService extends Service {
 
 			// runner finished, but don't send an update if the thread was interrupted
 			if(!isInterrupted()){
-				updateActivity(probeRun);
+				updateActivity(probeRun,true);
 			}
 
 
@@ -124,9 +123,9 @@ public class ProbeRunnerInteractiveService extends Service {
 
 	}
 
-	private void updateActivity(ProbeRun probeRun) {
+	private void updateActivity(ProbeRun probeRun, boolean finished) {
 
-		probeRunDAO.saveProbeRun(probeRun);
+		probeRunDAO.saveProbeRun(probeRun,finished);
 
 		Intent updateIntent = new Intent(ACTION_UPDATE);
 		updateIntent.putExtra(EXTRA_PROBE_RUN_ID, probeRun.id);

@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import net.nologin.meep.pingly.view.PinglyProbeDetailsView;
 
 import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID;
 import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.ACTION_UPDATE;
@@ -30,7 +31,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	static final int DIALOG_SERVICE_WAIT_ID = 0;
 	static final int DIALOG_NO_DATACONN_ID = 1;
 
-	private TextView probeName;
+	private TextView probeStatus;
 	private View probeInfoContainer;
 	private TextView probeLogOutput;
 	private ScrollView probeLogScroller;
@@ -58,9 +59,13 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 
 		// load refs
 		probeInfoContainer = findViewById(R.id.probeInfoContainer);
-		probeName = (TextView) findViewById(R.id.text_probe_name);
+		probeStatus = (TextView) findViewById(R.id.text_probe_status);
 		probeLogOutput = (TextView) findViewById(R.id.probe_log_output);
 		probeLogScroller = (ScrollView) findViewById(R.id.probe_log_scroller);
+
+		// fill summary info
+		PinglyProbeDetailsView probeDetails = (PinglyProbeDetailsView)findViewById(R.id.probeSummaryHeader);
+		probeDetails.initForProbe(selectedProbe);
 
 		// attach onclick events to buttons
 		findViewById(R.id.but_probeRun_runAgain).setOnClickListener(new OnClickListener() {
@@ -76,12 +81,14 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		findViewById(R.id.but_probeRun_history).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				PinglyUtils.startActivityProbeRunHistory(ProbeRunnerActivity.this,selectedProbe.id);
+				PinglyUtils.startActivityProbeRunHistory(ProbeRunnerActivity.this, selectedProbe.id);
 			}
 		});
 
 		// create receiver, will be registered until onResume()
 		callbackReceiver = new ProbeRunCallbackReceiver();
+
+		clearAndStartProbe();
 
 	}
 
@@ -204,7 +211,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	// update text/color of the summary box
 	private void decorateProbeStatus(ProbeRunStatus status) {
 		probeInfoContainer.setBackgroundResource(status.colorResId);
-		probeName.setText(status.formatName(this, selectedProbe.name));
+		probeStatus.setText(status.formatForProbe(this, selectedProbe.name));
 	}
 
 	private void writeToProbeLogWindow(String txt, boolean append) {
