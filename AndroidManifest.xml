@@ -31,7 +31,7 @@
         <activity android:name=".activity.ProbeDetailActivity" android:label="@string/activity_probe_detail"
                   android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.ProbeRunnerActivity" android:label="@string/activity_probe_runner"/>
-        <activity android:name=".activity.ProbeRunHistoryActivity" android:label="@string/activity_probe_run_history"/>
+        <activity android:name=".activity.ProbeRunHistoryActivity" android:label="@string/activity_probe_run_history" android:launchMode="singleTask"/>
         <activity android:name=".activity.ScheduleListActivity" android:label="@string/activity_schedule_list"/>
         <activity android:name=".activity.ScheduleDetailActivity" android:label="@string/activity_schedule_detail"/>
         <activity android:name=".activity.SettingsActivity" android:label="@string/activity_settings"

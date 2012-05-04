@@ -120,17 +120,30 @@ public class ProbeRunnerScheduleService extends IntentService {
 		notification.sound = soundRes;
 		notification.defaults |= Notification.DEFAULT_LIGHTS;
 
-		// only if the user allows them
+		// vibrate only if the user has enabled it
 		if(PinglyPrefs.areVibrationsAllowed(this)){
 			notification.defaults |= Notification.DEFAULT_VIBRATE;
 		}
 
-		// clear when clicked on
+		// clear notification when clicked on
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-		// what it's going to start
+		// go directly to the probe run history for this run
 		Intent probeRunHistoryIntent = new Intent(ctx, ProbeRunHistoryActivity.class);
-		PinglyUtils.setIntentExtraProbeId(probeRunHistoryIntent, probeRun.id);
+		PinglyUtils.setIntentExtraProbeRunId(probeRunHistoryIntent, probeRun.id);
+
+		/*  ProbeRunHistoryActivity has android:launchMode="singleTask" set in the manifest.  In combination with
+		 *  FLAG_ACTIVITY_SINGLE_TOP, the activity should move to the root of the stack, being the only instance.
+		 *  This has the side-effect that if the user starts pingly from a notification, goes to the activity and
+		 *  presses back, they'll exit pingly.  In the android tutorial, a faked back stack is created, which
+		 *  we could use to put the dashboard activity in front.
+		 *  http://developer.android.com/guide/topics/ui/notifiers/notifications.html
+		 *  Unfortunately, Intent.makeRestartActivityTask is only available in API 11, so I'll either
+		  * live with this, or find a workaround later on if it becomes an issue.
+		  * Also informative:
+		  * http://stackoverflow.com/a/5522161/276183
+		  */
+		probeRunHistoryIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
 		// FLAG_UPDATE_CURRENT is required so new values for the extras (probe run id) will take effect
 		PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, probeRunHistoryIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -146,6 +159,7 @@ public class ProbeRunnerScheduleService extends IntentService {
 
 
 	}
+
 
 
 
