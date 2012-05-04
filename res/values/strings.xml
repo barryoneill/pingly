@@ -52,7 +52,14 @@
     <string name="prefs_about_title">About Pingly</string>
     <string name="prefs_about_summary">Click for information about Pingly</string>
 
-
+    <string name="toast_schedule_cancelled">Schedule for probe \'%1$s\' cancelled</string>
+    <string name="toast_schedule_activated">Schedule for probe \'%1$s\' activated</string>
+    <string name="toast_schedule_deleted">Schedule for probe \'%1$s\' deleted</string>
+    <string name="toast_schedule_added">Schedule for \'%1$s\' successfully created</string>
+    <string name="toast_schedule_updated">Schedule for \'%1$s\' successfully updated</string>
+    <string name="toast_probe_added">Probe \'%1$s\' successfully created</string>
+    <string name="toast_probe_updated">Probe \'%1$s\' successfully updated</string>
+    <string name="toast_probe_deleted">Probe \'%1$s\' deleted</string>
 
     <!-- probe description formatters  -->
     <string name="probe_runner_status_inactive">Inactive</string>

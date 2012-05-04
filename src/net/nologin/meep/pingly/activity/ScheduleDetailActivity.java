@@ -98,8 +98,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 				Log.w(LOG_TAG,"Entry " + schedule + " saved, now setting up alarm");
 				AlarmScheduler.setAlarm(ScheduleDetailActivity.this, schedule);
 
-				// TODO: i18n
-				Toast.makeText(ScheduleDetailActivity.this,"Entry successfully scheduled",Toast.LENGTH_SHORT).show();
+				PinglyUtils.showToast(ScheduleDetailActivity.this,R.string.toast_schedule_added, schedule.probe.name);
 
 				goToScheduleList(v);
 			}

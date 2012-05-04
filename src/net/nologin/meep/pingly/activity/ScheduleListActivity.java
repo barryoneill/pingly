@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
 import net.nologin.meep.pingly.adapter.ScheduleListCursorAdapter;
@@ -107,7 +106,8 @@ public class ScheduleListActivity extends BasePinglyActivity {
 				Log.d("PINGLY", "Edit Schedule : " + entry);
 
 				// TODO: implement!
-				Toast.makeText(ScheduleListActivity.this,"Edit Schedule Unimplemented!",Toast.LENGTH_SHORT).show();
+				// Toast.makeText(ScheduleListActivity.this,"Edit Schedule Unimplemented!",Toast.LENGTH_SHORT).show();
+				// TODO
 
 				return true;
 
@@ -121,8 +121,26 @@ public class ScheduleListActivity extends BasePinglyActivity {
             case R.id.schedule_list_contextmenu_activetoggle:
                 Log.d("PINGLY", "Toggling : " + entry);
 
-                // TODO: implement!
-				Toast.makeText(ScheduleListActivity.this,"Toggle Unimplemented",Toast.LENGTH_SHORT).show();
+				// mark as enabled/disabled
+				entry.active = !entry.active;
+				scheduleDAO.saveScheduleEntry(entry);
+
+				// cancel/set alarm depending on new state
+				int msgResId;
+				if(entry.active){
+					msgResId = R.string.toast_schedule_activated;
+					AlarmScheduler.setAlarm(this,entry);
+				}
+				else{
+					msgResId = R.string.toast_schedule_cancelled;
+					AlarmScheduler.cancelAlarm(this,entry);
+				}
+
+				// refresh the list to show the change in status
+				refreshScheduleList();
+
+                // give the user feedback
+				PinglyUtils.showToast(this,msgResId, entry.probe.name);
 
                 return true;
 
@@ -141,26 +159,25 @@ public class ScheduleListActivity extends BasePinglyActivity {
                         .setMessage("Are you sure you want to delete schedule '" + entry.id + "'?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+							public void onClick(DialogInterface dialog, int id) {
 
 								Log.d(LOG_TAG, "Cancelling alarms for entry " + entry);
 								AlarmScheduler.cancelAlarm(ScheduleListActivity.this, entry);
 
-								// TODO: i18n
-								Toast.makeText(ScheduleListActivity.this, "Entry removed from scheduler", Toast.LENGTH_SHORT).show();
-
 								scheduleDAO.delete(entry);
 
-                                /* since we stay where we are (no activity state change), the startManagingCursor() registration in onCreate()
-                                         * won't know to refresh the cursor/adapter.  We requery all probes and pass the new cursor to the adapter. */
-                                listAdapter.changeCursor(scheduleDAO.queryForScheduleListCursorAdapter());
-                            }
-                        })
+								PinglyUtils.showToast(ScheduleListActivity.this,
+										R.string.toast_schedule_deleted,
+										entry.probe.name);
+
+								refreshScheduleList();
+							}
+						})
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        }).create();
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						}).create();
                 dialog.show();
                 return true;
 
@@ -175,6 +192,13 @@ public class ScheduleListActivity extends BasePinglyActivity {
         // listItemName));
         return true;
     }
+
+	private void refreshScheduleList(){
+
+		/* since we stay where we are (no activity state change), the startManagingCursor() registration in onCreate()
+                                         * won't know to refresh the cursor/adapter.  We requery all probes and pass the new cursor to the adapter. */
+		listAdapter.changeCursor(scheduleDAO.queryForScheduleListCursorAdapter());
+	}
 
 	// TODO: i18n!
 	protected Dialog onCreateDialog(int id) {

@@ -47,7 +47,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 
 		if (currentprobe == null) {
 			Log.d(LOG_TAG, "Preparing form for new probe");
-			currentprobe = Probe.getInstance(PingProbe.TYPE_KEY); // TODO: revisit
+			currentprobe = Probe.getInstance(PingProbe.TYPE_KEY);
 		}
 
 
@@ -126,8 +126,12 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 			return false;
 		}
 
+		int successMsgId = currentprobe.isNew() ? R.string.toast_probe_added : R.string.toast_probe_updated;
+
 		Log.d(LOG_TAG, "Saving probe: " + currentprobe);
 		currentprobe.id = probeDAO.saveProbe(currentprobe);
+
+		PinglyUtils.showToast(this,successMsgId,currentprobe.name);
 
 		return true;
 
@@ -154,7 +158,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		typeSpecificContainer.removeAllViews();
 
 		Log.d(LOG_TAG, "Inflating layout " + Integer.toHexString(currentMgr.getLayoutId()));
-		View container = getLayoutInflater().inflate(currentMgr.getLayoutId(), typeSpecificContainer);
+		getLayoutInflater().inflate(currentMgr.getLayoutId(), typeSpecificContainer);
 
 		// get the manager to setup the view we've just inflated
 		currentMgr.afterLayoutInflation();

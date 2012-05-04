@@ -157,6 +157,10 @@ public class ProbeListActivity extends BasePinglyActivity {
 								 * registration in onCreate() won't know to refresh the cursor/adapter.  We requery
 								 * all probes and pass the new cursor to the adapter. */
 								listAdapter.changeCursor(probeDAO.findAllProbes());
+
+								// and finally, give the user some visual feedback
+								PinglyUtils.showToast(ProbeListActivity.this, R.string.toast_probe_deleted, probe.name);
+
 							}
 						})
 						.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

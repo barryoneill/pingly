@@ -8,8 +8,10 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.style.TabStopSpan;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.widget.Toast;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.activity.*;
 
@@ -38,6 +40,30 @@ public class PinglyUtils {
 			Log.e(LOG_TAG,"Error getting version number! " + e.getMessage(), e);
 			return "";
 		}
+
+	}
+
+	/**
+	 * Convenience method for showing a toast message
+	 * @param ctx The context
+	 * @param msgResId The message resource ID.
+	 * @param msgParams If not empty, then the resource pointed to by msgResId will be assumed to be a format
+	 *                     string with placeholders for each of these strings
+	 */
+	public static void showToast(Context ctx, int msgResId, String... msgParams){
+
+		Toast toast;
+
+		if(msgParams.length < 1){
+			toast = Toast.makeText(ctx,msgResId,Toast.LENGTH_SHORT);
+		}
+		else{
+			String fmt = ctx.getString(msgResId);
+			String msg = String.format(fmt,msgParams);
+			toast = Toast.makeText(ctx,msg,Toast.LENGTH_LONG);
+		}
+
+		toast.show();
 
 	}
 
