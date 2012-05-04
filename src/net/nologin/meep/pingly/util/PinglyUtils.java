@@ -8,12 +8,14 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.text.style.TabStopSpan;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.widget.Toast;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.activity.*;
+import net.nologin.meep.pingly.model.ProbeRun;
+import net.nologin.meep.pingly.model.ScheduleEntry;
+import net.nologin.meep.pingly.model.probe.Probe;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -48,9 +50,9 @@ public class PinglyUtils {
 	 * @param ctx The context
 	 * @param msgResId The message resource ID.
 	 * @param msgParams If not empty, then the resource pointed to by msgResId will be assumed to be a format
-	 *                     string with placeholders for each of these strings
+	 *                     string with placeholders for each of these params
 	 */
-	public static void showToast(Context ctx, int msgResId, String... msgParams){
+	public static void showToast(Context ctx, int msgResId, Object... msgParams){
 
 		Toast toast;
 
@@ -59,6 +61,7 @@ public class PinglyUtils {
 		}
 		else{
 			String fmt = ctx.getString(msgResId);
+
 			String msg = String.format(fmt,msgParams);
 			toast = Toast.makeText(ctx,msg,Toast.LENGTH_LONG);
 		}
@@ -190,32 +193,34 @@ public class PinglyUtils {
 		startActivityInternal(ctx, SettingsActivity.class, true);
 	}
 
-	public static void startActivityProbeDetail(Context ctx) {
-		startActivityProbeDetail(ctx,-1);
+	public static void startActivityProbeDetail(Context ctx, Probe probe) {
+		startActivityInternal(ctx, ProbeDetailActivity.class, true, probe, null, null);
 	}
 
-	public static void startActivityProbeDetail(Context ctx, long probeId) {
-		startActivityInternal(ctx, ProbeDetailActivity.class, true, probeId);
+	public static void startActivityProbeRunHistory(Context ctx, Probe probe) {
+		startActivityInternal(ctx, ProbeRunHistoryActivity.class, true, probe, null, null);
 	}
 
-	public static void startActivityProbeRunHistory(Context ctx, long probeId) {
-		startActivityInternal(ctx, ProbeRunHistoryActivity.class, true, probeId);
+	public static void startActivityProbeRunner(Context ctx, Probe probe) {
+		startActivityInternal(ctx, ProbeRunnerActivity.class, true, probe, null, null);
 	}
 
-	public static void startActivityProbeRunner(Context ctx, long probeId) {
-		startActivityInternal(ctx, ProbeRunnerActivity.class, true, probeId);
+	public static void startActivityScheduleEntryDetail(Context ctx, Probe probe) {
+		startActivityInternal(ctx, ScheduleDetailActivity.class, true, probe, null, null);
 	}
 
-	public static void startActivityScheduleEntryDetail(Context ctx, long probeId) {
-		startActivityInternal(ctx, ScheduleDetailActivity.class, true, probeId);
+	public static void startActivityScheduleEntryDetail(Context ctx, ScheduleEntry entry) {
+		startActivityInternal(ctx, ScheduleDetailActivity.class, true, null, entry, null);
 	}
 
 	private static void startActivityInternal(Context ctx, Class activityClass,boolean clearTop) {
-		startActivityInternal(ctx, activityClass, clearTop, -1);
+		startActivityInternal(ctx, activityClass, clearTop, null, null, null);
 	}
 
-	private static void startActivityInternal(Context ctx, Class activityClass,
-											  boolean clearTop, long probeParam) {
+	private static void startActivityInternal(Context ctx, Class activityClass,boolean clearTop,
+											  Probe probeParam,
+											  ScheduleEntry scheduleParam,
+											  ProbeRun probeRunParam) {
 
 		Log.d(LOG_TAG, "Starting activity: " + activityClass.getName());
 
@@ -225,8 +230,14 @@ public class PinglyUtils {
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		}
 
-		if(probeParam > 0){
-			setIntentExtraProbeId(intent, probeParam);
+		if(probeParam != null && probeParam.id > 0){
+			setIntentExtraProbeId(intent, probeParam.id);
+		}
+		if(scheduleParam != null && scheduleParam.id > 0){
+			setIntentExtraScheduleEntryId(intent, scheduleParam.id);
+		}
+		if(probeRunParam != null && probeRunParam.id > 0) {
+			setIntentExtraProbeRunId(intent, probeRunParam.id);
 		}
 
 		ctx.startActivity(intent);

@@ -5,7 +5,7 @@
     <!-- title changed to 'activate'/'deactivate' by onCreateContextMenu depending on entry -->
     <item
             android:id="@+id/schedule_list_contextmenu_activetoggle"
-            android:title="@string/schedule_list_context_cancel"/>
+            android:title="@string/schedule_list_context_deactivate"/>
 
     <item
             android:id="@+id/schedule_list_contextmenu_edit_schedule"

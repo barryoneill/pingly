@@ -30,7 +30,6 @@ import static net.nologin.meep.pingly.PinglyConstants.*;
 
 public class ScheduleDetailActivity extends BasePinglyActivity {
 
-	private Probe probe;
 	private ScheduleEntry schedule;
 
 	private PinglyBooleanPref scheduleEnabled, scheduleNotifySuccess, scheduleNotifyFailure;
@@ -40,22 +39,21 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.schedule_detail);
 
-
-		probe = getIntentExtraProbe();
-		if (probe == null) { // should never happen, but is it the correct handling?
-			throw new IllegalArgumentException("This activity expects requires a proble ID parameter");
-		}
-
-		// if there's a schedule param, we use that
+		// if this param is present, we're editing a schedule entry
 		schedule = getIntentExtraScheduleEntry();
-		if(schedule != null){
-			// ensure probe is the right one if a schedule entry is specified
-			probe = schedule.probe;
-		}
-		else{
-			// new schedule
+
+		// if it's not, it's a new schedule.  A probe parameter must be specified in this case
+		if(schedule == null){
+
+			Probe probe = getIntentExtraProbe();
+			if (probe == null) { // should never happen, but is it the correct handling?
+				throw new IllegalArgumentException("To create a new schedule, a probe must be specified");
+			}
+
 			schedule = new ScheduleEntry(probe);
 		}
+
+
 
 		PinglyProbeDetailsView probeDetails = (PinglyProbeDetailsView)findViewById(R.id.scheduled_probe_details);
 
@@ -66,9 +64,8 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 		scheduleNotifySuccess = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_notify_success);
 		scheduleNotifyFailure = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_notify_failure);
 
-
 		// init view
-		probeDetails.initForProbe(probe);
+		probeDetails.initForProbe(schedule.probe);
 		scheduleEnabled.setChecked(schedule.active);
 		scheduleNotifySuccess.setChecked(schedule.notifyOnSuccess);
 		scheduleNotifyFailure.setChecked(schedule.notifyOnFailure);
@@ -88,17 +85,25 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 				Log.d(LOG_TAG, "Saving schedule: " + schedule);
 
 				// update object before save
-				// start time, repetition automatically updated on dialog 'save' actions
+				// start time & repetition automatically updated on dialog 'save' actions
 				schedule.active = scheduleEnabled.getChecked();
 				schedule.notifyOnSuccess = scheduleNotifySuccess.getChecked();
 				schedule.notifyOnFailure = scheduleNotifyFailure.getChecked();
 
-				scheduleDAO.saveScheduleEntry(schedule);
+				int successMsgId = schedule.isNew() ? R.string.toast_schedule_added : R.string.toast_probe_updated;
 
-				Log.w(LOG_TAG,"Entry " + schedule + " saved, now setting up alarm");
-				AlarmScheduler.setAlarm(ScheduleDetailActivity.this, schedule);
+				schedule.id = scheduleDAO.saveScheduleEntry(schedule);
 
-				PinglyUtils.showToast(ScheduleDetailActivity.this,R.string.toast_schedule_added, schedule.probe.name);
+				if(schedule.active){
+					Log.d(LOG_TAG,"Active schedule " + schedule.id + " saved, setting alarm");
+					AlarmScheduler.setAlarm(ScheduleDetailActivity.this, schedule);
+				}
+				else{
+					Log.d(LOG_TAG,"Inactive schedule " + schedule.id + " saved, removing alarm, if set");
+					AlarmScheduler.cancelAlarm(ScheduleDetailActivity.this, schedule);
+				}
+
+				PinglyUtils.showToast(ScheduleDetailActivity.this,successMsgId, schedule.probe.name);
 
 				goToScheduleList(v);
 			}

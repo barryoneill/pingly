@@ -79,7 +79,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 		butSaveRun.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if(saveProbe()){
-					PinglyUtils.startActivityProbeRunner(ProbeDetailActivity.this,currentprobe.id);
+					PinglyUtils.startActivityProbeRunner(ProbeDetailActivity.this,currentprobe);
 				}
 			}
 		});

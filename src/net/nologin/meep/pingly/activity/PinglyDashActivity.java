@@ -35,7 +35,7 @@ public class PinglyDashActivity extends BasePinglyActivity {
 			case R.id.but_dash_newProbe:
 
 				Log.d(LOG_TAG, "Dashboard selection - new probe");
-				PinglyUtils.startActivityProbeDetail(this);
+				PinglyUtils.startActivityProbeDetail(this,null);
 				break;
 
 			case R.id.but_dash_schedule:

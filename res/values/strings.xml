@@ -52,7 +52,7 @@
     <string name="prefs_about_title">About Pingly</string>
     <string name="prefs_about_summary">Click for information about Pingly</string>
 
-    <string name="toast_schedule_cancelled">Schedule for probe \'%1$s\' cancelled</string>
+    <string name="toast_schedule_deactivated">Schedule for probe \'%1$s\' disabled</string>
     <string name="toast_schedule_activated">Schedule for probe \'%1$s\' activated</string>
     <string name="toast_schedule_deleted">Schedule for probe \'%1$s\' deleted</string>
     <string name="toast_schedule_added">Schedule for \'%1$s\' successfully created</string>
@@ -76,7 +76,7 @@
 
     <!-- context menu entries for the schedule list -->
     <string name="schedule_list_context_activate">Activate Schedule</string>
-    <string name="schedule_list_context_cancel">Cancel Schedule</string>
+    <string name="schedule_list_context_deactivate">Disable Schedule</string>
     <string name="schedule_list_context_edit_schedule">Edit Schedule</string>
     <string name="schedule_list_context_edit_probe">Edit Probe</string>
     <string name="schedule_list_context_history">View Run History</string>

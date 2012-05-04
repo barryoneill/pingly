@@ -12,13 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
 import net.nologin.meep.pingly.adapter.ScheduleListCursorAdapter;
 import net.nologin.meep.pingly.alarm.AlarmScheduler;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.model.ScheduleEntry;
+import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
@@ -88,7 +88,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
             // update the text depending on status
             MenuItem del = menu.findItem(R.id.schedule_list_contextmenu_activetoggle);
             del.setTitle(target.active
-					? R.string.schedule_list_context_cancel
+					? R.string.schedule_list_context_deactivate
 					: R.string.schedule_list_context_activate);
 
         }
@@ -106,16 +106,14 @@ public class ScheduleListActivity extends BasePinglyActivity {
 			case R.id.schedule_list_contextmenu_edit_schedule:
 				Log.d("PINGLY", "Edit Schedule : " + entry);
 
-				// TODO: implement!
-				Toast.makeText(ScheduleListActivity.this, "BARRY IMPLEMENTED THIS ALREADY SIGH", Toast.LENGTH_SHORT).show();
-
+				PinglyUtils.startActivityScheduleEntryDetail(this,entry);
 
 				return true;
 
 			case R.id.schedule_list_contextmenu_edit_probe:
 				Log.d("PINGLY", "Edit Probe : " + entry);
 
-				PinglyUtils.startActivityProbeDetail(this,entry.probe.id);
+				PinglyUtils.startActivityProbeDetail(this,entry.probe);
 
 				return true;
 
@@ -133,7 +131,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 					AlarmScheduler.setAlarm(this,entry);
 				}
 				else{
-					msgResId = R.string.toast_schedule_cancelled;
+					msgResId = R.string.toast_schedule_deactivated;
 					AlarmScheduler.cancelAlarm(this,entry);
 				}
 
@@ -148,7 +146,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 			case R.id.schedule_list_contextmenu_history:
 				Log.d("PINGLY", "Viewing history for : " + entry);
 
-				PinglyUtils.startActivityProbeRunHistory(this,entry.probe.id);
+				PinglyUtils.startActivityProbeRunHistory(this,entry.probe);
 
 				return true;
 
@@ -188,9 +186,6 @@ public class ScheduleListActivity extends BasePinglyActivity {
 
         }
 
-        // TextView text = (TextView)findViewById(R.id.footer);
-        // text.setText(String.format("Selected %s for item %s", menuItemName,
-        // listItemName));
         return true;
     }
 
@@ -220,7 +215,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 						.setCancelable(true)
 						.setPositiveButton("Create Probe", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								PinglyUtils.startActivityProbeDetail(ScheduleListActivity.this);
+								PinglyUtils.startActivityProbeDetail(ScheduleListActivity.this,null);
 							}
 						})
 						.setNegativeButton("Cancel", null);
@@ -239,15 +234,15 @@ public class ScheduleListActivity extends BasePinglyActivity {
 						.setCancelable(true)
 						.setNeutralButton("Create New", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								PinglyUtils.startActivityProbeDetail(ScheduleListActivity.this);
+								PinglyUtils.startActivityProbeDetail(ScheduleListActivity.this,null);
 							}
 						})
 						.setNegativeButton("Cancel", null)
 						.setAdapter(probeListAdapter, new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int i) {
-								long selectedProbeId = ProbeDAO.cursorToProbeId(allProbesCursor);
-								PinglyUtils.startActivityScheduleEntryDetail(ScheduleListActivity.this,selectedProbeId);
+								Probe selected = ProbeDAO.cursorToProbe(allProbesCursor,false);
+								PinglyUtils.startActivityScheduleEntryDetail(ScheduleListActivity.this,selected);
 							}
 						});
 				dialog = builder.create();

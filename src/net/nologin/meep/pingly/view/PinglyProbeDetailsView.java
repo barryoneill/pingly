@@ -112,6 +112,6 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 		}
 
 		Log.d(PinglyConstants.LOG_TAG, "Clicked, going to probe " + probe);
-		PinglyUtils.startActivityProbeDetail(getContext(), this.probe.id);
+		PinglyUtils.startActivityProbeDetail(getContext(), probe);
 	}
 }

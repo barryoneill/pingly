@@ -152,10 +152,6 @@ public class ProbeDAO extends PinglyDataHelper {
         }
     }
 
-	public static long cursorToProbeId(Cursor c){
-		 return c.getInt(c.getColumnIndexOrThrow(TBL_PROBE.COL_ID));
-	}
-
     // keep the param so the caller doesn't forget about cursor responsibility
     public static Probe cursorToProbe(Cursor c, boolean closeCursor) {
 

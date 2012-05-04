@@ -78,7 +78,7 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 		findViewById(R.id.probeHistory_runNowBut).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				PinglyUtils.startActivityProbeRunner(ProbeRunHistoryActivity.this,currentProbe.id);
+				PinglyUtils.startActivityProbeRunner(ProbeRunHistoryActivity.this,currentProbe);
 			}
 		});
 

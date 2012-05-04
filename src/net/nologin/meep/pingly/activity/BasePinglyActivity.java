@@ -64,7 +64,7 @@ public abstract class BasePinglyActivity extends Activity {
 	}
 
 	public void goToNewProbe(View v) {
-		PinglyUtils.startActivityProbeDetail(this);
+		PinglyUtils.startActivityProbeDetail(this,null);
 	}
 
 	public void goToProbeList(View v) {

@@ -100,21 +100,21 @@ public class ProbeListActivity extends BasePinglyActivity {
 			case R.id.probe_list_contextmenu_run:
 				Log.d("PINGLY", "Running probe: " + probe);
 
-				PinglyUtils.startActivityProbeRunner(this,probe.id);
+				PinglyUtils.startActivityProbeRunner(this,probe);
 
 				return true;
 
 			case R.id.probe_list_contextmenu_edit:
 				Log.d("PINGLY", "Editing probe: " + probe);
 
-				PinglyUtils.startActivityProbeDetail(this,probe.id);
+				PinglyUtils.startActivityProbeDetail(this,probe);
 
 				return true;
 
 			case R.id.probe_list_contextmenu_run_history:
 				Log.d("PINGLY", "Going to run history for probe: " + probe);
 
-				PinglyUtils.startActivityProbeRunHistory(this,probe.id);
+				PinglyUtils.startActivityProbeRunHistory(this,probe);
 
 				return true;
 
@@ -122,7 +122,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 
 				Log.d("PINGLY", "Scheduling probe: " + probe);
 
-				PinglyUtils.startActivityScheduleEntryDetail(this,probe.id);
+				PinglyUtils.startActivityScheduleEntryDetail(this,probe);
 
 				return true;
 
