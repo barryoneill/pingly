@@ -39,7 +39,7 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
     private void initViewCommon(Context context, AttributeSet attrs) {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.pingly_probedetails_view, this);
+        layoutInflater.inflate(R.layout.pingly_probedetails_view, this);
 
         nameTextView = (TextView)findViewById(R.id.view_probedetails_name);
 		summaryTextView = (TextView)findViewById(R.id.view_probedetails_desc);

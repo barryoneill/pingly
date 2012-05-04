@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeListCursorAdapter;
 import net.nologin.meep.pingly.adapter.ScheduleListCursorAdapter;
@@ -106,8 +107,8 @@ public class ScheduleListActivity extends BasePinglyActivity {
 				Log.d("PINGLY", "Edit Schedule : " + entry);
 
 				// TODO: implement!
-				// Toast.makeText(ScheduleListActivity.this,"Edit Schedule Unimplemented!",Toast.LENGTH_SHORT).show();
-				// TODO
+				Toast.makeText(ScheduleListActivity.this, "BARRY IMPLEMENTED THIS ALREADY SIGH", Toast.LENGTH_SHORT).show();
+
 
 				return true;
 

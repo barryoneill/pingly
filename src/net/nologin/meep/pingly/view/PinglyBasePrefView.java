@@ -18,7 +18,6 @@ public abstract class PinglyBasePrefView extends RelativeLayout implements View.
     protected TextView summaryTextView;
     protected ImageView expanderImage;
     protected CheckBox checkBox;
-    protected String idText = "";
     
     public PinglyBasePrefView(Context context) {
         super(context);
@@ -40,7 +39,7 @@ public abstract class PinglyBasePrefView extends RelativeLayout implements View.
     private void initViewCommon(Context context, AttributeSet attrs) {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.pingly_basepref_view, this);
+        layoutInflater.inflate(R.layout.pingly_basepref_view, this);
 
         summaryTextView = (TextView)findViewById(R.id.pcp_summary);
         nameTextView = (TextView)findViewById(R.id.pcp_name);

@@ -92,11 +92,7 @@ public class ProbeRunDAO extends PinglyDataHelper {
 		Log.d(LOG_TAG, "SQL: " + sql);
 
 		SQLiteDatabase db = getWritableDatabase();
-		int changed = db.delete(TBL_PROBE_RUN.TBL_NAME, sql, args);
-
-
-		return changed;
-
+		return db.delete(TBL_PROBE_RUN.TBL_NAME, sql, args);
 
 	}
 
@@ -116,10 +112,8 @@ public class ProbeRunDAO extends PinglyDataHelper {
 		String orderBy = TBL_PROBE_RUN.COL_ENDTIME + " DESC";
 
 		// a simple query on the run history table will do here
-		Cursor cursor = db.query(TBL_PROBE_RUN.TBL_NAME, null, idClause,
-				null, null, null, orderBy);
+		return db.query(TBL_PROBE_RUN.TBL_NAME, null, idClause, null, null, null, orderBy);
 
-		return cursor;
 	}
 
 

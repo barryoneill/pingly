@@ -50,23 +50,6 @@ public class ScheduleDAO extends PinglyDataHelper {
 		return cursorToEntry(cursor, true);
 	}
 
-	public ScheduleEntry findByProbe(long probeId) {
-
-		Log.d(LOG_TAG, "Looking up scheduled items for probe: " + probeId);
-
-		SQLiteDatabase db = getReadableDatabase();
-		String nameClause = TBL_SCHEDULE.COL_PROBE_FK + "=?";
-		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
-				nameClause, new String[]{probeId + ""}, null, null, null);
-
-		if (!cursor.moveToFirst()) {
-			Log.d(LOG_TAG, "No entries found for probeId: " + probeId);
-			return null;
-		}
-		return cursorToEntry(cursor, true);
-
-	}
-
 	public List<ScheduleEntry> findEntriesForProbe(long probeId) {
 
 		Log.d(LOG_TAG, "Looking up entries with probe ID: " + probeId);
@@ -114,13 +97,8 @@ public class ScheduleDAO extends PinglyDataHelper {
 						+ " ORDER BY " + TBL_SCHEDULE.TBL_NAME + "." + TBL_SCHEDULE.COL_CREATED + " desc";
 
 
-		Cursor cursor = db.rawQuery(query,null);
+		return db.rawQuery(query,null);
 
-//		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null, null,
-//				null, null, null, TBL_SCHEDULE.COL_CREATED);
-
-
-		return cursor;
 	}
 
 	public void delete(ScheduleEntry entry) {

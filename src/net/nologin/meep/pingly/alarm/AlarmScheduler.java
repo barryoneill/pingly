@@ -32,7 +32,7 @@ public class AlarmScheduler {
 
         ScheduleDAO scheduleDAO = new ScheduleDAO(ctx);
 
-        Intent intent = new Intent(ctx, ProbeRunnerScheduleService.class);
+        // Intent intent = new Intent(ctx, ProbeRunnerScheduleService.class);
         // intent.putExtra(ProbeRunnerScheduleService.PARAM_SCHEDULE_ENTRY_ID, strInputMsg);
 
         scheduleDAO.close();

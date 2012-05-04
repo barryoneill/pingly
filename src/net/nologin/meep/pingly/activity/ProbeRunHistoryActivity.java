@@ -5,8 +5,6 @@ import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -117,49 +115,7 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 		}
 	}
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-									ContextMenu.ContextMenuInfo menuInfo) {
 
-		super.onCreateContextMenu(menu, v, menuInfo);
-//
-//		if (v.getId() == R.id.probeRunList) {
-//
-//			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-//
-//			ProbeRun target = probeRunDAO.findProbeRunById(info.id);
-//			menu.setHeaderTitle("Context Menu");
-//
-//			MenuInflater inflater1 = getMenuInflater();
-//			inflater1.inflate(R.menu.probe_list_context, menu);
-//
-//		}
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
-				.getMenuInfo();
-
-//		final Probe probe = probeDAO.findProbeById(info.id);
-//
-//		switch (item.getItemId()) {
-//
-//			case R.id.probe_list_contextmenu_run:
-//				Log.d("PINGLY", "Running probe: " + probe);
-//
-//				goToProbeRunner(probe.id);
-//
-//				return true;
-//
-//			default:
-//				Log.d("PINGLY", "Unhandled Item ID " + item.getItemId());
-//				super.onContextItemSelected(item);
-//
-//		}
-//
-		return true;
-	}
 
 	// TODO: i18n!
 	protected Dialog onCreateDialog(int id) {
