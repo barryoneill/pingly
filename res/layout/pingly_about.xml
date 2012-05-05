@@ -39,11 +39,11 @@
     </LinearLayout>
 
     <View
-          android:id="@+id/disclaimer_separator"
-          android:layout_width="fill_parent" android:layout_height="1dp"
-          android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
-          android:layout_below="@id/about_dialog_icon"
-          android:background="@color/probe_runhistory_details_separator"/>
+            android:id="@+id/disclaimer_separator"
+            style="@style/SeparatorHorizontal"
+            android:layout_margin="5dp"
+            android:layout_below="@id/about_dialog_icon"/>
+
 
     <TextView android:id="@+id/about_legal"
               android:layout_width="fill_parent"

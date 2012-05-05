@@ -61,7 +61,7 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 		startManagingCursor(runHistoryCursor);
 
 		PinglyProbeDetailsView probeDetails = (PinglyProbeDetailsView)findViewById(R.id.probeSummaryHeader);
-		probeDetails.initForProbe(currentProbe);
+		probeDetails.initForProbe(currentProbe,true);
 
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

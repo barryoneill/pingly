@@ -28,9 +28,7 @@
             android:textStyle="bold"
             />
 
-    <View android:layout_width="fill_parent" android:layout_height="1dp"
-          android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
-          android:background="@color/probe_runhistory_details_separator"/>
+    <View style="@style/SeparatorHorizontal"/>
 
     <TextView
             android:id="@+id/probeRun_log_logText"

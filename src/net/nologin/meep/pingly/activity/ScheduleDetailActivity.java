@@ -65,7 +65,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 		scheduleNotifyFailure = (PinglyBooleanPref) findViewById(R.id.scheduled_probe_notify_failure);
 
 		// init view
-		probeDetails.initForProbe(schedule.probe);
+		probeDetails.initForProbe(schedule.probe,true);
 		scheduleEnabled.setChecked(schedule.active);
 		scheduleNotifySuccess.setChecked(schedule.notifyOnSuccess);
 		scheduleNotifyFailure.setChecked(schedule.notifyOnFailure);

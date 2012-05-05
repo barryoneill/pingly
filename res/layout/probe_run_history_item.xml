@@ -57,8 +57,7 @@
 
     </LinearLayout>
 
-    <View android:layout_width="1dp" android:layout_height="fill_parent"
-          android:background="@color/probe_runhistory_details_separator"/>
+    <View style="@style/SeparatorVertical"/>
 
     <!-- right column -->
     <LinearLayout

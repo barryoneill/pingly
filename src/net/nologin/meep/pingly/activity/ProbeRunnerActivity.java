@@ -62,7 +62,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 
 		// fill summary info
 		PinglyProbeDetailsView probeDetails = (PinglyProbeDetailsView)findViewById(R.id.probeSummaryHeader);
-		probeDetails.initForProbe(selectedProbe);
+		probeDetails.initForProbe(selectedProbe,true);
 
 		// attach onclick events to buttons
 		findViewById(R.id.but_probeRun_runAgain).setOnClickListener(new OnClickListener() {

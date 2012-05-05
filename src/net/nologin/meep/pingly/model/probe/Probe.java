@@ -35,12 +35,21 @@ public abstract class Probe implements Cloneable {
 	}
 
 	public String getTypeDesc(Context ctx){
-		return Probe.getTypeName(ctx, getTypeKey());
+		return Probe.getTypeDesc(ctx, getTypeKey());
 	}
 
 	public static String getTypeDesc(Context ctx, String typeKey){
-		return PinglyUtils.loadStringForName(ctx,"probe_type_" + typeKey + "_desc");
+		return PinglyUtils.loadStringForName(ctx,"probe_type_" + typeKey + "_icontxt");
 	}
+
+	public String getTypeIconTxt(Context ctx){
+		return Probe.getTypeIconTxt(ctx, getTypeKey());
+	}
+
+	public static String getTypeIconTxt(Context ctx, String typeKey){
+		return PinglyUtils.loadStringForName(ctx,"probe_type_" + typeKey + "_icontxt");
+	}
+
 
 	@Override
 	public String toString(){		

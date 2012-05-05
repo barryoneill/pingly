@@ -18,6 +18,7 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 
     protected TextView nameTextView;
     protected TextView summaryTextView;
+	protected TextView iconTextView;
 
 	private Probe probe = null;
 
@@ -43,6 +44,7 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 
         nameTextView = (TextView)findViewById(R.id.view_probedetails_name);
 		summaryTextView = (TextView)findViewById(R.id.view_probedetails_desc);
+		iconTextView = (TextView)findViewById(R.id.view_probedetails_icontext);
 
         if(attrs != null){
 
@@ -63,14 +65,16 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 						setProbeDesc(styledAttrs.getString(attr));
 						break;
 
+					case R.styleable.PinglyProbeDetailsView_probeIconTxt:
+						setProbeIconText(styledAttrs.getString(attr));
+						break;
+
 				}
             }
             styledAttrs.recycle();
         }
 
-		setFocusable(true);
-		setClickable(true);
-		setOnClickListener(this);
+
 
     }
 
@@ -78,19 +82,28 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 	 * populates the name and desc (via setProbeName and setProbeDesc) of the probe, and
 	 * adds the onClick listener to the button to jump to the specified probe's details activity
 	 * @param probe The probe.  If null, the name and desc will be cleared, and the listener removed.
+	 * @param addOnClickForEdit True to make view clickable, and will start edit activity for <code>probe</code>
 	 */
-	public void initForProbe(final Probe probe){
+	public void initForProbe(final Probe probe, boolean addOnClickForEdit){
 
 		if(probe == null){
 			this.probe = null;
 			setProbeName("");
 			setProbeDesc("");
+			setProbeIconText("");
 			return;
 		}
 
 		this.probe = probe;
 		setProbeName(probe.name);
 		setProbeDesc(probe.desc);
+		setProbeIconText(probe.getTypeIconTxt(getContext()));
+
+		if(addOnClickForEdit){
+			setFocusable(true);
+			setClickable(true);
+			setOnClickListener(this);
+		}
 
 	}
 
@@ -103,6 +116,10 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 	}
 
 
+	public void setProbeIconText(String iconText) {
+		iconTextView.setText(iconText);
+	}
+
 	@Override
 	public void onClick(View view) {
 
@@ -114,4 +131,5 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 		Log.d(PinglyConstants.LOG_TAG, "Clicked, going to probe " + probe);
 		PinglyUtils.startActivityProbeDetail(getContext(), probe);
 	}
+
 }

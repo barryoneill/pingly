@@ -89,10 +89,13 @@
     <string name="probe_type_choose">Choose a Probe Type</string>
     <string name="probe_type_PING_name">Ping</string>
     <string name="probe_type_PING_desc">Perform an ICMP Ping</string>
+    <string name="probe_type_PING_icontxt">ping</string>
     <string name="probe_type_SOCK_CONN_name">Socket Connection</string>
     <string name="probe_type_SOCK_CONN_desc">Make a simple socket connection</string>
+    <string name="probe_type_SOCK_CONN_icontxt">socket</string>
     <string name="probe_type_HTTP_RESP_name">HTTP Response</string>
     <string name="probe_type_HTTP_RESP_desc">Test for a response to a HTTP request</string>
+    <string name="probe_type_HTTP_RESP_icontxt">http</string>
 
     <string name="day_of_week_0_name">Monday</string>
     <string name="day_of_week_1_name">Tuesday</string>
