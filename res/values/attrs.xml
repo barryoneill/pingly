@@ -20,6 +20,7 @@
         <attr name="probeName" format="reference|string" />
         <attr name="probeDesc" format="reference|string" />
         <attr name="probeIconTxt" format="reference|string" />
+        <attr name="probeSeparatorBottom" format="reference|boolean" />
     </declare-styleable>
 
 </resources>

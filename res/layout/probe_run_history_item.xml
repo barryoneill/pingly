@@ -6,7 +6,7 @@
 
     <!-- left column -->
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="fill_parent"
             android:orientation="vertical"
             android:padding="4dp"

@@ -6,6 +6,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import net.nologin.meep.pingly.PinglyConstants;
@@ -19,8 +22,11 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
     protected TextView nameTextView;
     protected TextView summaryTextView;
 	protected TextView iconTextView;
+	protected ImageView separatorBottom;
 
 	private Probe probe = null;
+
+	private float displayScale;
 
     public PinglyProbeDetailsView(Context context) {
         super(context);
@@ -39,12 +45,15 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 
     private void initViewCommon(Context context, AttributeSet attrs) {
 
+		displayScale = getContext().getResources().getDisplayMetrics().density;
+
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layoutInflater.inflate(R.layout.pingly_probedetails_view, this);
 
         nameTextView = (TextView)findViewById(R.id.view_probedetails_name);
 		summaryTextView = (TextView)findViewById(R.id.view_probedetails_desc);
 		iconTextView = (TextView)findViewById(R.id.view_probedetails_icontext);
+		separatorBottom = (ImageView)findViewById(R.id.view_probedetails_separator_bottom);
 
         if(attrs != null){
 
@@ -67,6 +76,10 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 
 					case R.styleable.PinglyProbeDetailsView_probeIconTxt:
 						setProbeIconText(styledAttrs.getString(attr));
+						break;
+
+					case R.styleable.PinglyProbeDetailsView_probeSeparatorBottom:
+						setProbeSeparatorBottom(styledAttrs.getBoolean(attr,false));
 						break;
 
 				}
@@ -118,6 +131,10 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 
 	public void setProbeIconText(String iconText) {
 		iconTextView.setText(iconText);
+	}
+
+	public void setProbeSeparatorBottom(boolean render) {
+		separatorBottom.setVisibility(render ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
