@@ -4,6 +4,12 @@
     <!-- core application strings -->
     <string name="pingly_app_label">Pingly</string>
 
+    <!-- main dashboard -->
+    <string name="main_dash_icon_probe_list">Probes</string>
+    <string name="main_dash_icon_probe_new">New Probe</string>
+    <string name="main_dash_icon_schedule">Scheduler</string>
+    <string name="main_dash_icon_settings">Settings</string>
+
     <!-- about screen  -->
     <string name="pingly_about_apptitle">Pingly</string>
     <string name="pingly_about_version_fmt">Version %1$s - \u00A9%2$s</string>
@@ -52,6 +58,7 @@
     <string name="prefs_about_title">About Pingly</string>
     <string name="prefs_about_summary">Click for information about Pingly</string>
 
+    <!-- toast notification strings -->
     <string name="toast_schedule_deactivated">Schedule for probe \'%1$s\' disabled</string>
     <string name="toast_schedule_activated">Schedule for probe \'%1$s\' activated</string>
     <string name="toast_schedule_deleted">Schedule for probe \'%1$s\' deleted</string>

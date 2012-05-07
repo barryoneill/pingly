@@ -17,7 +17,7 @@
         <ImageView style="@style/TitleBarSeparator"/>
 
         <TextView
-                style="@style/TitleBarText"
+                style="@style/TitleBarTitle"
                 android:text="@string/activity_probe_runner"/>
     </LinearLayout>
 

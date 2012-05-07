@@ -15,7 +15,7 @@
         <ImageView style="@style/TitleBarSeparator"/>
 
         <TextView
-                style="@style/TitleBarText"
+                style="@style/TitleBarTitle"
                 android:text="@string/activity_schedule_detail"/>
 
         <!--  buttons for new probe?  -->

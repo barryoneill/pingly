@@ -15,7 +15,7 @@
         <ImageView style="@style/TitleBarSeparator"/>
 
         <TextView
-                style="@style/TitleBarText"
+                style="@style/TitleBarTitle"
                 android:text="@string/activity_probe_run_history"/>
 
         <ImageView style="@style/TitleBarSeparator"/>

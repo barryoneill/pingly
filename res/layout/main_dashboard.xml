@@ -4,82 +4,65 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
+    <!-- focusable on layout itself prevents focus on home by default -->
     <LinearLayout
             android:id="@+id/titleBar"
             style="@style/TitleBar"
             android:layout_alignParentTop="true"
-            android:focusable="true"> <!-- focusable prevents focus on home by default -->
+            android:focusable="true">
 
-        <ImageView style="@style/TitleBarHomeButton" />
+        <ImageView style="@style/TitleBarHomeButton"/>
 
         <ImageView style="@style/TitleBarSeparator"/>
 
-        <TextView
-                style="@style/TitleBarText"
-                android:text="@string/activity_dashboard"/>
+        <TextView style="@style/TitleBarTitle"
+                  android:text="@string/activity_dashboard"/>
 
     </LinearLayout>
 
 
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@id/titleBar"
-            android:orientation="vertical"
-            android:padding="6dip"
-            android:baselineAligned="false">
+    <LinearLayout style="@style/Dashboard"
+                  android:layout_below="@id/titleBar">
 
         <!--  DASHBOARD TOP ROW  -->
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+        <LinearLayout style="@style/DashboardColumn">
 
             <!--  Button: "Show Probes" -->
             <Button
                     android:id="@+id/but_dash_showProbes"
-                    style="@style/HomeButton"
+                    style="@style/DashboardButton"
                     android:drawableTop="@drawable/dash_probe_list_selector"
-                    android:onClick="dashButtonClicked"
-                    android:text="My Probes"/>
+                    android:text="@string/main_dash_icon_probe_list"
+                    android:onClick="dashButtonClicked"/>
 
             <Button
                     android:id="@+id/but_dash_newProbe"
-                    style="@style/HomeButton"
+                    style="@style/DashboardButton"
                     android:drawableTop="@drawable/dash_new_probe_selector"
-                    android:onClick="goToNewProbe"
-                    android:text="New Probe"/>
+                    android:text="@string/main_dash_icon_probe_new"
+                    android:onClick="dashButtonClicked"/>
         </LinearLayout>
 
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+        <LinearLayout style="@style/DashboardColumn">
 
             <Button
                     android:id="@+id/but_dash_schedule"
-                    style="@style/HomeButton"
+                    style="@style/DashboardButton"
                     android:drawableTop="@drawable/dash_schedule_selector"
-                    android:onClick="dashButtonClicked"
-                    android:text="Scheduler"/>
+                    android:text="@string/main_dash_icon_schedule"
+                    android:onClick="dashButtonClicked"/>
 
             <Button
                     android:id="@+id/but_dash_settings"
-                    style="@style/HomeButton"
+                    style="@style/DashboardButton"
                     android:drawableTop="@drawable/dash_settings_selector"
-                    android:onClick="dashButtonClicked"
-                    android:text="Settings"/>
+                    android:text="@string/main_dash_icon_settings"
+                    android:onClick="dashButtonClicked"/>
         </LinearLayout>
 
         <!--  dummy a third, but empty row for spacing  -->
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-        </LinearLayout>
+        <LinearLayout style="@style/DashboardColumn"/>
+
     </LinearLayout>
 
 
