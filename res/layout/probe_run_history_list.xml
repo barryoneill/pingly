@@ -34,6 +34,7 @@
             android:layout_below="@id/titleBar"
             pingly:probeName="NameTest"
             pingly:probeDesc="DescTest"
+            style="@style/ProbeDetailsHeader"
             />
 
     <LinearLayout

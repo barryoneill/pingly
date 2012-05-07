@@ -16,7 +16,7 @@
 
         <TextView
                 style="@style/TitleBarText"
-                android:text="@string/activity_schedule_detail"/>
+                android:text="@string/activity_schedule_list"/>
 
         <ImageView style="@style/TitleBarSeparator"/>
 

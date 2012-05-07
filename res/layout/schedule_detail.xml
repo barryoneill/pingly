@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"
                     pingly:probeName="NameTest"
                     pingly:probeDesc="DescTest"
+                    style="@style/ProbeDetailsHeader"
                     />
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"

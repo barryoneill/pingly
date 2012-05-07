@@ -64,6 +64,7 @@
             android:layout_below="@id/titleBar"
             pingly:probeName="[probename]"
             pingly:probeDesc="[probedesc]"
+            style="@style/ProbeDetailsHeader"
             />
 
     <LinearLayout
