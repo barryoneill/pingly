@@ -9,14 +9,14 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="URL"
+            android:text="@string/probe_detail_HTTP_RESP_url"
             style="@style/FormLabel">
     </TextView>
     <EditText
             android:id="@+id/probe_detail_httpresponse_url"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="http://domain/path"
+            android:hint="@string/probe_detail_HTTP_RESP_url_hint"
             android:inputType="textUri">
     </EditText>
 

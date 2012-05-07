@@ -3,20 +3,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-                android:orientation="vertical">
+              android:orientation="vertical">
 
     <!-- ============== Host =============== -->
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Host or IP Address"
+            android:text="@string/probe_detail_SOCK_CONN_host"
             style="@style/FormLabel">
     </TextView>
     <EditText
             android:id="@+id/probe_detail_socketconnection_host"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="host/ip"
+            android:hint="@string/probe_detail_SOCK_CONN_host_hint"
             android:inputType="textUri">
     </EditText>
 
@@ -24,16 +24,16 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Port"
+            android:text="@string/probe_detail_SOCK_CONN_port"
             style="@style/FormLabel">
     </TextView>
     <EditText
             android:id="@+id/probe_detail_socketconnection_port"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:hint="port"
+            android:hint="@string/probe_detail_SOCK_CONN_port_hint"
             android:inputType="number"
             android:numeric="integer">
     </EditText>
-    
+
 </LinearLayout>

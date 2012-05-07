@@ -81,6 +81,36 @@
     <string name="probe_list_context_history">View Run History</string>
     <string name="probe_list_context_delete">Delete Probe</string>
 
+    <!-- probe type info -->
+    <string name="probe_type_PING_name">Ping</string>
+    <string name="probe_type_PING_desc">Perform an ICMP Ping</string>
+    <string name="probe_type_PING_icontxt">ping</string>
+    <string name="probe_type_SOCK_CONN_name">Socket Connection</string>
+    <string name="probe_type_SOCK_CONN_desc">Make a simple socket connection</string>
+    <string name="probe_type_SOCK_CONN_icontxt">socket</string>
+    <string name="probe_type_HTTP_RESP_name">HTTP Response</string>
+    <string name="probe_type_HTTP_RESP_desc">Test for a response to a HTTP request</string>
+    <string name="probe_type_HTTP_RESP_icontxt">http</string>
+
+    <!-- probe stuff -->
+    <string name="probe_detail_name">Probe Name</string>
+    <string name="probe_detail_name_hint">enter probe name</string>
+    <string name="probe_detail_desc">Probe Description</string>
+    <string name="probe_detail_desc_hint">enter description</string>
+    <string name="probe_detail_type">Probe Type</string>
+    <string name="probe_detail_type_hint">choose a type</string>
+    <string name="probe_detail_PING_host">Host or IP address</string>
+    <string name="probe_detail_PING_host_hint">enter host or IP address</string>
+    <string name="probe_detail_PING_packetcount">Packet Count (ping -c)</string>
+    <string name="probe_detail_PING_deadline">Deadline in Seconds (ping -w)</string>
+    <string name="probe_detail_SOCK_CONN_host">@string/probe_detail_PING_host</string>
+    <string name="probe_detail_SOCK_CONN_host_hint">@string/probe_detail_PING_host_hint</string>
+    <string name="probe_detail_SOCK_CONN_port">Port Number</string>
+    <string name="probe_detail_SOCK_CONN_port_hint">e.g. 80</string>
+    <string name="probe_detail_HTTP_RESP_url">URL</string>
+    <string name="probe_detail_HTTP_RESP_url_hint">e.g. http://host/blah</string>
+
+
     <!-- context menu entries for the schedule list -->
     <string name="schedule_list_context_activate">Activate Schedule</string>
     <string name="schedule_list_context_deactivate">Disable Schedule</string>
@@ -93,24 +123,6 @@
     <string name="probe_notification_success">Successful: \'%1$s\'</string>
     <string name="probe_notification_failure">Failed: \'%1$s\'</string>
 
-    <string name="probe_type_choose">Choose a Probe Type</string>
-    <string name="probe_type_PING_name">Ping</string>
-    <string name="probe_type_PING_desc">Perform an ICMP Ping</string>
-    <string name="probe_type_PING_icontxt">ping</string>
-    <string name="probe_type_SOCK_CONN_name">Socket Connection</string>
-    <string name="probe_type_SOCK_CONN_desc">Make a simple socket connection</string>
-    <string name="probe_type_SOCK_CONN_icontxt">socket</string>
-    <string name="probe_type_HTTP_RESP_name">HTTP Response</string>
-    <string name="probe_type_HTTP_RESP_desc">Test for a response to a HTTP request</string>
-    <string name="probe_type_HTTP_RESP_icontxt">http</string>
-
-    <string name="day_of_week_0_name">Monday</string>
-    <string name="day_of_week_1_name">Tuesday</string>
-    <string name="day_of_week_2_name">Wednesday</string>
-    <string name="day_of_week_3_name">Thursday</string>
-    <string name="day_of_week_4_name">Friday</string>
-    <string name="day_of_week_5_name">Saturday</string>
-    <string name="day_of_week_6_name">Sunday</string>
 
     <string name="scheduler_repetition_unit_0_name">Run Once</string>
     <plurals name="scheduler_repetition_unit_0_summary">
@@ -141,6 +153,12 @@
         <item quantity="one">Every Week</item>
         <item quantity="other">Every %d Weeks</item>
     </plurals>
+
+    <string name="general_yes">Yes</string>
+    <string name="general_no">No</string>
+    <string name="general_cancel">Cancel</string>
+    <string name="general_save">Save</string>
+    <string name="general_save_run">Save &amp; Run</string>
 
 
 </resources>

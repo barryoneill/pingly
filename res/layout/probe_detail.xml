@@ -3,7 +3,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
-    <!--  title bar  -->
     <LinearLayout
             android:id="@+id/titleBar"
             style="@style/TitleBar"
@@ -21,31 +20,22 @@
 
     <LinearLayout
             android:id="@+id/footerBar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            style="@android:style/ButtonBar">
+            style="@style/ButtonBar">
 
         <Button
                 android:id="@+id/but_probeDetail_save"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save"/>
+                style="@style/ButtonBarButton"
+                android:text="@string/general_save"/>
 
         <Button
                 android:id="@+id/but_probeDetail_saveRun"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save &amp; Run"/>
+                style="@style/ButtonBarButton"
+                android:text="@string/general_save_run"/>
         <Button
                 android:id="@+id/but_probeDetail_cancel"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel"/>
+                style="@style/ButtonBarButton"
+                android:text="@string/general_cancel"/>
     </LinearLayout>
 
     <!-- new probe form -->
@@ -65,7 +55,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Probe Name"
+                    android:text="@string/probe_detail_name"
                     style="@style/FormLabel">
             </TextView>
 
@@ -73,14 +63,14 @@
                     android:id="@+id/probe_detail_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="probe name"
+                    android:hint="@string/probe_detail_name_hint"
                     android:inputType="text">
             </EditText>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Probe Description"
+                    android:text="@string/probe_detail_desc"
                     style="@style/FormLabel">
             </TextView>
 
@@ -88,14 +78,14 @@
                     android:id="@+id/probe_detail_desc"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="probe description"
+                    android:hint="@string/probe_detail_desc_hint"
                     android:inputType="text">
             </EditText>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Probe Type"
+                    android:text="@string/probe_detail_type"
                     style="@style/FormLabel">
             </TextView>
 
@@ -103,7 +93,7 @@
                     android:id="@+id/probe_detail_type"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:prompt="@string/probe_type_choose">
+                    android:prompt="@string/probe_detail_type_hint">
             </Spinner>
 
             <LinearLayout
