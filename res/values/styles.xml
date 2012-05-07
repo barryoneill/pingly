@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <!-- ======================= custom theme ============================= -->
+
     <style name="Theme.PinglyTheme" parent="android:style/Theme.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -12,12 +15,11 @@
         <!-- also from http://code.google.com/p/android/issues/detail?id=22920 -->
         <item name="android:textColorPrimaryInverse">@android:color/primary_text_light</item>
     </style>
-
     <style name="PinglyDialogTheme" parent="android:style/Theme.Dialog">
         <item name="android:textColor">#FFFFFFFF</item>
     </style>
 
-    <!-- =========================== title bar ============================== -->
+    <!-- ======================== title bar =========================== -->
 
     <style name="TitleBar">
         <item name="android:layout_width">fill_parent</item>
@@ -59,7 +61,7 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <!-- =========================== dashboard ============================== -->
+    <!-- ======================== dashboard =========================== -->
 
     <!-- for a linear layout, vertical layout, for DashboardColumn kids -->
     <style name="Dashboard">
@@ -91,7 +93,26 @@
         <item name="android:background">@null</item>
     </style>
 
-    <!-- =========================== general stylings ============================== -->
+    <!-- ======================== about page =========================== -->
+    <style name="AboutHeaderTxt">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+    <style name="AboutVersionTxt">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+    <style name="AboutDisclaimerTxt">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    <!-- ======================== general stylings =========================== -->
+
 
     <style name="FormLabel">
         <item name="android:textSize">15sp</item>

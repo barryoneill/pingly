@@ -4,9 +4,9 @@
                 android:layout_height="wrap_content"
                 android:padding="10dip">
 
+    <!-- launcher icon -->
     <ImageView
             android:id="@+id/about_dialog_icon"
-            android:contentDescription="pingly icon"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:src="@drawable/main_launcher_icon"
@@ -21,38 +21,35 @@
             android:layout_toRightOf="@id/about_dialog_icon"
             android:orientation="vertical">
 
+        <!-- 'Pingly' -->
         <TextView android:id="@+id/about_title"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:text="@string/pingly_about_apptitle"
-                  android:textStyle="bold"
-                  android:gravity="center_horizontal"
-                />
+                  style="@style/AboutHeaderTxt"/>
 
+        <!-- 'Version ${version} (c) ${year}' -->
         <TextView android:id="@+id/about_version"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:text="@string/pingly_about_version_fmt"
-                  android:gravity="center_horizontal"
-                />
+                  style="@style/AboutVersionTxt"/>
 
     </LinearLayout>
 
+    <!-- separator -->
     <View
             android:id="@+id/disclaimer_separator"
             style="@style/SeparatorHorizontal"
             android:layout_margin="5dp"
             android:layout_below="@id/about_dialog_icon"/>
 
-
+    <!-- 'you install it, you accept responsibilty, etc' -->
     <TextView android:id="@+id/about_legal"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:layout_below="@id/disclaimer_separator"
               android:text="@string/pingly_about_disclaimer"
-              android:textStyle="italic"
-              android:gravity="center_horizontal"
-
-            />
+              style="@style/AboutDisclaimerTxt"/>
 
 </RelativeLayout>

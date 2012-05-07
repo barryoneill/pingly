@@ -12,7 +12,7 @@
 
     <!-- about screen  -->
     <string name="pingly_about_apptitle">Pingly</string>
-    <string name="pingly_about_version_fmt">Version %1$s - \u00A9%2$s</string>
+    <string name="pingly_about_version_fmt">%1$s \u00A9%2$s</string>
     <string name="pingly_about_disclaimer">This software comes with no warranty either expressed or implied. I am not
         responsible for any damages that may result from the use of this software, including but not limited to:
         monetary loss, data loss, emotional and mental distress, loss of use, bed wetting, premature hair loss or
