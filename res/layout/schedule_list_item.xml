@@ -1,61 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="0dp"
-        android:layout_margin="0dp">
+        style="@style/ListItemContainer">
 
     <ImageView
             android:id="@+id/schedule_entry_icon"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
             android:src="@drawable/schedule_details_icon"
-            />
+            style="@style/ListItemStandardIcon"/>
 
     <TextView
             android:id="@+id/schedule_entry_probeinfo"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/schedule_entry_icon"
             android:layout_alignParentTop="true"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:text="[probe info]"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:padding="0dp"
-            android:layout_margin="0dp"/>
+            style="@style/ListItemTextHeader"/>
 
     <TextView
             android:id="@+id/schedule_entry_startinfo"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:layout_below="@id/schedule_entry_probeinfo"
             android:layout_toRightOf="@id/schedule_entry_icon"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:text="[start info]"
-            android:textSize="14sp"
-            android:padding="0dp"
-            android:layout_margin="0dp"/>
+            style="@style/ListItemTextNormal"/>
 
 
     <TextView
             android:id="@+id/schedule_entry_repeatinfo"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:layout_below="@id/schedule_entry_startinfo"
             android:layout_toRightOf="@id/schedule_entry_icon"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:text="[repeat info]"
-            android:textSize="14sp"
-            android:padding="0dp"
-            android:layout_margin="0dp"/>
+            style="@style/ListItemTextNormal"/>
 
 </RelativeLayout>

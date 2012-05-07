@@ -1,30 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dip" 
-    >
+                style="@style/ListItemContainer">
     <TextView
-        android:id="@+id/probe_type_listitem_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"        
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"        
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:singleLine="true"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="#00a"
-        android:text="name_placeholder" />
+            android:id="@+id/probe_type_listitem_name"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="[type name]"
+            style="@style/ListItemTextHeader"/>
+
     <TextView
-        android:id="@+id/probe_type_listitem_desc"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"        
-        android:layout_below="@id/probe_type_listitem_name"
-        android:layout_alignParentLeft="true"
-        android:singleLine="false"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        android:text="desc_placeholder" />
+            android:id="@+id/probe_type_listitem_desc"
+            android:layout_below="@id/probe_type_listitem_name"
+            android:layout_alignParentLeft="true"
+            android:text="[description]"
+            style="@style/ListItemTextNormal"/>
+
 </RelativeLayout>

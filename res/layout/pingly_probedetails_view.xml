@@ -2,68 +2,43 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:padding="0dp"
-        android:layout_margin="0dp">
+        android:layout_height="60dp">
 
     <ImageView
             android:id="@+id/view_probedetails_icon"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
             android:src="@drawable/probe_details_icon"
-            android:contentDescription="Thing"/>
+            style="@style/ListItemStandardIcon"/>
 
     <TextView
             android:id="@+id/view_probedetails_icontext"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="5dp"
-            android:paddingBottom="3dp"
-            android:text="http"
-            android:gravity="center_horizontal|bottom"
-            android:textColor="@color/probe_icon_typetext"
-            android:textStyle="bold"
-            android:textSize="15sp"
+            android:text="[type]"
+            style="@style/ProbeDetailsIconOverlayText"
             />
 
     <TextView
             android:id="@+id/view_probedetails_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/view_probedetails_icon"
             android:layout_alignParentTop="true"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:text="[item name placeholder]"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:padding="0dp"
-            android:layout_margin="0dp"/>
+            style="@style/ListItemTextHeader"/>
 
     <TextView
             android:id="@+id/view_probedetails_desc"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:layout_below="@id/view_probedetails_name"
             android:layout_toRightOf="@id/view_probedetails_icon"
-            android:ellipsize="end"
+            android:singleLine="false"
             android:maxLines="2"
             android:text="[item desc placeholder]"
-            android:textSize="14sp"
-            android:padding="0dp"
-            android:layout_margin="0dp"/>
+            style="@style/ListItemTextNormal"/>
 
     <ImageView
             android:id="@+id/view_probedetails_separator_bottom"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            style="@style/SeparatorHorizontal"
-            android:contentDescription="thing"/>
+            style="@style/SeparatorHorizontal"/>
 
 </RelativeLayout>

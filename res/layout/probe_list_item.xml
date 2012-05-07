@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:pingly="http://schemas.android.com/apk/res/net.nologin.meep.pingly"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+                style="@style/ListItemContainer">
 
     <net.nologin.meep.pingly.view.PinglyProbeDetailsView
             android:id="@+id/probe_list_summaryView"
@@ -10,11 +9,6 @@
             android:layout_height="wrap_content"
             pingly:probeName="NameTest"
             pingly:probeDesc="DescTest"
-            pingly:probeSeparatorBottom="false"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            />
+            pingly:probeSeparatorBottom="false"/>
 
 </RelativeLayout>
