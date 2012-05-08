@@ -12,5 +12,5 @@
     <dimen name="text_probe_runhistory_summary">14sp</dimen>
 
     <dimen name="text_probe_runhistory_lognote">16sp</dimen>
-    <dimen name="text_probe_runhistory_logoutput">10sp</dimen>
+    <dimen name="text_probe_runhistory_logoutput">12sp</dimen>
 </resources>

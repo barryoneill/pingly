@@ -8,16 +8,17 @@
     <TextView
             android:id="@+id/probeRun_log_status_summary"
             android:text="[summary]"
-            style="@style/ProbeHistoryLogSummaryTxt"/>
+            style="@style/ProbeRunStatusBarTxt"/>
 
     <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:paddingTop="7dp">
 
         <TextView
                 android:id="@+id/probeRun_log_logText"
                 android:text="[log details]"
-                style="@style/ProbeHistoryLogOutputTxt"/>
+                style="@style/ProbeRunLogOutputTxt"/>
 
     </ScrollView>
 </LinearLayout>

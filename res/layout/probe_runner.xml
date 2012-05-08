@@ -13,7 +13,6 @@
 
         <ImageView style="@style/TitleBarHomeButton"/>
 
-
         <ImageView style="@style/TitleBarSeparator"/>
 
         <TextView
@@ -25,33 +24,23 @@
 
     <LinearLayout
             android:id="@+id/footerBar"
-            style="@android:style/ButtonBar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            style="@style/ButtonBar"
+            android:layout_alignParentBottom="true">
 
         <Button
                 android:id="@+id/but_probeRun_edit"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Edit"/>
+                android:text="@string/button_edit"
+                style="@style/ButtonBarButton"/>
 
         <Button
                 android:id="@+id/but_probeRun_history"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="History"/>
+                android:text="@string/button_history"
+                style="@style/ButtonBarButton"/>
 
         <Button
                 android:id="@+id/but_probeRun_runAgain"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:text="Run"/>
+                android:text="@string/button_run"
+                style="@style/ButtonBarButton"/>
 
     </LinearLayout>
 
@@ -77,11 +66,8 @@
         <!-- text dynamically populated -->
         <TextView
                 android:id="@+id/text_probe_status"
-                style="@style/FormLabel"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="[status]"
-                android:padding="3dp"/>
+                style="@style/ProbeRunStatusBarTxt"
+                android:text="[status]"/>
     </LinearLayout>
 
     <!-- probe output -->
@@ -97,13 +83,9 @@
 
         <TextView
                 android:id="@+id/probe_log_output"
-                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="false"
-                android:typeface="monospace"
-                android:textSize="12sp"
                 android:text="[probe output log goes here]"
-
+                style="@style/ProbeRunLogOutputTxt"
                 />
 
     </ScrollView>

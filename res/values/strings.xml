@@ -161,11 +161,15 @@
         <item quantity="other">Every %d Weeks</item>
     </plurals>
 
-    <string name="general_yes">Yes</string>
-    <string name="general_no">No</string>
-    <string name="general_cancel">Cancel</string>
-    <string name="general_save">Save</string>
-    <string name="general_save_run">Save &amp; Run</string>
+    <!-- =========== various buttons =============== -->
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="button_save">Save</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_save_run">Save &amp; Run</string>
+    <string name="button_run">Run</string>
+    <string name="button_history">History</string>
 
 
 </resources>
