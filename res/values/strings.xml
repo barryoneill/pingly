@@ -83,6 +83,9 @@
     <string name="probe_list_emptymsg">No Probes Configured</string>
     <string name="probe_list_addbutton">Create A Probe</string>
 
+    <string name="probe_history_list_emptymsg">No Run History for this Probe</string>
+    <string name="probe_history_list_runbut">Run Now</string>
+
     <!-- probe type info -->
     <string name="probe_type_PING_name">Ping</string>
     <string name="probe_type_PING_desc">Perform an ICMP Ping</string>

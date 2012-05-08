@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import net.nologin.meep.pingly.PinglyConstants;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.adapter.ProbeRunHistoryCursorAdapter;
 import net.nologin.meep.pingly.model.ProbeRun;
@@ -19,8 +18,6 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 import net.nologin.meep.pingly.util.StringUtils;
 import net.nologin.meep.pingly.view.PinglyProbeDetailsView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
@@ -125,14 +122,12 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 
 		switch (id) {
 			case DIALOG_PROBE_RUN_LOG:
-				String title = "Probe Log";
 
 				View logView = View.inflate(PinglyUtils.getPinglyDialogContext(ProbeRunHistoryActivity.this),
 						R.layout.probe_run_history_log, null);
 
 				builder = PinglyUtils.getAlertDialogBuilder(this);
-				builder.setTitle(title)
-						.setView(logView)
+				builder.setView(logView)
 						.setCancelable(true)
 						.setNegativeButton("Close", null);
 				dialog = builder.create();
@@ -155,21 +150,14 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 
 				AlertDialog ad = (AlertDialog)dialog;
 
-				Probe probe = probeRunForLogDialog.probe;
 				ProbeRunStatus status = probeRunForLogDialog.status;
 
-				ad.setTitle("Run Log For:\n" + probe.name);
-
 				TextView txtStatusSummary = (TextView)ad.findViewById(R.id.probeRun_log_status_summary);
-				TextView txtTimeStarted = (TextView)ad.findViewById(R.id.probeRun_log_time_started);
 				TextView txtLog = (TextView)ad.findViewById(R.id.probeRun_log_logText);
 
 				String summary = status.getKey() + ": " + probeRunForLogDialog.runSummary;
 				txtStatusSummary.setText(summary);
 				txtStatusSummary.setBackgroundResource(status.colorResId);
-
-				DateFormat df = new SimpleDateFormat(PinglyConstants.FMT_DATE_AND_TIME_SUMMARY_SHORT);
-				txtTimeStarted.setText("Started: " + df.format(probeRunForLogDialog.startTime));
 
 				if(StringUtils.isBlank(probeRunForLogDialog.logText)){
 					txtLog.setText(" -- No Log Data -- ");

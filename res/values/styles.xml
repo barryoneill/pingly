@@ -195,8 +195,56 @@
         <item name="android:layout_weight">1</item>
     </style>
 
-    <!-- ======================== general stylings =========================== -->
+    <!-- ======================== probe stuff  =========================== -->
 
+    <style name="ProbeHistorySideContainer">
+        <item name="android:padding">4dp</item>
+        <item name="android:background">@color/probe_runhistory_details_bg</item>
+    </style>
+
+    <style name="ProbeHistorySideTxt">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/text_probe_runhistory_sidebar</item>
+    </style>
+
+    <style name="ProbeHistorySideTxtBold" parent="ProbeHistorySideTxt">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ProbeHistoryStatusTxt">
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_probe_runhistory_status</item>
+        <item name="android:background">@color/probe_runner_status_inactive</item>
+    </style>
+
+    <style name="ProbeHistorySummary">
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">@dimen/text_probe_runhistory_summary</item>
+    </style>
+
+    <style name="ProbeHistoryLogSummaryTxt">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:textSize">@dimen/text_probe_runhistory_lognote</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ProbeHistoryLogOutputTxt">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textSize">@dimen/text_probe_runhistory_logoutput</item>
+    </style>
+
+    <!-- ======================== misc =========================== -->
 
     <style name="FormLabel">
         <item name="android:textSize">@dimen/text_size_medium</item>

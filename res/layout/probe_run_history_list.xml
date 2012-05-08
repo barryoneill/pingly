@@ -32,8 +32,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/titleBar"
-            pingly:probeName="NameTest"
-            pingly:probeDesc="DescTest"
+            pingly:probeName="[name]"
+            pingly:probeDesc="[title]"
             style="@style/ProbeDetailsHeader"
             />
 
@@ -47,34 +47,22 @@
                 android:id="@+id/probeRunList"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:divider="#FF004400"
-                android:dividerHeight="1dp"
                 android:drawSelectorOnTop="false">
         </ListView>
 
 
-        <!-- TODO: add styling -->
         <LinearLayout
                 android:id="@+id/emptyListElem"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="50dip"
-                android:layout_gravity="center">
+                style="@style/ListEmptyContainer">
             <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="No run history for this probe"
-                    android:layout_marginBottom="10dip"
-                    android:gravity="center"/>
+                    android:text="@string/probe_history_list_emptymsg"
+                    style="@style/ListEmptyMsgTextView"/>
             <Button
                     android:id="@+id/probeHistory_runNowBut"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Run Now!"
-                    android:gravity="center"/>
+                    android:text="@string/probe_history_list_runbut"
+                    style="@style/ListEmptyAddButton"/>
         </LinearLayout>
+
 
     </LinearLayout>
 

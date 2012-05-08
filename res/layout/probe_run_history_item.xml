@@ -9,51 +9,31 @@
             android:layout_width="110dp"
             android:layout_height="fill_parent"
             android:orientation="vertical"
-            android:padding="4dp"
-            android:background="@color/probe_runhistory_details_bg">
+            style="@style/ProbeHistorySideContainer">
 
         <TextView
                 android:id="@+id/probeRun_item_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:singleLine="true"
                 android:text="[date]"
-                android:textSize="12sp"
-                android:textStyle="bold"
+                style="@style/ProbeHistorySideTxtBold"
                 />
 
         <TextView
                 android:id="@+id/probeRun_item_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:singleLine="true"
                 android:text="[hour]"
-                android:textSize="12sp"
-                android:textStyle="bold"
+                style="@style/ProbeHistorySideTxtBold"
                 />
 
         <TextView
                 android:id="@+id/probeRun_item_runType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:singleLine="true"
                 android:text="[run type]"
-                android:textSize="12sp"
+                style="@style/ProbeHistorySideTxt"
                 />
 
         <TextView
                 android:id="@+id/probeRun_item_timetaken"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:singleLine="true"
                 android:text="[runtime]"
-                android:textSize="12sp"
+                style="@style/ProbeHistorySideTxt"
                 />
-
 
     </LinearLayout>
 
@@ -63,17 +43,14 @@
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
         <TextView
                 android:id="@+id/probeRun_item_status"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="[status]"
-                android:background="@color/probe_runner_status_inactive"
-                android:textSize="18sp"
+                style="@style/ProbeHistoryStatusTxt"
                 />
 
         <TextView
@@ -81,8 +58,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="[run summary]"
-                android:padding="5dp"
-                android:textSize="14sp"
+                style="@style/ProbeHistorySummary"
                 />
 
     </LinearLayout>
