@@ -18,31 +18,22 @@
                 style="@style/TitleBarTitle"
                 android:text="@string/activity_schedule_detail"/>
 
-        <!--  buttons for new probe?  -->
-
     </LinearLayout>
 
     <LinearLayout
             android:id="@+id/footerBar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            style="@android:style/ButtonBar">
+            style="@style/ButtonBar">
 
         <Button
                 android:id="@+id/but_scheduledetail_save"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save"/>
+                android:text="@string/button_save"
+                style="@style/ButtonBarButton"/>
 
         <Button
                 android:id="@+id/but_scheduledetail_cancel"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel"/>
+                android:text="@string/button_cancel"
+                style="@style/ButtonBarButton"/>
     </LinearLayout>
 
     <!-- new probe form -->
@@ -62,8 +53,8 @@
                     android:id="@+id/scheduled_probe_details"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    pingly:probeName="NameTest"
-                    pingly:probeDesc="DescTest"
+                    pingly:probeName="[probe name]"
+                    pingly:probeDesc="[probe desc]"
                     style="@style/ProbeDetailsHeader"
                     />
 
@@ -74,9 +65,9 @@
                     android:id="@+id/scheduled_probe_enabled"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:name="Active:"
-                    pingly:summaryOn="Scheduled probe is active"
-                    pingly:summaryOff="Scheduled probe is inactive"/>
+                    pingly:name="@string/schedule_detail_active_name"
+                    pingly:summaryOn="@string/schedule_detail_active_summaryOn"
+                    pingly:summaryOff="@string/schedule_detail_active_summaryOff"/>
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
@@ -85,7 +76,7 @@
                     android:id="@+id/scheduled_probe_repetition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:name="Repetition:"
+                    pingly:name="@string/schedule_detail_repetition_name"
                     pingly:summary=""
                     pingly:onClick="configureRepetition"
                     />
@@ -97,7 +88,7 @@
                     android:id="@+id/scheduled_probe_start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:name="Starts:"
+                    pingly:name="@string/schedule_detail_starttime_name"
                     pingly:onClick="configureStartTime"
                     />
 
@@ -108,9 +99,9 @@
                     android:id="@+id/scheduled_probe_notify_success"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:name="Notify on Success:"
-                    pingly:summaryOn="Success notifications enabled"
-                    pingly:summaryOff="Success notifications disabled"/>
+                    pingly:name="@string/schedule_detail_notify_success_name"
+                    pingly:summaryOn="@string/schedule_detail_notify_success_summaryOn"
+                    pingly:summaryOff="@string/schedule_detail_notify_success_summaryOff"/>
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
@@ -119,25 +110,13 @@
                     android:id="@+id/scheduled_probe_notify_failure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    pingly:name="Notify on Failure:"
-                    pingly:summaryOn="Failure notifications enabled"
-                    pingly:summaryOff="Failure notifications disabled"/>
+                    pingly:name="@string/schedule_detail_notify_failure_name"
+                    pingly:summaryOn="@string/schedule_detail_notify_failure_summaryOn"
+                    pingly:summaryOff="@string/schedule_detail_notify_failure_summaryOff"/>
 
             <View android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="?android:attr/listDivider"/>
 
-            <!-- coming later
-            <View android:layout_width="fill_parent" android:layout_height="wrap_content"
-                  android:background="?android:attr/listDivider"/>
-
-            <net.nologin.meep.pingly.view.PinglyExpanderPref
-                    android:id="@+id/scheduled_probe_active_days"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    pingly:name="Active on Days:"
-                    pingly:summary="Every Day"
-                    pingly:onClick="configureActiveDays"/>
-            -->
 
         </LinearLayout>
     </ScrollView>

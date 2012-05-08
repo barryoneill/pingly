@@ -13,14 +13,14 @@
             android:orientation="horizontal">
         <RadioButton
                 android:id="@+id/schedule_starttime_radio_onsave"
-                android:text="On Save"
+                android:text="@string/schedule_detail_starttime_onsave"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 />
         <RadioButton
-                android:id="@+id/schedule_starttime_radio_specific"
-                android:text="Specific Time"
+                android:id="@+id/schedule_starttime_radio_later"
+                android:text="@string/schedule_detail_starttime_later"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"/>
@@ -39,20 +39,19 @@
 
             <TextView
                     android:id="@+id/schedule_starttime_dateinfo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="On 21 March 2013"
+                    android:text="[date]"
                     android:layout_weight="1"
-                    android:gravity="center_vertical|left"
                     style="@style/FormLabel">
             </TextView>
             <Button
                     android:id="@+id/schedule_starttime_datebut"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     style="?android:attr/buttonStyleSmall"
-                    android:text="Change Date"
-                    android:gravity="center_vertical|right">
+                    android:text="@string/button_edit_date"
+                    >
             </Button>
 
         </LinearLayout>
@@ -63,9 +62,9 @@
 
             <TextView
                     android:id="@+id/schedule_starttime_timeinfo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:text="At 11:10"
+                    android:text="[time]"
                     android:layout_weight="1"
                     android:gravity="center_vertical|left"
                     style="@style/FormLabel">
@@ -73,10 +72,9 @@
             <Button
                     android:id="@+id/schedule_starttime_timebut"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     style="?android:attr/buttonStyleSmall"
-                    android:text="Change Time"
-                    android:gravity="center_vertical|right">
+                    android:text="@string/button_edit_time">
             </Button>
 
         </LinearLayout>

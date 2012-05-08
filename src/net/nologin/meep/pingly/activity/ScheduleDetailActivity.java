@@ -120,7 +120,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 		final View specificTimeGrp = layout.findViewById(R.id.schedule_starttime_specifictime_grp);
 		final RadioGroup radioGrp = (RadioGroup) layout.findViewById(R.id.schedule_starttime_radiogrp);
 		final RadioButton radioOnSave = (RadioButton) layout.findViewById(R.id.schedule_starttime_radio_onsave);
-		final RadioButton radioSpecific = (RadioButton) layout.findViewById(R.id.schedule_starttime_radio_specific);
+		final RadioButton radioSpecific = (RadioButton) layout.findViewById(R.id.schedule_starttime_radio_later);
 		final TextView dateInfo = (TextView) layout.findViewById(R.id.schedule_starttime_dateinfo);
 		final TextView timeInfo = (TextView) layout.findViewById(R.id.schedule_starttime_timeinfo);
 		final Button dateBut = (Button) layout.findViewById(R.id.schedule_starttime_datebut);
@@ -142,7 +142,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 		radioGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				boolean specific = checkedId == R.id.schedule_starttime_radio_specific;
+				boolean specific = checkedId == R.id.schedule_starttime_radio_later;
 				specificTimeGrp.setVisibility(specific ? View.VISIBLE : View.INVISIBLE);
 			}
 		});

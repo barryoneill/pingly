@@ -126,6 +126,20 @@
     <string name="schedule_list_emptymsg">No Probes Scheduled</string>
     <string name="schedule_list_addbutton">Schedule A Probe</string>
 
+    <string name="schedule_detail_active_name">Schedule Active?</string>
+    <string name="schedule_detail_active_summaryOn">Scheduled entry is active</string>
+    <string name="schedule_detail_active_summaryOff">Scheduled entry is active</string>
+    <string name="schedule_detail_repetition_name">Repetition</string>
+    <string name="schedule_detail_starttime_name">Starts</string>
+    <string name="schedule_detail_starttime_onsave">On Save</string>
+    <string name="schedule_detail_starttime_later">Later</string>
+    <string name="schedule_detail_notify_success_name">Notify On Success?</string>
+    <string name="schedule_detail_notify_success_summaryOn">Success notifications enabled</string>
+    <string name="schedule_detail_notify_success_summaryOff">Success notifications disabled</string>
+    <string name="schedule_detail_notify_failure_name">Notify On Failure?</string>
+    <string name="schedule_detail_notify_failure_summaryOn">Failure notifications enabled</string>
+    <string name="schedule_detail_notify_failure_summaryOff">Failure notifications disabled</string>
+
     <!-- notifications ticker text -->
     <string name="probe_notification_success">Successful: \'%1$s\'</string>
     <string name="probe_notification_failure">Failed: \'%1$s\'</string>
@@ -166,6 +180,8 @@
     <string name="button_no">No</string>
     <string name="button_save">Save</string>
     <string name="button_edit">Edit</string>
+    <string name="button_edit_date">Edit Date</string>
+    <string name="button_edit_time">Edit Time</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_save_run">Save &amp; Run</string>
     <string name="button_run">Run</string>
