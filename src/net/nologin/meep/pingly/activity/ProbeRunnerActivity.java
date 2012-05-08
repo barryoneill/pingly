@@ -185,7 +185,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 
 		// nothing to run if we don't have a data connection
 		if (!PinglyUtils.activeNetConnectionPresent(this)) {
-			writeToProbeLogWindow("Probe run aborted, no data connection present.", false); // TODO: i18n
+			writeToProbeLogWindow(getString(R.string.probe_run_core_err_nodataconn), false);
 			decorateProbeStatus(ProbeRunStatus.Failed);
 			showDialog(DIALOG_NO_DATACONN_ID);
 			return;

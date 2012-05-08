@@ -99,7 +99,7 @@
     <string name="probe_type_HTTP_RESP_desc">Test for a response to a HTTP request</string>
     <string name="probe_type_HTTP_RESP_icontxt">http</string>
 
-    <!-- probe stuff -->
+    <!-- probe details -->
     <string name="probe_detail_name">Probe Name</string>
     <string name="probe_detail_name_hint">enter probe name</string>
     <string name="probe_detail_desc">Probe Description</string>
@@ -117,11 +117,35 @@
     <string name="probe_detail_HTTP_RESP_url">URL</string>
     <string name="probe_detail_HTTP_RESP_url_hint">e.g. http://host/blah</string>
 
+    <!-- probe validation -->
     <string name="probe_validation_empty_name">Enter a name</string>
     <string name="probe_validation_empty_host_ip">Specify a hostname or IP address</string>
     <string name="probe_validation_empty_url">A URL is required</string>
     <string name="probe_validation_empty_port">A port number is required</string>
     <string name="probe_validation_duplicate_name">That name is already in use by another probe</string>
+
+    <!-- probe running -->
+    <string name="probe_run_general_err_interrupted">Interrupted: %1$s</string>
+    <string name="probe_run_general_err_io">IO Error: %1$s</string>
+    <string name="probe_run_core_err_nodataconn">Required active data connection not available, cannot run</string>
+    <string name="probe_run_core_err_cancelled">Probe run cancelled</string>
+    <string name="probe_run_core_err_internalerr">Internal Error - %1$s : %2$s</string>
+
+    <string name="probe_run_PING_err_unknownhost">Unknown Host: %1$s</string>
+    <string name="probe_run_PING_startmsg">Pinging host: %1$s\nWith count=%2$s, deadline=%3$s</string>
+    <string name="probe_run_PING_successmsg">Ping Response Received</string>
+    <string name="probe_run_PING_failuremsg">Ping Failed</string>
+    <string name="probe_run_SOCK_CONN_err_no_url">No URL specified!</string>
+    <string name="probe_run_SOCK_CONN_startmsg">Socket connect to host \'%1$s\', port %2$s</string>
+    <string name="probe_run_SOCK_CONN_wait_second">Waiting on connect.. %1$s</string>
+    <string name="probe_run_SOCK_CONN_successmsg">Connection to \'%1$s\' port %2$s successful</string>
+    <string name="probe_run_SOCK_CONN_timeout_failuremsg">Connection to \'%1$s\' port %2$s timed out</string>
+    <string name="probe_run_HTTP_RESP_err_no_url">No URL specified!</string>
+    <string name="probe_run_HTTP_RESP_err_invalid_url">Invalid URL \'%1$s\': %2$s</string>
+    <string name="probe_run_HTTP_RESP_err_unknownhost">Unknown Host: \'%1$s\'</string>
+    <string name="probe_run_HTTP_RESP_err_hostconnect">Couldn\'t Connect: %1$s</string>
+    <string name="probe_run_HTTP_RESP_reqstart">Starting request to: %1$s</string>
+    <string name="probe_run_HTTP_RESP_successmsg">Response Received (Status: %1$s)</string>
 
 
     <string name="filler_probe_nologdata"> -- No Log Data -- </string>

@@ -1,6 +1,9 @@
 package net.nologin.meep.pingly.service.runner;
 
 import android.content.Context;
+import android.util.Log;
+import net.nologin.meep.pingly.PinglyConstants;
+import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
 import net.nologin.meep.pingly.util.StringUtils;
@@ -8,11 +11,13 @@ import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
 public class HTTPResponseProbeRunner extends ProbeRunner {
 
@@ -25,7 +30,7 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 		HTTPResponseProbe httpProbe = (HTTPResponseProbe)getProbe(); // if everything is configured properly
 
 		if (StringUtils.isBlank(httpProbe.url)) {
-			notifyFinishedWithFailure("No URL specified!");
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_HTTP_RESP_err_no_url));
 			return;
 		}
 
@@ -36,7 +41,8 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet();
 
-			notifyUpdate("Starting request to: \n" + httpProbe.url);
+			// 'Starting request to: url'
+			notifyUpdate(ctx.getString(R.string.probe_run_HTTP_RESP_reqstart, httpProbe.url));
 
 			request.setURI(new URI(httpProbe.url));
 			HttpResponse response = client.execute(request);
@@ -44,22 +50,32 @@ public class HTTPResponseProbeRunner extends ProbeRunner {
 			// execute can take some time, check that the asynctask hasn't been checkCancelled in the meantime
 			checkCancelled();
 
-			String successMsg = "Service Responded ";
+			StatusLine sl = response.getStatusLine();
+			String statusCode = sl != null ? Integer.toString(sl.getStatusCode()) : "";
 
-			StatusLine status = response.getStatusLine();
-			if(status!=null){
-				successMsg +=  " (HTTP " + status.getStatusCode() + ")";
-			}
-
-			notifyFinishedWithSuccess(successMsg);
+			// 'Response Received (Status: 200)'
+			notifyFinishedWithSuccess(ctx.getString(R.string.probe_run_HTTP_RESP_successmsg, statusCode));
 
 		}
 		catch (URISyntaxException e){
-			notifyFinishedWithFailure("Error parsing URI '" + httpProbe.url + "': " + e.getMessage());
-
+			// "Error parsing URL '${url}': ${exceptionmsg}"
+			String msg = ctx.getString(R.string.probe_run_HTTP_RESP_err_invalid_url, httpProbe.url, e.getMessage());
+			notifyFinishedWithFailure(msg);
+		}
+		catch (UnknownHostException e) {
+			// "Unknown Host: '${exceptionmsg}'"
+			String msg = ctx.getString(R.string.probe_run_HTTP_RESP_err_unknownhost, httpProbe.url);
+			notifyFinishedWithFailure(msg);
+		}
+		catch(HttpHostConnectException e) {
+			// "Couldn't Connect: ${exceptionmsg}" (exception message is descriptive)
+			String msg = ctx.getString(R.string.probe_run_HTTP_RESP_err_hostconnect, e.getMessage());
+			notifyFinishedWithFailure(msg);
 		}
 		catch (IOException e ) {
-			notifyFinishedWithFailure("IO Error while fetching URL '" + httpProbe.url + "': " + e.getMessage());
+			Log.w(PinglyConstants.LOG_TAG, e);
+			String msg = ctx.getString(R.string.probe_run_general_err_io, e.getMessage());
+			notifyFinishedWithFailure(msg);
 		}
 
 	}

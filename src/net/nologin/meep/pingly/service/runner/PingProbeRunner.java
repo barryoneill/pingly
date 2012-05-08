@@ -1,6 +1,7 @@
 package net.nologin.meep.pingly.service.runner;
 
 import android.content.Context;
+import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.probe.PingProbe;
 
@@ -11,6 +12,15 @@ import java.io.InputStreamReader;
 import java.net.UnknownHostException;
 
 public class PingProbeRunner extends ProbeRunner {
+
+	/* Assumption 1: ping binary is on the vm's PATH,
+	 * Assumption 2: ping binary supports -c and -w arguments
+	 *
+	 * Perhaps in the future a check can be done on application start,
+	 * and hide the PingProbe from the user altogether.  I'll wait to
+	 * see what people report back with first. (see notes in doRun())
+	 */
+	private static final String PING_CMD_FMT = "ping -c %d -w %d %s";
 
 	public PingProbeRunner(ProbeRun probeRun) {
 		super(probeRun);
@@ -38,11 +48,11 @@ public class PingProbeRunner extends ProbeRunner {
 		int deadline = pingProbe.deadline;
 
 		try{
-			// assumption - ping on path!
-			String pingCmd = String.format("ping -c %d -w %d %s",count,deadline,host);
 
-			notifyUpdate("Pinging : " + host);
-			notifyUpdate("With count=" + count + " and deadline=" + deadline + "s...\n");
+			String pingCmd = String.format(PING_CMD_FMT,count,deadline,host);
+
+			notifyUpdate(ctx.getString(R.string.probe_run_PING_startmsg, host, count, deadline));
+
 			Process proc =  Runtime.getRuntime().exec(pingCmd);
 
 			// make sure the output from both gets written
@@ -57,20 +67,20 @@ public class PingProbeRunner extends ProbeRunner {
 			int procStatus = proc.waitFor();
 			checkCancelled();
 			if(procStatus == 0) {
-				notifyFinishedWithSuccess("Ping response OK");
+				notifyFinishedWithSuccess(ctx.getString(R.string.probe_run_PING_successmsg));
 			} else {
-				notifyFinishedWithFailure("Ping failed.");
+				notifyFinishedWithFailure(ctx.getString(R.string.probe_run_PING_failuremsg));
 			}
 
 		}
-		catch (InterruptedException e) {
-			notifyFinishedWithFailure("Ping Interrupted:" + e.getMessage());
-		}
 		catch(UnknownHostException e){
-			notifyFinishedWithFailure("Unknown host error: " + e.getMessage());
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_PING_err_unknownhost,e.getMessage()));
+		}
+		catch (InterruptedException e) {
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_general_err_interrupted,e.getMessage()));
 		}
 		catch(IOException e){
-			notifyFinishedWithFailure("IO Error:" + e.getMessage());
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_general_err_io,e.getMessage()));
 		}
 
 	}

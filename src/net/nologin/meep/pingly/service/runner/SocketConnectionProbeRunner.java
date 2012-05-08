@@ -1,6 +1,7 @@
 package net.nologin.meep.pingly.service.runner;
 
 import android.content.Context;
+import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 import net.nologin.meep.pingly.util.StringUtils;
@@ -11,16 +12,16 @@ import java.nio.channels.SocketChannel;
 
 public class SocketConnectionProbeRunner extends ProbeRunner {
 
-	public SocketConnectionProbeRunner(ProbeRun probeRun){
+	public SocketConnectionProbeRunner(ProbeRun probeRun) {
 		super(probeRun);
 	}
 
 	public void doRun(Context ctx) throws ProbeRunCancelledException {
 
-		SocketConnectionProbe probe = (SocketConnectionProbe)getProbe(); // if everything is configured properly
+		SocketConnectionProbe probe = (SocketConnectionProbe) getProbe(); // if everything is configured properly
 
 		if (StringUtils.isBlank(probe.host)) {
-			notifyFinishedWithFailure("No URL specified");
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_SOCK_CONN_err_no_url));
 			return;
 		}
 
@@ -29,22 +30,26 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 		SocketChannel sc = null;
 		try {
 
-			notifyUpdate("Making socket request to: \n" + probe.host + "   port " + probe.port);
+			// 'Socket connection to host 'host', port 80'
+			notifyUpdate(ctx.getString(R.string.probe_run_SOCK_CONN_startmsg, probe.host, probe.port));
 
 			sc = SocketChannel.open();
 			sc.configureBlocking(false);
 
 			sc.connect(new InetSocketAddress(probe.host, probe.port));
 
-			int secondsWaited=1;
+			int secondsWaited = 1;
 			while (!sc.finishConnect()) {
-				if(secondsWaited >= 5){ // TODO: configure timeout
-					notifyFinishedWithFailure("Timeout, connection to '" + probe.host + "' timed out");
+				if (secondsWaited >= 5) { // TODO: configure timeout
+					// 'Connection to ${host} port ${port} timed out'
+					String msg = ctx.getString(R.string.probe_run_SOCK_CONN_timeout_failuremsg, probe.host, probe.port);
+					notifyFinishedWithFailure(msg);
 					sc.close();
 					return;
 				}
 				checkCancelled();
-				notifyUpdate("Waiting on connect.. " + secondsWaited++);
+				// "Waiting on connect.. ${count}"
+				notifyUpdate(ctx.getString(R.string.probe_run_SOCK_CONN_wait_second, secondsWaited++));
 				Thread.sleep(1000);
 			}
 
@@ -52,21 +57,21 @@ public class SocketConnectionProbeRunner extends ProbeRunner {
 			checkCancelled();
 
 
-			notifyFinishedWithSuccess("Connection to '" + probe.host + "' was successful");
+			notifyFinishedWithSuccess(ctx.getString(R.string.probe_run_SOCK_CONN_successmsg, probe.host, probe.port));
 
 		}
-		catch(InterruptedException e){
-			notifyFinishedWithFailure("Connection interruped");
+		catch (InterruptedException e) {
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_general_err_interrupted, e.getMessage()));
 		}
-		catch (IOException e){
-			notifyFinishedWithFailure("IO Error: " + e.getMessage());
+		catch (IOException e) {
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_general_err_io, e.getMessage()));
 		}
 		finally {
-			if(sc != null && sc.isConnected()){
-				try{
+			if (sc != null && sc.isConnected()) {
+				try {
 					sc.close();  // cleanup
+				} catch (IOException ignored) {
 				}
-				catch(IOException ignored){}
 			}
 		}
 

@@ -3,6 +3,7 @@ package net.nologin.meep.pingly.service.runner;
 import android.content.Context;
 import android.util.Log;
 import net.nologin.meep.pingly.PinglyConstants;
+import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.ProbeRun;
 import net.nologin.meep.pingly.model.ProbeRunStatus;
 import net.nologin.meep.pingly.model.probe.HTTPResponseProbe;
@@ -63,7 +64,7 @@ public abstract class ProbeRunner {
 		try {
 
 			if(requiresActiveNetConnection() && !PinglyUtils.activeNetConnectionPresent(ctx)){
-				notifyFinishedWithFailure("Required active data connection not available, cannot run");
+				notifyFinishedWithFailure(ctx.getString(R.string.probe_run_core_err_nodataconn));
 				return;
 			}
 
@@ -78,10 +79,13 @@ public abstract class ProbeRunner {
 			}
 		}
 		catch(ProbeRunCancelledException e){
-			notifyFinishedWithFailure("Probe run cancelled");
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_core_err_cancelled));
 		}
 		catch(Exception e){
-			notifyFinishedWithFailure("Internal Error (" + e.getClass().getName() + ":" + e.getMessage());
+			// anything that reaches here probably indicates a case we should handle explicitly
+			Log.e(PinglyConstants.LOG_TAG, "Unhandled error",e);
+			notifyFinishedWithFailure(ctx.getString(R.string.probe_run_core_err_internalerr,
+						e.getClass().getName(),e.getMessage()));
 		}
 
 	}

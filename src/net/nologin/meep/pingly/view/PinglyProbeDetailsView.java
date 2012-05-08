@@ -6,9 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import net.nologin.meep.pingly.PinglyConstants;
@@ -26,8 +24,6 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 
 	private Probe probe = null;
 
-	private float displayScale;
-
     public PinglyProbeDetailsView(Context context) {
         super(context);
         this.initViewCommon(context, null);
@@ -44,8 +40,6 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
     }
 
     private void initViewCommon(Context context, AttributeSet attrs) {
-
-		displayScale = getContext().getResources().getDisplayMetrics().density;
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layoutInflater.inflate(R.layout.pingly_probedetails_view, this);
