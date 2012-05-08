@@ -80,6 +80,8 @@
     <string name="probe_list_context_schedule">Create Schedule</string>
     <string name="probe_list_context_history">View Run History</string>
     <string name="probe_list_context_delete">Delete Probe</string>
+    <string name="probe_list_emptymsg">No Probes Configured</string>
+    <string name="probe_list_addbutton">Create A Probe</string>
 
     <!-- probe type info -->
     <string name="probe_type_PING_name">Ping</string>
@@ -118,6 +120,8 @@
     <string name="schedule_list_context_edit_probe">Edit Probe</string>
     <string name="schedule_list_context_history">View Run History</string>
     <string name="schedule_list_context_delete">Delete Schedule</string>
+    <string name="schedule_list_emptymsg">No Probes Scheduled</string>
+    <string name="schedule_list_addbutton">Schedule A Probe</string>
 
     <!-- notifications ticker text -->
     <string name="probe_notification_success">Successful: \'%1$s\'</string>

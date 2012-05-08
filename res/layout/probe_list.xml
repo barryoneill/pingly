@@ -40,31 +40,19 @@
                 android:id="@+id/probeList"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:divider="#FF004400"
-                android:dividerHeight="1dp"
                 android:drawSelectorOnTop="false">
         </ListView>
 
-        <!-- TODO: add styling -->
+
         <LinearLayout
                 android:id="@+id/emptyListElem"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="50dip"
-                android:layout_gravity="center">
+                style="@style/ListEmptyContainer">
             <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="No Probes Configured"
-                    android:layout_marginBottom="10dip"
-                    android:gravity="center"/>
+                    android:text="@string/probe_list_emptymsg"
+                    style="@style/ListEmptyMsgTextView"/>
             <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add A Probe"
-                    android:gravity="center"
+                    android:text="@string/probe_list_addbutton"
+                    style="@style/ListEmptyAddButton"
                     android:onClick="goToNewProbe"/>
         </LinearLayout>
 
