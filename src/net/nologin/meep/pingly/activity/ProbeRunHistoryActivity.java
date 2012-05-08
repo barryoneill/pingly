@@ -158,7 +158,7 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 				txtStatusSummary.setBackgroundResource(status.colorResId);
 
 				if(StringUtils.isBlank(probeRunForLogDialog.logText)){
-					txtLog.setText(R.string.probe_run_no_log_data);
+					txtLog.setText(R.string.filler_probe_nologdata);
 				}
 				else {
 					txtLog.setText(probeRunForLogDialog.logText);

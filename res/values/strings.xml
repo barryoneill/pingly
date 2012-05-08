@@ -85,6 +85,8 @@
 
     <string name="probe_history_list_emptymsg">No Run History for this Probe</string>
     <string name="probe_history_list_runbut">Run Now</string>
+    <string name="probe_history_list_runType_scheduled">Scheduled</string>
+    <string name="probe_history_list_runType_manual">Manual Start</string>
 
     <!-- probe type info -->
     <string name="probe_type_PING_name">Ping</string>
@@ -121,7 +123,13 @@
     <string name="probe_validation_empty_port">A port number is required</string>
     <string name="probe_validation_duplicate_name">That name is already in use by another probe</string>
 
-    <string name="probe_run_no_log_data"> -- No Log Data -- </string>
+
+    <string name="filler_probe_nologdata"> -- No Log Data -- </string>
+    <string name="filler_no_name">[No Name]</string>
+    <string name="filler_no_date">[Date n/a]</string>
+    <string name="filler_no_time">[Time n/a]</string>
+    <string name="filler_no_notes">[No Notes]</string>
+
 
     <!-- context menu entries for the schedule list -->
     <string name="schedule_list_context_activate">Activate Schedule</string>
@@ -130,8 +138,11 @@
     <string name="schedule_list_context_edit_probe">Edit Probe</string>
     <string name="schedule_list_context_history">View Run History</string>
     <string name="schedule_list_context_delete">Delete Schedule</string>
+
     <string name="schedule_list_emptymsg">No Probes Scheduled</string>
     <string name="schedule_list_addbutton">Schedule A Probe</string>
+    <string name="schedule_list_startTime">Start Time: </string>
+    <string name="schedule_list_repeat">Repeat: </string>
 
     <string name="schedule_detail_active_name">Schedule Active?</string>
     <string name="schedule_detail_active_summaryOn">Scheduled entry is active</string>
@@ -149,7 +160,6 @@
     <string name="schedule_detail_notify_failure_name">Notify On Failure?</string>
     <string name="schedule_detail_notify_failure_summaryOn">Failure notifications enabled</string>
     <string name="schedule_detail_notify_failure_summaryOff">Failure notifications disabled</string>
-
 
     <!-- notifications ticker text -->
     <string name="probe_notification_success">Successful: \'%1$s\'</string>

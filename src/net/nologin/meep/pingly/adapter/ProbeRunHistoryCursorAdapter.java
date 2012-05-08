@@ -78,7 +78,7 @@ public class ProbeRunHistoryCursorAdapter extends SimpleCursorAdapter {
 	}
 
 	@Override
-	public void bindView(View convertView, final Context context, Cursor cursor) {
+	public void bindView(View convertView, final Context ctx, Cursor cursor) {
 
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 
@@ -104,21 +104,18 @@ public class ProbeRunHistoryCursorAdapter extends SimpleCursorAdapter {
 			timeTaken = diffInSec + "s";
 		}
 
-
-		holder.txtDate.setText(startTime == null ? "Date n/a" : holder.dateFormatter.format(startTime));
-		holder.txtTime.setText(startTime == null ? "Time n/a" : holder.timeFormatter.format(startTime));
-		holder.txtRunType.setText(scheduleEntryId > 0 ? "Schedule " + scheduleEntryId : "Manual Start");
+		holder.txtDate.setText(startTime == null
+				? ctx.getString(R.string.filler_no_date) : holder.dateFormatter.format(startTime));
+		holder.txtTime.setText(startTime == null
+				? ctx.getString(R.string.filler_no_time) : holder.timeFormatter.format(startTime));
+		holder.txtRunType.setText(scheduleEntryId > 0
+				? ctx.getString(R.string.probe_history_list_runType_scheduled)
+				: ctx.getString(R.string.probe_history_list_runType_manual));
 		holder.txtTimeTaken.setText(timeTaken);
-		holder.txtStatus.setText(status.getKeyForDisplay(context));
+		holder.txtStatus.setText(status.getKeyForDisplay(ctx));
 		holder.txtStatus.setBackgroundResource(status.colorResId);
-		holder.txtSummary.setText(StringUtils.isBlank(summary)? "No Notes." : summary);
-//
-
-//		// TODO: replace hardcoded text with i18n
-//        holder.probeInfo.setText("Probe: " + probeName);
-//        holder.startInfo.setText("Start Time: " + startTime.toLocaleString());
-//        String summary = PinglyUtils.loadStringForPlural(context,repeatType.getResourceNameForSummary(),repeatValue);
-//        holder.repeatInfo.setText("Repeat: " + summary);
+		holder.txtSummary.setText(StringUtils.isBlank(summary)
+				? ctx.getString(R.string.filler_no_notes) : summary);
 
 	}
 

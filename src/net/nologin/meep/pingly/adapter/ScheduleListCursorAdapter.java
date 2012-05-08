@@ -67,7 +67,7 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 	}
 
 	@Override
-	public void bindView(View convertView, final Context context, Cursor cursor) {
+	public void bindView(View convertView, final Context ctx, Cursor cursor) {
 
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 
@@ -76,11 +76,10 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 		ScheduleRepeatType repeatType = ScheduleRepeatType.fromId(cursor.getInt(holder.colRepeatTypeIdx));
 		int repeatValue = cursor.getInt(holder.colRepeatValueIdx);
 
-		// TODO: replace hardcoded text with i18n
         holder.probeInfo.setText(probeName);
-        holder.startInfo.setText("Start Time: " + startTime.toLocaleString());
-        String summary = PinglyUtils.loadStringForPlural(context,repeatType.getResourceNameForSummary(),repeatValue);
-        holder.repeatInfo.setText("Repeat: " + summary);
+        holder.startInfo.setText(ctx.getString(R.string.schedule_list_startTime) + startTime.toLocaleString());
+        String summary = PinglyUtils.loadStringForPlural(ctx,repeatType.getResourceNameForSummary(),repeatValue);
+        holder.repeatInfo.setText(ctx.getString(R.string.schedule_list_repeat) + summary);
 
 	}
 
