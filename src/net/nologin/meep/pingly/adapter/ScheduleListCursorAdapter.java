@@ -2,9 +2,11 @@ package net.nologin.meep.pingly.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import net.nologin.meep.pingly.R;
@@ -30,14 +32,11 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 	}
 
 	static class ViewHolder {
-		TextView probeInfo;
-		TextView startInfo;
-        TextView repeatInfo;
+
+		TextView probeInfo, startInfo, repeatInfo;
+		ImageView scheduleIcon;
 		
-		int colProbeNameIdx;
-		int colStartTimeIdx;
-		int colRepeatTypeIdx;
-		int colRepeatValueIdx;
+		int colProbeNameIdx, colStartTimeIdx, colRepeatTypeIdx, colRepeatValueIdx, colActiveIdx;
 
 	}
 
@@ -52,12 +51,14 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 		holder.probeInfo = (TextView) newView.findViewById(R.id.schedule_entry_probeinfo);
 		holder.startInfo = (TextView) newView.findViewById(R.id.schedule_entry_startinfo);
         holder.repeatInfo = (TextView) newView.findViewById(R.id.schedule_entry_repeatinfo);
+		holder.scheduleIcon = (ImageView) newView.findViewById(R.id.schedule_entry_icon);
 
 		// column indexes - see ScheduleDAO.queryForScheduleListCursorAdapter() for query
 		holder.colProbeNameIdx = cursor.getColumnIndex(TBL_PROBE.COL_NAME);
 		holder.colStartTimeIdx = cursor.getColumnIndex(TBL_SCHEDULE.COL_STARTTIME);
 		holder.colRepeatTypeIdx = cursor.getColumnIndex(TBL_SCHEDULE.COL_REPEATTYPE_ID);
 		holder.colRepeatValueIdx = cursor.getColumnIndex(TBL_SCHEDULE.COL_REPEAT_VALUE);
+		holder.colActiveIdx = cursor.getColumnIndex(TBL_SCHEDULE.COL_ACTIVE);
 
 		newView.setTag(holder);
 
@@ -71,16 +72,42 @@ public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 
+		// name
 		String probeName = cursor.getString(holder.colProbeNameIdx);
+		holder.probeInfo.setText(probeName);
+
+		// start time
 		Date startTime = DBUtils.fromGMTDateTimeString(cursor.getString(holder.colStartTimeIdx));
+		holder.startInfo.setText(ctx.getString(R.string.schedule_list_startTime) + startTime.toLocaleString());
+
+		// repeat info
 		ScheduleRepeatType repeatType = ScheduleRepeatType.fromId(cursor.getInt(holder.colRepeatTypeIdx));
 		int repeatValue = cursor.getInt(holder.colRepeatValueIdx);
-
-        holder.probeInfo.setText(probeName);
-        holder.startInfo.setText(ctx.getString(R.string.schedule_list_startTime) + startTime.toLocaleString());
         String summary = PinglyUtils.loadStringForPlural(ctx,repeatType.getResourceNameForSummary(),repeatValue);
         holder.repeatInfo.setText(ctx.getString(R.string.schedule_list_repeat) + summary);
 
+		// active/inactive icon
+		boolean isActive = cursor.getInt(holder.colActiveIdx) > 0;
+
+		int imgResId = isActive ? R.drawable.schedule_details_icon : R.drawable.schedule_details_disabled_icon;
+		holder.scheduleIcon.setImageResource(imgResId);
+		setStrikeThrough(holder.startInfo, isActive);
+		setStrikeThrough(holder.repeatInfo, isActive);
+
+	}
+
+	// add or remove strikethrough depending on schedule active or not
+	private void setStrikeThrough(TextView v, boolean scheduleActive){
+
+		int flags = v.getPaintFlags();
+		if(scheduleActive){
+			flags &= ~Paint.STRIKE_THRU_TEXT_FLAG; // remove
+
+		}
+		else{
+			flags |= Paint.STRIKE_THRU_TEXT_FLAG; // add
+		}
+		v.setPaintFlags(flags);
 	}
 
 }

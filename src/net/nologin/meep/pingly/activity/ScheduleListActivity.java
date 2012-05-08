@@ -154,7 +154,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 
                 Log.d("PINGLY", "Deleting schedule item: " + entry);
 
-				String msg = getString(R.string.dialog_schedule_delete_confirmFmt, entry.probe);
+				String msg = getString(R.string.dialog_schedule_delete_confirmFmt, entry.probe.name);
 
                 AlertDialog dialog = new AlertDialog.Builder(this)
 						.setTitle(R.string.dialog_schedule_delete_title)

@@ -154,7 +154,7 @@
     </style>
 
     <style name="ListItemTextHeaderMeta" parent="ListItemTextNormal">
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">italic</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
 
