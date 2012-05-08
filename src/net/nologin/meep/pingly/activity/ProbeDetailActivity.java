@@ -106,15 +106,14 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 
 		probeName.setError(null); // clear any possible previous error
 
-		// TODO: i18n strings
 		if (StringUtils.isBlank(name)) {
-			probeName.setError("Please supply a name.");
+			probeName.setError(getText(R.string.probe_validation_empty_name));
 			return false;
 		}
 
 		Probe duplicate = probeDAO.findProbeByName(name);
 		if (duplicate != null && duplicate.id != currentprobe.id) {
-			probeName.setError("That name is already in use by another probe");
+			probeName.setError(getString(R.string.probe_validation_duplicate_name));
 			return false;
 		}
 
@@ -219,7 +218,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 			EditText deadlineTxt = findEditText(R.id.probe_detail_ping_deadline);
 
 			if (StringUtils.isBlank(hostTxt.getText().toString())) {
-				hostTxt.setError("Please specify a host");
+				hostTxt.setError(getString(R.string.probe_validation_empty_host_ip));
 				return false;
 			}
 
@@ -265,7 +264,7 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 
 			EditText url = findEditText(R.id.probe_detail_httpresponse_url);
 			if (StringUtils.isBlank(url.getText().toString())) {
-				url.setError("Please specify a URL");
+				url.setError(getString(R.string.probe_validation_empty_url));
 				return false;
 			}
 
@@ -311,12 +310,12 @@ public class ProbeDetailActivity extends BasePinglyActivity {
 			EditText port = findEditText(R.id.probe_detail_socketconnection_port);
 
 			if (StringUtils.isBlank(host.getText().toString())) {
-				host.setError("Please specify a host");
+				host.setError(getString(R.string.probe_validation_empty_host_ip));
 				return false;
 			}
 
 			if (StringUtils.isBlank(port.getText().toString())) {
-				port.setError("Please specify a port");
+				port.setError(getString(R.string.probe_validation_empty_port));
 				return false;
 			}
 

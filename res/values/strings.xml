@@ -115,6 +115,13 @@
     <string name="probe_detail_HTTP_RESP_url">URL</string>
     <string name="probe_detail_HTTP_RESP_url_hint">e.g. http://host/blah</string>
 
+    <string name="probe_validation_empty_name">Enter a name</string>
+    <string name="probe_validation_empty_host_ip">Specify a hostname or IP address</string>
+    <string name="probe_validation_empty_url">A URL is required</string>
+    <string name="probe_validation_empty_port">A port number is required</string>
+    <string name="probe_validation_duplicate_name">That name is already in use by another probe</string>
+
+    <string name="probe_run_no_log_data"> -- No Log Data -- </string>
 
     <!-- context menu entries for the schedule list -->
     <string name="schedule_list_context_activate">Activate Schedule</string>
@@ -133,6 +140,9 @@
     <string name="schedule_detail_starttime_name">Starts</string>
     <string name="schedule_detail_starttime_onsave">On Save</string>
     <string name="schedule_detail_starttime_later">Later</string>
+    <string name="schedule_detail_starttime_dialogtitle">Configure Start Time</string>
+    <string name="schedule_detail_starttime_startonsave">Start Immedately on Save</string>
+    <string name="schedule_detail_frequency_dialogtitle">Configure Frequency</string>
     <string name="schedule_detail_notify_success_name">Notify On Success?</string>
     <string name="schedule_detail_notify_success_summaryOn">Success notifications enabled</string>
     <string name="schedule_detail_notify_success_summaryOff">Success notifications disabled</string>
@@ -140,11 +150,29 @@
     <string name="schedule_detail_notify_failure_summaryOn">Failure notifications enabled</string>
     <string name="schedule_detail_notify_failure_summaryOff">Failure notifications disabled</string>
 
+
     <!-- notifications ticker text -->
     <string name="probe_notification_success">Successful: \'%1$s\'</string>
     <string name="probe_notification_failure">Failed: \'%1$s\'</string>
 
+    <!-- various dialogs -->
+    <string name="dialog_probe_delete_title">Delete Probe?</string>
+    <string name="dialog_probe_delete_plussched_confirmFmt">Probe \'%1$s\' has scheduler entries,
+        these will be stopped &amp; removed as well. Continue?</string>
+    <string name="dialog_probe_delete_confirmFmt">Are you sure you want to delete probe \'%1$s\'?</string>
+    <string name="dialog_probe_running_title">Probe Running</string>
+    <string name="dialog_probe_running_message">This can take a while (depending on probe activity/network speed),
+        please wait&#8230;</string>
+    <string name="dialog_schedule_delete_title">Delete Schedule Entry?</string>
+    <string name="dialog_schedule_delete_confirmFmt">Are you sure you want to delete the schedule entry for
+        probe \'%1$s\'?</string>
+    <string name="dialog_schedule_chooseprobe_title">Select Probe</string>
+    <string name="dialog_schedule_noprobes_title">No Probes Available</string>
+    <string name="dialog_schedule_noprobes_message">No probes are available for scheduling. You can create one now.</string>
+    <string name="dialog_no_network_title">Network Unavailable</string>
+    <string name="dialog_no_network_message">Please enable mobile data/wifi and try again.</string>
 
+    <!-- scheduler repetition formatters -->
     <string name="scheduler_repetition_unit_0_name">Run Once</string>
     <plurals name="scheduler_repetition_unit_0_summary">
         <item quantity="other">Runs once and ends</item>
@@ -182,10 +210,13 @@
     <string name="button_edit">Edit</string>
     <string name="button_edit_date">Edit Date</string>
     <string name="button_edit_time">Edit Time</string>
+    <string name="button_close">Close</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_delete">Delete</string>
     <string name="button_save_run">Save &amp; Run</string>
     <string name="button_run">Run</string>
     <string name="button_history">History</string>
-
+    <string name="button_wireless_settings">Wireless Settings</string>
+    <string name="button_create_new_probe">Create New Probe</string>
 
 </resources>

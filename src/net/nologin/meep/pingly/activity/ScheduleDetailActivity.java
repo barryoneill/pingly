@@ -193,9 +193,9 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
 		AlertDialog.Builder builder = PinglyUtils.getAlertDialogBuilder(this);
 		builder.setView(layout);
-		builder.setTitle("Configure Start Time");// TODO: i18n
+		builder.setTitle(R.string.schedule_detail_starttime_dialogtitle);
 
-		builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(R.string.button_save, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 
 				// we're done, update the schedule held by the view with the local values
@@ -205,7 +205,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
 			}
 		});
-		builder.setNegativeButton("Cancel", null); // TODO: i18n
+		builder.setNegativeButton(R.string.button_cancel, null);
 
 		builder.create().show();
 
@@ -214,7 +214,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 	private void updateStartTimeSummary() {
 
 		if (schedule.startOnSave) {
-			scheduleStartTime.setSummary("Start Immediately on Save"); // TODO: i18n!
+			scheduleStartTime.setSummary(getString(R.string.schedule_detail_starttime_startonsave));
 		} else {
 			DateFormat df = new SimpleDateFormat(PinglyConstants.FMT_DATE_AND_TIME_SUMMARY);
 			scheduleStartTime.setSummary(df.format(schedule.startTime));
@@ -289,7 +289,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
 		AlertDialog.Builder builder = PinglyUtils.getAlertDialogBuilder(this);
 		builder.setView(layout);
-		builder.setTitle("Configure Frequency");
+		builder.setTitle(R.string.schedule_detail_frequency_dialogtitle);
 		builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 
@@ -299,7 +299,7 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
 			}
 		});
-		builder.setNegativeButton("Cancel", null); // TODO: i18n
+		builder.setNegativeButton(R.string.button_cancel, null);
 
 		builder.create().show();
 
@@ -308,40 +308,12 @@ public class ScheduleDetailActivity extends BasePinglyActivity {
 
 	private void updateRepetitionSummary() {
 
-
 		String summary = PinglyUtils.loadStringForPlural(ScheduleDetailActivity.this,
 				schedule.repeatType.getResourceNameForSummary(), schedule.repeatValue);
 
 		scheduleRepetition.setSummary(summary);
 
 	}
-
-//    public void configureActiveDays(View v) {
-//
-//        // resource list for days of week
-//        String[] stringValues = DayOfWeek.toStringValueArray(this);
-//        boolean[] selections = new boolean[stringValues.length];
-//        for(int i=0; i<selections.length; i++){
-//            selections[i] = true;
-//        }
-//
-//        AlertDialog.Builder builder = getAlertDialogBuilder();
-//        builder.setTitle("Choose Days")
-//            .setMultiChoiceItems(stringValues, selections, new DialogInterface.OnMultiChoiceClickListener(){
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-//
-//                    }
-//                });
-//        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int id) {
-//                //MyActivity.this.finish();
-//            }
-//        });
-//        builder.setNegativeButton("Cancel",null); // TODO: i18n
-//        builder.create().show();
-//
-//    }
 
 	private View inflateScheduleDialogLayout(int layoutId) {
 		return View.inflate(PinglyUtils.getPinglyDialogContext(this), layoutId, (ViewGroup) getCurrentFocus());

@@ -113,8 +113,6 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 	}
 
 
-
-	// TODO: i18n!
 	protected Dialog onCreateDialog(int id) {
 
 		Dialog dialog;
@@ -129,7 +127,7 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 				builder = PinglyUtils.getAlertDialogBuilder(this);
 				builder.setView(logView)
 						.setCancelable(true)
-						.setNegativeButton("Close", null);
+						.setNegativeButton(R.string.button_close, null);
 				dialog = builder.create();
 
 				break;
@@ -155,12 +153,12 @@ public class ProbeRunHistoryActivity extends BasePinglyActivity {
 				TextView txtStatusSummary = (TextView)ad.findViewById(R.id.probeRun_log_status_summary);
 				TextView txtLog = (TextView)ad.findViewById(R.id.probeRun_log_logText);
 
-				String summary = status.getKey() + ": " + probeRunForLogDialog.runSummary;
+				String summary = status.getKeyForDisplay(this) + ": " + probeRunForLogDialog.runSummary;
 				txtStatusSummary.setText(summary);
 				txtStatusSummary.setBackgroundResource(status.colorResId);
 
 				if(StringUtils.isBlank(probeRunForLogDialog.logText)){
-					txtLog.setText(" -- No Log Data -- ");
+					txtLog.setText(R.string.probe_run_no_log_data);
 				}
 				else {
 					txtLog.setText(probeRunForLogDialog.logText);

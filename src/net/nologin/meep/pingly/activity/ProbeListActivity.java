@@ -130,15 +130,17 @@ public class ProbeListActivity extends BasePinglyActivity {
 				Log.d("PINGLY", "Deleting probe: " + probe);
 
 				final List<ScheduleEntry> entries = scheduleDAO.findEntriesForProbe(probe.id);
-				final String msg = entries.size() > 0
-						? "Probe '" + probe.name + "' has scheduler entries, these will be stopped as well.  Continue?"
-						: "Are you sure you want to delete probe '" + probe.name + "'?";
+				final int msgFmtRes = entries.size() > 0
+						? R.string.dialog_probe_delete_plussched_confirmFmt
+						: R.string.dialog_probe_delete_confirmFmt;
+
+				String msg = getString(msgFmtRes, probe.name);
 
 				AlertDialog dialog = new AlertDialog.Builder(this)
-						.setTitle("Delete Probe")
+						.setTitle(R.string.dialog_probe_delete_title)
 						.setMessage(msg)
 						.setCancelable(false)
-						.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+						.setPositiveButton(R.string.button_delete, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 
 								// requestCancel alarms for those entries
@@ -163,7 +165,7 @@ public class ProbeListActivity extends BasePinglyActivity {
 
 							}
 						})
-						.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								dialog.cancel();
 							}

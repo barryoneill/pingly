@@ -154,10 +154,13 @@ public class ScheduleListActivity extends BasePinglyActivity {
 
                 Log.d("PINGLY", "Deleting schedule item: " + entry);
 
+				String msg = getString(R.string.dialog_schedule_delete_confirmFmt, entry.probe);
+
                 AlertDialog dialog = new AlertDialog.Builder(this)
-                        .setMessage("Are you sure you want to delete schedule '" + entry.id + "'?")
+						.setTitle(R.string.dialog_schedule_delete_title)
+                        .setMessage(msg)
                         .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 
 								Log.d(LOG_TAG, "Cancelling alarms for entry " + entry);
@@ -172,7 +175,7 @@ public class ScheduleListActivity extends BasePinglyActivity {
 								refreshScheduleList();
 							}
 						})
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.button_no, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								dialog.cancel();
 							}
@@ -196,48 +199,42 @@ public class ScheduleListActivity extends BasePinglyActivity {
 		listAdapter.changeCursor(scheduleDAO.queryForScheduleListCursorAdapter());
 	}
 
-	// TODO: i18n!
+
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
-		String title;
-		String msg;
 		AlertDialog.Builder builder;
 
 		switch (id) {
 			case DIALOG_NO_PROBES:
-				title = "No Probes Available";
-				msg = "No probes are available for scheduling. Please create one first.";
 
 				builder = new AlertDialog.Builder(this);
-				builder.setTitle(title)
+				builder.setTitle(R.string.dialog_schedule_noprobes_title)
 						.setIcon(android.R.drawable.ic_dialog_alert)
-						.setMessage(msg)
+						.setMessage(R.string.dialog_schedule_noprobes_message)
 						.setCancelable(true)
-						.setPositiveButton("Create Probe", new DialogInterface.OnClickListener() {
+						.setPositiveButton(R.string.button_create_new_probe, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								PinglyUtils.startActivityProbeDetail(ScheduleListActivity.this,null);
 							}
 						})
-						.setNegativeButton("Cancel", null);
+						.setNegativeButton(R.string.button_cancel, null);
 				dialog = builder.create();
 				break;
 			case DIALOG_CHOOSE_PROBE:
-
-				title = "Select Probe";
 
 				final Cursor allProbesCursor = probeDAO.findAllProbes();
 				final ProbeListCursorAdapter probeListAdapter = new ProbeListCursorAdapter(this,allProbesCursor);
 
 				builder = new AlertDialog.Builder(this);
-				builder.setTitle(title)
+				builder.setTitle(R.string.dialog_schedule_chooseprobe_title)
 						.setIcon(android.R.drawable.ic_dialog_info)
 						.setCancelable(true)
-						.setNeutralButton("Create New", new DialogInterface.OnClickListener() {
+						.setNeutralButton(R.string.button_create_new_probe, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								PinglyUtils.startActivityProbeDetail(ScheduleListActivity.this,null);
 							}
 						})
-						.setNegativeButton("Cancel", null)
+						.setNegativeButton(R.string.button_cancel, null)
 						.setAdapter(probeListAdapter, new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int i) {

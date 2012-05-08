@@ -198,8 +198,6 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		Intent serviceCallIntent = new Intent(this, ProbeRunnerInteractiveService.class);
 		currentRun = probeRunDAO.prepareNewProbeRun(selectedProbe, null);
 
-		Log.e(LOG_TAG, " ********************** " + currentRun);
-
 		serviceCallIntent.putExtra(EXTRA_PROBE_RUN_ID, currentRun.id);
 		startService(serviceCallIntent);
 
@@ -241,15 +239,13 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 	// Note: Rather than creating dialogs directly in the methods above, we use showDialog() with
 	// this overridden method - Android will handle the dialog lifecycle for us (eg, it'll
 	// persist past screen rotations, etc)
-	// TODO: i18n!
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
-		String title;
-		String msg;
 		switch (id) {
 			case DIALOG_SERVICE_WAIT_ID:
-				msg = "This may take a few moments depending on your data connection and the probe's destination, please wait..";
-				dialog = ProgressDialog.show(this, "Probe Running", msg, true);
+				String title = getString(R.string.dialog_probe_running_title);
+				String msg = getString(R.string.dialog_probe_running_message);
+				dialog = ProgressDialog.show(this,title, msg, true);
 				dialog.setCancelable(true);
 				dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 					@Override
@@ -265,20 +261,18 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 				});
 				break;
 			case DIALOG_NO_DATACONN_ID:
-				title = "Network Unavailable";
-				msg = "Please enable mobile data/wifi and try again.";
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setTitle(title)
+				builder.setTitle(R.string.dialog_no_network_title)
 						.setIcon(android.R.drawable.ic_dialog_alert)
-						.setMessage(msg)
+						.setMessage(R.string.dialog_no_network_message)
 						.setCancelable(true)
-						.setPositiveButton("Wireless Settings", new DialogInterface.OnClickListener() {
+						.setPositiveButton(R.string.button_wireless_settings, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
 							}
 						})
-						.setNegativeButton("Cancel", null);
+						.setNegativeButton(R.string.button_cancel, null);
 				dialog = builder.create();
 				break;
 			default:
