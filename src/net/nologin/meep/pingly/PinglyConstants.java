@@ -4,10 +4,13 @@ public class PinglyConstants {
 
 	public static final String LOG_TAG = "Pingly";
 
-    // http://www.sqlite.org/lang_createtable.html
-    public static final String SQLITE_FMT_CURRENT_TIMESTAMP = "yyyy-MM-dd HH:mm:ss";
-    public static final String SQLITE_FMT_CURRENT_TIME = "HH:mm:ss";
-    public static final String SQLITE_FMT_CURRENT_DATE = "yyyy-MM-dd";
+	/**
+	 * Format string for converting Date objects to and from Sqlite TIMESTAMP columns, millisecond resolution
+	 * http://www.sqlite.org/lang_datefunc.html
+	 */
+    public static final String SQLITE_FMT_TIMESTAMP = "yyyy-MM-dd HH:mm:ss.SSS";
+	// Note - Sqlite CURRENT_TIMESTAMP function does not save millis(.SSS), http://www.sqlite.org/lang_createtable.html
+
 
     // TODO: date formats should come from resources!
     public static final String FMT_DAY_DATE_DISPLAY = "EEE, d MMM yyyy";

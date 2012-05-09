@@ -2,6 +2,7 @@ package net.nologin.meep.pingly.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,8 +101,16 @@ public class ProbeRunHistoryCursorAdapter extends SimpleCursorAdapter {
 
 		String timeTaken = "";
 		if(startTime != null && endTime != null){
-			long diffInSec = TimeUnit.MILLISECONDS.toSeconds(endTime.getTime() - startTime.getTime());
-			timeTaken = diffInSec + "s";
+
+			long diffMs = endTime.getTime() - startTime.getTime();
+
+			if(diffMs >= 1000){
+				timeTaken = ctx.getString(R.string.unit_second_fmt, diffMs / 1000f);
+			}
+			else{
+
+				timeTaken = ctx.getString(R.string.unit_millis_fmt, diffMs);
+			}
 		}
 
 		holder.txtDate.setText(startTime == null

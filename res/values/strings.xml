@@ -253,4 +253,8 @@
     <string name="button_wireless_settings">Wireless Settings</string>
     <string name="button_create_new_probe">Create New Probe</string>
 
+    <!-- units -->
+    <string name="unit_millis_fmt">%dms</string>
+    <string name="unit_second_fmt">%.2fs</string>
+
 </resources>

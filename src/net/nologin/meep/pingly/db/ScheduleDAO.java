@@ -70,6 +70,28 @@ public class ScheduleDAO extends PinglyDataHelper {
 		return entries;
 	}
 
+	public List<ScheduleEntry> findActiveEntriesForReschedule() {
+
+		Log.d(LOG_TAG, "Looking up active entries for rescheduling");
+
+		SQLiteDatabase db = getReadableDatabase();
+		String activeClause = TBL_SCHEDULE.COL_ACTIVE + "=1 ";
+
+		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
+				activeClause, null, null, null, null);
+		List<ScheduleEntry> entries = new ArrayList<ScheduleEntry>();
+		cursor.moveToFirst();
+
+		while(!cursor.isAfterLast()) {
+
+			ScheduleEntry entry = cursorToEntry(cursor,false);
+			entries.add(entry);
+			cursor.moveToNext();
+		}
+
+		return entries;
+	}
+
 
 
 	public Cursor queryForScheduleListCursorAdapter() {

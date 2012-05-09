@@ -32,8 +32,11 @@ public class AlarmScheduler {
 
         ScheduleDAO scheduleDAO = new ScheduleDAO(ctx);
 
-        // Intent intent = new Intent(ctx, ProbeRunnerScheduleService.class);
-        // intent.putExtra(ProbeRunnerScheduleService.PARAM_SCHEDULE_ENTRY_ID, strInputMsg);
+		List<ScheduleEntry> entries = scheduleDAO.findActiveEntriesForReschedule();
+		for(ScheduleEntry entry : entries){
+			Log.d(LOG_TAG, "Back into the schedule goes: " + entry);
+			setAlarm(ctx,entry);
+		}
 
         scheduleDAO.close();
 

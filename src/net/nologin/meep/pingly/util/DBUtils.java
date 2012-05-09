@@ -13,9 +13,9 @@ public final class DBUtils {
     // Since the SDF class is mutable, there's a risk callers could change this
     // object.  However, instantiating the class between possible repeated method
     // calls below is a performance tradeoff
-    private static SimpleDateFormat dateTimeGMTFormatter;
+    private final static SimpleDateFormat dateTimeGMTFormatter;
     static {
-        dateTimeGMTFormatter = new SimpleDateFormat(PinglyConstants.SQLITE_FMT_CURRENT_TIMESTAMP);
+        dateTimeGMTFormatter = new SimpleDateFormat(PinglyConstants.SQLITE_FMT_TIMESTAMP);
         dateTimeGMTFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
 
@@ -23,6 +23,7 @@ public final class DBUtils {
     public static Date fromGMTDateTimeString(String dateTime){
 
         try {
+			Log.e(PinglyConstants.LOG_TAG, " ====== " + dateTime);
             return dateTimeGMTFormatter.parse(dateTime);
         }
         catch(ParseException e){
