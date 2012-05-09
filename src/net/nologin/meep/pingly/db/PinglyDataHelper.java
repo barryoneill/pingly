@@ -136,17 +136,12 @@ public abstract class PinglyDataHelper extends SQLiteOpenHelper {
 
     }
 
-    // TODO: verify impl!
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        Log.d(LOG_TAG, "Upgrading tables");
+		// initial version of app, this shouldn't be called
+        Log.w(LOG_TAG, "onUpgrade called, oldVer=" + oldVersion + ", newVer=" + newVersion);
 
-		db.execSQL("DROP TABLE IF EXISTS " + TBL_PROBE_RUN.TBL_NAME);
-		db.execSQL("DROP TABLE IF EXISTS " + TBL_SCHEDULE.TBL_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_PROBE.TBL_NAME);
-
-        onCreate(db);
     }
 
 }
