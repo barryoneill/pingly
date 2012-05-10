@@ -8,7 +8,6 @@ import android.widget.TextView;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-import java.util.Calendar;
 
 /**
  * This is a solution to the problem where using android:dialogLayout in a DialogPreference causes
@@ -33,14 +32,11 @@ public class AboutDialogPreference extends DialogPreference {
 
 		Context ctx = getContext();
 
-		TextView txtVerYear = (TextView)view.findViewById(R.id.about_version);
+		TextView txtVersion = (TextView)view.findViewById(R.id.about_version);
 
 		// update the 'Version 1.0 (c) 2012' message with current data
-		String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 		String verName = PinglyUtils.getPinglyVersionName(ctx);
-		String verYearFmt = ctx.getString(R.string.pingly_about_version_fmt);
-		txtVerYear.setText(String.format(verYearFmt, verName, year));
-
+		txtVersion.setText(ctx.getString(R.string.pingly_about_version_fmt,verName));
 
 
 	}

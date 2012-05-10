@@ -1,55 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dip">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+              android:padding="10dip">
 
-    <!-- launcher icon -->
-    <ImageView
-            android:id="@+id/about_dialog_icon"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:src="@drawable/main_launcher_icon"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            />
-
-    <LinearLayout
+    <!-- 'Pingly' title and logo -->
+    <TextView
+            android:drawableLeft="@drawable/main_launcher_icon"
+            android:drawablePadding="15dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/about_dialog_icon"
-            android:orientation="vertical">
-
-        <!-- 'Pingly' -->
-        <TextView android:id="@+id/about_title"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:text="@string/pingly_about_apptitle"
-                  style="@style/AboutHeaderTxt"/>
-
-        <!-- 'Version ${version} (c) ${year}' -->
-        <TextView android:id="@+id/about_version"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:text="@string/pingly_about_version_fmt"
-                  style="@style/AboutVersionTxt"/>
-
-    </LinearLayout>
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/pingly_about_apptitle"
+            style="@style/AboutHeaderTxt"/>
 
     <!-- separator -->
-    <View
-            android:id="@+id/disclaimer_separator"
-            style="@style/SeparatorHorizontal"
-            android:layout_margin="5dp"
-            android:layout_below="@id/about_dialog_icon"/>
+    <View android:id="@+id/disclaimer_separator"
+          style="@style/SeparatorHorizontal"
+          android:layout_margin="5dp"/>
 
-    <!-- 'you install it, you accept responsibilty, etc' -->
-    <TextView android:id="@+id/about_legal"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:layout_below="@id/disclaimer_separator"
-              android:text="@string/pingly_about_disclaimer"
-              style="@style/AboutDisclaimerTxt"/>
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-</RelativeLayout>
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <!-- 'Version ${version} - ${year}' -->
+            <TextView android:id="@+id/about_version"
+                      android:text="@string/pingly_about_version_fmt"
+                      style="@style/AboutDetailTxt"/>
+
+            <TextView android:id="@+id/about_author"
+                      android:text="@string/pingly_about_author"
+                      style="@style/AboutDetailTxt"/>
+
+            <!-- 'you install it, you accept responsibilty, etc' -->
+            <TextView android:id="@+id/about_legal"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="@string/pingly_about_disclaimer"
+                      style="@style/AboutDisclaimerTxt"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
