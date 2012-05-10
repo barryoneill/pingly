@@ -114,6 +114,13 @@
 
     <!-- ===============  ListView common stuff ===================== -->
 
+    <style name="ListView">
+        <!-- any changes to this should be reflected in PinglyUtils.styleListView(..) -->
+        <item name="android:divider">@color/listview_separator</item>
+        <item name="android:dividerHeight">@dimen/listview_divider_height</item>
+        <item name="android:drawSelectorOnTop">false</item>
+    </style>
+
     <style name="ListItemContainer">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -260,11 +267,11 @@
 
     <style name="SeparatorHorizontal" parent="SeparatorBase">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">@dimen/separator_thickness</item>
     </style>
 
     <style name="SeparatorVertical" parent="SeparatorBase">
-        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_width">@dimen/separator_thickness</item>
         <item name="android:layout_height">fill_parent</item>
     </style>
 

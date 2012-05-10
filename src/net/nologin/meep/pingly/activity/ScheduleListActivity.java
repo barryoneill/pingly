@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -238,11 +239,14 @@ public class ScheduleListActivity extends BasePinglyActivity {
 						.setAdapter(probeListAdapter, new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int i) {
-								Probe selected = ProbeDAO.cursorToProbe(allProbesCursor,false);
-								PinglyUtils.startActivityScheduleEntryDetail(ScheduleListActivity.this,selected);
+								Probe selected = ProbeDAO.cursorToProbe(allProbesCursor, false);
+								PinglyUtils.startActivityScheduleEntryDetail(ScheduleListActivity.this, selected);
 							}
 						});
 				dialog = builder.create();
+
+				// make the listview look like the 'ListView'-styled xml ListViews
+				PinglyUtils.styleListView(this,dialog);
 
 				break;
 			default:
@@ -251,5 +255,8 @@ public class ScheduleListActivity extends BasePinglyActivity {
 		}
 		return dialog;
 	}
+
+
+
 
 }

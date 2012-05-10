@@ -13,4 +13,9 @@
 
     <dimen name="text_probe_runhistory_lognote">16sp</dimen>
     <dimen name="text_probe_runhistory_logoutput">12sp</dimen>
+
+    <dimen name="separator_thickness">1dp</dimen>
+    <dimen name="listview_divider_height">1dp</dimen>
+
+
 </resources>

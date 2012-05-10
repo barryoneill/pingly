@@ -1,15 +1,20 @@
 package net.nologin.meep.pingly.util;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.widget.ListView;
 import android.widget.Toast;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.activity.*;
@@ -130,6 +135,38 @@ public class PinglyUtils {
 		return new ContextThemeWrapper(ctx, R.style.PinglyDialogTheme);
 	}
 
+
+	/**
+	 * Usually when we have a ListView, we assign it the 'ListView' style, so it gets the
+	 * standard divider color/height.  Dialogs which programatically get created with a
+	 * ListView need to have this style set manually.
+	 * @param ctx The context
+	 * @param dialog The AlertDialog containing the ListView.  If dialog isn't an AlertDialog or
+	 *               doesn't contain a ListView then this call will have no effect.
+	 */
+	public static void styleListView(Context ctx, Dialog dialog) {
+
+		if(!(dialog instanceof AlertDialog)){
+			Log.w(LOG_TAG, "Dialog not AlertDialog, will not style: " + dialog);
+			return;
+		}
+
+		ListView lv = ((AlertDialog)dialog).getListView();
+		if(lv == null){
+			Log.w(LOG_TAG, "Dialog does not contain a listview: " + dialog);
+			return;
+		}
+
+		// ensure this matches style.xml item 'ListView'
+		// Perhaps we could programmatically fetch these values from the ListView style itself
+		ColorDrawable divider = new ColorDrawable(ctx.getResources().getColor(R.color.listview_separator));
+		lv.setDivider(divider);
+
+		int dividerHeight = ctx.getResources().getDimensionPixelSize(R.dimen.listview_divider_height);
+		lv.setDividerHeight(dividerHeight);
+
+
+	}
 
 	/* --------- centralised intent extra set/getters ------------ */
 

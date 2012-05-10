@@ -47,7 +47,7 @@
                 android:id="@+id/probeRunList"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:drawSelectorOnTop="false">
+                style="@style/ListView">
         </ListView>
 
 
