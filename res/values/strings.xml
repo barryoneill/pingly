@@ -151,6 +151,7 @@
 
     <string name="filler_probe_nologdata"> -- No Log Data -- </string>
     <string name="filler_no_name">[No Name]</string>
+    <string name="filler_no_description">[No Description]</string>
     <string name="filler_no_date">[Date n/a]</string>
     <string name="filler_no_time">[Time n/a]</string>
     <string name="filler_no_notes">[No Notes]</string>

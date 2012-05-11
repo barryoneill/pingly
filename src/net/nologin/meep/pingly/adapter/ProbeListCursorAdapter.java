@@ -68,7 +68,7 @@ public class ProbeListCursorAdapter extends SimpleCursorAdapter {
         holder.probeDetailsView.setProbeName(StringUtils.isBlank(probeName)
 				? context.getString(R.string.filler_no_name) : probeName);
         holder.probeDetailsView.setProbeDesc(StringUtils.isBlank(probeDesc)
-				? context.getString(R.string.filler_no_date) : probeDesc);
+				? context.getString(R.string.filler_no_description) : probeDesc);
         holder.probeDetailsView.setProbeIconText(Probe.getTypeIconTxt(context, probeTypeKey));
 		// ensure view has no onClick set, otherwise it would interfere with adapter click handling
 		//holder.probeDetailsView.setProbeOnClickProbeEdit(false);
