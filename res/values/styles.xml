@@ -89,7 +89,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/foreground1</item>
+        <item name="android:textColor">@color/dashboard_button_text</item>
         <item name="android:background">@null</item>
     </style>
 
