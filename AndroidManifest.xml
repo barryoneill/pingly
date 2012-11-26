@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- version info:
+      code:2, name: 0.9.1_beta - attempt fix for sqldb locking problem
+      code:1, name: 0.9_beta - initial release
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="net.nologin.meep.pingly"
-          android:versionCode="1"
-          android:versionName="0.9_beta">
+          android:versionCode="2"
+          android:versionName="0.9.1_beta">
 
-    <uses-sdk android:minSdkVersion="7"/>
+    <uses-sdk android:minSdkVersion="7" />
 
     <!-- reason: useless without internet -->
     <uses-permission android:name="android.permission.INTERNET"/>

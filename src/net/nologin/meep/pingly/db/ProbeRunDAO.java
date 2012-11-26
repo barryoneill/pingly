@@ -1,7 +1,6 @@
 package net.nologin.meep.pingly.db;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -14,19 +13,21 @@ import net.nologin.meep.pingly.util.DBUtils;
 
 import java.util.Date;
 
+import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE_RUN;
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-public class ProbeRunDAO extends PinglyDataHelper {
+public class ProbeRunDAO extends PinglyDAO {
 
-	public ProbeRunDAO(Context context) {
-		super(context);
-	}
+    public ProbeRunDAO(PinglyDataHelper dataHelper) {
+        super(dataHelper);
+    }
 
-	public ProbeRun findProbeRunById(long id) {
+
+    public ProbeRun findProbeRunById(long id) {
 
 		Log.d(LOG_TAG, "Looking up probe run with ID: " + id);
 
-		SQLiteDatabase db = getReadableDatabase();
+		SQLiteDatabase db = getReadableDB();
 		String idClause = TBL_PROBE_RUN.COL_ID + "=" + id;
 
 		Cursor cursor = db.query(TBL_PROBE_RUN.TBL_NAME, null,
@@ -45,7 +46,7 @@ public class ProbeRunDAO extends PinglyDataHelper {
 
 		Log.d(LOG_TAG, "Deleting entries for probe " + probeId);
 
-		SQLiteDatabase db = getWritableDatabase();
+		SQLiteDatabase db = getWriteableDB();
 		String whereClause = TBL_PROBE_RUN.COL_PROBE_FK + "=" + probeId;
 
 		if(finishedProbesOnly){
@@ -91,7 +92,7 @@ public class ProbeRunDAO extends PinglyDataHelper {
 
 		Log.d(LOG_TAG, "SQL: " + sql);
 
-		SQLiteDatabase db = getWritableDatabase();
+		SQLiteDatabase db = getWriteableDB();
 		return db.delete(TBL_PROBE_RUN.TBL_NAME, sql, args);
 
 	}
@@ -102,7 +103,7 @@ public class ProbeRunDAO extends PinglyDataHelper {
 
 		// See ProbeRunHistoryCursorAdapter.newView() for column use
 
-		SQLiteDatabase db = getReadableDatabase();
+		SQLiteDatabase db = getReadableDB();
 
 		String idClause = null;
 		if (probeId != null) {
@@ -141,7 +142,7 @@ public class ProbeRunDAO extends PinglyDataHelper {
 		cv.put(TBL_PROBE_RUN.COL_RUN_SUMMARY, probeRun.runSummary);
 		cv.put(TBL_PROBE_RUN.COL_LOGTEXT, probeRun.logText);
 
-		SQLiteDatabase db = getWritableDatabase();
+		SQLiteDatabase db = getWriteableDB();
 
 		long affectedId;
 		if (probeRun.isNew()) {
@@ -167,13 +168,14 @@ public class ProbeRunDAO extends PinglyDataHelper {
 		CursorReader cr = new CursorReader(c);
 
 		int probeFk = cr.getInt(TBL_PROBE_RUN.COL_PROBE_FK);
-		Probe probe = ProbeDAO.findProbeById(getDataHelperContext(), probeFk);
+        SQLiteDatabase db = getReadableDB();
+		Probe probe = ProbeDAO.findProbeById(db, probeFk);
 
 		// schedule will be null if it was a manual run
 		int scheduleFk = cr.getInt(TBL_PROBE_RUN.COL_SCHEDULEENTRY_FK, -1);
 		ScheduleEntry schedule = null;
 		if (scheduleFk > 0) {
-			schedule = ScheduleDAO.findScheduleEntryById(getDataHelperContext(), scheduleFk);
+			schedule = ScheduleDAO.findById(db, scheduleFk);
 		}
 
 		ProbeRun probeRun = new ProbeRun(probe, schedule);

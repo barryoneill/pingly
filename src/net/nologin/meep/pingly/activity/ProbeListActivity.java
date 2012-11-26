@@ -60,15 +60,6 @@ public class ProbeListActivity extends BasePinglyActivity {
 	}
 
 
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (probeDAO != null) {
-			probeDAO.close();
-		}
-	}
-
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 									ContextMenuInfo menuInfo) {

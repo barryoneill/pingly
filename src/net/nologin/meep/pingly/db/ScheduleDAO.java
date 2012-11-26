@@ -2,7 +2,6 @@ package net.nologin.meep.pingly.db;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -11,34 +10,34 @@ import net.nologin.meep.pingly.model.ScheduleRepeatType;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.DBUtils;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_SCHEDULE;
+import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 
 // TODO: just like ProbeDAO, I need to find a non-bloated ORM helper
-public class ScheduleDAO extends PinglyDataHelper {
+public class ScheduleDAO extends PinglyDAO {
 
-	public ScheduleDAO(Context context) {
-		super(context);
-	}
-
-	// convenience method
-	public static ScheduleEntry findScheduleEntryById(Context ctx, long id) {
-
-		ScheduleDAO dao = new ScheduleDAO(ctx);
-		ScheduleEntry result = dao.findById(id);
-		dao.close();
-		return result;
+	public ScheduleDAO(PinglyDataHelper dataHelper) {
+		super(dataHelper);
 	}
 
 	public ScheduleEntry findById(long id) {
 
+        SQLiteDatabase db = getReadableDB();
+        return findById(db,id);
+
+    }
+
+    public static ScheduleEntry findById(SQLiteDatabase db, long id) {
+
 		Log.d(LOG_TAG, "Looking up entry with ID: " + id);
 
-		SQLiteDatabase db = getReadableDatabase();
 		String idClause = TBL_SCHEDULE.COL_ID + "=" + id;
 
 		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
@@ -47,14 +46,14 @@ public class ScheduleDAO extends PinglyDataHelper {
 			Log.d(LOG_TAG, "No schedule entry found for ID: " + id);
 			return null;
 		}
-		return cursorToEntry(cursor, true);
+		return cursorToEntry(cursor, db, true);
 	}
 
 	public List<ScheduleEntry> findEntriesForProbe(long probeId) {
 
 		Log.d(LOG_TAG, "Looking up entries with probe ID: " + probeId);
 
-		SQLiteDatabase db = getReadableDatabase();
+		SQLiteDatabase db = getReadableDB();
 		String idClause = TBL_SCHEDULE.COL_PROBE_FK + "=" + probeId;
 
 		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
@@ -63,7 +62,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 		cursor.moveToFirst();
 
 		while(!cursor.isAfterLast()) {
-			entries.add(cursorToEntry(cursor, false));
+			entries.add(cursorToEntry(cursor, db, false));
 			cursor.moveToNext();
 		}
 
@@ -74,7 +73,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 
 		Log.d(LOG_TAG, "Looking up active entries for rescheduling");
 
-		SQLiteDatabase db = getReadableDatabase();
+		SQLiteDatabase db = getReadableDB();
 		String activeClause = TBL_SCHEDULE.COL_ACTIVE + "=1 ";
 
 		Cursor cursor = db.query(TBL_SCHEDULE.TBL_NAME, null,
@@ -84,7 +83,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 
 		while(!cursor.isAfterLast()) {
 
-			ScheduleEntry entry = cursorToEntry(cursor,false);
+			ScheduleEntry entry = cursorToEntry(cursor,db,false);
 			entries.add(entry);
 			cursor.moveToNext();
 		}
@@ -100,7 +99,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 
 		// See ScheduleListCursorAdapter.newView() for column use
 
-		SQLiteDatabase db = getReadableDatabase();
+		SQLiteDatabase db = getReadableDB();
 
 
 		// see ScheduleDAO.queryForScheduleListCursorAdapter() for column use
@@ -128,7 +127,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 
 		Log.d(LOG_TAG, "Deleting entry " + entry);
 
-		SQLiteDatabase db = getWritableDatabase();
+		SQLiteDatabase db = getWriteableDB();
 		String idClause = TBL_SCHEDULE.COL_ID + "=" + entry.id;
 		db.delete(TBL_SCHEDULE.TBL_NAME, idClause, null);
 
@@ -138,7 +137,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 
 		Log.d(LOG_TAG, "Deleting entries for probe " + probeId);
 
-		SQLiteDatabase db = getWritableDatabase();
+		SQLiteDatabase db = getWriteableDB();
 		String idClause = TBL_SCHEDULE.COL_PROBE_FK + "=" + probeId;
 		db.delete(TBL_SCHEDULE.TBL_NAME, idClause, null);
 
@@ -162,7 +161,7 @@ public class ScheduleDAO extends PinglyDataHelper {
 		cv.put(TBL_SCHEDULE.COL_NOTIFY_OPTS, entry.getNotifyOptsString());
 
 
-		SQLiteDatabase db = getWritableDatabase();
+		SQLiteDatabase db = getWriteableDB();
 		if (entry.isNew()) {
 			// triggers will fill id, create/modify columns
 			entry.id = db.insertOrThrow(TBL_SCHEDULE.TBL_NAME, null, cv);
@@ -180,13 +179,15 @@ public class ScheduleDAO extends PinglyDataHelper {
 
 	// keep the param so the caller doesn't forget about cursor responsibility
 	// TODO: make note about not using this in long query, rather atomic gets re:load instead of join
-	private ScheduleEntry cursorToEntry(Cursor c, boolean closeCursor) {
+	private static ScheduleEntry cursorToEntry(Cursor c,
+                                               SQLiteDatabase db,
+                                               boolean closeCursor) {
 
 		CursorReader cr = new CursorReader(c);
 
 		int probeFk = cr.getInt(TBL_SCHEDULE.COL_PROBE_FK);
 
-		Probe probe = ProbeDAO.findProbeById(getDataHelperContext(), probeFk);
+		Probe probe = ProbeDAO.findProbeById(db, probeFk);
 
 		ScheduleEntry entry = new ScheduleEntry(probe);
 

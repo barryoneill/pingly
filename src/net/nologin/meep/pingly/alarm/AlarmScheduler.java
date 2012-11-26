@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import net.nologin.meep.pingly.PinglyApplication;
+import net.nologin.meep.pingly.db.PinglyDataHelper;
 import net.nologin.meep.pingly.db.ScheduleDAO;
 import net.nologin.meep.pingly.model.ScheduleEntry;
 import net.nologin.meep.pingly.model.ScheduleRepeatType;
@@ -30,7 +32,14 @@ public class AlarmScheduler {
 
         Log.i(LOG_TAG, "Rescheduling all active schedule items");
 
-        ScheduleDAO scheduleDAO = new ScheduleDAO(ctx);
+        /* I'm not sure of the best way to get access to the application
+           instance from the alarms receiver (RescheduleAllAlarmsReceiver),
+           so given I only have the context object, this appears to work..
+         */
+        PinglyApplication app = (PinglyApplication)ctx.getApplicationContext();
+        PinglyDataHelper dh = app.getPinglyDataHelper();
+
+        ScheduleDAO scheduleDAO = new ScheduleDAO(dh);
 
 		List<ScheduleEntry> entries = scheduleDAO.findActiveEntriesForReschedule();
 		for(ScheduleEntry entry : entries){
@@ -38,7 +47,6 @@ public class AlarmScheduler {
 			setAlarm(ctx,entry);
 		}
 
-        scheduleDAO.close();
 
     }
 

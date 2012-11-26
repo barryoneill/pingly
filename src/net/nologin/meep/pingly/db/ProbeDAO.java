@@ -1,7 +1,6 @@
 package net.nologin.meep.pingly.db;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,28 +10,26 @@ import net.nologin.meep.pingly.model.probe.PingProbe;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 
+import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-public class ProbeDAO extends PinglyDataHelper {
+public class ProbeDAO extends PinglyDAO {
 
-    public ProbeDAO(Context context) {
-        super(context);
+    public ProbeDAO(PinglyDataHelper dataHelper) {
+        super(dataHelper);
     }
 
-	// convenience method
-	public static Probe findProbeById(Context ctx, long id) {
-
-		ProbeDAO dao = new ProbeDAO(ctx);
-		Probe result = dao.findProbeById(id);
-		dao.close();
-		return result;
-	}
 
     public Probe findProbeById(long id) {
 
+        SQLiteDatabase db = getReadableDB();
+        return findProbeById(db,id);
+    }
+
+    static Probe findProbeById(SQLiteDatabase db, long id) {
+
         Log.d(LOG_TAG, "Looking up probe with ID: " + id);
 
-        SQLiteDatabase db = getReadableDatabase();
         String idClause = TBL_PROBE.COL_ID + "=" + id;
 
         Cursor cursor = db.query(TBL_PROBE.TBL_NAME, null,
@@ -48,7 +45,7 @@ public class ProbeDAO extends PinglyDataHelper {
 
         Log.d(LOG_TAG, "Looking up probe with name: " + name);
 
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getReadableDB();
         String nameClause = TBL_PROBE.COL_NAME + "=?";
         Cursor cursor = db.query(TBL_PROBE.TBL_NAME, null,
                 nameClause, new String[]{name}, null, null, null);
@@ -66,14 +63,14 @@ public class ProbeDAO extends PinglyDataHelper {
 
         Log.d(LOG_TAG, "Querying Table");
 
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getReadableDB();
         return db.query(TBL_PROBE.TBL_NAME, null, null,
                 null, null, null, TBL_PROBE.COL_CREATED);
 
     }
 
 	public long getNumProbes(){
-		SQLiteDatabase db = getReadableDatabase();
+		SQLiteDatabase db = getReadableDB();
 		return DatabaseUtils.queryNumEntries(db, TBL_PROBE.TBL_NAME);
 	}
 
@@ -81,9 +78,10 @@ public class ProbeDAO extends PinglyDataHelper {
 
         Log.d(LOG_TAG, "Deleting probe " + probe);
 
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWriteableDB();
         String idClause = TBL_PROBE.COL_ID + "=" + probe.id;
         db.delete(TBL_PROBE.TBL_NAME, idClause, null);
+
 
     }
 
@@ -139,7 +137,7 @@ public class ProbeDAO extends PinglyDataHelper {
         cv.put(TBL_PROBE.COL_DESC, probe.desc);
         cv.put(TBL_PROBE.COL_CONFIG, probe.configToString());
 
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWriteableDB();
         if (probe.isNew()) {
             // triggers will fill id, create/modify columns
             return db.insertOrThrow(TBL_PROBE.TBL_NAME, null, cv);

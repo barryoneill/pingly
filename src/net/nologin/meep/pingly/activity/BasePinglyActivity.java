@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import net.nologin.meep.pingly.PinglyApplication;
+import net.nologin.meep.pingly.db.PinglyDataHelper;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ProbeRunDAO;
 import net.nologin.meep.pingly.db.ScheduleDAO;
@@ -28,24 +30,18 @@ public abstract class BasePinglyActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		
-		probeDAO = new ProbeDAO(this);
-        scheduleDAO = new ScheduleDAO(this);
-		probeRunDAO = new ProbeRunDAO(this);
+
+        PinglyApplication app = (PinglyApplication)getApplication();
+        PinglyDataHelper dh = app.getPinglyDataHelper();
+
+		probeDAO = new ProbeDAO(dh);
+        scheduleDAO = new ScheduleDAO(dh);
+		probeRunDAO = new ProbeRunDAO(dh);
 	}	
 	
 	@Override
 	protected void onDestroy() {
 	    super.onDestroy();
-	    if (probeDAO != null) {
-	        probeDAO.close();
-	    }
-        if (scheduleDAO != null) {
-            scheduleDAO.close();
-        }
-		if (probeRunDAO != null) {
-			probeRunDAO.close();
-		}
 	}
 
 	public Probe getIntentExtraProbe() {

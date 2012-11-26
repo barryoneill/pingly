@@ -4,6 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import net.nologin.meep.pingly.PinglyApplication;
+import net.nologin.meep.pingly.db.PinglyDataHelper;
 import net.nologin.meep.pingly.db.ProbeDAO;
 import net.nologin.meep.pingly.db.ProbeRunDAO;
 import net.nologin.meep.pingly.model.ProbeRun;
@@ -24,8 +26,12 @@ public class ProbeRunnerInteractiveService extends Service {
 		super.onCreate();
 		Log.d(LOG_TAG, "ProbeRunnerInteractiveService created");
 
-		probeDAO = new ProbeDAO(this);
-		probeRunDAO = new ProbeRunDAO(this);
+        PinglyApplication app = (PinglyApplication)getApplication();
+        PinglyDataHelper dh = app.getPinglyDataHelper();
+
+        probeDAO = new ProbeDAO(dh);
+        probeRunDAO = new ProbeRunDAO(dh);
+
 	}
 
 	@Override
@@ -38,13 +44,6 @@ public class ProbeRunnerInteractiveService extends Service {
 	public void onDestroy() {
 		super.onDestroy();
 		Log.d(LOG_TAG, "ProbeRunnerInteractiveService destroyed");
-
-		if (probeDAO != null) {
-			probeDAO.close();
-		}
-		if (probeRunDAO != null) {
-			probeRunDAO.close();
-		}
 
 	}
 

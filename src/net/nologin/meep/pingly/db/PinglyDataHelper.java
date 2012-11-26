@@ -13,7 +13,7 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
  * TODO: change this code and the DAO code to use an ORM library
  * (whenever I find one that isn't huge and seems usable - OrmLite perhaps?)
  */
-public abstract class PinglyDataHelper extends SQLiteOpenHelper {
+public final class PinglyDataHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Pingly.db";
     private static final int DATABASE_VERSION = 1;
