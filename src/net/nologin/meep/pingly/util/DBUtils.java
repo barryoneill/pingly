@@ -23,7 +23,6 @@ public final class DBUtils {
     public static Date fromGMTDateTimeString(String dateTime){
 
         try {
-			Log.e(PinglyConstants.LOG_TAG, " ====== " + dateTime);
             return dateTimeGMTFormatter.parse(dateTime);
         }
         catch(ParseException e){

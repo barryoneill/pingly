@@ -52,7 +52,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		// parameter must be present
 		selectedProbe = getIntentExtraProbe();
 
-		Log.d(LOG_TAG, "Running probe " + selectedProbe);
+		Log.i(LOG_TAG, "ProbeRunner onCreate, p=" + selectedProbe);
 
 		// load refs
 		probeInfoContainer = findViewById(R.id.probeInfoContainer);
@@ -85,14 +85,18 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		// create receiver, will be registered until onResume()
 		callbackReceiver = new ProbeRunCallbackReceiver();
 
-		clearAndStartProbe();
-
-	}
+        /* The STATE_PROBERUN_ID key is set by onSaveInstanceState when the activity is interrupted
+           (eg, a screen rotation).  If that isn't present, it's a first run - start the run automatically */
+        if(state == null || !state.containsKey(STATE_PROBERUN_ID)) {
+            clearAndStartProbe();
+        }
+    }
 
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		// so we know what probe run log to display after sleep/rotation etc
 		if(currentRun != null){
+            Log.i(LOG_TAG, "Instance State Change, Current ProbeRun=" + currentRun.id);
 			savedInstanceState.putLong(STATE_PROBERUN_ID, currentRun.id);
 		}
 		super.onSaveInstanceState(savedInstanceState);
@@ -105,7 +109,7 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		// we were previously running a probe, get the id of that run
 		if (savedInstanceState.containsKey(STATE_PROBERUN_ID)) {
 			long runId = savedInstanceState.getLong(STATE_PROBERUN_ID);
-			Log.d(LOG_TAG, "onRestoreInstanceState, we were processing probe run: " + runId);
+            Log.i(LOG_TAG, "Instance State Restore, Current ProbeRun=" + runId);
 			currentRun = probeRunDAO.findProbeRunById(runId);
 		}
 	}
@@ -151,18 +155,18 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 			// the probe runner service broadcasts using action ACTION_UPDATE
 			if (ACTION_UPDATE.equals(intent.getAction())) {
 
-				Log.d(LOG_TAG, " Broadcast Receiver matched " + ACTION_UPDATE);
-
 				/* We also ensure that this broadcast is for the current run.  It's possible
 				 * that an older background task in the service hasn't yet detected that it
 				 * was 'cancelled', and may emit a broadcasts for the older run. */
  				long callbackRunId = intent.getLongExtra(EXTRA_PROBE_RUN_ID, 0);
 				if (currentRun.id != callbackRunId) {
-					Log.w(LOG_TAG, "Matched broadcasted action " + intent.getAction()
-							+ ", but probe runner id " + callbackRunId + " did not match " + currentRun.id
-							+ ", perhaps this is a broadcast from an older runner instant - ignoring");
+					Log.w(LOG_TAG, "Broadcast response matched, but its proberun id " + callbackRunId
+                            + " != " + currentRun.id + ". Prob a callback from an older call - ignored");
 					return;
 				}
+
+
+                Log.d(LOG_TAG, "Broadcast receiver got update for run id " + callbackRunId);
 
 				// update the log and status windows with the current info
 				refreshCurrentRunInfo();
@@ -197,6 +201,8 @@ public class ProbeRunnerActivity extends BasePinglyActivity {
 		// start the service, providing a unique id for the run and the id of the probe itself
 		Intent serviceCallIntent = new Intent(this, ProbeRunnerInteractiveService.class);
 		currentRun = probeRunDAO.prepareNewProbeRun(selectedProbe, null);
+
+        Log.i(LOG_TAG, " ** Probe " + selectedProbe.id + ", starting new run with probeRun id=" + currentRun.id);
 
 		serviceCallIntent.putExtra(EXTRA_PROBE_RUN_ID, currentRun.id);
 		startService(serviceCallIntent);
