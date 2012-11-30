@@ -19,6 +19,9 @@ package net.nologin.meep.pingly.model;
 import android.content.Context;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
+/**
+ * 'Day' Enum, providing translation key support
+ */
 public enum DayOfWeek {
 
     Monday(0),

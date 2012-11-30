@@ -33,6 +33,9 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Provides common handlers and routines to all pingly activities
+ */
 public abstract class BasePinglyActivity extends Activity {
 	
 

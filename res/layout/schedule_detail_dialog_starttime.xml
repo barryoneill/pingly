@@ -15,6 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  -->
+<!-- used in the scheduler as a dialog which allows the user to specify the start time -->
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

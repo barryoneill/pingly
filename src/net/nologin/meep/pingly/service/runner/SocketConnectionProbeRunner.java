@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
 
+/**
+ * ProbeRunner impl for PingProbe objects. Performs a SocketChannel connection and determines success/failure.
+ */
 public class SocketConnectionProbeRunner extends ProbeRunner {
 
 	public SocketConnectionProbeRunner(ProbeRun probeRun) {

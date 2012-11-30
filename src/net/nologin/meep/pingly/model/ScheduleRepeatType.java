@@ -16,7 +16,9 @@
  */
 package net.nologin.meep.pingly.model;
 
-
+/**
+ * Schedule 'Repeat Type' enum, providing translation key support
+ */
 public enum ScheduleRepeatType {
 
 	// Name(id, millis_perunit, rangeupper, defaultval)

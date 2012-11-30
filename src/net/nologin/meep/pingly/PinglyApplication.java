@@ -22,6 +22,10 @@ import net.nologin.meep.pingly.db.PinglyDataHelper;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Custom application object instance.  Not normally needed except that it's used to maintain the
+ * datahelper singleton (Better than having an unnecessary static instance)
+ */
 public class PinglyApplication extends Application {
 
     // datahelper approach as suggested in the following

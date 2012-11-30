@@ -35,6 +35,9 @@ import java.util.Date;
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_SCHEDULE;
 
+/**
+ * cursor adapter to populate schedule list entries with a custom layout
+ */
 public class ScheduleListCursorAdapter extends SimpleCursorAdapter {
 
 	private LayoutInflater inflater;

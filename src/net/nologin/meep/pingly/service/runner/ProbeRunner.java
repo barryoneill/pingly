@@ -30,6 +30,11 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 
 import java.util.Date;
 
+/**
+ * Base class for all ProbeRunner implementations, provides run framework with success/failure handling routines.
+ * This will be called by the scheduled and interactive services to actually perform the probe runs and record
+ * their outcomes.
+ */
 public abstract class ProbeRunner {
 
 	private ProbeRun probeRun;
@@ -46,6 +51,8 @@ public abstract class ProbeRunner {
 
 		Probe p = probeRun.probe;
 
+        /* This isn't very 'pretty', but there are only 3 probe types at the moment.  Should there be
+         * more, then perhaps some sort of lookup/config should be implemented.  It'll do as-is for now. */
 		if(p instanceof PingProbe) {
 			return new PingProbeRunner(probeRun);
 		}

@@ -28,6 +28,9 @@ import android.widget.TextView;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.util.StringUtils;
 
+/**
+ * Custom component base for the pingly settings prefs page
+ */
 public abstract class PinglyBasePrefView extends RelativeLayout implements View.OnClickListener {
 
     protected TextView nameTextView;

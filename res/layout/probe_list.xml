@@ -15,6 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  -->
+<!-- Show the list of currently configured probes -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/relativeLayout1"
                 android:layout_width="fill_parent"

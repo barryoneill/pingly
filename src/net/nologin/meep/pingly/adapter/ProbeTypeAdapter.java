@@ -27,6 +27,9 @@ import net.nologin.meep.pingly.model.probe.Probe;
 
 import java.util.List;
 
+/**
+ * list adapter to populate probetype list entries using a custom layout
+ */
 public class ProbeTypeAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;

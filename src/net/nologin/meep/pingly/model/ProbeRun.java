@@ -21,6 +21,9 @@ import net.nologin.meep.pingly.model.probe.Probe;
 
 import java.util.Date;
 
+/**
+ * Represents a single run of a probe, and records the output and outcome status of that run
+ */
 public class ProbeRun {
 
 	public long id;

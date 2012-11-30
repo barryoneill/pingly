@@ -25,6 +25,9 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * The primary 'dashboard' activity that will be started when the app opens
+ */
 public class PinglyDashActivity extends BasePinglyActivity {
 
 	@Override
@@ -72,6 +75,11 @@ public class PinglyDashActivity extends BasePinglyActivity {
 	}
 
 
+    /**
+     * If the app has never been run before (flag in prefs), create some
+     * sample items - a little less confusing than showing a blank list
+     * of probes.
+     */
 	public void firstRunCheck() {
 
 		if(PinglyPrefs.isFirstRunComplete(this)){

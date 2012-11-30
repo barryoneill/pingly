@@ -23,6 +23,9 @@ import net.nologin.meep.pingly.PinglyPrefs;
 import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.util.ui.NumberRangeTextWatcher;
 
+/**
+ * Pingly 'Settings' activity (preferences)
+ */
 public class SettingsActivity extends PreferenceActivity {
 
 

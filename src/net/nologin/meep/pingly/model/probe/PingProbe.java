@@ -23,6 +23,9 @@ import org.json.JSONObject;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Probe Type: Ping - Ping a server.
+ */
 public class PingProbe extends Probe {
 
 	public static final String TYPE_KEY = "PING";

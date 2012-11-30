@@ -39,6 +39,9 @@ import java.util.List;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Lists the probles currently configured probes
+ */
 public class ProbeListActivity extends BasePinglyActivity {
 
 	private ProbeListCursorAdapter listAdapter;

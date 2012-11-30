@@ -35,7 +35,9 @@ import java.util.Date;
 
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE_RUN;
 
-
+/**
+ * cursor adapter to populate probe history entries using a custom layout
+ */
 public class ProbeRunHistoryCursorAdapter extends SimpleCursorAdapter {
 
 	private LayoutInflater inflater;

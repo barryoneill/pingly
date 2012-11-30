@@ -19,12 +19,14 @@ package net.nologin.meep.pingly.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * Base for all Pingly DAOs.  This is probably a throwback to my days writing enterprise java when I was surrounded
+ * by Java pattern zealots.  DAOs are probably a little overkill for such a small app, but I would like to replace
+ * all the SQL noise in the future with something like ORMLite -  hopefully will make that easier..
+ */
 public abstract class PinglyDAO {
 
-    /* private to prevent (further) misuse
-       We're keeping a single instance of the helper in the application object
-       so we don't offer any close() functionality here.
-     */
+    // keep private if possible, minimise abuse of the PinglyApplication-maintained singleton
     private PinglyDataHelper dataHelper;
 
     public PinglyDAO(PinglyDataHelper dataHelper) {

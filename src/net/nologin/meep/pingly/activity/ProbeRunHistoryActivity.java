@@ -37,7 +37,9 @@ import net.nologin.meep.pingly.view.PinglyProbeDetailsView;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-
+/**
+ * Show the log of previous runs of the selected probe
+ */
 public class ProbeRunHistoryActivity extends BasePinglyActivity {
 
 	static final int DIALOG_PROBE_RUN_LOG = 1;

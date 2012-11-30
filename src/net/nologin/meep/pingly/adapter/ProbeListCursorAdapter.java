@@ -29,6 +29,9 @@ import net.nologin.meep.pingly.view.PinglyProbeDetailsView;
 
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 
+/**
+ * cursor adapter to populate probe list entries using a custom layout
+ */
 public class ProbeListCursorAdapter extends SimpleCursorAdapter {
 
 	private LayoutInflater inflater;

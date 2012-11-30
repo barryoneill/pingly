@@ -16,7 +16,9 @@
  */
 package net.nologin.meep.pingly.util;
 
-
+/**
+ * number-related convenience methods
+ */
 public class NumberUtils {
 
 	public static int checkRange(int value, int min, int max){

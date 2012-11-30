@@ -34,7 +34,9 @@ import net.nologin.meep.pingly.util.ui.NumberRangeTextWatcher;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-
+/**
+ * Activity for editing a new or existing probe
+ */
 public class ProbeDetailActivity extends BasePinglyActivity {
 
 	private EditText probeName;

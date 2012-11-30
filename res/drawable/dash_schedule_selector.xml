@@ -15,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!-- selector for the title bar icon background -->
+<!-- controls focus/pressed states of the dashboard 'Scheduler' icon -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="false" android:state_focused="true" android:drawable="@drawable/dash_schedule_focused" />
     <item android:state_pressed="true" android:state_focused="true" android:drawable="@drawable/dash_schedule_pressed" />

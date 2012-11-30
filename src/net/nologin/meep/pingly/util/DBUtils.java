@@ -24,6 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * db-related convenience methods
+ */
 public final class DBUtils {
 
     // Since the SDF class is mutable, there's a risk callers could change this

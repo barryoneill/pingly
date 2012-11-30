@@ -39,6 +39,10 @@ import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.ACTION_UPDATE;
 import static net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.EXTRA_PROBE_RUN_ID;
 
+/**
+ * Allow the user to start a probe run, and show any updates sent
+ * back from the background probe runner service which does the work
+ */
 public class ProbeRunnerActivity extends BasePinglyActivity {
 
 	static final int DIALOG_SERVICE_WAIT_ID = 0;

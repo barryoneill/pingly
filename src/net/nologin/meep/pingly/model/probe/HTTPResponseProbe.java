@@ -23,6 +23,9 @@ import org.json.JSONObject;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Probe Type: HTTP Response - Talk to a HTTP server and examine response & headers
+ */
 public class HTTPResponseProbe extends Probe {
 
 	public static final String TYPE_KEY = "HTTP_RESP";

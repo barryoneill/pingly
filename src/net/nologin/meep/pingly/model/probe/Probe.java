@@ -26,6 +26,9 @@ import java.util.List;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Supertype for all Probes
+ */
 public abstract class Probe implements Cloneable {
 
 	public long id = -1;

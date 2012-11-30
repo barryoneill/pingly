@@ -16,6 +16,9 @@
  */
 package net.nologin.meep.pingly;
 
+/**
+ * Global constants
+ */
 public class PinglyConstants {
 
 	public static final String LOG_TAG = "Pingly";

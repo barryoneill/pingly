@@ -29,6 +29,12 @@ import net.nologin.meep.pingly.service.runner.ProbeRunner;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * This service is used by the ProbeRunnerActivity to run probes asynchronously in the background.
+ * The service accepts intents from the activity, and starts the appropriate proberun.  When the
+ * probe runner provides updates, this service fires off broadcast intents which the activity
+ * uses to display the current state of the run to the user.
+ */
 public class ProbeRunnerInteractiveService extends Service {
 
 	public static final String ACTION_UPDATE = "net.nologin.meep.pingly.service.ProbeRunnerInteractiveService.ACTION_UPDATE";

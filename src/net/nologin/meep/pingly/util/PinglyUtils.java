@@ -22,12 +22,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.widget.ListView;
@@ -44,6 +42,9 @@ import java.util.List;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Various useful routines that don't belong to any specific activity, view or component hierarchy.
+ */
 public class PinglyUtils {
 
 	private static final String INTENT_EXTRA_PROBE_ID = "net.nologin.meep.pingly.intent.extra_probe_id";

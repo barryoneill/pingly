@@ -39,6 +39,13 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * This IntentService is used to run scheduled probes.  When the alarmmanagers sends the appropriate intent,
+ * this service will start the appropriate proberunner, and depending on that scheduled entry's config, display
+ * an notification to the user depending on the outcome of the probe.
+ *
+ * (See AlarmManager and ProbeRunnerReceiver for more comments)
+ */
 public class ProbeRunnerScheduleService extends IntentService {
 
 	public static final String PARAM_SCHEDULE_ENTRY_ID = "net.nologin.meep.pingly.service.ProbeRunnerService_schedule_entry_id";

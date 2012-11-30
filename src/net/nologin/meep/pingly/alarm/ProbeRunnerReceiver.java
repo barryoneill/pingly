@@ -24,11 +24,14 @@ import net.nologin.meep.pingly.service.ProbeRunnerScheduleService;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-// http://mobile.tutsplus.com/tutorials/android/android-fundamentals-scheduling-recurring-tasks/
-// http://developer.android.com/guide/topics/ui/notifiers/notifications.html
-
 /**
- * Called by the alarm manager to handle the task
+ * Registered in the AndroidManifest, this broadcast reciever repackages the intents fired by the
+ * AlarmManager (configured by AlarmScheduler) so that they can be processed by the
+ * ProbeRunnerScheduleService.  Based on strategies suggested by the following tutorials:
+ *
+ * http://mobile.tutsplus.com/tutorials/android/android-fundamentals-scheduling-recurring-tasks/
+ * http://developer.android.com/guide/topics/ui/notifiers/notifications.html
+ *
  */
 public class ProbeRunnerReceiver extends BroadcastReceiver {
 

@@ -19,7 +19,9 @@ package net.nologin.meep.pingly.model;
 import android.content.Context;
 import net.nologin.meep.pingly.R;
 
-
+/**
+ * ProbeRun 'status' enum, providing translation key support
+ */
 public enum ProbeRunStatus {
 
 	Inactive("INACTIVE",R.color.probe_runner_status_inactive, R.string.probe_runner_status_inactive),

@@ -34,14 +34,16 @@ import java.util.List;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-/*
+/**
+ * Utility class providing methods to schedule and cancel alarms which run
+ * probes which are scheduled.
+ *
  * Notes about using the 'unused' request code to differentiate intents
  * http://stackoverflow.com/questions/7496603/how-to-create-different-pendingintent-so-filterequals-return-false
  * http://code.google.com/p/android/issues/detail?id=7780
  * http://code.google.com/p/android/issues/detail?id=863
  *
  */
-
 public class AlarmScheduler {
 
     public static void setAlarmsForAllScheduledItems(Context ctx) {

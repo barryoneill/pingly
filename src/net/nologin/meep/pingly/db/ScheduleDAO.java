@@ -36,7 +36,9 @@ import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 
-// TODO: just like ProbeDAO, I need to find a non-bloated ORM helper
+/**
+ * All Schedule-related data-persistence routines
+ */
 public class ScheduleDAO extends PinglyDAO {
 
 	public ScheduleDAO(PinglyDataHelper dataHelper) {

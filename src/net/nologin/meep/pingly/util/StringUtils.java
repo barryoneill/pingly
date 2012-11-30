@@ -16,7 +16,10 @@
  */
 package net.nologin.meep.pingly.util;
 
-// TODO: see if value of apache commons is worth the jar size
+/**
+ * For the couple of methods needed, the size of apache commons isn't worth it.  But if this
+ * class gets larger, consider using it instead.
+ */
 public class StringUtils {
 
 	public static boolean isBlank(String str){

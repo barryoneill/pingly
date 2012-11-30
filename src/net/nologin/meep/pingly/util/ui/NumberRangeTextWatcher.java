@@ -19,7 +19,10 @@ package net.nologin.meep.pingly.util.ui;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-
+/**
+ * This textwatcher is used to enforce min and max ranges on EditText instances.
+ * (E.g. Ping and SocketConnection probe edit layouts)
+ */
 public class NumberRangeTextWatcher implements  TextWatcher {
 
 	private int min,max;

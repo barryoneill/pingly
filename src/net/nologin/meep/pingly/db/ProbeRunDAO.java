@@ -32,6 +32,9 @@ import java.util.Date;
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE_RUN;
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * All ProbeRun-related data-persistence routines
+ */
 public class ProbeRunDAO extends PinglyDAO {
 
     public ProbeRunDAO(PinglyDataHelper dataHelper) {

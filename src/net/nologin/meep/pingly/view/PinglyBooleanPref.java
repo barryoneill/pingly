@@ -23,6 +23,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import net.nologin.meep.pingly.R;
 
+/**
+ * Checkbox on right, with updating text below title based on that checkbox
+ */
 public class PinglyBooleanPref extends PinglyBasePrefView  {
 
     private CheckBox checkBox;

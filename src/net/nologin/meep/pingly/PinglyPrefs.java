@@ -25,6 +25,9 @@ import android.util.Log;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Utility class for easy access/setting of app preferences.
+ */
 public class PinglyPrefs {
 
 	public static final int PROBE_RUN_HISTORY_SIZE_DEFAULT = 20;

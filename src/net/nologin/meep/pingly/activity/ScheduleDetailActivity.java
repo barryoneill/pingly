@@ -43,7 +43,9 @@ import java.util.Calendar;
 
 import static net.nologin.meep.pingly.PinglyConstants.*;
 
-
+/**
+ * set the details of a probe run schedule
+ */
 public class ScheduleDetailActivity extends BasePinglyActivity {
 
 	private ScheduleEntry schedule;

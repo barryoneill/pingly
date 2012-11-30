@@ -30,7 +30,12 @@ import net.nologin.meep.pingly.R;
 import net.nologin.meep.pingly.model.probe.Probe;
 import net.nologin.meep.pingly.util.PinglyUtils;
 
-
+/**
+ * Custom component which displays the details of a specific probe.  Used in a couple
+ * of different list layouts, hence not simply customizing the list itself.
+ *
+ * Layout: pingly_probedetails_view.xml
+ */
 public class PinglyProbeDetailsView extends RelativeLayout implements View.OnClickListener {
 
     protected TextView nameTextView;
@@ -67,6 +72,7 @@ public class PinglyProbeDetailsView extends RelativeLayout implements View.OnCli
 
         if(attrs != null){
 
+            // see attrs.xml for definitions
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs,
                     R.styleable.PinglyProbeDetailsView);
 

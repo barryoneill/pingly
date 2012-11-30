@@ -22,6 +22,9 @@ import net.nologin.meep.pingly.util.StringUtils;
 
 import java.util.Date;
 
+/**
+ * Holds the details of an entry in the probe run scheduler
+ */
 public class ScheduleEntry {
 
     public long id = -1;
@@ -53,7 +56,6 @@ public class ScheduleEntry {
         return id <= 0;
     }
 
-	// TODO: doc
 	public String getNotifyOptsString(){
 
 		String str = "";

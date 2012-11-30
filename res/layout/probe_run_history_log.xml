@@ -15,6 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  -->
+<!-- scollable layout containing the log output from a probe run -->
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

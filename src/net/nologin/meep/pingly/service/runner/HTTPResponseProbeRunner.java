@@ -35,6 +35,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 
+/**
+ * ProbeRunner impl for HTTPResponseProbe objects.  Performs the actual connection and determines success/failure.
+ */
 public class HTTPResponseProbeRunner extends ProbeRunner {
 
 	public HTTPResponseProbeRunner(ProbeRun probeRun){

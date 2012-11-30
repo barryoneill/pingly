@@ -28,6 +28,9 @@ import net.nologin.meep.pingly.util.StringUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/*
+ * Custom dialog launcher pref component
+ */
 public class PinglyExpanderPref extends PinglyBasePrefView {
 
     private String onClickMethodName;

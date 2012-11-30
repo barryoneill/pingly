@@ -39,6 +39,10 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Show the list of configured schedules and allow selection of
+ * an existing probe for scheduling
+ */
 public class ScheduleListActivity extends BasePinglyActivity {
 
 	static final int DIALOG_NO_PROBES = 1;

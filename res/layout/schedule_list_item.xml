@@ -15,6 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  -->
+<!-- the layout for each entry in the list of schedule probe runs -->
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         style="@style/ListItemContainer">

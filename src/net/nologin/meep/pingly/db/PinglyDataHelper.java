@@ -26,6 +26,8 @@ import android.util.Log;
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
 /**
+ * Data helper for use by DAOs, also provides DB setup/upgrade routines.
+ *
  * TODO: change this code and the DAO code to use an ORM library
  * (whenever I find one that isn't huge and seems usable - OrmLite perhaps?)
  */

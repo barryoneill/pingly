@@ -27,15 +27,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.UnknownHostException;
 
+/**
+ * ProbeRunner impl for PingProbe objects.  Performs the actual ping and determines success/failure.
+ *
+ * May not run on all devices as it requires a ping binary:
+ *
+ * Assumption 1: ping binary is on the vm's PATH,
+ * Assumption 2: ping binary supports -c and -w arguments
+ *
+ * Perhaps in the future a check can be done on application start,
+ * and hide the PingProbe from the user altogether.  I'll wait to
+ * see what people report back with first. (see notes in doRun())
+ *
+ */
 public class PingProbeRunner extends ProbeRunner {
 
-	/* Assumption 1: ping binary is on the vm's PATH,
-	 * Assumption 2: ping binary supports -c and -w arguments
-	 *
-	 * Perhaps in the future a check can be done on application start,
-	 * and hide the PingProbe from the user altogether.  I'll wait to
-	 * see what people report back with first. (see notes in doRun())
-	 */
 	private static final String PING_CMD_FMT = "ping -c %d -w %d %s";
 
 	public PingProbeRunner(ProbeRun probeRun) {

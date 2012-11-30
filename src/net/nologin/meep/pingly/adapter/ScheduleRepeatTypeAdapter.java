@@ -28,6 +28,9 @@ import net.nologin.meep.pingly.util.PinglyUtils;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * list adapter to populate repeattype list entries with a custom layout
+ */
 public class ScheduleRepeatTypeAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;

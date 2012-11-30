@@ -29,6 +29,9 @@ import net.nologin.meep.pingly.model.probe.SocketConnectionProbe;
 import static net.nologin.meep.pingly.db.PinglyDataHelper.TBL_PROBE;
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
+/**
+ * Probe-related data-persistence routines
+ */
 public class ProbeDAO extends PinglyDAO {
 
     public ProbeDAO(PinglyDataHelper dataHelper) {

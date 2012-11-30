@@ -23,7 +23,10 @@ import org.json.JSONObject;
 
 import static net.nologin.meep.pingly.PinglyConstants.LOG_TAG;
 
-
+/**
+ * Probe Type: TCP Connection - make a socket connection.
+ * Could be expanded in the future to do some basic conversation stuff..
+ */
 public class SocketConnectionProbe extends Probe {
 
 	public static final String TYPE_KEY = "SOCK_CONN";
