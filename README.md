@@ -24,6 +24,22 @@ What devices will it run on?
 
 It should run on any device running [Android 2.1.x (API level 7)](http://developer.android.com/guide/appendix/api-levels.html) or higher. It is not optimized for tablets/high resolution devices (yet), but should still work fine.
 
+Design Comments / TODO Wishlist
+-------------------------------
+
+Pingly was my first attempt at a complete android application, so it's by no means a perfect.  It's written using almost
+no external libraries (I wanted to see what could be achieved with the android libraries alone).
+
+It was initially written as an android 1.6 application (which will explain why I'm using some older API techniques), but
+these days, 1.5/6 are [all but gone](http://developer.android.com/about/dashboards/index.html), I moved it to a 2.1
+minimum. Given it was my first app, I decided to keep using just the core 2.1 libs.
+
+**TODO**
+
+- Add more graphics for higher res devices and improve [layout for tablets](http://developer.android.com/guide/practices/tablets-and-handsets.html).  May necessitate moving to a fragment based layout.
+- For continued development, it may be prudent to [start using newer APIs] (http://developer.android.com/tools/extras/support-library.html).
+
+
 Why does it need those permissions?
 -----------------------------------
 
